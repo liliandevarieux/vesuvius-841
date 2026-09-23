@@ -26,6 +26,8 @@ The scripts behind numbers posted publicly in
 | `scripts/page_lecture.py`, `lignes_zoom.py`, `cmp_lecteurs.py`, `coudre_pred.py` | stitch a whole segment and render it as a readable page |
 | `scripts/run4_queue*.sh` | the drivers, kept as worked examples of how the pieces are chained |
 | `METHOD.md` | the rules this project works by, and the instruments rejected for failing their controls |
+| `results/*.json` | the raw measurements, written by the measurement scripts themselves (`JSON=<path> python scripts/mesure_sens.py ...`) |
+| `verify_claims.py` | re-derives all 41 numbers in `MEASUREMENTS.md` from those JSON files and exits non-zero if any of them has drifted |
 
 ## The setup these numbers come from
 
@@ -54,6 +56,19 @@ Both corrections are in the issue thread, and both came from a reviewer
 
 The measurements themselves stand; only their explanation changed. Keeping the wrong version visible with the
 correction next to it is deliberate.
+
+## Checking the numbers
+
+```
+python verify_claims.py
+41 claims checked against results/*.json
+OK
+```
+
+It parses the tables in `MEASUREMENTS.md`, compares every cell to `results/*.json`, and exits 1 on any mismatch — so a
+number cannot drift out of the documentation unnoticed. It has been checked to fail: altering one cell from 70.1 to
+70.2 produces `DRIFT: slice centre 32 separation: document says 70.2, measurement says 70.1` and exit code 1. The
+first run of it found a real error, a slice value copied into the wrong column, which is why it exists.
 
 ## Running any of this
 

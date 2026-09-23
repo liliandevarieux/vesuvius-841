@@ -1,6 +1,6 @@
 # Couches directes contre couches inversees sur un segment de l open-data, mesure contre les labels des organisateurs.
 # usage: mesure_sens.py <nom_local> <dossier_labels>    (ex. mesure_sens.py segA auto_grown_20260220144552896)
-import sys, numpy as np, zarr, tifffile
+import sys, os, json, numpy as np, zarr, tifffile
 from scipy import ndimage
 loc, lab = sys.argv[1], sys.argv[2]
 H='/home/slusarska_holding/vesuvius'; D=f'{H}/ink-dataset/841/canon_autres/{lab}'
@@ -28,4 +28,16 @@ if d:
     d=np.array(d); r=np.array(r)
     print(f'{"moyenne":>9s} | {d[:,0].mean():14.1f} {d[:,1].mean():7.1f} {d[:,0].mean()-d[:,1].mean():7.1f} {d[:,2].mean():6.3f} | {r[:,0].mean():14.1f} {r[:,1].mean():7.1f} {r[:,0].mean()-r[:,1].mean():7.1f} {r[:,2].mean():6.3f}')
     g=lambda a: a[:,0].mean()-a[:,1].mean()
+    # Les chiffres publies doivent etre re-derivables : JSON=<chemin> ecrit la mesure brute,
+    # que verify_claims.py confronte aux tables du depot public.
+    if os.environ.get('JSON'):
+        o={'segment':lab,'local':loc,'windows':[],
+           'mean':{'direct':{'sep':round(float(g(d)),1),'corr':round(float(d[:,2].mean()),3)},
+                   'reversed':{'sep':round(float(g(r)),1),'corr':round(float(r[:,2].mean()),3)}}}
+        for k in range(len(d)):
+            o['windows'].append({'window':k+1,
+                'direct':{'sep':round(float(d[k,0]-d[k,1]),1),'corr':round(float(d[k,2]),3)},
+                'reversed':{'sep':round(float(r[k,0]-r[k,1]),1),'corr':round(float(r[k,2]),3)}})
+        json.dump(o, open(os.environ['JSON'],'w'), indent=1)
+        print(f"JSON ecrit : {os.environ['JSON']}")
     print(f'\nverdict : sens {"INVERSE" if g(r)>g(d) else "DIRECT"} ; gain {abs(g(r)-g(d)):.1f} d ecart. Repere w00 : ecart 66-90, corr 0,62-0,79.')

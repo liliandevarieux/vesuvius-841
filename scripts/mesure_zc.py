@@ -1,7 +1,7 @@
 # Quelle tranche de profondeur notre modele lit-il le mieux ? Meme modele, meme fenetre, on ne change que
 # les 65 couches prises dans le volume de 109. Juge : les labels des organisateurs + leur prediction publiee.
 # usage: mesure_zc.py <nom_local> <dossier_labels> <no_fenetre> <fichier_fenetres> <etiquette...>
-import sys, numpy as np, zarr, tifffile
+import os, json, sys, numpy as np, zarr, tifffile
 from scipy import ndimage
 loc, lab, k, fw = sys.argv[1], sys.argv[2], int(sys.argv[3]), sys.argv[4]
 H = '/home/slusarska_holding/vesuvius'; D = f'{H}/ink-dataset/841/canon_autres/{lab}'
@@ -29,3 +29,9 @@ if res:
     print('')
     print(f'MEILLEURE TRANCHE : {best[0]}  (ecart {best[1]:.1f}, corr {best[2]:.3f})')
     print('Repere w00 : ecart 66 a 90, corr 0,62 a 0,79.')
+    # Meme regle que mesure_sens.py : JSON=<chemin> ecrit la mesure brute pour verify_claims.py.
+    if os.environ.get('JSON'):
+        o = {'slices': [{'tag': t, 'sep': round(float(e), 1), 'corr': round(float(c), 3)} for t, e, c in res],
+             'best': {'tag': best[0], 'sep': round(float(best[1]), 1), 'corr': round(float(best[2]), 3)}}
+        json.dump(o, open(os.environ['JSON'], 'w'), indent=1)
+        print(f"JSON ecrit : {os.environ['JSON']}")

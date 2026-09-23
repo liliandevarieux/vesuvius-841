@@ -32,11 +32,13 @@ segments are published upside down. See the correction in the README.
 
 Same model, same window (ag174 window 2, reversed), only the slice centre changing.
 
-| centre plane | 32 | **50** | 54 | 66 | 78 | all 109 → 65 |
-|---|---|---|---|---|---|---|
-| separation | 70.1 | **107.0** | 106.2 | 84.7 | 54.7 | 83.9 |
+| centre plane | 32 | 37 | 44 | **50** | 54 | 58 | 66 | 78 | full |
+|---|---|---|---|---|---|---|---|---|---|
+| separation | 70.1 | 83.9 | 99.1 | **107.0** | 106.2 | 101.8 | 84.7 | 54.7 | 84.6 |
 
-Single-peaked. The worst correct-direction slice (54.7) is close to the best wrong-direction one.
+Single-peaked; `full` means all 109 planes interpolated down to 65. The worst correct-direction slice (54.7) is close to the best wrong-direction one.
+
+Every number in the two tables above is re-derived from `results/*.json` by `verify_claims.py`, which exits non-zero if any of them drifts. The JSON is written by the measurement scripts themselves (`JSON=<path> python mesure_sens.py ...`), not transcribed by hand.
 
 **Read this as** the same cross-array cost as §1, traced as a curve — not as a general statement about slice choice.
 For a model that stays on its own array, the centred window is safe (measured by @AndreasHad04: no window beats
