@@ -2,7 +2,7 @@
 # Meme mesure que mesure_sens.py : moyenne dans l encre moins moyenne dans le fond inspecte (dilate de 3 pour ecarter
 # les bords). Pas de correlation ici : le seau ne porte pas de prediction publiee pour ce segment.
 # usage: mesure_seau.py <racine locale>
-import sys, numpy as np, tifffile
+import sys, os, json, numpy as np, tifffile
 from scipy import ndimage
 R = sys.argv[1]; H = '/home/slusarska_holding/vesuvius'
 L = tifffile.imread(f'{R}/labels_v2.tif') > 0
@@ -32,3 +32,13 @@ if d:
     print(f'\nSur le rendu du SEAU, notre modele prefere l ordre {"STOCKE" if gd > gr else "INVERSE"} (ecart {abs(gd-gr):.1f}).')
     print('Rappel : sur le VOLUME DE SURFACE PUBLIE du meme segment, il preferait l ordre INVERSE (27,3 -> 75,9).')
     print('Si les deux preferences different, le sens appartient au TABLEAU et non au SEGMENT.')
+    # Meme regle que mesure_sens.py et mesure_zc.py : JSON=<chemin> ecrit la mesure brute pour verify_claims.py.
+    if os.environ.get('JSON'):
+        o = {'array': 'label-bucket render, 65 planes, 4.681 um', 'segment': 'auto_grown_20260220174252405',
+             'windows': [{'window': i + 1,
+                          'stored': {'sep': round(float(d[i, 0] - d[i, 1]), 1)},
+                          'reversed': {'sep': round(float(r[i, 0] - r[i, 1]), 1)}} for i in range(len(d))],
+             'mean': {'stored': {'sep': round(float(gd), 1)}, 'reversed': {'sep': round(float(gr), 1)}},
+             'prefers': 'stored' if gd > gr else 'reversed'}
+        json.dump(o, open(os.environ['JSON'], 'w'), indent=1)
+        print(f"JSON ecrit : {os.environ['JSON']}")

@@ -24,6 +24,17 @@ published volume.
 **What would invalidate it.** Stored order scoring at or below reversed on the bucket render. That would mean the
 array explanation does not account for our model's behaviour, and something segment-specific is left unexplained.
 
+**RESULT, 2026-09-23 15:14 — the prediction holds.** On the bucket render of `ag174`, separation 56.9 in stored order
+against 30.3 reversed: it prefers the **stored** order, the opposite of what the same model needed on the published
+surface volume of the same segment (27.3 stored against 75.9 reversed). Same segment, opposite answers, so the
+direction belongs to the array. Numbers, per window and with their weakness, in `MEASUREMENTS.md` §4 and
+`results/array_ag174.json`.
+
+**The part that does not support the conclusion, said here rather than left out.** The two windows disagree: window 1
+mildly prefers reversed (35.5 against 27.5) and only window 2 carries the mean (86.4 against 25.2). Two windows, split
+one each way, is thin. The conclusion rests on @AndreasHad04's wider ablation; this is a check that agrees with it, and
+it would not stand on its own.
+
 **Note.** @AndreasHad04 has since run a wider version of this — three segments, three array families, both directions,
 a label-free direction rule — and reports the same conclusion. Ours is now a check, not news, and is kept registered
 because it was written before that comment landed.

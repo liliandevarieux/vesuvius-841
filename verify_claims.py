@@ -76,7 +76,25 @@ else:
     for s, txt in zip(sl['slices'], sepr[1:]):
         claims.append((f"slice centre {s['tag']} separation", s['sep'], num(txt)))
 
-# 3. the best slice named in the prose
+# 3. the array test: same segment, two arrays
+ar = R('array_ag174.json')
+tab = [r for r in rows('## 4. The same segment on two arrays', 3) if r[0] != 'window']  # sans l en-tete
+per = {str(w['window']): w for w in ar['windows']}
+per['mean'] = ar['mean']
+for win, stored, rev in tab:
+    key = win if win in per else None
+    if key is None:
+        bad.append('array table: row %r has no counterpart in array_ag174.json' % win)
+        continue
+    claims.append((f'array window {win} stored', per[key]['stored']['sep'], num(stored)))
+    claims.append((f'array window {win} reversed', per[key]['reversed']['sep'], num(rev)))
+for key in per:
+    if key not in [r[0] for r in tab]:
+        bad.append('array_ag174.json has %r but the table does not' % key)
+if ar['prefers'] != 'stored':
+    bad.append("the text says the bucket render prefers the stored order, the measurement says %r" % ar['prefers'])
+
+# 4. the best slice named in the prose
 m = re.search(r'no window beats\s+villa.s centred one by more than ([\d.]+)', DOC)
 if not m:
     bad.append("the sentence quoting @AndreasHad04's 0.0138 bound is gone from the document")

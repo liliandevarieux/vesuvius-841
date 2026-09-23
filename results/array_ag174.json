@@ -1,0 +1,33 @@
+{
+ "array": "label-bucket render, 65 planes, 4.681 um",
+ "segment": "auto_grown_20260220174252405",
+ "windows": [
+  {
+   "window": 1,
+   "stored": {
+    "sep": 27.5
+   },
+   "reversed": {
+    "sep": 35.5
+   }
+  },
+  {
+   "window": 2,
+   "stored": {
+    "sep": 86.4
+   },
+   "reversed": {
+    "sep": 25.2
+   }
+  }
+ ],
+ "mean": {
+  "stored": {
+   "sep": 56.9
+  },
+  "reversed": {
+   "sep": 30.3
+  }
+ },
+ "prefers": "stored"
+}

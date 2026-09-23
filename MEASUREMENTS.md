@@ -57,3 +57,24 @@ ps48_640_640_smooth_0.1_<segment>_ckpt_130000_forward_210326.tif
 The word `reverse` is attached to the render campaign, identically for w00, ag144 and ag174, and the three `meta.json`
 give the same `volume` and a `uuid` of the form `<segment>_transformed`. The direction is a property of the array, and
 it is readable in the filenames.
+
+## 4. The same segment on two arrays, in opposite directions — `scripts/prep_seau.py`, `scripts/mesure_seau.py`
+
+The test registered as PR-1. Same model, same segment (`ag174`), scored against the labels belonging to each array.
+
+| window | stored order | reversed |
+|---|---|---|
+| 1 | 27.5 | 35.5 |
+| 2 | 86.4 | 25.2 |
+| mean | **56.9** | 30.3 |
+
+On the **label-bucket render** (65 planes, 4.681 µm — the array family our model was trained on) it prefers the
+**stored** order. On the **published surface volume** of the same segment (109 planes, 2.403 µm, §1 above) the same
+model prefers the **reversed** order, 75.9 against 27.3. Same segment, opposite answers: the direction belongs to the
+array.
+
+**The weakness, stated rather than buried.** Only two windows, and they disagree: window 1 slightly prefers reversed
+(35.5 against 27.5), window 2 strongly prefers stored (86.4 against 25.2), and the mean is carried by window 2. This
+is thinner than the three-window result of §1. @AndreasHad04's ablation — three segments, three array families, both
+directions, a label-free direction rule — is the stronger evidence for the same conclusion, and ours agrees with it in
+the mean. Treat this as a check, not as the demonstration.
