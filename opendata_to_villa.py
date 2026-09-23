@@ -226,6 +226,28 @@ def main():
             print('  volume %d/%d' % (k, len(want)), flush=True)
     print('  volume: %d non-empty chunks written' % written)
 
+    # Pyramide du volume. villa ne s en sert pas pour entrainer (volume_scale 0) mais son choix de patchs lit le
+    # niveau 3 pour savoir ou il y a de la matiere : sans pyramide, le jeu de donnees est vu comme vide et aucun
+    # patch n est retenu. On ne descend que la ou le niveau precedent a ete ecrit.
+    prev = set((y * cy // 128, x * cx // 128) for y, x in want)
+    for n in range(1, 6):
+        src, dst = gv[str(n - 1)], gv[str(n)]
+        cur = set((a // 2, b // 2) for a, b in prev)
+        for i, (a, b) in enumerate(sorted(cur)):
+            y0, x0 = a * 128, b * 128
+            blk = np.asarray(src[:, 2 * y0:2 * y0 + 256, 2 * x0:2 * x0 + 256])
+            if blk.size == 0 or blk.max() == 0:
+                continue
+            h, w2 = blk.shape[1] // 2 * 2, blk.shape[2] // 2 * 2
+            if h == 0 or w2 == 0:
+                continue
+            red = blk[:, :h, :w2].reshape(N, h // 2, 2, w2 // 2, 2).max(axis=(2, 4))
+            dst[:, y0:y0 + red.shape[1], x0:x0 + red.shape[2]] = red
+            if i % 500 == 0:
+                print('  niveau %d : %d/%d' % (n, i, len(cur)), flush=True)
+        print('  niveau %d : %d chunks' % (n, len(cur)))
+        prev = cur
+
     if lab:
         for nm, src in ((name + '_inklabels_v2', 'inklabels'), (name + '_supervision_mask_v2', 'supervision')):
             g = grp(nm, blosc, '/')
