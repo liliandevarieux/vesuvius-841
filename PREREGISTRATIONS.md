@@ -80,3 +80,54 @@ re-projected either — our current teacher is a reprojection *of that file* int
 One thing this does **not** settle: which 65 of the 109 planes to train on. The measured optimum of 50–54 was found
 with a render-trained model evaluated on this volume, so it does not transfer to a model trained on the volume itself.
 The run will use villa's centred window and that choice is recorded here as a default, not as a measurement.
+
+---
+
+## PR-3 — Is the aligned group of blobs on segment B a line of text?
+
+*Registered 2026-09-23 at 15:10, **before** the equivalent data exists for the second segment: its census had not been
+computed when this was written (its inference queue was still waiting on the GPU). Scripts:
+`scripts/cand_plein.py`, `scripts/verdict_ligne2.py`.*
+
+**What happened first, including the part that failed.** A whole-sheet census of one segment produced 117 blobs of
+letter size lying outside the organisers' label mask, each seen by two independent readers. Three of them fell close
+to a single line whose angle matched the independently measured text-line angle. Our model's response inside those
+blobs (69.4) was higher than on the certain labelled letters (47.7), and we first read that as confirmation.
+
+**That reading does not survive its control.** The 117 blobs were *selected* for being visible to both readers, so
+they start ahead of unselected letters by construction. The comparison that keeps the selection fixed is on-line
+blobs against off-line blobs, and area turns out to drive the score (correlation of +0.378 between log area and
+response):
+
+| area | on the line | off the line | difference |
+|---|---|---|---|
+| all | 69.4 (n=16) | 55.5 (n=101) | +13.9 ± 6.6 |
+| ≥ 0.2 Mpx | 77.6 (n=5) | 78.8 (n=18) | **−1.2 ± 7.7** |
+
+At matched size there is no difference. **The model's response says nothing about the line**; it reflects how the
+blobs were picked and how big they are.
+
+**What is left is geometry alone, and it is ambiguous.** Permutation test, 2000 draws, breaking the link between each
+blob's two coordinates while keeping both distributions, counting the most blobs within 150 px of any line at the
+measured text angle:
+
+| set | best alignment | p |
+|---|---|---|
+| all 117 blobs | 8 blobs | **0.354** |
+| the 13 blobs of ≥ 0.3 Mpx | 4 blobs | **0.018** |
+
+The second row is the interesting one and it is also the one chosen *after* seeing the data, on two thresholds tried.
+It is a hypothesis, not a result.
+
+**The pre-registered test.** The second segment of this scroll is being read now and its census has not been computed.
+When it is, the same procedure will be run on it, with **the threshold fixed here at 0.3 Mpx**, the same 150 px
+tolerance, the same 2000-draw permutation, and that segment's own independently measured text-line angle.
+
+**Prediction.** If these aligned groups are lines of text, the second segment shows an alignment of at least 4
+letter-sized blobs at p < 0.05.
+
+**What would invalidate it.** p ≥ 0.05 on the second segment. Then the first segment's 0.018 is what picking the best
+of two thresholds on one dataset buys, the line is not established, and it will be said so in those words.
+
+**What is not claimed either way.** That any of these blobs is a letter. That question belongs to the eye and to the
+scan, not to this test.
