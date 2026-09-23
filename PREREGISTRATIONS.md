@@ -62,7 +62,21 @@ region 'inspected': 1904 chunks of 18705 (3.17 GB uncompressed)
 order of 20 GB", which was the size of a *whole sheet* fetched for reading, not of the zone a training run needs. The
 correction makes the experiment six times cheaper than registered, so there is no cost argument for not doing it.
 
-**Open question to resolve when building it, recorded here rather than discovered later.** Our runs combine the
-organisers' prediction as teacher with ~0.36 cm² of hand labels. Whether the hand labels are carried across to a
-different array unchanged, or have to be re-projected, has to be settled before the run counts as "same labels" —
-otherwise this is not the single-variable comparison it claims to be.
+**Open question, and its answer, both recorded here.** Our runs combine the organisers' prediction as teacher with
+~0.36 cm² of hand labels, and those labels live on the render's canvas. Carrying them to a different array unchanged
+would not be legitimate, so before registering the run as single-variable we measured both label sets:
+
+| | canvas | labelled fraction |
+|---|---|---|
+| hand labels used for training, on the 4.681 µm render | 15872 × 18944 | 2.07 % |
+| published `20260918` labels, on the 2.403 µm surface volume | 16460 × 18560 | 2.02 % |
+
+The same region of the sheet, to within the difference between the two canvases. So the published label release can be
+used directly on the 2.403 µm volume and the comparison stays single-variable, with no hand re-projection. The teacher
+also exists natively on that canvas
+(`PHerc0841-…-20260417190342-new_canon_autoresearch_recipe-tile256-stride128.tif`), so it does not have to be
+re-projected either — our current teacher is a reprojection *of that file* into the render's geometry.
+
+One thing this does **not** settle: which 65 of the 109 planes to train on. The measured optimum of 50–54 was found
+with a render-trained model evaluated on this volume, so it does not transfer to a model trained on the volume itself.
+The run will use villa's centred window and that choice is recorded here as a default, not as a measurement.
