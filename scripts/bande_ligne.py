@@ -6,7 +6,9 @@ import sys, os, numpy as np, zarr, tifffile
 from PIL import Image, ImageDraw
 from scipy import ndimage
 lab = sys.argv[1]; Y1, X1, Y2, X2 = map(int, sys.argv[2:6]); out = sys.argv[6]
-HH = int(os.environ.get('HB', 900))          # HB et non H : H sert deja au chemin du projet dans les scripts shell; RED = int(os.environ.get('RED', 2)); MORC = int(os.environ.get('MORC', 2000))
+HH = int(os.environ.get('HB', 900))          # HB et non H : H sert deja au chemin du projet dans les scripts shell
+RED = int(os.environ.get('RED', 2))          # reduction d echelle de la bande
+MORC = int(os.environ.get('MORC', 2000))     # largeur d un morceau empile
 H = '/home/slusarska_holding/vesuvius'; D = f'{H}/ink-dataset/841/canon_autres/{lab}'
 # PRED= : lire une autre prediction que celle des organisateurs (la notre, pour comparer les deux lecteurs
 # sur exactement la meme ligne et la meme geometrie)

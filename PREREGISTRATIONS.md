@@ -87,7 +87,8 @@ The run will use villa's centred window and that choice is recorded here as a de
 
 *Registered 2026-09-23 at 15:10, **before** the equivalent data exists for the second segment: its census had not been
 computed when this was written (its inference queue was still waiting on the GPU). Scripts:
-`scripts/cand_plein.py`, `scripts/verdict_ligne2.py`.*
+`scripts/cand_plein.py`, `scripts/verdict_ligne2.py` (the selection control), `scripts/align_test.py` (the
+permutation test).*
 
 **What happened first, including the part that failed.** A whole-sheet census of one segment produced 117 blobs of
 letter size lying outside the organisers' label mask, each seen by two independent readers. Three of them fell close
@@ -118,6 +119,15 @@ measured text angle:
 
 The second row is the interesting one and it is also the one chosen *after* seeing the data, on two thresholds tried.
 It is a hypothesis, not a result.
+
+The instrument does pass its own negative control, which is the one thing here that was not chosen after the fact:
+run on the same 13 blobs at a nonsense angle of 45° instead of the measured 8.0°, it returns 2 blobs and **p = 0.748**.
+It is not an alignment-finding machine that fires on any point cloud; it is specific to the angle it is given.
+
+```
+python scripts/align_test.py cand_<segment>.txt 8.0  0.3 150 2000   ->  4 blobs, p = 0.018
+python scripts/align_test.py cand_<segment>.txt 45.0 0.3 150 2000   ->  2 blobs, p = 0.748
+```
 
 **The pre-registered test.** The second segment of this scroll is being read now and its census has not been computed.
 When it is, the same procedure will be run on it, with **the threshold fixed here at 0.3 Mpx**, the same 150 px
