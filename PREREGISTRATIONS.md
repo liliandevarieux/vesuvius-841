@@ -49,5 +49,20 @@ and evaluation then share an array family.
 **What would invalidate it.** No improvement, or a drop. That would mean the render is not the handicap, and the gap
 between 0.8229 and 0.9492 is about the teacher's own training surface rather than about ours.
 
-**Cost, stated in advance so it cannot be quietly abandoned.** The inspected zone of w00's 2.403 µm volume has to be
-fetched (of the order of 20 GB, as for the other two segments) and one training run repeated.
+**Cost, stated in advance so it cannot be quietly abandoned — and measured, not guessed.**
+
+```
+python opendata_to_villa.py --scroll PHerc0841 --segment 20260220213127-w00     --volume 2.403um-0.22m-77keV-volume-20260319124803 --labels 20260918     --out /tmp/w00 --region inspected --dry-run
+
+volume 109x16460x18560, chunks 109x128x128, 18705 chunks in the plane
+region 'inspected': 1904 chunks of 18705 (3.17 GB uncompressed)
+```
+
+**3.17 GB** and one training run — `--region labels` would be 1.67 GB. When this was first written it said "of the
+order of 20 GB", which was the size of a *whole sheet* fetched for reading, not of the zone a training run needs. The
+correction makes the experiment six times cheaper than registered, so there is no cost argument for not doing it.
+
+**Open question to resolve when building it, recorded here rather than discovered later.** Our runs combine the
+organisers' prediction as teacher with ~0.36 cm² of hand labels. Whether the hand labels are carried across to a
+different array unchanged, or have to be re-projected, has to be settled before the run counts as "same labels" —
+otherwise this is not the single-variable comparison it claims to be.
