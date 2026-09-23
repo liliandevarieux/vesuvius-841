@@ -92,6 +92,29 @@ One thing this does **not** settle: which 65 of the 109 planes to train on. The 
 with a render-trained model evaluated on this volume, so it does not transfer to a model trained on the volume itself.
 The run will use villa's centred window and that choice is recorded here as a default, not as a measurement.
 
+### PR-2 — interim, and two declared deviations (2026-09-23, 16:35)
+
+**The premise checks out, measured on our own data.** The teacher, scored against the same human labels, reaches
+**IoU 0.713** on the published 2.403 µm volume against **0.583** for the best teacher on the 4.681 µm render
+(precision 84 %, recall 82 %). +0.13 with nothing changing but the array. That is an independent confirmation of
+@AndreasHad04's 0.8229-against-0.9492 observation, on different data and a different metric, and it is why this
+experiment is worth running rather than merely registering.
+
+**Deviation 1 — the held-out windows could not be transposed, so new ones were chosen.** The plan said "same hand
+labels, same seed, same number of steps, only the training array changing", which implied holding out the same three
+physical windows. Registering the two canvases by their label masks fails: best IoU **0.125**, reached *at the edge*
+of the search range. The render and the published volume are not two samplings of one grid, they are **two different
+flattenings of the same sheet** — which the current teacher's filename, `new_canon_20260417_recale`, said all along.
+Three new 1500×1500 windows are therefore chosen on the published canvas by the same rule as the originals (densest in
+labels, separated). Same count, same size. The primary evaluation is on the two other segments, never seen under
+either arm, so it is unaffected.
+
+**Deviation 2 — the first build was rejected for being five times too small, before any training.** Fetching only the
+inspected zone gave a dataset covering 10.2 % of the canvas against 72.7 % for the render dataset, and 0.91 % of the
+canvas in sampleable ink against 4.83 %. A drop in performance would have been indistinguishable from a shortage of
+training data, so the run would have measured nothing. The whole sheet (~23 GB) is being fetched instead. Recorded
+here because the discarded build is the kind of thing that quietly becomes the published result.
+
 ---
 
 ## PR-3 — Is the aligned group of blobs on segment B a line of text?
