@@ -26,6 +26,7 @@ The scripts behind numbers posted publicly in
 | `scripts/page_lecture.py`, `lignes_zoom.py`, `cmp_lecteurs.py`, `coudre_pred.py` | stitch a whole segment and render it as a readable page |
 | `scripts/run4_queue*.sh` | the drivers, kept as worked examples of how the pieces are chained |
 | `METHOD.md` | the rules this project works by, and the instruments rejected for failing their controls |
+| `opendata_to_villa.py` | build a villa `ink_detection` dataset from any published open-data segment |
 | `results/*.json` | the raw measurements, written by the measurement scripts themselves (`JSON=<path> python scripts/mesure_sens.py ...`) |
 | `verify_claims.py` | re-derives all 41 numbers in `MEASUREMENTS.md` from those JSON files and exits non-zero if any of them has drifted |
 
@@ -56,6 +57,51 @@ Both corrections are in the issue thread, and both came from a reviewer
 
 The measurements themselves stand; only their explanation changed. Keeping the wrong version visible with the
 correction next to it is deliberate.
+
+## The tool: `opendata_to_villa.py`
+
+villa's `ink_detection` reads datasets shaped like the ones in the organisers' label bucket. The open data publishes
+something else — surface volumes with their own plane count and resolution, and labels as separate zarr arrays. Going
+from one to the other is what let a model trained on `w00` read two segments it had never seen, and it is not
+documented anywhere, so it is packaged here.
+
+```
+# what does this segment actually have?
+python opendata_to_villa.py --scroll PHerc0841     --segment 20260221022814-auto_grown_20260220174252405 --list
+
+surface volumes:
+    2.403um-0.22m-77keV-volume-20260319124803.zarr
+    9.366um-1.2m-113keV-volume-20250821151531.zarr
+label releases:
+    2.403um-volume-20260319124803/20260918
+published predictions:
+    PHerc0841-...-new_canon_autoresearch_recipe-tile256-stride128.tif
+```
+
+```
+# how much would the inspected zone cost? (fetches only the labels, a few MB)
+python opendata_to_villa.py --scroll PHerc0841     --segment 20260221022814-auto_grown_20260220174252405     --volume 2.403um-0.22m-77keV-volume-20260319124803 --labels 20260918     --out /tmp/t --region inspected --dry-run
+
+volume 109x14660x19100, chunks 109x128x128, 17250 chunks in the plane
+region 'inspected': 1573 chunks of 17250 (2.62 GB uncompressed)
+```
+
+Drop `--dry-run` to build it. `--region` takes `inspected` (the supervision mask), `labels`, or `Y0,Y1,X0,X1`;
+`--planes`, `--centre`, `--full` and `--reverse` decide which planes are taken and in which order. Only the chunks the
+region needs are fetched, and a missing chunk is treated as empty rather than as an error.
+
+Two things it does on purpose:
+
+- **It writes `build.json`** next to the dataset, recording the source volume, the plane window and the direction. A
+  model inherits the convention of the array it was trained on, silently, and that is what cost us a day
+  ([#1648](https://github.com/ScrollPrize/villa/issues/1648)). A dataset that cannot say how it was built is a trap.
+- **It refuses to cross label releases with the wrong volume.** The 2.403 µm labels on the 9.366 µm canvas would crop
+  silently and misplace every letter, so it checks the two canvases *before* fetching anything and stops:
+
+  ```
+  labels are 14660x19100 but the volume is 3760x4900: this label release belongs to a different
+  surface volume of this segment. Pick the matching --volume, or drop --labels.
+  ```
 
 ## Checking the numbers
 
