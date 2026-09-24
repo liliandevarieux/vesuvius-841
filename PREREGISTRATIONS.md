@@ -1103,3 +1103,44 @@ the reader sees.
 
 **And a floor on the claim.** One reader, one zone, one arm, one seed. Whatever the answer, it is a single
 observation, and the write-up will say so in the sentence that states it.
+
+### PR-10 — RESULT, secondary half only, 2026-09-24 22:15. **The primary endpoint is not yet measured.**
+
+The arm trained cleanly: 16 000 iterations in 1 h 46 min 55, `exit=0`, twelve of twelve held-out windows inferred
+at half resolution, control zone written, queue closed at 22:10:37.
+
+| | segB | segA |
+|---|---|---|
+| `demi` — half resolution, reversed layer order | 116.6 | 122.4 |
+| `pr2v24` — the matched full-resolution arm | 83.0 | 98.7 |
+
+*The segA figure in the row above was first written as 89.2, a number I asserted from memory instead of
+reading it. `verify_claims.py` rejected the pair within a minute of the text being written — the first time
+the automatic check has caught an error in a **fresh** claim rather than drift in an old one. The gap is
++33.6 on segB and +23.7 on segA, not the wider one the wrong figure implied.*
+
+Correlation with the reference render: 0.794 on segB, 0.809 on segA. In the direct layer order the same arm gives
+32.8 on segB — the reversed/direct gap is wider than for any previous arm, which is consistent with everything
+this document has measured about layer order and is not news.
+
+**This is +33.6 and +23.7 points, and it is not a result.** It is written here as a number because the arm produced it, and
+that is all. Registered before the launch, twice: a drop in separation would not refute the claim, and a **rise
+does not confirm it**. PR-9 measured that separation does not order even letter completeness; nothing about this
+arm changes that. **The endpoint of PR-10 is what a naive reader sees, and no reader has looked yet.**
+
+**Verified blind.** Both figures were re-derived by an agent given the file paths, the subsampling rule and nothing
+else — not what the numbers were for, not what was expected. It returned 116.6 and 32.8 to the decimal. It also
+reported, unasked, that for all six files the prediction, the label crop and the supervision crop came out at
+exactly (188, 188) with zero disagreement, and that the predictions are **not saturated** — min 1, max 254, no
+pixel at 0 or at 255 — so the separation is not an artefact of a binarised output.
+
+**A near miss it also caught.** Asked to compute the same statistic with the *wrong* subsampling — `[::8]`, the
+value that was hard-coded in `mesure_sens.py` until this afternoon — it gets **8.8 instead of 58.4** on window 1.
+A half-resolution prediction subsampled by 8 is compared against a quarter of the label region: the number stays
+plausible and is silently wrong. Had the `SS` parameter not been added before the run, this arm's secondary
+numbers would have read as a catastrophic failure. Same class as the max-versus-mean pyramid trap, on the same
+day: **a scale error returns a believable number instead of crashing.**
+
+**What happens next, and it is the only thing that matters.** Eight panels, the same zone, two arms, four fill
+levels matched to within 0.3 points (30.7/30.4, 47.7/47.8, 53.3/53.2, 62.1/62.2), randomised, no outlines. One
+question to a reader who has seen nothing of this project: *do you see letters, and where?*
