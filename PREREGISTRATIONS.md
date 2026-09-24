@@ -893,3 +893,45 @@ was right". A failure is the informative outcome, and it is cheap: no GPU, no tr
 
 **Also stated in advance, so it cannot be claimed afterwards.** Whatever ρ comes out, this test says nothing about
 legibility. Completeness is necessary, not sufficient — the neutral reader found nothing at 61.4 % fill.
+
+
+### PR-9 — RESULT, 2026-09-24 19:35: the prediction fails, and the table says more than the coefficient
+
+**Spearman ρ = 0.617 on segB**, against the registered bar of 0.80. **Failed.** On segA, ρ = 0.883 — the
+segment-dependence that every other result in this document has shown.
+
+| arm | separation (segB) | fill at 10 % noise (segB) |
+|---|---|---|
+| `trev` | **84.4** | 55.8 % |
+| `v24s43` | 84.3 | 57.0 % |
+| `pr2v24` | 83.0 | 56.7 % |
+| `w00mh7` | 81.8 | **57.9 %** |
+| `w00m` | 79.0 | 56.1 % |
+| `human7n` | 75.9 | 56.5 % |
+| `w00s43` | 60.1 | 50.9 % |
+| `h7` | 59.8 | 51.1 % |
+| `t2um` | **52.4** | 55.4 % |
+
+**The coefficient is not the finding. The two spreads are.** Separation ranges over **32 points** (52.4 to 84.4).
+Fill ranges over **7 points** (50.9 % to 57.9 %). Twenty-four hours of work moved the first by a third of its range
+and the second by almost nothing.
+
+**The single most telling row is the last one.** `t2um` has the worst separation of all nine arms, by 7 points —
+and its fill, **55.4 %**, is mid-table, above `h7` and `w00s43` whose separation is 7 points better. And the best
+arm by separation, `trev`, is **seventh of nine** by fill. The ordering is not preserved where it matters.
+
+**What this costs.** The arm chosen to produce the published full-sheet reading, `pr2v24`, was chosen on
+separation. On fill it is third of nine, 1.2 points below `w00mh7` — inside any reasonable error bar, so the choice
+was not *wrong*; it was made on a quantity that does not order the one that matters. Every table in this document
+that ranks arms by separation alone should be read as ranking them by contrast, and by nothing else.
+
+**What was written in advance and is repeated here so it cannot be quietly dropped.** This says nothing about
+legibility. Fill is necessary, not sufficient: no arm exceeds 58 %, and a naive reader found no letters at 61 %.
+The honest summary of 23–24 September is that we moved a contrast by 32 points, moved completeness by 7, and moved
+legibility from zero to zero.
+
+**Verified blind.** The eighteen values and both coefficients were recomputed by a separate agent given only the
+file paths and an operational definition, with the repository's prose withheld. It wrote its own rank-correlation
+from scratch and cross-checked it against SciPy: **0.617 and 0.883**, identical. It also confirmed that the label
+and far-from-ink masks are pixel-for-pixel identical across all nine arms in every window, which is the property
+that makes the nine numbers comparable at all.
