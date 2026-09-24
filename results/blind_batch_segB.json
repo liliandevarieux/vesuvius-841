@@ -1,0 +1,29 @@
+{
+ "batch": "2026-09-23_segB_aveugle",
+ "design": "blind mixed batch, real candidates and decoys, proportions not disclosed to the reader",
+ "decoy_rule": "at least 900 px from any candidate, central 320 px below both readers medians",
+ "counts": {
+  "candidate": {
+   "encre": 5,
+   "doute": 1,
+   "rien": 0
+  },
+  "LEURRE": {
+   "encre": 0,
+   "doute": 1,
+   "rien": 5
+  }
+ },
+ "sure_ink_rate": {
+  "candidates": [
+   5,
+   6
+  ],
+  "decoys": [
+   0,
+   6
+  ]
+ },
+ "fisher_one_sided_p": 0.007575757575757577,
+ "scorer_written_before_answers": true
+}

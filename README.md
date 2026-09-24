@@ -22,7 +22,8 @@ The scripts behind numbers posted publicly in
 | `scripts/mkseg65.py`, `mkcrop2.py` | build a villa-format dataset from a published surface volume, either direction, either slice |
 | `scripts/prep_seg.py`, `prep_sup.py`, `prep_feuille.py` | fetch only the chunks of a segment that are actually needed |
 | `scripts/prep_seau.py`, `mesure_seau.py` | the array-vs-segment test on the label-bucket renders |
-| `scripts/cand_plein.py`, `planche_117.py`, `verdict_ligne.py`, `bande_ligne.py` | find letter-sized blobs outside the labels, and judge them |
+| `scripts/blobs_seg.py` (one reader), `cand_plein.py` (two readers) | find letter-sized blobs outside the labels |
+| `scripts/planche_117.py`, `verdict_ligne.py`, `bande_ligne.py` | judge them |
 | `scripts/page_lecture.py`, `lignes_zoom.py`, `cmp_lecteurs.py`, `coudre_pred.py` | stitch a whole segment and render it as a readable page |
 | `scripts/run4_queue*.sh` | the drivers, kept as worked examples of how the pieces are chained |
 | `METHOD.md` | the rules this project works by, and the instruments rejected for failing their controls |

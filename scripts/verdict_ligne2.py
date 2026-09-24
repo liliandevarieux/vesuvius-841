@@ -1,6 +1,9 @@
 # Controle du biais de selection de verdict_ligne.py. Ce dernier compare les taches DE LA LIGNE aux labels certains et
-# les trouve plus contrastees (69,4 contre 47,7) -- mais les 117 candidates ont ete RETENUES parce que les deux
-# lecteurs les voyaient. Elles partent donc gagnantes par construction, et la comparaison ne prouve rien.
+# les trouve plus contrastees (69,4 contre 47,7) -- mais les 117 candidates ont ete RETENUES parce que le lecteur qui
+# les a trouvees les voyait : blobs_seg.py les tire de la prediction publiee par les organisateurs, seuillee. (Corrige
+# le 23/09 a 17:00 : ce commentaire disait "les deux lecteurs", c est faux, le recensement a deux lecteurs est
+# cand_plein.py et il en rend 2, pas 117. Le biais de selection, lui, est le meme.)
+# Elles partent donc gagnantes par construction, et la comparaison ne prouve rien.
 # Le controle juste compare les candidates SUR la ligne aux candidates HORS de la ligne : meme selection des deux
 # cotes, seule la position change. Si les deux groupes se valent, la ligne n apporte rien de plus que la selection.
 # usage: verdict_ligne2.py <dossier_labels>

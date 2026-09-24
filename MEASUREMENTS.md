@@ -78,3 +78,33 @@ array.
 is thinner than the three-window result of §1. @AndreasHad04's ablation — three segments, three array families, both
 directions, a label-free direction rule — is the stronger evidence for the same conclusion, and ours agrees with it in
 the mean. Treat this as a check, not as the demonstration.
+
+## 5. A negative control on the human reader — `scripts/leurres.py`, `scripts/score_aveugle.py`
+
+The reader had just scored 12 candidate stacks: 7 *certain ink*, 5 *don't know*, **0** *no ink*. He said so himself —
+"I feel like I find ink almost every time, is that normal?" A batch made only of candidates cannot answer that. It
+cannot separate an eye that detects ink from a rendering in which everything eventually looks like ink.
+
+So the next batch was mixed and blind. Twelve stacks: **6 real candidates** from the census and **6 decoys** drawn
+from places where neither reader responds at all, shuffled, with neither the number nor the proportion disclosed. A
+decoy had to be at least 900 px from any candidate and have its central 320 px below both readers' medians. The index
+image showed **only the scan** — the readers' panels would have given the decoys away. The key was written to a
+separate directory and `score_aveugle.py`, which is the only thing that opens it, was **written before the answers
+existed**, including its reading of the outcome in both directions.
+
+| | certain ink | don't know | no ink |
+|---|---|---|---|
+| real candidates (6) | **5** | 1 | 0 |
+| decoys (6) | **0** | 1 | 5 |
+
+Fisher exact test, one-sided, on the *certain ink* rate: **p = 0.008**. No false positive: not one *certain ink* on a
+decoy. No miss: not one *no ink* on a candidate. The two *don't know* fell one on each side.
+
+**What this licenses.** The reader's verdicts carry information at this rendering, so his 7 *certain ink* from the
+previous batch cannot be dismissed as an artefact of the rendering. **What it does not license.** That any of those
+blobs is a letter — that is a different question, and it belongs to the transcription, not to a detection test. And
+the control is about *this* rendering: a different depth, contrast or magnification would need its own.
+
+**What we would have concluded had it failed**, written down before it ran: that the rendering does not allow a
+decision, that the previous batch's verdicts support nothing, and that the fix is to change the rendering rather than
+to press the reader.

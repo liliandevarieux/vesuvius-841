@@ -99,6 +99,30 @@ m = re.search(r'no window beats\s+villa.s centred one by more than ([\d.]+)', DO
 if not m:
     bad.append("the sentence quoting @AndreasHad04's 0.0138 bound is gone from the document")
 
+# 5. the blind batch: the six counts and the p value
+bb = R('blind_batch_segB.json')
+tabb = rows('## 5. A negative control on the human reader', 4)
+noms = {'real candidates (6)': 'candidate', 'decoys (6)': 'LEURRE'}
+vus = set()
+for r in tabb:
+    if r[1] == 'certain ink':      # la ligne d en-tete a elle aussi quatre cellules
+        continue
+    q = noms.get(r[0])
+    if q is None:
+        bad.append('unexpected row %r in the blind-batch table' % r[0])
+        continue
+    vus.add(q)
+    for col, key in ((1, 'encre'), (2, 'doute'), (3, 'rien')):
+        claims.append(('blind batch %s %s' % (q, key), bb['counts'][q][key], num(r[col])))
+for q in ('candidate', 'LEURRE'):
+    if q not in vus:
+        bad.append('the blind-batch table has lost its %s row' % q)
+m = re.search(r'one-sided, on the \*certain ink\* rate: \*\*p = ([\d.]+)', DOC)
+if not m:
+    bad.append('the blind batch p value is gone from the document')
+else:
+    claims.append(('blind batch Fisher p', round(bb['fisher_one_sided_p'], 3), num(m.group(1))))
+
 # --- verdict -------------------------------------------------------------------------------------------------------
 for label, measured, printed in claims:
     if abs(measured - printed) > 1e-9:

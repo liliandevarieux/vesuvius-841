@@ -61,8 +61,12 @@ def fetch_dir(prefix, dest, jobs):
     def one(k):
         p = os.path.join(dest, k[len(prefix):])
         os.makedirs(os.path.dirname(p), exist_ok=True)
-        if not os.path.exists(p):
-            open(p, 'wb').write(get(B + '/' + urllib.parse.quote(k)))
+        if os.path.exists(p) and os.path.getsize(p):
+            return
+        blob = get(B + '/' + urllib.parse.quote(k))          # the bytes first: see the note on the chunk fetcher
+        with open(p + '.part', 'wb') as fh:
+            fh.write(blob)
+        os.replace(p + '.part', p)
 
     with ThreadPoolExecutor(jobs) as ex:
         list(ex.map(one, keys))
@@ -172,12 +176,20 @@ def main():
         rel = '0.%d.%d' % (y, x) if sepa == '.' else '0/%d/%d' % (y, x)
         p = os.path.join(raw, *rel.split('/'))
         os.makedirs(os.path.dirname(p), exist_ok=True)
-        if os.path.exists(p):
+        if os.path.exists(p) and os.path.getsize(p):
             return
+        # `open(p, 'wb').write(get(...))` creates and truncates the file BEFORE the request is made, so a chunk that
+        # 404s - and on a whole-sheet region most corner chunks do - left a 0-byte file behind. zarr then read that
+        # file instead of treating the chunk as absent and died on `cannot reshape array of size 0`. 5212 such files
+        # out of 18705 on the first whole-sheet fetch. An absent chunk must be an absent FILE, so the bytes are
+        # fetched first and the file only appears, whole, once they are in hand.
         try:
-            open(p, 'wb').write(get(B + '/' + urllib.parse.quote(vpre + '0/' + rel)))
+            blob = get(B + '/' + urllib.parse.quote(vpre + '0/' + rel))
         except Exception:
-            pass          # an absent chunk is an empty chunk; zarr fills it with fill_value
+            return        # an absent chunk is an absent file; zarr then fills it with fill_value
+        with open(p + '.part', 'wb') as fh:
+            fh.write(blob)
+        os.replace(p + '.part', p)
 
     with ThreadPoolExecutor(o.jobs) as ex:
         list(ex.map(one, sorted(want)))
@@ -273,8 +285,41 @@ def main():
                                                                                         (N,) + bb.shape)
             print('  %s: %.2f %% of the canvas' % (nm, 100 * A.mean()))
 
-    json.dump({'scroll_source': o.scroll, 'segment': o.segment, 'volume': o.volume, 'type': 'seg',
-               'format': 'tifxyz'}, open(os.path.join(out, 'meta.json'), 'w'), indent=1)
+    # --- coordinate maps (tifxyz) -------------------------------------------------------------------------------
+    # villa SILENTLY SKIPS a segment that has no x.tif: gather_segments() tests `any(segment_dir.rglob("x.tif"))`
+    # and does `continue`. The dataset then builds perfectly, training finds zero segments, and the error it prints
+    # is "InkDataset produced no training patches after applying supervision masking" - which accuses the
+    # supervision mask of a fault in a segment that was never looked at. Cost an evening on 2026-09-23.
+    # The real maps are published under mesh/ for each surface volume, they weigh 9 MB, and they carry that
+    # volume's own canvas. We fetch those rather than linking the render's, which describe a DIFFERENT flattening
+    # of the same sheet and would put a wrong geometry behind a name that looks right.
+    import shutil, tifffile
+    stamp = o.volume.rsplit('-', 1)[-1]
+    mesh = [p for p in ls(seg + 'mesh/') if stamp in p and p.rstrip('/').endswith('.tifxyz')]
+    meta = {}
+    if len(mesh) == 1:
+        td = os.path.join(out, '_tifxyz')
+        print('tifxyz: %d files from %s' % (fetch_dir(mesh[0], td, o.jobs), mesh[0]))
+        for f in ('x.tif', 'y.tif', 'z.tif'):
+            os.replace(os.path.join(td, f), os.path.join(out, f))
+        meta = json.load(open(os.path.join(td, 'meta.json')))
+        shutil.rmtree(td, ignore_errors=True)
+        sc = meta.get('scale') or [1, 1]
+        sc = sc if isinstance(sc, (list, tuple)) else [sc, sc]
+        xs = tifffile.imread(os.path.join(out, 'x.tif')).shape
+        got = (round(xs[0] / sc[0]), round(xs[1] / sc[1]))
+        # A map whose canvas is not this volume's canvas is worse than no map: it passes villa's check and puts
+        # every patch at the wrong place. Checked, not assumed.
+        if abs(got[0] - HH) > 2 or abs(got[1] - WW) > 2:
+            sys.exit('the coordinate maps describe a %dx%d canvas and the volume is %dx%d: this tifxyz does not '
+                     'belong to this volume.' % (got[0], got[1], HH, WW))
+        print('  canvas %dx%d, matches the volume' % got)
+    else:
+        print('WARNING: no single tifxyz matching %r under mesh/ (%d found). Without x.tif, villa will skip this '
+              'segment in silence and training will report an unrelated error.' % (stamp, len(mesh)))
+    meta.update({'scroll_source': o.scroll, 'segment': o.segment, 'volume': o.volume, 'type': 'seg',
+                 'format': 'tifxyz', 'tifxyz_source': mesh[0] if len(mesh) == 1 else None})
+    json.dump(meta, open(os.path.join(out, 'meta.json'), 'w'), indent=1)
     json.dump({'source': B + '/' + vpre, 'source_shape': [Z, HH, WW], 'planes': N, 'plane_window': how,
                'order': 'reversed' if o.reverse else 'as stored', 'labels': o.labels, 'region': o.region,
                'chunks_fetched': len(want)}, open(os.path.join(out, 'build.json'), 'w'), indent=1)
