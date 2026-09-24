@@ -146,9 +146,24 @@ for fn in sorted(os.listdir(os.path.join(HERE, 'results'))):
 PAIRS = {t: (v['segB'], v['segA']) for t, v in ARMS.items() if 'segB' in v and 'segA' in v}
 
 NUM = re.compile(r'(?<![\w.])([+−-]?\d+[.,]\d)(?![\d])')
+# A pair of adjacent numeric cells only counts as an arm's (segB, segA) if the row is actually ABOUT an arm: either
+# the row names one, or its table's header names both segments. Without this, the rule fires on any two numbers that
+# land within 2.0 of some arm — which it did on 2026-09-24 at 21:35, on a table of grey-level means where plane 32
+# reads 84.4, the exact value of `trev` on segB, and plane 50 reads 83.4 / 86.9 against its 84.4 / 87.6. Three false
+# DRIFT reports out of one coincidence. A checker that cries drift when nothing drifted is worse than a gap in
+# coverage: the next real drift gets read as another false alarm.
+# What this does NOT weaken: every genuine results table here either labels its rows by arm or its header by segment.
+# The guard is the arm count printed below — it must not fall when this filter is added (it stayed at 6).
+MOTS = re.compile(r'(?<![\w-])(%s)(?![\w-])' % '|'.join(map(re.escape, sorted(PAIRS, key=len, reverse=True))))
 apparies = set()
+entete = ''
 for line in PRE.split('\n'):
     if not line.startswith('|'):
+        entete = ''
+        continue
+    if not entete:
+        entete = line
+    if not (('segB' in entete and 'segA' in entete) or MOTS.search(line)):
         continue
     vals = []
     for c in line.strip('|').split('|'):

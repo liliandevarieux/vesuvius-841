@@ -935,3 +935,171 @@ file paths and an operational definition, with the repository's prose withheld. 
 from scratch and cross-checked it against SciPy: **0.617 and 0.883**, identical. It also confirmed that the label
 and far-from-ink masks are pixel-for-pixel identical across all nine arms in every window, which is the property
 that makes the nine numbers comparable at all.
+
+
+### The control on the control, 2026-09-24 19:50 — and it holds
+
+The finding above ("a naive reader found no letters") is worthless unless a reader *does* read the ground truth
+rendered the same way. So: two panels, same zone, same rotation, same black-on-white, no outlines, shuffled —
+one the **human labels**, one the **model at 53.1 % fill**. The observer was not told which was which.
+
+**He read the letters immediately in the label panel and nothing in the model panel**, and added, unprompted, that
+in the model panel "the ink is not in the same places".
+
+So the rendering is not the obstacle: three Greek letters drawn by hand and shown as a flat black mask are read at
+a glance. The model's output, at the fill rate where its known letters are best represented, is not. **The missing
+information is shape, and it is missing from the model, not from the display.**
+
+This is the last piece of 2026-09-24, and it is what licenses the sentence that closes the day: we produced a
+full-sheet ink map of PHerc. 841, validated where labels exist, that a reader cannot read — and we now know that
+is a property of the map and not of how we drew it.
+
+## PR-10 — Is the model blind to letter *shape* because its window is 1/14 of a letter?
+
+*Registered 2026-09-24 21:0x, before the training is launched and before any number from it exists. This is the
+first preregistration in this document whose primary endpoint is a **human reading**, not a separation.*
+
+**Why this exists.** Every arm of 23–24 September raised the ink/background contrast and none of them produced a
+readable letter. On 2026-09-24, measured from the connected components of the human labels on segB, a letter of
+this scroll is **1 808 px across at 2.403 µm/px = 4.34 mm**. The network's input window is 128 × 128 px in the
+plane, i.e. **0.31 mm — one fourteenth of a letter**. It is asked to draw shapes it has never seen: at that scale
+a stroke crossing the window is a band of ink from edge to edge, indistinguishable from a blot. The one model in
+this project that ever produced readable letters — run 2 on PHerc. Paris 4 — worked at **≈ 1/7** of a letter.
+
+**The change, and it is the only one.** The data are read at **half resolution**. Nothing else moves: same teacher
+(`w00v24`), same labels, same supervision mask, same thresholds, same seed 42, same 16 000 iterations, same
+starting checkpoint `ink_w00_128_acc4/ckpt_080000.pth`, same patch size `[64, 128, 128]`, same batch 2 × grad-acc 4,
+same learning rate. The window then covers **0.62 mm = 1/7 of a letter**, run 2's ratio.
+
+**How the half-resolution dataset was built, and why nothing was recomputed.** The training zarrs already carry a
+full pyramid (levels 0–5); the trainer opens `<zarr>/0` and ignores the rest. The dataset is therefore the same
+pyramid **re-rooted one rung**: new level 0 = old level 1, for the volume, the ink labels and the supervision mask
+alike. No resampling was written by us, so the labels are not our downsampling of the labels — they are the ones
+already in the file. Verified before launch, plane by plane over all 65 planes of both label arrays: **0 differing
+pixels**, source `[65, 8230, 9280]` against copy `[65, 8230, 9280]`, ink density 0.0941 % and supervision density
+1.0261 % on both sides.
+
+**Claim under test.** The absence of letter shapes is caused by the field of view, not by the contrast.
+
+**Primary endpoint — a blind human reading, defined here so it cannot be moved afterwards.** A reader with no
+connection to the project, who has not seen the answer, is shown the **control zone** (the one containing the
+already-labelled letters, *without* the red outlines) rendered from **both** arms — `pr2v24` at full resolution and
+`demi` at half — in randomised order, unlabelled, at the same four thresholds used on 2026-09-24 at 17:40. They are
+asked one question: *do you see letters, and where?*
+
+**Prediction.** On the half-resolution arm the reader reports **at least one letter shape whose position falls on a
+labelled letter**; on the full-resolution arm they report none, as the reader of 2026-09-24 did.
+
+**What would invalidate it.** The reader finds nothing on either arm. Then field of view is not the obstacle — or
+not the only one — and the next lead is not "a larger window".
+
+**Secondary quantities, reported but not the verdict.** Separation and fill at 10 % noise on the same three
+held-out windows of segB and segA, as for every other arm. Registered in advance: **a drop in separation does not
+refute this claim, and I may not present it as if it did.** The arm starts from a checkpoint trained at full
+resolution, so its input statistics are shifted on step 1; separation is exactly the quantity PR-9 showed does not
+order completeness.
+
+**Stated in advance, because each of these weakens the conclusion in a different direction.**
+1. **The inherited checkpoint is trained at the wrong resolution.** A success is therefore strong evidence (it
+   worked *despite* the shift); a failure is weak (the shift alone could explain it). Making it clean would mean
+   retraining the base model at half resolution — days, not hours.
+2. **Half resolution destroys detail as surely as it adds context.** At 4.8 µm/px the crackle texture that the ink
+   signal may rest on is thinner than a pixel. This is the competing explanation for a failure and it cannot be
+   separated from hypothesis 1 by this arm alone.
+3. **Four times fewer distinct patch positions** for the same 16 000 iterations: more repetition, more room to
+   memorise. Relevant if the arm looks good on labelled ink and blank elsewhere.
+4. **One arm, one seed.** PR-4 measured the seed effect on this pipeline; this is a single draw.
+
+### PR-10 — amendment, 2026-09-24 20:17, written while the run was starting and before any result exists
+
+Limitation 3 above says "four times fewer distinct patch positions". That was arithmetic, not a measurement, and
+the measurement disagrees: the patch caches the trainer wrote for the two arms hold **3 187 patches for `demi`
+against 8 449 for `pr2v24`** — a factor of **2.65**, not 4. The figure that matters for the memorisation worry is
+therefore: 16 000 iterations × batch 2 = 32 000 draws, so each patch is seen about **10 times** in the half-
+resolution arm against about **3.8** in the full-resolution one. Still a real difference, smaller than stated.
+
+Corrected here rather than in the text above, because the text above was registered before the run and the point of
+registering it is that it does not get edited afterwards.
+
+### PR-10 — declared deviation, 2026-09-24 20:35, while the run is training and before any prediction exists
+
+The primary endpoint above says the two arms are shown "at the same four thresholds used on 2026-09-24 at 17:40".
+Those thresholds are recovered: **240, 200, 180, 150**, marking **28.9 / 47.2 / 53.1 / 61.4 %** of the known
+letters on the whole sheet.
+
+Applying those four raw numbers to the half-resolution arm would be a mistake, and it is the exact mistake PR-9's
+method note warns about: two arms whose predictions do not share a grey scale cannot be compared at a shared
+threshold, because the comparison then measures the scale. The `pr2v24` panels keep the registered thresholds —
+they are literally the same images as 2026-09-24 — and the `demi` panels use whatever thresholds mark **the same
+four fractions of the known letters**: 28.9, 47.2, 53.1, 61.4 %. The reader then judges shape at matched
+completeness, which is the only way the question "do letters appear?" has an answer.
+
+Registered consequence, so it cannot be claimed later: the reader will see the demi arm at **its** thresholds, and
+the fill figures printed in the answer key are matched by construction, not measured as a result. Fill is not
+evidence in this test. Only the reading is.
+
+One property of the display that cannot be removed and is stated instead: the half-resolution panels have half the
+pixels, so shown at the same physical size they are blockier. A reader could in principle tell the arms apart by
+that. They are still not told which is which, and the question asked is about letters, not sharpness.
+
+### PR-10 — the premise re-derived blind, 2026-09-24 21:00, still before any result
+
+PR-10 rests on one measured number: the size of a letter. It was re-derived by an agent told only to measure the
+connected components of a label array, not why. Level 3 of `inklabels.zarr` for `auto_grown_20260220174252405`
+(1833 × 2388, 69 742 marked pixels) holds **5 connected components**, none below the 30-pixel speckle floor, whose
+largest bounding-box dimensions in full-resolution pixels are 2128, 1824, 1808, 1592, 1368 — **median 1808 px =
+4.345 mm**, mean 1744 px = 4.191 mm. The 128-pixel window is 0.3076 mm, so 1808/128 = **14.1**; at half resolution
+the window spans 256 full-resolution pixels, so 1808/256 = **7.1**. The two ratios PR-10 is built on hold.
+
+The same agent was asked, without being told the expected answer, which 2×2 rule turns level 0 of the training
+volume into its stored level 1. **Maximum, 100.0000 % of pixels on 11 regions** spanning 11 z-planes and both
+array corners, 6 815 744 level-1 pixels compared, of which 5 869 739 lay in blocks where the rules genuinely
+differ. Minimum and mean-floored match 0 % of those blocks, mean-rounded 2.7–4.0 %, plain subsampling ~29 %. An
+explicit odd-offset control reproduced the alignment trap: the same test at a one-pixel shift drops max to 8–19 %.
+
+**One thing this caught that had nothing to do with the check.** Three scripts of this project carried the sentence
+"a letter is 500 to 800 px", a head estimate never measured, and it had been copied into the caption of the very
+figure a naive reader is about to judge. It is wrong by a factor of about 2.5, and it would have sent the reader
+looking for shapes three times too small on a test whose whole endpoint is what they see. Corrected in all of them.
+
+### PR-10 — a confound bounded before the result, 2026-09-24 21:10
+
+Limitation 1 above says the arm inherits a checkpoint trained at full resolution. There is a second half to that
+which was not stated: the pyramid pools by **maximum**, so the half-resolution images are not only coarser, they
+are **brighter** than the ones the base checkpoint was trained on. If that shift were large, a failure could be
+blamed on brightness rather than on field of view, and the arm would answer nothing.
+
+Measured on 2048 × 2048 windows at three z-planes, level 0 against the stored level 1:
+
+| plane | level 0 mean | level 1 (max 2×2) mean | median shift | p99 shift |
+|---|---|---|---|---|
+| 10 | 76.0 | 79.6 | +6 | +12 |
+| 32 | 84.4 | 88.0 | +5 | +8 |
+| 50 | 83.4 | 86.9 | +5 | +7 |
+
+**About +3.5 grey levels on the mean, roughly 4 %.** For comparison, a mean-pooled level 1 would sit within 0.4 of
+level 0. So the brightness shift is real but small, and it is registered here as a **weak** explanation for a
+failure: if this arm fails, the resolution change remains the large variable and brightness cannot carry the
+result. Registered now so it cannot be promoted to a cause afterwards.
+
+### PR-10 — how each outcome will be read, registered 2026-09-24 21:35, before the arm has finished training
+
+Written now so the reading of the result is not chosen after seeing it. `demi` = the half-resolution arm,
+`plein` = `pr2v24`, the matched full-resolution arm. "Letters" means the naive reader reports at least one letter
+shape **and** its position falls on a labelled letter.
+
+| reader finds | how it is read |
+|---|---|
+| letters on `demi`, none on `plein` | The registered prediction holds. Field of view was the obstacle. Strong, because the arm succeeded **despite** inheriting a checkpoint trained at the wrong resolution. Next step: retrain the base model at half resolution and read the whole sheet again. |
+| letters on neither | The prediction fails. Field of view is not the obstacle, or not the only one — but the failure is **weak evidence**, because limitations 1 and 2 (inherited checkpoint, lost detail) are alive and this arm cannot separate them. It does not license "a larger window is useless"; it licenses "a larger window obtained this cheap way does not suffice". |
+| letters on both | Something outside both arms changed — most likely the rendering or the zone, since the reader of 2026-09-24 saw none on `plein` at the same four fill levels. The first thing to check is whether this reader is really naive, and the second whether the panels differ from the 17:40 ones. Not evidence for the hypothesis. |
+| letters on `plein`, none on `demi` | The prediction fails and the change actively hurt. Reading: half resolution destroyed more detail than the context it bought — limitation 2, not limitation 1. |
+
+**Symmetric statement about the secondary numbers, and this is the half that was missing.** It is already
+registered that a **drop** in separation does not refute the claim. The same must hold the other way: a **rise** in
+separation or in fill does not confirm it, and will not be reported as a success. PR-9 measured that separation
+does not order even completeness; nothing about this arm changes that. The only outcome that moves PR-10 is what
+the reader sees.
+
+**And a floor on the claim.** One reader, one zone, one arm, one seed. Whatever the answer, it is a single
+observation, and the write-up will say so in the sentence that states it.
