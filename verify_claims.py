@@ -123,6 +123,67 @@ if not m:
 else:
     claims.append(('blind batch Fisher p', round(bb['fisher_one_sided_p'], 3), num(m.group(1))))
 
+# 7. PREREGISTRATIONS.md — every (segB, segA) pair printed in a table must equal the raw measurement
+#
+# Why this section exists. Until 2026-09-24 this file checked MEASUREMENTS.md and nothing else. Meanwhile the
+# preregistration file had grown to carry every separation figure of the project, and not one of them was
+# re-derived by anything automatic: they were checked once, by hand, by an agent asked to do it. A number that
+# drifts in a table nobody re-derives is exactly how a wrong figure survives — and two wrong figures were caught
+# by hand that same day.
+#
+# What it does, and what it does NOT do. It scans every markdown table row, reads the numbers cell by cell, and
+# for each pair of adjacent numeric cells asks whether some measured arm has a (segB, segA) pair within 2.0 of it.
+# If one does, the pair must match that measurement EXACTLY. This catches drift — a figure that has moved — in
+# whatever table shape it is written in, without the script having to know the shape.
+# It does NOT check that every measurement appears in the document: an arm that is simply never mentioned passes
+# silently. Omission is not covered here, and saying so is part of the check.
+PRE = open(os.path.join(HERE, 'PREREGISTRATIONS.md'), encoding='utf-8').read()
+ARMS = {}
+for fn in sorted(os.listdir(os.path.join(HERE, 'results'))):
+    m = re.match(r'pr\d+_(seg[AB])_(\w+)\.json$', fn)
+    if m:
+        ARMS.setdefault(m.group(2), {})[m.group(1)] = R(fn)['mean']['reversed']['sep']
+PAIRS = {t: (v['segB'], v['segA']) for t, v in ARMS.items() if 'segB' in v and 'segA' in v}
+
+NUM = re.compile(r'(?<![\w.])([+−-]?\d+[.,]\d)(?![\d])')
+apparies = set()
+for line in PRE.split('\n'):
+    if not line.startswith('|'):
+        continue
+    vals = []
+    for c in line.strip('|').split('|'):
+        f = NUM.findall(cell(c))
+        vals.append(num(f[0]) if len(f) == 1 else None)
+    for i in range(len(vals) - 1):
+        a, b = vals[i], vals[i + 1]
+        if a is None or b is None:
+            continue
+        proches = [(t, p) for t, p in PAIRS.items() if abs(a - p[0]) <= 2.0 and abs(b - p[1]) <= 2.0]
+        if not proches:
+            continue
+        t, p = min(proches, key=lambda x: abs(a - x[1][0]) + abs(b - x[1][1]))
+        apparies.add(t)
+        claims.append((f'PREREG {t} segB', p[0], a))
+        claims.append((f'PREREG {t} segA', p[1], b))
+# The same check on prose, in the one sentence shape these results are actually written in:
+# "... **84.4** on segB and **87.6** on segA". Found by testing the section above: perturbing the figure in the
+# table was caught, perturbing the SAME figure three lines higher, in the sentence, was not. A check that only
+# covers the tidy half of the document gives false confidence about the other half.
+# Only this shape is covered. Prose cannot be checked generically: `trev` is 84.4 and `v24s43` is 84.3 on segB,
+# so any "near a measurement but not equal" rule would make two real measurements accuse each other.
+PHRASE = re.compile(r'\*{0,2}([+−-]?\d+\.\d)\*{0,2} on segB and \*{0,2}([+−-]?\d+\.\d)\*{0,2} on segA')
+nphr = 0
+for a, b in ((num(x), num(y)) for x, y in PHRASE.findall(PRE)):
+    proches = [(t, p) for t, p in PAIRS.items() if abs(a - p[0]) <= 2.0 and abs(b - p[1]) <= 2.0]
+    if not proches:
+        continue
+    t, p = min(proches, key=lambda x: abs(a - x[1][0]) + abs(b - x[1][1]))
+    apparies.add(t); nphr += 1
+    claims.append((f'PREREG prose {t} segB', p[0], a))
+    claims.append((f'PREREG prose {t} segA', p[1], b))
+print(f'PREREGISTRATIONS: {len(PAIRS)} measured arms on disk, {len(apparies)} found '
+      f'({", ".join(sorted(apparies)) or "none"}), {nphr} of them in prose; omission is not checked, only drift')
+
 # --- verdict -------------------------------------------------------------------------------------------------------
 for label, measured, printed in claims:
     if abs(measured - printed) > 1e-9:
