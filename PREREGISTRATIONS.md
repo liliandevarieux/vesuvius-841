@@ -853,3 +853,43 @@ that a controlled test has not yet isolated.
 +4 to +5 of the array, the +3 of the label recipe — is a contrast that does not demonstrate legibility. Nothing
 here is retracted: the measurements stand as measurements. But the sentence "we read PHerc. 841" cannot be written,
 and what we have is **a full-sheet ink map, validated where labels exist, that a naive reader cannot read**.
+
+
+## PR-9 — Did the quantity we optimised for 24 hours track letter completeness at all?
+
+*Registered 2026-09-24 19:20, before the computation is run. No training is involved: every prediction this uses
+already exists on disk.*
+
+**Why this exists.** Everything measured on 23–24 September moves one number: the separation, `mean(A[L]) −
+mean(A[F])`, a **contrast** between labelled ink and far background. On 2026-09-24 at 17:40 a reader with no
+connection to the project found **no letters** in the full-sheet prediction at any of four thresholds, up to 61.4 %
+of known ink marked. So the contrast rose by 25 points across our arms while legibility stayed at zero. The
+question this raises is narrower and answerable: does that contrast track even the **completeness** of the letters,
+which is one necessary ingredient of legibility?
+
+**The second quantity, defined here before it is computed.** For each arm, on the same three held-out windows of
+each segment, in reversed layer order, at level 3:
+1. find the threshold `t` at which the arm marks exactly **10.0 %** of the far-from-ink pixels
+   (`F = S & ~dilate(L, 3)`), by interpolation on the empirical distribution — a **fixed false-positive rate**, so
+   that arms are compared at matched noise and not at matched threshold;
+2. report the fraction of label pixels `L` at or above `t`. That is **fill at 10 % noise**.
+
+This is computed per window and averaged over the three, exactly as the separation is.
+
+**The arms**, all of which already have predictions: `human7n`, `pr2v24`, `w00m`, `h7`, `w00s43`, `v24s43`,
+`w00mh7`, `trev`, `t2um` — nine, on segB and segA.
+
+**Claim under test.** The two orderings are the same ordering.
+
+**Prediction.** Spearman ρ between the separation ranking and the fill ranking is **≥ 0.8 on segB**.
+
+**What would invalidate it.** ρ < 0.8. Then the 25 points of separation bought something other than completeness,
+the arm chosen to produce the published reading (`pr2v24`) was chosen on a quantity that does not order
+completeness, and every comparison in this document needs the second column printed next to the first.
+
+**Stated in advance.** Nine arms is a small sample and Spearman on nine is noisy; ρ ≥ 0.8 is a bar chosen to be
+passable, not a significance test. A pass means "these two measures do not visibly disagree here", not "the metric
+was right". A failure is the informative outcome, and it is cheap: no GPU, no training, existing files only.
+
+**Also stated in advance, so it cannot be claimed afterwards.** Whatever ρ comes out, this test says nothing about
+legibility. Completeness is necessary, not sufficient — the neutral reader found nothing at 61.4 % fill.
