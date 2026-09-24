@@ -1213,3 +1213,61 @@ not capture it. The eye is still the instrument here.
 **Removing the debris does not recover the letters.** Deleting every component smaller than half a labelled letter
 and re-thresholding to the same fill leaves 3–4 large shapes in each map: the reference's are still letter-like,
 `pr2v24`'s and `demi`'s are still lumps. The noise is not what hides the letters.
+
+## PR-11 — Is our model's output the teacher's, plus noise?
+
+*Registered 2026-09-24 23:15, before any reader has seen a smoothed map. No training is involved: every prediction
+this uses already exists on disk, and the operation under test is a one-line post-process.*
+
+**The cascade that raises the question.** Measured tonight in the control zone, all at matched fill (53.4 % of the
+known letters marked), counting connected components:
+
+| map | objects | per letter | median object size | box occupancy |
+|---|---|---|---|---|
+| the human labels | 5 | **1** | 1 808 px | 36 % |
+| the organisers' prediction, inside the labelled zone — segB | 15 | ~3 | 424 px | 53 % |
+| the organisers' prediction, inside the labelled zone — w00 | 24 | ~3 | 672 px | 54 % |
+| `demi` (PR-10) | 112 | ~37 | 222 px | — |
+| `pr2v24` | **489** | **~160** | 56 px | — |
+
+Two things follow. The teacher **already** breaks each letter into about three pieces, and it does so equally on the
+training segment and the evaluation segment — so that is not a property of the segment we chose. And our student
+then fragments **twenty to a hundred times further**. The second gap is not a ceiling in the data.
+
+**What a Gaussian blur does to it**, re-thresholded after each blur so the fill stays at 53.4 %:
+
+| blur σ (full-res px) | `pr2v24` objects | median size |
+|---|---|---|
+| 0 | 489 | 56 px |
+| 8 | 33 | 122 px |
+| 16 | 23 | 228 px |
+| **32** | **14** | **427 px** |
+| 128 | 9 | 363 px |
+
+**At σ = 32 px our model reaches the teacher's fragmentation exactly** — 14 objects of 427 px against the teacher's
+15 of 424 px — at the same fill, with no retraining.
+
+**Claim under test.** The difference between our maps and the teacher's, in everything that governs legibility, is
+pixel-scale noise and nothing else.
+
+**Primary endpoint, defined here before anyone looks.** A reader with no connection to the project, shown the same
+zone rendered from four maps in randomised order at matched fill — the human labels, the organisers' prediction,
+`pr2v24` blurred at σ = 32, and `demi` blurred at σ = 32 — is asked: *do you see letters, and where?*
+
+**Prediction.** The reader reports letters on the **blurred** maps at least as often as on the organisers'
+prediction, and in the same places.
+
+**What would invalidate it.** The reader reads the organisers' map and not the blurred ones. Then matching the
+component count does not match what makes a letter readable, and the remaining difference is shape, not noise —
+which sends the next experiment back to training, not to post-processing.
+
+**Stated in advance.** A blur is a cosmetic operation: it cannot add information. If it makes our maps readable,
+what that shows is that the information was **already there and buried**, not that the model improved — and the
+honest use of that result is a better read-out, not a claim of a better model. Conversely, matching the teacher's
+object count is not the same as matching its shape; PR-9 and PR-10 both punished the assumption that one number
+standing in for legibility would behave.
+
+**Also registered, because tonight produced two of them.** Two earlier hypotheses of mine died on measurement and
+are recorded so they are not silently revived: *the training labels are scattered noise* — false, they sit on the
+writing lines at 4.9 σ above a position-shuffled control; and *our threshold shattered the letters* — false, no
+threshold from 40 to 200 produces letter-sized objects, lowering it only adds more specks.
