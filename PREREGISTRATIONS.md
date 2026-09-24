@@ -1144,3 +1144,72 @@ day: **a scale error returns a believable number instead of crashing.**
 **What happens next, and it is the only thing that matters.** Eight panels, the same zone, two arms, four fill
 levels matched to within 0.3 points (30.7/30.4, 47.7/47.8, 53.3/53.2, 62.1/62.2), randomised, no outlines. One
 question to a reader who has seen nothing of this project: *do you see letters, and where?*
+
+### PR-10 — RESULT, primary endpoint, 2026-09-24 22:45. **The prediction fails, and the reader is still owed.**
+
+The reader who looked was **Lilian himself, and he was no longer blind**: he had asked for the answer key to be
+opened half an hour earlier, before anyone had looked. That is recorded because the order of events is part of the
+result. His verdict on the eight panels: *"on ne voit rien, aucune lettre, seulement des taches noires, rien de
+plus."*
+
+**Registered prediction: letters on the half-resolution arm, none on the full-resolution one. Neither shows any.
+PR-10 fails.** Read as registered in advance: this does **not** license "a larger window is useless" — the arm
+inherits a checkpoint trained at full resolution and half resolution destroys detail as surely as it adds context,
+and this arm cannot separate those. It licenses only: *a larger field of view obtained this cheaply does not
+suffice.*
+
+**The weight of this verdict is low and it is stated as such.** One reader, contaminated, on a frame that turned
+out to be wrong (below). A naive reader on a corrected frame is prepared and still owed.
+
+### The finding that outranks PR-10, 2026-09-24 22:45 — the target is not the ceiling
+
+A second blind test, two panels, same zone and rendering, matched at 53.4 % fill: **the human labels against the
+published reference** — the map every arm in this project is trained to imitate. The positive control is the one
+that already worked on 2026-09-24 at 19:50: hand-traced letters rendered this way are read instantly.
+
+| panel | what it was | what the reader said |
+|---|---|---|
+| M | the human labels | Η and Κ read immediately; the third letter "looks cut" |
+| N | **the published reference** | "compared to usual, this time you can make out Η and Κ — not perfect, the Η more than the Κ, but with a little effort you could see it"; the third letter illegible |
+
+**So the published reference carries letter shape that our own maps do not.** Every arm of this project has been
+trained toward a target that is partially legible, and none of them is. The ceiling is not in the data or in the
+target: it is in our models. That reverses the hypothesis this test was built to check — it was built expecting to
+find the target unreadable.
+
+**Same contamination caveat, and it is serious here**: the reader knew these three letters. "With effort you could
+see it" is exactly the sentence a contaminated reader produces. This is why the test is being rerun tomorrow with a
+naive reader on four maps at once.
+
+**A framing bug the reader found in one sentence.** "The third letter looks cut" — on the panel showing the *truth*,
+where nothing can be blamed on the model. The control zone ran to X 12210; the third labelled component ends at
+X 12576. It was cut by 366 px. Every legibility test run on that zone since 2026-09-24 17:40, including the
+neutral reader's, showed a truncated third letter. Corrected: the new frame is Y 4260–6772, X 7324–12876, which
+holds all three letters entirely with 300 px of margin.
+
+### Shape, measured two ways, 2026-09-24 22:40 — one way worked, the other came out null
+
+Neither separation nor fill says anything about **shape**. Two descriptive measures, computed after seeing the
+maps and therefore not tests, both at 53.4 % matched fill in the control zone:
+
+| map | connected shapes | median shape size | max inscribed thickness |
+|---|---|---|---|
+| the human labels | **5** | 7 912 px | 445 px |
+| published reference | 17 | 509 px | 390 px |
+| `demi` (PR-10) | 45 | 50 px | 591 px |
+| `pr2v24` | **192** | **3 px** | 398 px |
+
+**The component count works and orders the maps**: truth 5 < reference 17 < demi 45 < pr2v24 192. The
+half-resolution arm produces **four times less debris** than its full-resolution twin — the direction PR-10
+predicted, obtained without any letter becoming readable. All four maps carry 3 or 4 shapes of letter size; what
+separates them is the confetti around those shapes.
+
+**The thickness measure came out null, and that is reported rather than dropped.** It was designed specifically to
+replace a contaminated eye: a letter is a stroke, a blob is a mass, and the largest inscribed disc should tell
+them apart. It does not — 445, 390, 398 px for truth, reference and `pr2v24`. The difference a reader sees between
+the reference's forked Κ and `pr2v24`'s lump is **topological**, not a matter of thickness, and this measure does
+not capture it. The eye is still the instrument here.
+
+**Removing the debris does not recover the letters.** Deleting every component smaller than half a labelled letter
+and re-thresholding to the same fill leaves 3–4 large shapes in each map: the reference's are still letter-like,
+`pr2v24`'s and `demi`'s are still lumps. The noise is not what hides the letters.
