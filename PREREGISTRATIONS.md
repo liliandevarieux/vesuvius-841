@@ -1271,3 +1271,69 @@ standing in for legibility would behave.
 are recorded so they are not silently revived: *the training labels are scattered noise* — false, they sit on the
 writing lines at 4.9 σ above a position-shuffled control; and *our threshold shattered the letters* — false, no
 threshold from 40 to 200 produces letter-sized objects, lowering it only adds more specks.
+
+## PR-12 — Does the smoothed map show letters where no one has labelled any? *(conditional on PR-11)*
+
+*Registered 2026-09-24 23:20, before any reader has seen any of these zones, and before PR-11 has been answered.*
+
+**This test is not run unless PR-11 passes.** If a naive reader does not read the smoothed maps in the zone where
+the letters are known, there is no reason to ask where else they appear, and running this anyway would be fishing.
+
+**Why it exists.** Everything measured on 841 so far happens where labels already exist — that is, where the answer
+is known. A *new* reading means letters somewhere nobody has marked. The smoothed `pr2v24` sheet, thresholded at
+53.3 % fill on the known letters, holds 516 objects, of which **19** pass a shape criterion calibrated on the five
+real letters and nothing else: largest dimension 900–3 000 px (the real ones: 1 368–2 128) and bounding-box
+occupancy 20–55 % (the real ones: 36 % median; a disc would be 79 %).
+
+**The circularity, and what neutralises it.** Selecting the zones that most look like letters and then asking a
+reader whether they see letters is circular by construction. The criterion cannot be trusted on its own. What
+makes the test informative is the **control arm**: four zones drawn at random from the marked sheet, outside the
+labelled region, the same size, shuffled with the four best candidates, rendered identically. The reader is not
+told there are two kinds.
+
+**Endpoint.** A naive reader, eight panels, one question: *do you see letters, and where?*
+
+**Prediction.** Letters reported on more candidate zones than control zones, by at least **3 to 1**.
+
+**What would invalidate it.** Letters reported on candidates and controls at similar rates — the criterion selects
+appearance, not writing. Or nothing anywhere — the criterion selects nothing at all.
+
+**Stated in advance.** Eight panels is a small test and one reader is one reader; a 3:1 split on eight panels is
+not a significance claim, it is a bar chosen to be interpretable. And a positive result is **not a reading**: it
+would say "these zones deserve a real transcription attempt", not "these are letters".
+
+**Zones, fixed here so they cannot be reselected after seeing the answer** (full-resolution, Y0 Y1 X0 X1):
+candidates 8256 10768 9936 15488 · 6128 8640 8568 14120 · 6688 9200 11344 16896 · 8256 10768 12712 18264;
+controls 7491 10003 2647 8199 · 1100 3612 2356 7908 · 5533 8045 2587 8139 · 8509 11021 12899 18451.
+
+### PR-11 — correction, 2026-09-24 23:30, before any reader has looked
+
+The sentence *"at σ = 32 px our model reaches the teacher's fragmentation exactly — 14 objects of 427 px against
+the teacher's 15 of 424"* is **wrong, and it was the sentence the registration was built around.** It compared two
+measurements that are not the same measurement: our arms were counted in the reading frame at full resolution,
+the teacher was counted in a dilated neighbourhood of the labels across the whole segment at level 3. Caught by a
+blind re-derivation asked only to apply one procedure to all three maps.
+
+Measured identically — same frame (Y 4260–6772, X 7324–12876), full resolution, threshold chosen so that 53.4 % of
+the 3 labelled letters are marked:
+
+| map | blur σ | threshold | fill | components | median largest dimension |
+|---|---|---|---|---|---|
+| the organisers' prediction | — | 235 | 52.9 % | **19** | **142.5 px** |
+| `pr2v24` | — | 209 | 53.3 % | 489 | 56.0 px |
+| `pr2v24` | 8 | 206.5 | 53.4 % | 33 | 122.0 px |
+| `pr2v24` | 16 | 202.7 | 53.4 % | 24 | 228.0 px |
+| `pr2v24` | **32** | 195.2 | 53.4 % | **14** | **426.5 px** |
+| `demi` | — | 229 | 53.4 % | 112 | 222.0 px |
+| `demi` | 32 | 210.4 | 53.4 % | **14** | **287.0 px** |
+
+**What survives.** Our raw map is fragmented far beyond the teacher's — 489 pieces against 19 — and a blur removes
+that gap at a cost of nothing. **What does not survive**: at σ = 32 our maps do not *match* the teacher, they
+overshoot it. They end up with fewer pieces (14 against 19) and pieces three times larger (426 against 142).
+
+**And that makes the teacher's legibility harder to explain, not easier.** The teacher is read with effort at 19
+components of 142 px median; our blurred map has 14 components of 426 px and is the thing under test. So the
+component count does not predict what a reader sees — the second measure tonight to fail at standing in for
+legibility, after the inscribed-thickness one. That is now two independent failures, and the lesson is the same
+one PR-9 taught: **no single shape number has yet predicted a reading.** PR-11's endpoint stays what it was, a
+reader, and the registered prediction is unchanged; only my description of what σ = 32 achieves is corrected.
