@@ -1,0 +1,50 @@
+{
+ "segment": "auto_grown_20260220144552896",
+ "local": "segA",
+ "run": "t2um",
+ "windows": [
+  {
+   "window": 1,
+   "direct": {
+    "sep": 29.8,
+    "corr": 0.427
+   },
+   "reversed": {
+    "sep": 87.1,
+    "corr": 0.778
+   }
+  },
+  {
+   "window": 2,
+   "direct": {
+    "sep": 27.5,
+    "corr": 0.405
+   },
+   "reversed": {
+    "sep": 51.3,
+    "corr": 0.67
+   }
+  },
+  {
+   "window": 3,
+   "direct": {
+    "sep": -6.0,
+    "corr": -0.065
+   },
+   "reversed": {
+    "sep": 19.5,
+    "corr": 0.456
+   }
+  }
+ ],
+ "mean": {
+  "direct": {
+   "sep": 17.1,
+   "corr": 0.256
+  },
+  "reversed": {
+   "sep": 52.7,
+   "corr": 0.635
+  }
+ }
+}

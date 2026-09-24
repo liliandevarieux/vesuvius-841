@@ -761,3 +761,95 @@ but systematically inverted on this task, the same answer predicts the opposite:
 is a post-hoc hypothesis with one supporting observation, written down before the measurement only so that it
 cannot be adopted afterwards as if it had been registered. If `t_2um` lands between 59.8 and 84.4, both readings
 are wrong and the eye carries no signal on teachers at all — which is the most likely outcome.
+
+
+### PR-7 — RESULT, second arm, 2026-09-24 18:31: the rule is not useless, it is useless *where it matters*
+
+`ink_841_t_2um` — teacher `w00_canonical_2um_20250807020208`, ranked **fourth of four** by the IoU rule at 0.479 —
+scores **52.4** on segB and **52.7** on segA. Verified blind: an agent given only the file paths and an operational
+definition, with the repository's prose withheld, returned 52.4 and 52.7 to the decimal (and 24.0 / 17.1 for the
+direct-order control).
+
+| teacher | IoU (rule) | rank by rule | segB | segA |
+|---|---|---|---|---|
+| `w00_canonical_030726_reverse_070326` | 0.482 | 3rd | **84.4** | 87.6 |
+| `new_canon_20260417_recale` | 0.583 | 1st | 75.9 | **89.7** |
+| `ps48_…_forward_210326` | 0.569 | 2nd | 59.8 | 71.6 |
+| `w00_canonical_2um_20250807020208` | 0.479 | 4th | **52.4** | **52.7** |
+
+**The registered prediction was "both land below `ps48`'s 59.8 / 71.6".** It is **right for this arm** (52.4 and
+52.7, below on both segments) and **wrong by 25 points for the other**. Half a prediction.
+
+**Correction to what was written here at 13:20.** That section said "the rule does not order teachers" and "the
+teacher in service was not selected, it was drawn". Over the full four, the IoU rule gets **4 of 6 pairs** right —
+against 3 expected from a coin. It is not noise. What it does is **order correctly at the bottom and invert at the
+top**: it identifies the starving teacher (the 2 µm raster marks ink on only 36 % of the human mask, and produces
+the worst model by 7 points) and it inverts on the pair that decides which teacher we actually use. A rule that is
+right about the candidate nobody would pick and wrong about the one we would is still unusable for selection — but
+"unusable for selection" is a narrower and truer sentence than "orders nothing", and the earlier one is withdrawn.
+
+
+### PR-8 — RESULT, prospective half, 2026-09-24 18:31
+
+**The registered prospective prediction is correct.** The observer placed `canonical_2um` **last** among the four
+teacher rasters, judging the rasters alone with no names, no numbers and no labels shown. The registered
+consequence — *`t_2um` lands below 59.8 on segB* — is met: **52.4**. Chance for that half alone: **1 in 4**.
+
+**The two halves, scored separately and not averaged into a verdict that suits.**
+
+| | result | chance |
+|---|---|---|
+| retrospective — exact order of the 3 measured teachers | **failed**, 0 of 3 pairs (the exact reversal) | 1 in 6 |
+| prospective — interval of the unmeasured teacher | **correct** | 1 in 4 |
+| both, as registered | **not met** | 1 in 24 |
+| all 4 teachers, pairwise | **3 of 6** — exactly chance | 3 expected |
+
+**The post-hoc "inverted eye" hypothesis, recorded before the measurement precisely so it could not be adopted
+afterwards, is refuted.** It predicted `t_2um` above 84.4. It is 52.4.
+
+**What the eye and the rule share.** Both put `canonical_2um` last, and it is last by a wide margin. That was the
+easy pair. At the top of the ranking, where a selection would actually be made, neither separates anything.
+
+
+## Not preregistered — an unregistered test, 2026-09-24 17:40, and its result is the most important of the day
+
+*Recorded here with the fact that it was **not** registered in advance. It was improvised while the observer was
+looking at an image, and it is reported because it decides more than the four preregistrations above.*
+
+**The question.** Our whole metric is a contrast: mean over labelled ink minus mean far from ink. It can rise
+without any letter becoming more complete. So: **is the full-sheet prediction legible as text?**
+
+**What was done.** The zone containing the three labelled letters of segB, rendered at four thresholds
+(28.9 %, 47.2 %, 53.1 %, 61.4 % of known ink marked — measured, printed below), shuffled, **without the label
+outlines**, because an outline tells the reader where the letter is and destroys the question. Shown to a person
+with no connection to the project and no knowledge of what was in the image.
+
+**Result: she found no letters in any of the four panels**, including the one where 61.4 % of the known ink is
+marked. The project's own observer, who had seen the same zone an hour earlier *with the answer outlined on it*,
+identified one letter — in the panel that was exactly the setting he had already been shown. He stated his own bias
+before answering, which is what makes his answer usable as a demonstration of the bias rather than as evidence.
+
+**Supporting measurements.**
+
+| | value |
+|---|---|
+| known ink marked, threshold 240 | 28.9 % |
+| known ink marked, threshold 180 | 53.1 % |
+| far-from-ink marked, threshold 180 | 10.1 % |
+| ink marked in the 0–48 px ring around letters | 24.6 % |
+| best rigid offset between prediction and labels | 16 px (0.04 mm), +0.9 % IoU — **no misalignment** |
+| median letter size, measured on the labels | **1 808 px = 4.34 mm** |
+| the model's input window | **128 px = 0.31 mm** |
+
+**The model never sees more than a fourteenth of a letter.** That is a measured ratio, not an estimate: letter size
+comes from connected components of the label mask, the window from `patch_size` in the training config at
+`volume_scale: 0`.
+
+**Stated as a lead, not a cause.** Run 2 of this project produced readable letters on another scroll at a ratio of
+about 1/7 — twice better, not categorically different. So the field of view is a measured candidate explanation
+that a controlled test has not yet isolated.
+
+**What this costs the rest of this document.** Every separation figure above — the +16 to +25 of the teacher, the
++4 to +5 of the array, the +3 of the label recipe — is a contrast that does not demonstrate legibility. Nothing
+here is retracted: the measurements stand as measurements. But the sentence "we read PHerc. 841" cannot be written,
+and what we have is **a full-sheet ink map, validated where labels exist, that a naive reader cannot read**.
