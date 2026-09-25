@@ -2349,3 +2349,35 @@ the median elongation moves from **50.7 to 43.6** — a 14 % swing from one grey
 strokes sit close to the threshold. **The absolute elongation of the control is threshold-sensitive; the comparison
 is not**, since 841 is at 18.3 under either convention and the gap remains a factor of 2.4–2.8. Reported because a
 number that moves 14 % under a convention change should not be quoted as if it were stable.
+
+## PR-19 — registration, 2026-09-25, before the measurement: is the blobbiness in 841's data or in the model that mapped it?
+
+**Where this comes from.** PR-18 established that the published map of PHerc. 841 w00 renders its own known letters
+at elongation 18.3 against the control map's 43.6–50.7, with marks 1.7× thicker relative to the letter, and that no
+post-processing recovers it. The repair is therefore upstream. Upstream splits in two, and the two call for
+completely different work:
+
+- **the model** — 841's ink signal is there and stroke-shaped, and the network smears it; or
+- **the data** — 841's letters, on the segmented and flattened surface available, are not stroke-shaped at all,
+  and no model can render what is not in its input.
+
+**The measurement that separates them, and it costs nothing.** The *human labels* are people tracing letters by
+hand. They are the shape of the letters as a human sees them in the volume, independent of any model. Measure their
+elongation exactly as PR-18 measured the maps': per labelled letter, area-weighted median of `A / r²`, same minimum
+component area, same half-resolution grid, at the labels' own full resolution rather than level 3.
+
+**Prediction, registered.** **841's human labels have an elongation comparable to Paris 4's human labels** — both
+are tracings of Greek letters, so both should be stroke-like and well above 30 — **while only the maps differ.**
+If that holds, the loss happens in the model and the data still carries the letters.
+
+**The outcome that would refute it, and what it would mean.** If 841's *labels* are themselves near 18 while Paris
+4's are near 50, then at this resolution and on this flattened surface 841's letters genuinely are blob-shaped, the
+published map is faithful to its input, and the project's target is unreachable by any modelling work on the
+existing segmentation. That is the more consequential answer of the two, and it is the reason to measure before
+spending a week training.
+
+**Declared in advance.** The label sets were made by different people with different conventions and possibly
+different brush widths; a difference in elongation could be a difference in annotation style rather than in the
+letters. Stroke width is therefore reported alongside, and a large gap in stroke width with no gap in elongation
+would point at the brush and not at the scroll. This confound cannot be removed with the data at hand and is stated
+rather than hidden.
