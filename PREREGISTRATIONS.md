@@ -2024,3 +2024,31 @@ conclusion stands and is strengthened, since both scrolls were then given the sa
 He is no longer blind to *those two*. That contaminates panels R and V of the Paris 4 set upward: he may recognise
 them. It does not contaminate the 841 set, where he saw nothing to remember, and prediction 2 is the one that
 carries the experiment. The key is re-randomised so position cannot be used to match the old panels.
+
+### PR-17 — amendment, 2026-09-25, before any reader has looked: three defects in the design as registered
+
+**1. Candidates and controls are gone.** The registration reused PR-15's and PR-16's zones, which carry the
+candidate/control labelling. PR-16 killed that criterion two hours earlier — keeping the labels would suggest
+something is still being tested with them. The zones are now **drawn at random**, and the only reading of the
+result is the **number of windows read on each sheet**.
+
+**2. The same zones could not be kept.** Enlarging PR-15's and PR-16's centres to the new window size produced
+overlaps of up to **74 % and 78 %**: six panels showing largely the same ground are not six samples, and a reader
+who reads one "reads" its neighbours. This is the defect found this morning on a control that overlapped its own
+candidate at 72.5 %, reappearing systematically the moment the window grew. Zones are now redrawn with an overlap
+test, and the paired design is lost — stated rather than hidden.
+
+**3. The window is 7 536 × 8 328, not 10 048 × 11 104.** w00 is only 15 827 px tall, so the registered size would
+have covered two thirds of the sheet and made four disjoint windows impossible. The delivered size is ~4.2 letter
+heights by ~4.7 letter widths: three to four lines instead of one.
+
+**And a fourth defect, found by looking at the first render.** One panel came out three quarters blank with a
+diagonal edge artefact: a prediction map is 0 off the unrolled sheet, so a uniform draw over the array catches
+void and borders. A panel showing no papyrus can neither confirm nor refute anything and it dilutes the count.
+Windows are now required to fall **85 % on papyrus**. Fifth time in two days that opening the PNG found something
+re-reading the script would not.
+
+**What survives unchanged:** the claim under test, the two maps, the two thresholds, the question, the sealed
+keys, and prediction 2 — *at least one window of 841 w00 is read* — which is the one that carries the experiment
+and is a prediction against the conclusion published earlier today. Prediction 1 is restated for the new design:
+**Paris 4 w02 yields at least as many read windows as 841 w00.**
