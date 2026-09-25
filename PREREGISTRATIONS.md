@@ -1929,3 +1929,52 @@ sealed key, one question.
 **Stated plainly so it cannot be claimed later.** If this reads, it is **not** a new reading of Paris 4. That
 scroll is the most worked-on in the field, its text is published, and "outside our label mask" does not mean
 "never read by anyone". This panel is a control on our instrument and nothing else.
+
+### PR-16 — RESULT, 2026-09-25. The control splits the method in two: the reading works, the criterion does not
+
+**The reading.** *"Ce qui est sûr, je ne lis pas sur 4 panneaux, qui sont les Q S T U. Pour le panneau R je vois
+peut-être un E et un T, et pour le panneau [V] je lis peut-être C I N."*
+
+| panel | family | read |
+|---|---|---|
+| Q | **candidate** | nothing |
+| R | control | **"maybe an E and a T"** |
+| S | control | nothing |
+| T | control | nothing |
+| U | **candidate** | nothing |
+| V | **candidate** | **"maybe C, I, N"** |
+
+**One candidate read of three. One control read of three.** This is the third outcome registered in advance:
+*the shape criterion contributes nothing and the ranking is worthless.* It is dead, and with it the premise of
+PR-12, PR-14 and PR-15's zone selection. A criterion calibrated to find every known letter on three sheets does
+not concentrate unknown letters into the zones it picks.
+
+**But the other half passed, and that is what the control was for.** Shown a sheet where text is known to lie
+outside the label mask, the reader **named letters** — not "I see something", but E, T, C, I, N. Shown fourteen
+panels of PHerc. 841 across PR-14 and PR-15, the same reader named nothing at all. The rendering, the threshold,
+the framing and the question do detect letters. They found none on 841.
+
+**What the two scrolls give, once the worthless criterion is set aside and every panel counts as a sample:**
+
+| | panels read | panels shown |
+|---|---|---|
+| PHerc. Paris 4 w02 | **2** | 6 |
+| PHerc. 841 (PR-14 + PR-15) | **0** | 14 |
+
+Fisher, one-sided: **p = 0.079.** Above the 5 % bar. A tendency, not a proof, and it is reported as one.
+
+**What this does to PR-14 and PR-15.** Their conclusion survives, on a weaker and more honest basis than the one
+registered. Not *"the densest letter-shaped zones of 841 were searched and found empty"* — that reading depended
+on a criterion now known to select nothing. Instead: *fourteen zones of 841, effectively arbitrary, were read
+blind and yielded nothing, while six zones of a sheet carrying text yielded two.* The direction is the same, the
+evidence is thinner than claimed this morning, and the difference is stated rather than absorbed.
+
+**What this does not claim.** Not that Paris 4 w02's panels are a new reading: that scroll's text is published and
+this project's own run 2 read a line there on 2026-09-20. They are a control on our instrument. And "maybe" is the
+reader's own word, kept.
+
+**The lesson, and it is the fifth of the day.** Two nulls were interpreted for several hours as a fact about
+PHerc. 841. They were only worth what the instrument was worth, and the instrument had never been shown to produce
+a single positive. Running the positive control cost one panel and one question, and it changed what the nulls
+mean. **A negative result should not be interpreted before the instrument that produced it has returned a
+positive somewhere.**
