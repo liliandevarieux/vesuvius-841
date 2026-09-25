@@ -8,6 +8,13 @@ Before trusting an instrument, it must be shown to light up where something is k
 go quiet where nothing is (negative control). If the positive control cannot be constructed at all, the instrument is
 rejected — not used with a caveat.
 
+**And the control comes before the conclusion, not after it.** On 2026-09-25 two full sheets were searched for
+letters and the finding — *"almost no letter-shaped structure outside the labelled zone"* — was written down before
+anyone checked that the criterion fires where letters are **known** to be. It was missing one known letter in five,
+and at the threshold where it misses none the same search returns three times as many candidates. An absence found
+by an instrument whose sensitivity has not been measured is a property of the instrument. The check cost one loop
+over six thresholds.
+
 Two instruments were built and thrown away this way:
 
 - A per-layer grey-level profile meant to detect ink depth. Its negative control — the same measurement with the label
@@ -48,3 +55,30 @@ they also appear in the organisers' published prediction, and "unlabelled" is no
 
 A wrong public statement is corrected in the thread where people engaged with it, naming the wrong sentence as it was
 written. Deleting is acceptable only where nobody has replied; where someone has, the reply must not be left dangling.
+
+## 7. The zone that holds the answer is not a sample
+
+Anything measured only where the labels are is measured where the teacher is strongest and where the thresholds were
+tuned. It does not count until it is repeated, **paired**, on windows held out from every choice.
+
+This is not a hypothetical. On 2026-09-24 an evening of measurement in the control zone produced a precision ranking
+with a 12-point lead, a mechanism to explain it, and a costless read-out to exploit it. Repeated on six held-out
+windows, paired: the 12-point lead became **+1.1 points, t = 0.55**. Precision varies from 53 % to 96 % from window
+to window, which swamps every effect that had been claimed. All three findings were withdrawn the same night.
+
+## 8. A blind panel is inspected as an image before anyone is shown it
+
+Four blinding defects in two days, and the scripts were correct every time — they randomised, they matched the fill,
+they drew what they were asked to draw:
+
+- a randomisation that fell the same way on four rows out of four (one chance in eight; fixed with block randomisation);
+- a frame that cut the third letter, so a reader answered about the cropping;
+- a panel that included the **ground truth**, rendered identically to the maps under test and placed first, which
+  told the reader which three letters to look for and exactly where — the same defect as drawing a contour, except
+  it supplies the answer as well as the location;
+- a random control that overlapped its own candidate zone by 72.5 %, so the protocol compared a zone with itself.
+
+Not one was findable by re-reading the code. All four were found by opening the PNG. **Rendering a panel and reading
+its caption is part of the experiment, not a formality after it.** The caption is included: it has twice announced
+the wrong number of panels, and it once stated how many letters were in the frame — which answers half of the
+question the reader is being asked.
