@@ -2425,3 +2425,50 @@ satisfied today, and that it is satisfied on a scroll where the same reader does
    skill. Both sheets get the identical treatment, so the comparison between them is unaffected — but the ratio
    1.89 should not be read as "the model sharpens by 89 %".
 3. n = 7 on 841. Seven letters is a small sample and the median of seven is a fragile statistic.
+
+### PR-19 — survey, 2026-09-25, exploratory: every published map of 841 w00 renders below its own labels, including ours, and the one used for the blind search was already the best of them
+
+**Why this had to be checked.** The map searched blind in PR-15 and PR-17, `w00_canonical_2um_20250807020208.tif`,
+was chosen on 2026-09-25 morning for its **sensitivity** — it recovers 7 of the 7 known letters at 69.9 % fill —
+and never for how it renders them. PR-18 has just shown that sensitivity says nothing about shape. If another
+published map of the same sheet rendered strokes, the blind search was run on the wrong map and its null would
+apply only to that one.
+
+All maps of w00 on disk, measured on the **same seven known letters**, each at its own threshold calibrated to the
+same 70 % fill, half-resolution grid, minimum component 200 px full-resolution:
+
+| map | origin | threshold | elongation | stroke width |
+|---|---|---|---|---|
+| **human labels** | hand-traced | — | **22.02** | 149.6 px |
+| `w00_canonical_2um_20250807020208.tif` | published | 104 | **18.29** | 96.5 px |
+| `ps48_640_640_smooth_0.1_w00_ckpt_130000_forward_210326.tif` | published | 170 | 17.86 | 121.5 px |
+| `w00_full_human4_ckpt016000.tif` | **ours** (run 4, 2026-09-22) | 165 | 17.65 | 94.2 px |
+| `new_canon_20260417_recale.tif` | published | 201 | 17.62 | 133.2 px |
+| `w00_full_human3_ckpt016000.tif` | **ours** (run 4, 2026-09-22) | 167 | 15.85 | 91.7 px |
+| `w00_canonical_030726_reverse_070326.tif` | published | 103 | 15.80 | 124.1 px |
+| *for comparison* — Paris 4 w02 labels | hand-traced | — | 23.04 | 132.3 px |
+| *for comparison* — Paris 4 w02 map | published | 226 | **43.63** | 56.4 px |
+
+**Three things fall out, and none of them was visible from any number the project had before today.**
+
+**1. The map used for the blind search was already the best of the six.** Its 18.29 is the top of a range running
+from 15.80 to 18.29. So PR-15's and PR-17's null is **not** an artifact of map choice, and choosing differently
+would have made the rendering worse. The negative stands on that count.
+
+**2. Every single map of 841 falls below the sheet's own labels (22.02), while the control's map reaches nearly
+double its labels (43.63 against 23.04).** The gap is not that 841's models are somewhat weaker. They are on the
+wrong side of their own ground truth: they return something rounder than the coarse hand tracing they were given,
+where the control's model returns something finer than its tracing.
+
+**3. Our own fine-tuning improved IoU and did not improve the rendering.** `w00_full_human3` and `w00_full_human4`
+are this project's run-4 checkpoints, recorded at the time as gaining roughly +0.03 to +0.05 IoU over their
+teacher. They score **15.85 and 17.65**, below the published `canonical_2um` at 18.29. Two days of training,
+steered by IoU, moved the quantity being optimised and left legibility where it was — or slightly worse. This is
+the day's lesson demonstrated on our own runs rather than argued: **IoU and stroke rendering are not the same
+direction**, and until today the project had no way to see that.
+
+**One map could not be measured and it is the one lead this survey leaves.** `w00v24/preds/new_canon_natif.tif` is
+a different segmentation of the same sheet, on a grid of 16 460 × 18 560 against the labels' 15 872 × 18 944. It
+cannot be compared against these labels without warping them, so it is untested. If the difference between 841 and
+the control lies in the flattening rather than in the network, a different segmentation of the same sheet is where
+it would show — and that is the cheapest remaining thing to check.
