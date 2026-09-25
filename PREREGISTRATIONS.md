@@ -1818,3 +1818,34 @@ done blind against random controls. A null then means: **the published maps of P
 readable passage that this method can find.** The goal set on 2026-09-23 — publish the first reading of
 PHerc. 841 — would not be reachable from the existing maps, and the honest move is to say so publicly with the
 measurements attached, not to run a seventh variant.
+
+### Explored and closed, 2026-09-25 midday — agreement between the published maps is chance
+
+**A criterion better than the one PR-14 used, and it fails its own control.** Every search in this project asks
+one map whether an object has the size and shape of a letter. w00 carries **four independent published
+predictions**. Where several of them show a letter-shaped object at the same place, that is agreement between
+differently-trained models, and one model's noise does not land where another's does.
+
+Each map thresholded at its own maximal sensitivity (7 of 7 known letters, all four): 1 + 2 + 3 + 8 = 14
+letter-shaped objects outside the read zone, clustered at one letter width (1 808 px) → **3 places where two maps
+agree, 2 where three do**, two of them involving `ps48`, a visibly different recipe from the `canonical` family.
+
+**Chance, measured before announcing anything** (20 000 draws, same counts per map, same clustering):
+
+| null | p(≥ 3 two-map clusters) | p(≥ 2 three-map clusters) |
+|---|---|---|
+| **uniform** — points drawn anywhere on the sheet | 0.185 | **0.007** |
+| **structured** — positions drawn from the real object positions | 0.541 | **0.135** |
+
+**The naive null says p = 0.007. The right one says p = 0.135.** Letter-shaped objects are not spread uniformly:
+they concentrate where the papyrus carries signal, so they land near each other **by themselves**, on every map at
+once, with no letter involved. Three maps agreeing is unremarkable when all three are looking at the same damaged
+sheet.
+
+**Closed:** agreement between published maps does not beat chance on w00 as a search criterion.
+
+**The methodological point, and it is the second time in one day.** The uniform null is the one that comes to
+mind, it is three lines to write, and here it would have produced a publishable finding. The correct null
+preserves the spatial distribution of the real data. *When testing whether points coincide, the reference chance
+must have the same spatial distribution as the real points — otherwise you measure the structure of the substrate
+and call it a signal.* Writing both takes ten lines, and only the comparison shows the gap.
