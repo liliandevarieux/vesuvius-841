@@ -1510,3 +1510,50 @@ an amendment before data, not after. The flawed image is kept on disk as
 2026-09-24 that fell the same way four times out of four, the frame that cut the third letter, and now a panel
 that gave the answer away — was found by *looking at the image*, not by reading the script that produced it. The
 script was correct each time: it randomised, it matched the fill, it rendered what it was asked to render.
+
+## PR-13 — a model that was dismissed on the wrong criterion
+
+*Registered 2026-09-25, before any map from this checkpoint has been rendered or looked at. No training: the
+checkpoint has been on disk since 2026-09-21 10:14.*
+
+**What happened.** `ink_841_ctx192` is the one run of this project that enlarges the network's field of view
+**without losing resolution**: patch 64x192x192 instead of 64x128x128, batch 1 with 8 accumulation steps, same
+recipe otherwise. It finished on 2026-09-21 at 10:18 and was closed the same morning with the sentence *"more
+context does not break the ceiling"*, on this evidence: mean IoU 0.599 at its best checkpoint against 0.586 for
+the previous best, **+0.013, inside the +/-0.03 noise between neighbouring checkpoints.**
+
+That judgement used IoU. By 2026-09-25 this project has six quantities that fail to track what an eye sees —
+separation, fill at matched noise, object count, median object size, precision at matched recall, and per-letter
+IoU. **Its map was never rendered and never looked at.** A run was closed on the strength of a number that has
+since been shown, six times over, not to measure the thing the project is trying to produce.
+
+**Why it is worth re-opening now, and not any of the other closed runs.** PR-10 tested field of view by halving
+the resolution, and confounded two causes: it added context and destroyed detail in the same move, so its failure
+closes only *"field of view obtained that way, at that cost"*. `ctx192` changes field of view **alone**, at full
+resolution — 1/9.3 of a letter instead of 1/14. It is the clean arm of the experiment PR-10 ran dirty, and it has
+already been paid for.
+
+**Primary endpoint.** A reader with no connection to the project, shown the PR-11 frame rendered from `ctx192`
+and from the organisers' published prediction at matched fill, in randomised order, is asked *do you see letters,
+and where?*
+
+**Prediction, and it is a prediction of failure.** The reader does **not** read `ctx192` as well as the
+organisers' map. Base rates say so: PR-9 and PR-10 both failed, the organisers' map has now been picked out twice
+by the same eye without knowing which it was, and a 1.5x change in field of view is small next to the 14x that
+separates the window from a letter. Registering a failure in advance is not pessimism — it is what makes a
+success, if it comes, worth something.
+
+**Secondary, and this one is informative whichever way the primary falls.** Object count per letter at matched
+fill: `pr2v24` (full resolution, 128 px window) fragments each letter into about 160 pieces, `demi` (half
+resolution, same window, so 2x the field of view) into about 37. **Prediction: `ctx192` fragments less than
+`pr2v24`.** If it does, field of view is what reduced fragmentation in PR-10, not the loss of resolution, and
+the two causes PR-10 confounded are separated. If it does not, the reduction seen in `demi` was the resolution
+change — or an artefact of counting objects on a grid with half the pixels, which is checked below.
+
+**A confound declared before measuring it.** `demi`'s object count was measured on a half-resolution grid, where
+a speck smaller than one coarse pixel simply disappears. Part of the 160 -> 37 drop may be the counting grid and
+not the model. Both maps are therefore counted on the same full-resolution grid before this secondary is read.
+
+**What would make this whole test void.** `ctx192` was trained on `ink-dataset-teacher/841` segment w00 and is
+here applied to segB, a segment it never saw. So were the other arms, so the comparison is fair — but if its map
+is empty or saturated on segB, that is a transfer failure, not a legibility result, and it is reported as such.
