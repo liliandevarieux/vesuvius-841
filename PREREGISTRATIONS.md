@@ -2381,3 +2381,47 @@ different brush widths; a difference in elongation could be a difference in anno
 letters. Stroke width is therefore reported alongside, and a large gap in stroke width with no gap in elongation
 would point at the brush and not at the scroll. This confound cannot be removed with the data at hand and is stated
 rather than hidden.
+
+### PR-19 — result, 2026-09-25: the prediction holds. Both scrolls' letters are equally stroke-like in the ground truth; the whole gap is created by the mapping.
+
+Human labels measured exactly as PR-18 measured the maps, at the labels' own full resolution, same half-resolution
+grid, same minimum component area:
+
+| | **human labels** | **published map** | map ÷ labels |
+|---|---|---|---|
+| **841 w00** — elongation | **22.02** (n = 7) | 18.29 | **0.83** |
+| **Paris 4 w02** — elongation | **23.04** (n = 16) | 43.63 | **1.89** |
+| 841 w00 — stroke width | 149.6 px (8.3 % of a letter) | 96.5 px | 0.65 |
+| Paris 4 w02 — stroke width | 132.3 px (7.4 % of a letter) | 56.4 px | 0.43 |
+
+**The registered prediction is confirmed.** The two label sets are 4 % apart in elongation — 22.0 against 23.0 —
+while the two maps are a factor 2.4 apart. The people who traced 841's seven letters traced strokes, exactly as the
+people who traced Paris 4's sixteen did. **The letters are in the data on both scrolls.**
+
+**The refuting outcome did not occur**, and it was the consequential one: 841's labels are not near 18. So it is
+*not* the case that 841's letters are blob-shaped on this flattened surface. The published map is not faithful to
+its input; it loses shape its own input carries.
+
+**The sharpest form of the result is the last column.** On the control scroll the map is **1.89 times more
+elongated than the human tracing of the same letters** — the model renders thinner, more stroke-like marks than the
+generous hand-drawn outline, i.e. it finds the ink inside the annotation. On 841 the map is **0.83**, less elongated
+than the tracing: the model returns something rounder than the coarse human outline it was given.
+
+**What this does to the project's direction.** The target is not out of reach on the available segmentation. What is
+missing is a model that does on 841 what the control's model does on Paris 4. And for the first time there is a
+quantity to aim at that is neither separation nor IoU — the two that have steered every training decision here and
+that are now known not to track legibility:
+
+> **raise 841's map elongation from 18 past its own labels' 22, then toward 40.**
+
+It is not claimed that hitting this makes the sheet readable. It is claimed that it is measurable, that it is not
+satisfied today, and that it is satisfied on a scroll where the same reader does read.
+
+**Two caveats, one declared in advance and one found while measuring.**
+1. The declared one: different annotators, possibly different brushes. 841's label strokes are 13 % thicker
+   (149.6 px against 132.3 px). But elongation differs by 4 %, so the brush does not account for the result.
+2. The found one: the map is thresholded to 70 % fill of the labelled pixels, which necessarily yields a thinner
+   mask than the label itself. Part of "the map is more elongated than its labels" is that shrinkage, not model
+   skill. Both sheets get the identical treatment, so the comparison between them is unaffected — but the ratio
+   1.89 should not be read as "the model sharpens by 89 %".
+3. n = 7 on 841. Seven letters is a small sample and the median of seven is a fragile statistic.
