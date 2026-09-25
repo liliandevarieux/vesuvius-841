@@ -1602,3 +1602,34 @@ honest way to close the field-of-view question for good.
 
 **The primary endpoint is untouched and still pending**: a naive reader on `2026-09-25_PR13_AVEUGLE.png`, two
 panels, matched fill, randomised. The registered prediction there was also failure.
+
+### PR-13 — RESULT, primary, 2026-09-25. The prediction of failure holds, and the pattern is now three for three
+
+**The reading.** Panel T, "sans hesitation". **T is the organisers' published prediction.** `ctx192` was panel U.
+
+**The third time the same map has been picked out without knowing which it was:**
+
+| date | test | panels | picked | what it was |
+|---|---|---|---|---|
+| 24/09 | truth vs target | M, N | **N** | the organisers' prediction |
+| 25/09 | PR-11 | P, Q, R | **R** | the organisers' prediction |
+| 25/09 | PR-13 | T, U | **T** | the organisers' prediction |
+
+Three images, three randomisations, three different panel letters, one map. **What this is worth on its own:**
+under a null of random choice the two clean comparative picks give 1/3 x 1/2 = **p = 0.167**, which is not
+significant and is not claimed to be. What carries the weight is that the direction never varies and that it
+agrees with a measurement taken independently — objects per letter, 6 for the organisers against 163 and 316 for
+our two arms.
+
+**A limitation that is now the project's binding constraint, and it is stated plainly.** The readers were Lilian
+and his partner, and both already knew which three letters are in this frame. The registered question — *do you
+see letters, and where?* — cannot be answered honestly by either of them. What survives contamination is the
+**comparative ranking**: knowing which letters to look for does not tell you which rendering restores their shape
+at matched fill and identical rendering. That is what was asked and that is what is reported. The primary endpoint
+of PR-11 and PR-13, as registered, has **not** been answered by a naive reader and is recorded as unanswered
+rather than as passed or failed.
+
+**What the field-of-view question now looks like, closed from both ends.** Widening the window by halving
+resolution (PR-10) produced no letters. Widening it at full resolution (`ctx192`) produced twice the
+fragmentation. Both directions of the only lever this project had on field of view make things worse or do
+nothing. That lever is closed until there is a reason to reopen it that is not "the window is small".
