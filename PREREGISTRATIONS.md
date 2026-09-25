@@ -1633,3 +1633,51 @@ rather than as passed or failed.
 resolution (PR-10) produced no letters. Widening it at full resolution (`ctx192`) produced twice the
 fragmentation. Both directions of the only lever this project had on field of view make things worse or do
 nothing. That lever is closed until there is a reason to reopen it that is not "the window is small".
+
+## PR-14 — Does the map that actually reads show letters anywhere else?
+
+*Registered 2026-09-25, before any of these zones has been rendered or looked at by anyone. No GPU: the
+organisers' prediction has been on disk since the dataset was downloaded.*
+
+**Why this test and not another.** The project's goal, set on 2026-09-23, is to publish the first reading of
+PHerc. 841. Three blind comparative readings now point the same way: the map that reads is the organisers', not
+ours. Nothing in the goal requires the reading to come from our model. So the direct question is: **outside the
+zone that is already labelled, does the organisers' map show letter-shaped structure anywhere on these two
+sheets?** That is the only thing that would produce a *new* reading.
+
+**Why Lilian can be the reader here, when he cannot for PR-11 and PR-13.** Contamination is local. He knows the
+three letters in the control frame because he has seen them. **Nobody knows what is in these zones** — they have
+never been labelled, by anyone. A reader who knows Eta Kappa Alpha in one frame carries no knowledge into a frame
+he has never seen. This is what makes the test runnable at all, now that the pool of naive readers is two people
+who have both seen the answer.
+
+**The search, and the guard against its own circularity.** Zones are ranked by how many objects pass a shape
+criterion calibrated on the *known* letters, not chosen by eye: largest side 900-3000 px (the five real ones:
+1 368-2 128) and box occupancy 20-55 % (the five real ones: 36 % median; a disc is 79 %). Selecting the zones
+that look most like letters and then asking whether letters are visible there is circular. **The guard is in the
+protocol, not the criterion**: the same number of zones is drawn **at random**, same size, same rendering, and
+the two families are mixed. If the reader reads the selected ones and not the controls, the signal is real; if
+both or neither, the criterion is worth nothing.
+
+**What the search found, and it is thin.** On the whole of segB the organisers' map has 212 objects at matched
+fill, of which **8** pass the shape criterion, and they cluster in **one** zone outside the labelled area. On segA,
+201 objects, **10** pass, in **two** zones. Three candidate zones on two full sheets. That number is itself a
+result and it is registered as such before anyone looks: *the map that reads shows almost no letter-shaped
+structure outside the zone that was already labelled.*
+
+**A bug found and fixed during the search, recorded because it would have manufactured evidence.** The first run
+returned four candidate zones on segB that were the same place seen four times — the exclusion radius after
+picking a peak was half a window, so consecutive zones overlapped by 50 %. Showing those as four panels would
+have counted four successes for one observation. The radius is now the full window.
+
+**Primary endpoint.** Six panels — three candidates, three controls drawn at random, matched per segment so the
+segment itself is not a tell — same threshold per segment (set on that segment's known letters at 53.4 % fill),
+same rendering, randomised order. The reader is asked: *do you see letters, and where?*
+
+**Prediction.** The reader reads letters on the candidate zones and not on the controls. Under a null of random
+choice, picking exactly the three candidates out of six has probability **1/20 = 0.05**.
+
+**What would make it void, stated now.** If the reader reads all six, the rendering itself suggests letters and
+the criterion means nothing. If the reader reads none, the honest conclusion is that **there is no second reading
+to be had from this map on these two sheets** — which closes the goal as stated and forces a change of target,
+not another experiment.
