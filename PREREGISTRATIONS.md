@@ -2523,3 +2523,59 @@ rule, same rendering code — not the number of letters.
 w02 there is one, four times better than ours, on data already downloaded, and elongation on known letters is
 computed in seconds with no blind reader involved. **The development loop moves to the control scroll**, and the
 recipe that closes the gap there is what will then be applied to 841.
+
+## PR-20 — registration, 2026-09-25, before the run starts: does the thickness of the label set the thickness of the prediction?
+
+**The measured situation.** On PHerc. Paris 4 w00, the human labels this project trained on have a thickness of
+**132.4 px**. Run 2, trained on them, predicts at **97.8 px** on the unseen sheet w02. The published reference map
+predicts at **34.4 px** on the same two letters, with **four times** the elongation. (Unit note, corrected while
+building this experiment: the quantity reported throughout is `2 × mean(distance transform)`, which for a stroke of
+width *t* equals *t*/2, not *t*. All figures in this document use it consistently; only the physical interpretation
+of the absolute value changes.)
+
+**Hypothesis.** A region-overlap loss (Dice + BCE) computed against a label that is four times thicker than the ink
+is **maximised by painting the blob**. The network reproduces the thickness it is given, and that is why this
+project's output has never been stroke-shaped anywhere — including on the sheet where it reads.
+
+**The manipulation, and it is the only one.** The same volume, the same letters, the same architecture, the same
+patch size, the same 80 000 iterations, the same learning rate, the same seed, the same grad-accumulation. Only the
+label changes: each labelled component is **skeletonised and re-dilated to a thickness of 34**, matching the
+reference map, and clipped so it can never extend beyond the original annotation. Achieved: 125 → **36**, 35.5 % of
+the labelled pixels kept, 24 of 24 components surviving. Config `ink_w00_fin.json` differs from `ink_w00_128_acc4.json`
+in exactly two keys, `out_dir` and the dataset path.
+
+**Patch composition, checked before launching as this project's own rule requires.** Run 2: 8 098 patches, 63.2 %
+ink / 34.9 % sure background / 2.4 % ignored. This run: 5 113 patches, 33.2 % / 66.8 % / 0.0 %. Neither is
+degenerate — the failure mode that destroyed `teacher1` (0 % background in the patches) does not recur.
+
+**PRIMARY, registered.** On **w02**, a sheet this model never trains on, letters 12 and 13, threshold calibrated to
+70 % fill exactly as everywhere in PR-18 and PR-19: the new checkpoint's **elongation is higher than run 2's
+28.89**. Ceiling for reference: the published map scores 114.74 on those same two letters.
+
+**GUARD, co-primary and registered.** The ink/non-ink separation on the same crop **must not fall below run 2's**.
+A model can win elongation by drawing a thin line in the wrong place; without this guard the primary is gameable
+and would be passed by a model that has stopped finding ink at all. If the guard fails, the run is recorded as a
+failure whatever the elongation does.
+
+**Secondary.** Predicted stroke thickness falls from 97.8 toward 34.
+
+**What each outcome means, written before the result.**
+- *Elongation rises and the guard holds:* label thickness is the lever. The same thinning is then applied to 841's
+  labels and the recipe carried over — which is the point of the whole experiment.
+- *Elongation does not move:* label thickness is **not** the lever, the gap is architectural (the reference is a
+  2.5D ResNet-152 at tile 256; ours is a 3D U-Net at patch 128), and no further loss tinkering is warranted. That
+  would be an expensive negative but a clean one, and it redirects the work to reproducing the community
+  architecture instead.
+- *Elongation rises and the guard fails:* the model has thinned by losing the ink. Recorded as a failure.
+
+**Declared in advance.**
+1. The patch pool shrinks from 8 098 to 5 113. This is a consequence of thinning under a fixed
+   `patch_min_labeled_coverage` of 0.05, not an independent change; it is not corrected for, because correcting it
+   would introduce a second variable. The run sees the same number of patches, drawn from a smaller pool.
+2. Measuring *thickness* on a model trained to produce a given thickness would be circular. That is why the primary
+   is **elongation**, a shape quantity, measured on a **sheet that is not in the training set**.
+3. n = 2 letters, the only two known letters of w02 that fall entirely inside the evaluation crop. The median of
+   two values is their mean. What carries the comparison is that it is paired and that the baseline and the ceiling
+   were measured with the identical code.
+4. This tests a mechanism on the **control scroll**, not on 841. Nothing here claims anything about 841 until the
+   recipe is carried over and measured there.
