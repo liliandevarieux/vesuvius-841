@@ -1978,3 +1978,49 @@ PHerc. 841. They were only worth what the instrument was worth, and the instrume
 a single positive. Running the positive control cost one panel and one question, and it changed what the nulls
 mean. **A negative result should not be interpreted before the instrument that produced it has returned a
 positive somewhere.**
+
+## PR-17 — every panel this project has shown holds one line of text
+
+*Registered 2026-09-25, before any enlarged panel has been rendered. No GPU, no new map: the same predictions,
+the same thresholds, the same zones. One variable changes.*
+
+**The measurement that raises it.** A panel in PR-10 through PR-16 is 2 512 px tall. The median letter is
+**1 790 px** on PHerc. Paris 4 w02 and **1 808 px** on 841's segB. Every blind panel this project has ever shown a
+reader therefore contains **1.4 letter heights — at most one line of text**.
+
+**How it was found, which matters.** Not by inspection: by building an alignment score — the idea that letters sit
+on lines, so their centres band along a common direction — and watching it fail. It failed because with a band of
+half a letter height and a panel of 1.4 letter heights there are fewer than three bands: there is no line
+structure *inside* a panel to detect. The failed instrument diagnosed the panel.
+
+**Why this is the same mistake twice.** `METHOD.md` rule 4 already records it: a triage plate built with 900-pixel
+windows for a scroll whose letters are ~1 000 px across, where everything looked shapeless *by construction*, and
+where re-rendering at 4 000 px turned three candidates into letter sequences. The project fixed *window smaller
+than a letter* and never asked *window smaller than a few lines*. A human reading damaged script uses the line: a
+row of marks tells the eye where letters must be. A panel holding one line withholds exactly that.
+
+**Claim under test.** The nulls of PR-14 and PR-15 are partly a property of the panel size, not only of the map.
+
+**Design, paired, one variable.** The **same zones** already shown and already answered — PR-15's six on 841 w00
+and PR-16's six on Paris 4 w02 — re-rendered from the same maps at the same thresholds, centred on the same
+points, in windows of **10 048 × 11 104 px** instead of 2 512 × 5 552. That is ~5.6 letter heights by ~6.2 letter
+widths: about five lines instead of one. Nothing else changes. Randomised afresh, sealed key, same question.
+
+**Predictions, both registered:**
+
+1. **On Paris 4 w02**, where the reader named letters on 2 of 6 small panels, the enlarged panels are read **at
+   least as often** — 2 or more of 6. If enlargement *lost* readings, the rendering at this scale is wrong and the
+   test says so.
+2. **On 841 w00**, where the reader named nothing on 6 of 6, **at least one enlarged panel is read.** This is the
+   prediction that carries the experiment, and it is a prediction *against* the conclusion published earlier
+   today.
+
+**What each outcome does.** If 841 reads at the larger scale, PR-14 and PR-15's conclusion — *the published maps
+of 841 carry no second readable passage* — is **withdrawn**, and the finding becomes that the project spent two
+days asking a question through a window too small to answer it. If 841 still reads nothing while Paris 4 does, the
+conclusion stands and is strengthened, since both scrolls were then given the same fair chance.
+
+**Declared in advance.** Lilian has now seen all twelve of these zones at the small scale, and read two of them.
+He is no longer blind to *those two*. That contaminates panels R and V of the Paris 4 set upward: he may recognise
+them. It does not contaminate the 841 set, where he saw nothing to remember, and prediction 2 is the one that
+carries the experiment. The key is re-randomised so position cannot be used to match the old panels.
