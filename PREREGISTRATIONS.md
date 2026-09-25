@@ -1849,3 +1849,43 @@ mind, it is three lines to write, and here it would have produced a publishable 
 preserves the spatial distribution of the real data. *When testing whether points coincide, the reference chance
 must have the same spatial distribution as the real points — otherwise you measure the structure of the substrate
 and call it a signal.* Writing both takes ten lines, and only the comparison shows the gap.
+
+### PR-15 — RESULT, 2026-09-25. Null. The search is finished.
+
+**The reading.** *"Je ne vois aucune lettre."* Nothing on any of the six panels. Candidates were I, M, N;
+controls J, K, L. The registered prediction fails, and it fails as the separately-recorded expectation said it
+would — that expectation was written down precisely so this sentence could not be softened afterwards.
+
+**The search, complete.** Three sheets, six published maps, each thresholded where its sensitivity on the *known*
+letters was **measured** rather than assumed, each read blind against controls drawn at random:
+
+| sheet | published map | sensitivity | letter-shaped objects outside | outcome |
+|---|---|---|---|---|
+| segB | `pred.tif` | 5 / 5 | 11 | PR-14, null |
+| segA | `pred.tif` | 4 / 6 | 5 | PR-14, null |
+| w00 | `new_canon_20260417_recale` | 7 / 7 | 1 | no zone possible |
+| w00 | `ps48_640_640_smooth_0.1_…` | 7 / 7 | 2 | no zone possible |
+| w00 | `w00_canonical_030726_reverse` | 7 / 7 | 3 | no zone possible |
+| w00 | `w00_canonical_2um_…` | 7 / 7 | 8 | **PR-15, null** |
+
+Agreement between those four maps, tested separately as a stronger criterion than any single map's shape rule:
+**p = 0.135** against a null that preserves the real spatial distribution. Nothing.
+
+**The conclusion, in the words registered before the data.** *The published maps of PHerc. 841 do not carry a
+second readable passage that this method can find.* The goal set on 2026-09-23 — publish the first reading of
+PHerc. 841 — **is not reachable from the existing maps**, and the honest move is to say so publicly with the
+measurements attached rather than run a seventh variant.
+
+**What this does not claim.** Not that PHerc. 841 has no more text: it has a great deal, and the maps simply do
+not render it legibly. Not that no model could: only that the six published maps, and the two we trained, do not.
+Not that the shape criterion is the right filter: it is calibrated on five to seven letters, and a criterion that
+finds every known letter on three sheets can still be the wrong instrument for letters it has never seen.
+
+**And the comparison that puts the number in context.** At identical sheet coverage (10.6 % marked), PHerc. Paris 4
+segment w02 shows **158** letter-shaped objects outside its labels for 16 known letters; 841's w00 shows **8** for
+7. Nine times poorer. Paris 4 w02 is the segment on which this project's own run 2 read ΤΗΟΚΑΤ outside the labels
+on 2026-09-20, so it serves as the positive control for the entire search method: the detector finds a great deal
+where text is known to be, and almost nothing on 841.
+
+**Status of this repository, therefore.** It documents a failed attempt, in full, with everything that was
+predicted before it was measured. That is what it is for.
