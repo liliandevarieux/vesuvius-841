@@ -6,9 +6,18 @@ Ink detection only: no virtual unwrapping. Everything here runs on one RTX 4060 
 **Goal:** publish the first reading of PHerc. 841. The organisers have surfaced ink on this scroll and published
 labels and predictions for it, but no transcription of its text has been published. That is the target.
 
-**Status, honestly:** the model reads the labelled ink of all three published segments, and we are working outside the
-labelled area. Nothing is claimed here about unpublished letters — when there is something to claim it will be stated
-with its evidence, not implied by a repository.
+**Status, honestly, as of 2026-09-25:** no reading. The model surfaces ink on all three published segments in the
+sense of a measurable separation between labelled ink and inspected non-ink — but *surfacing ink* and *rendering a
+letter a person can read* are not the same thing, and this project spent two days learning the difference. Put to
+readers blind, our maps are not read; the organisers' published prediction is, and was picked out of mixed panels
+three times without the reader knowing which it was. Searched outside the labelled area, on three sheets and six
+published maps, at thresholds where each map's sensitivity on the *known* letters was measured rather than assumed,
+a blind reader with random controls found nothing. **Nothing is claimed here about unpublished letters.**
+
+What this repository is therefore about is not a result but a **record**: what was predicted before it was measured,
+what the measurement said, and which of our own conclusions did not survive. Six different quantities were tried as
+stand-ins for legibility — separation, fill at matched noise, object count, median object size, precision at matched
+recall, per-letter IoU — and not one of them tracks what an eye sees.
 
 ## What is in here
 
@@ -26,10 +35,11 @@ The scripts behind numbers posted publicly in
 | `scripts/planche_117.py`, `verdict_ligne.py`, `bande_ligne.py` | judge them |
 | `scripts/page_lecture.py`, `lignes_zoom.py`, `cmp_lecteurs.py`, `coudre_pred.py` | stitch a whole segment and render it as a readable page |
 | `scripts/run4_queue*.sh` | the drivers, kept as worked examples of how the pieces are chained |
+| **`PREREGISTRATIONS.md`** | **the main artifact.** Every experiment written down — claim, endpoint, prediction, and what would refute it — *before* it was run, with its result and its corrections appended underneath. Fifteen of them, including the ones that failed and the amendments made after a defect was found but before a reader had looked. |
 | `METHOD.md` | the rules this project works by, and the instruments rejected for failing their controls |
 | `opendata_to_villa.py` | build a villa `ink_detection` dataset from any published open-data segment |
 | `results/*.json` | the raw measurements, written by the measurement scripts themselves (`JSON=<path> python scripts/mesure_sens.py ...`) |
-| `verify_claims.py` | re-derives all 41 numbers in `MEASUREMENTS.md` from those JSON files and exits non-zero if any of them has drifted |
+| `verify_claims.py` | re-derives every number in `MEASUREMENTS.md` **and** every arm figure printed in `PREREGISTRATIONS.md` from those JSON files and exits non-zero if any of them has drifted |
 
 ## The setup these numbers come from
 
@@ -58,6 +68,37 @@ Both corrections are in the issue thread, and both came from a reviewer
 
 The measurements themselves stand; only their explanation changed. Keeping the wrong version visible with the
 correction next to it is deliberate.
+
+## What this project learned, and it is not about PHerc. 841
+
+These are the transferable parts. Each one cost a day or more and each is a rule, not an opinion.
+
+**No single number has predicted legibility.** Separation, fill at matched noise, object count, median object size,
+precision at matched recall, per-letter IoU — six tries. On six held-out windows, per-letter IoU puts the
+organisers' map at 50.3 % against our two arms at 49.0 and 48.7, every paired difference null; a reader separates
+the same three maps immediately and repeatedly. Anything that optimises one of those numbers is optimising
+something that has never been shown to be the thing.
+
+**The zone that holds the answer is not a sample.** Every number measured in the control zone on 2026-09-24 —
+a 12-point precision lead, a halo decomposition, a hysteresis gain — collapsed when repeated, paired, on six
+held-out windows. Precision runs from 53 % to 96 % window to window, which swamps every effect claimed. The zone
+is chosen *because* it holds the labelled letters, which is exactly what makes it unrepresentative.
+
+**A detector is calibrated on what is known before it is used to conclude about what is not.** We searched two full
+sheets for letters and published "there is almost nothing there" before checking that the criterion fires where
+letters are known to be. It was missing one known letter in five. An absence found by an instrument of unmeasured
+sensitivity is a property of the instrument.
+
+**Blinding defects are found by looking at the image, never by re-reading the script.** Four in two days: a
+randomisation that fell the same way four times out of four; a frame that cut the third letter; a panel that
+included the ground truth, rendered like the others and placed first, so it told the reader which letters to find
+and where; and a random control that overlapped its own candidate zone by 72.5 %. The scripts randomised, matched
+the fill and drew what they were asked to draw, correctly, every time. Opening the PNG found all four.
+
+**An obstacle that is assumed and never measured will stop an experiment for as long as you let it.** A larger
+patch size was deferred for four days on the belief that `autoconfigure` would rebuild the network and invalidate
+the shared warm-start checkpoint. The two checkpoints have 500 tensors, identical keys, no differing shape: a fully
+convolutional U-Net does not change shape with patch size. Checking cost two `state_dict` loads.
 
 ## The tool: `opendata_to_villa.py`
 
@@ -108,7 +149,7 @@ Two things it does on purpose:
 
 ```
 python verify_claims.py
-41 claims checked against results/*.json
+84 claims checked against results/*.json
 OK
 ```
 
