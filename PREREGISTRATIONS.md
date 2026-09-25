@@ -2189,3 +2189,54 @@ written up then as `METHOD.md`'s lesson *a detector is controlled before it is u
 reading protocol itself. The rule existed, was freshly written, and was not carried across. Worse, the control was
 available at zero cost the whole time: the panels already contained the letters. What was missing was not an
 experiment, it was the question.
+
+## PR-18 — registration, 2026-09-25, before any measurement: a seventh candidate for legibility, and this one comes from a failure rather than a guess
+
+**Why another one.** Six quantities have been tried as stand-ins for *can a person read this* — separation, fill at
+matched noise, object count, median object size, precision at matched recall, per-letter IoU — and a seventh,
+line alignment, failed this afternoon. Not one tracks what an eye sees. Every one of them was chosen because it was
+easy to compute. This one is chosen because the eye, looking at two figures side by side, said what the difference
+was: **strokes against lumps**, at equal fill of the known letters and comparable coverage.
+
+**The quantity.** For each connected component of the thresholded map, let `A` be its area in pixels and `r` the
+maximum of the Euclidean distance transform inside it — the radius of the largest disc the component contains.
+Define
+
+```
+elongation = A / r²
+```
+
+It is scale-free. A disc gives π ≈ 3.14 whatever its size. A stroke of width `t` and length `L` gives `4L/t`, i.e.
+four times its aspect ratio: 32 for a stroke eight times longer than it is wide. A letter is made of strokes; a
+blob is a disc. Per panel, the reported statistic is the **area-weighted median elongation** over components of at
+least 200 px, and, as a secondary, the **share of marked area sitting in components with elongation ≥ 12** (aspect
+ratio 3 or more).
+
+**The test that matters, and why it is not the obvious one.** The obvious comparison — 841 against Paris 4 — is
+worthless on its own: every 841 panel is unread and most Paris 4 panels are read, so any quantity that separates
+the two scrolls at all will appear to "track legibility". The test that can fail is **within the control scroll**,
+where the reader's verdicts differ across panels of the same sheet, the same map and the same threshold.
+
+**Primary, registered.** On the ten PHerc. Paris 4 w02 panels that have a reader verdict — Q, R, S, T, U, V from
+PR-16 and J, K, L, M from PR-17, of which **four were read** (R, V, J, M) and six were not — the area-weighted
+median elongation is **higher on the read panels than on the unread ones**. One-sided Mann–Whitney on 4 against 6,
+reported with its exact p value whatever it is.
+
+**Secondary, registered.** Across sheets: the four 841 w00 panels have **lower** elongation than the ten Paris 4
+panels. This is expected from the figures and is therefore not evidence of anything by itself; it is recorded so
+that a failure of it would be visible.
+
+**Third, and the one with teeth.** Restricted to the **known labelled letters only** — 7 on 841 w00, 16 on Paris 4
+w02, each measured inside its own bounding box at its own sheet's threshold — 841's letters have lower elongation
+than Paris 4's. This compares ink against ink, with no dependence on the reader, on panel choice or on where the
+windows fell. If it fails, the eye's account of the two figures is wrong and this quantity should be abandoned like
+the other six.
+
+**Declared in advance, because it is the obvious objection.** This quantity was chosen *after* seeing the two
+figures. It is therefore not independent of them, and the third test above is close to a restatement of what was
+seen. That is exactly why the primary is the within-scroll one, which the figures say nothing about. **If the
+primary fails, the quantity is recorded as a seventh failure and not rescued by the other two.**
+
+**What a success would be worth, stated before knowing.** Not a reading. A number that tracks legibility can be
+optimised, and every training decision on this project so far has been steered by separation or IoU — quantities
+now known not to track it. That is the whole value of it, and it is enough.
