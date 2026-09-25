@@ -1681,3 +1681,52 @@ choice, picking exactly the three candidates out of six has probability **1/20 =
 the criterion means nothing. If the reader reads none, the honest conclusion is that **there is no second reading
 to be had from this map on these two sheets** — which closes the goal as stated and forces a change of target,
 not another experiment.
+
+### PR-14 — amendment, 2026-09-25, before any reader has looked: the search was run with a blunt detector
+
+**The positive control that should have come first.** PR-14 rests on a count: how many letter-shaped objects the
+organisers' map carries outside the labelled zone. That count is worthless until the criterion is shown to fire
+where letters are *known* to be. Measured (`scripts/critere_controle.py`), by applying the same criterion **inside**
+the labelled zone across a sweep of thresholds:
+
+| fill on the known letters | segB: shapes found among 5 known letters | segA: among 6 | shapes found outside, segB | segA |
+|---|---|---|---|---|
+| 29.8 % | 2 | 2 | 1 | 1 |
+| 40.7 % | 3 | 2 | 6 | 2 |
+| **53.4 %** *(what the search used)* | **4** | **4** | 4 | 5 |
+| **70.0 %** | **5** | **5** | **13** | **13** |
+| 85.4 % | 5 | 4 | 37 | 19 |
+| 94.5 % | 3 | 3 | 12 | 30 |
+
+**At 53.4 % the detector misses one known letter in five.** The whole sheet was searched with it. And 53.4 % was
+never a detection threshold: it is the project's matched-fill constant, chosen to **compare two maps at equal
+recall**. Carrying it into a **detection** problem was importing a number from a different question because it was
+the number at hand.
+
+**What is amended, and on what rule.** The threshold becomes the one where sensitivity on the *known* letters is
+maximal, reached independently on both sheets at **70 %** (5 of 5 on segB, 5 of 6 on segA — segA never reaches
+6 of 6 at any threshold). The rule is stated so it cannot be shopped: **the threshold is set on measured
+sensitivity over known letters, never on how many candidates it produces outside.** That the count outside also
+rises is a consequence, not the reason, and if the rule had pointed at 40 % it would have been taken there.
+
+**What this withdraws.** This morning's registration said, before any reader looked: *"Three candidate zones on
+two full sheets. That number is itself a result — the map that reads shows almost no letter-shaped structure
+outside the zone that was already labelled."* **That is withdrawn.** It was a statement about a threshold that
+misses a fifth of the letters it was calibrated on, not about the scroll. At full sensitivity the same search
+returns **4 candidate zones on segB and 3 on segA**, and the honest version of the sentence is that nobody has yet
+established how much is out there.
+
+**The panel that results.** Eight panels: the two richest candidate zones per segment and four controls drawn at
+random, none overlapping any other by more than 2 % — verified on the zones that actually reach the screen, not
+only at the drawing stage. The cap of two candidates per segment is a **reader constraint** — seven candidates and
+seven controls make fourteen panels that nobody examines carefully to the end — and it is fixed before looking at
+which zones they are. Under a null of random choice, reading exactly the four candidates among eight has
+probability **1/70 = 0.014**.
+
+**Still unsearched, and stated so it is not forgotten.** A third sheet exists: the organisers' prediction for w00,
+stored binarised as the teacher pseudo-labels (`ink-dataset-teacher/841/w00`). It has never been put through this
+search. Any conclusion of the form *"there is nothing more to read on 841"* is premature while it sits there.
+
+**The caption bug, for the third time.** The panel's heading said *"six endroits"* while showing eight, because
+the count was written by hand. It is now computed. The same defect appeared on 2026-09-25 morning on PR-11
+(*"quatre panneaux"* for three) and was fixed there and not here.
