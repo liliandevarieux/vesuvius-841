@@ -1557,3 +1557,48 @@ not the model. Both maps are therefore counted on the same full-resolution grid 
 **What would make this whole test void.** `ctx192` was trained on `ink-dataset-teacher/841` segment w00 and is
 here applied to segB, a segment it never saw. So were the other arms, so the comparison is fair — but if its map
 is empty or saturated on segB, that is a transfer failure, not a legibility result, and it is reported as such.
+
+### PR-13 — RESULT, secondary, 2026-09-25 09:20. The prediction is refuted, and in the informative direction
+
+**Transfer works.** `ctx192` had never seen segB. Its map on the PR-11 frame has mean 108, standard deviation 60,
+no saturated pixel at either end. This is not a transfer failure, so what follows reads as a legibility result.
+
+**Objects per letter at matched fill, all counted on the same full-resolution grid:**
+
+| map | window | resolution | objects per letter |
+|---|---|---|---|
+| the organisers' prediction | — | — | **6** |
+| `demi` (PR-10) | 128 px | half | 37 |
+| `pr2v24` | 128 px | full | 163 |
+| **`ctx192`** | **192 px** | **full** | **316** |
+
+**The registered secondary said `ctx192` would fragment less than `pr2v24`. It fragments about twice as much.**
+A wider window at full resolution did not reduce fragmentation; it increased it. So the reduction seen in `demi`
+was not the field of view — which is the one thing this arm was re-opened to establish, and it establishes the
+opposite of what was predicted.
+
+**And the confound I declared, checked properly the second time.** The first check was vacuous and printed a
+reassuring number: I upsampled `demi` to full resolution by pixel replication and re-counted. A 2x2 replication
+cannot split or merge a connected component, so the count is identical *by construction* — the verification
+verified nothing. Done the right way round, by taking the full-resolution maps **down** to the half grid and
+re-thresholding at matched fill there:
+
+| map | full grid | half grid | what the grid alone removes |
+|---|---|---|---|
+| the organisers' prediction | 6 /letter | 6 /letter | **0 %** |
+| `pr2v24` | 163 /letter | 65 /letter | 60 % |
+| `ctx192` | 316 /letter | 140 /letter | 56 % |
+
+**So `demi`'s 37 against `pr2v24`'s 163 is really 37 against 65 once both are counted on the same grid.** About
+half of that arm's apparent advantage in fragmentation was the counting grid. The declared confound was real and
+it was worth declaring. Note also what the first row says: the organisers' map loses **nothing** to the coarser
+grid, because it has no pixel-scale specks to lose. That is the difference, stated in one number.
+
+**A limitation that is not an excuse, because it was knowable in advance.** `ctx192`'s best checkpoint by IoU was
+step 6 000; only step 16 000 survives on disk, and the run's own profile was *"best early, then oscillates"*. This
+result therefore tests the checkpoint that exists, not the run's best. It does not rescue the prediction — a
+factor of two in the wrong direction is not a checkpoint effect — but a re-run keeping step 6 000 would be the
+honest way to close the field-of-view question for good.
+
+**The primary endpoint is untouched and still pending**: a naive reader on `2026-09-25_PR13_AVEUGLE.png`, two
+panels, matched fill, randomised. The registered prediction there was also failure.
