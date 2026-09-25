@@ -2125,3 +2125,67 @@ sheet was which**; that is the blinding this comparison depends on and it held. 
 their scroll: different segment, different model lineage, different threshold. This experiment shows that *the
 published maps of 841 w00 do not yield letters to a reader who reads the control maps at the same protocol*. It
 does not isolate why.
+
+### PR-17 — addendum, 2026-09-25, two hours after the result above: the positive control on 841 was run by accident, and it failed. **The interpretation published above is withdrawn.**
+
+**What was found.** The label-exclusion test in `scripts/panneau_pr17.py` constrains only the window's **centre**:
+
+```python
+hors = ~ndimage.binary_dilation(L > 0, iterations=40)
+i, j = (y + HT // 2) // 8, (x + LG // 2) // 8
+if not (i < hors.shape[0] and j < hors.shape[1] and hors[i, j]):
+    continue                       # centre hors du voisinage des labels
+```
+
+A window is 942 × 1041 px at level 3 and the dilation is 40 px. Requiring the centre to be 40 px clear of a label
+excludes almost nothing: the rest of the window is free to contain labelled ink. It did.
+
+| sheet | panel | known letter-sized letters inside | their fill at the panel's threshold | panel marked | reader |
+|---|---|---|---|---|---|
+| 841 w00 | A | **3** (nos. 1, 2, 5) | 72.4 %, 65.8 %, 65.6 % | 17.2 % | nothing |
+| 841 w00 | B | 0 | — | 8.4 % | nothing |
+| 841 w00 | C | **4** (nos. 8, 10, 11, 14) | 75.6 %, 59.0 %, 72.8 %, 74.3 % | 14.0 % | nothing |
+| 841 w00 | D | 0 | — | 4.4 % | nothing |
+| Paris 4 w02 | J | 0 | — | 3.5 % | **N** |
+| Paris 4 w02 | K | 0 | — | 8.4 % | shapes, no letter named |
+| Paris 4 w02 | L | 0 | — | 6.6 % | nothing |
+| Paris 4 w02 | M | **2** (nos. 4, 7) | 68.6 %, 78.3 % | 12.3 % | **T, A** |
+
+w00 has exactly seven label components of letter size (900–3 000 px). **Panels A and C between them contained all
+seven**, each filled to 59–76 % by the map at the threshold under test. The reader, blind, said *"on ne voit aucune
+lettre"* — no letter at all — about the sheet. The same thing had already happened in PR-15, whose panel I
+contained letter no. 1 at 72.4 % fill and was likewise read as nothing.
+
+On the control scroll the opposite: the one panel containing known letters is the one where the reader **named two
+of them**, and a second panel with **no** labelled ink yielded a named letter outside the labelled zone.
+
+**Inspection of the images confirms it** (`images/841_segments/2026-09-25_CONTROLE_841_lettres_connues.png` and
+`..._p4_...`, the same panels with the known letters boxed in red). Inside the boxes on 841 the letters are clumps
+of blobs indistinguishable from everything around them. Inside the boxes on Paris 4 they are letters, in rows.
+
+**It is not a coverage difference.** 841's panel C marks 14.0 % of its area, Paris 4's panel M marks 12.3 % — and
+841's sparsest panel, D at 4.4 %, is sparser than Paris 4's panel K at 8.4 %, which shows three rows of letter
+shapes. The hypothesis "841's map is simply over-marked" is **refuted by its own numbers**. What differs is the
+*shape* of what is marked: strokes on one scroll, lumps on the other, at equal fill of the known letters.
+
+**What is withdrawn.** The conclusion recorded above, and in PR-14 and PR-15 before it — *the published maps of 841
+carry no second readable passage* — is withdrawn **as an interpretation**. The observation stands: nothing was read.
+But the instrument has **no measured sensitivity on 841**. On the only ground where its sensitivity can be checked,
+the labelled letters, it renders them illegibly. A null from an instrument with unmeasured — here, demonstrably
+zero — sensitivity carries no information about what is or is not present elsewhere on the sheet.
+
+PR-16's comparison survives and is in fact sharpened, but it must be restated. It does **not** show that 841 has
+less unlabelled text than Paris 4. It shows that **the published map of 841 w00 does not render letters legibly,
+including letters that are labelled**, while the published map of Paris 4 w02 does. That is a statement about the
+maps, not about the scrolls' contents.
+
+**What replaces the closed question.** The bottleneck on PHerc. 841 is not where to look, it is that no available
+map of it renders a stroke. That is a modelling and data question rather than a reading-protocol question, and
+unlike "is there more text out there" it can be attacked directly.
+
+**The process failure, stated plainly.** This check — *can the reader read the letters we already know are there?* —
+is the same check whose absence invalidated the shape criterion nine hours earlier, on the same day, and which was
+written up then as `METHOD.md`'s lesson *a detector is controlled before it is used*. It was then not applied to the
+reading protocol itself. The rule existed, was freshly written, and was not carried across. Worse, the control was
+available at zero cost the whole time: the panels already contained the letters. What was missing was not an
+experiment, it was the question.

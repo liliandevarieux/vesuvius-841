@@ -12,12 +12,36 @@ letter a person can read* are not the same thing, and this project spent two day
 readers blind, our maps are not read; the organisers' published prediction is, and was picked out of mixed panels
 three times without the reader knowing which it was. Searched outside the labelled area, on three sheets and six
 published maps, at thresholds where each map's sensitivity on the *known* letters was measured rather than assumed,
-a blind reader with random controls found nothing. That search now has the **positive control** it lacked: run
-unchanged on PHerc. Paris 4 w02, a scroll whose published maps are known to carry readable text, the same reader named
-letters in **4 windows of 10** — while PHerc. 841 has been shown **18 windows without a single letter named**. The one
-explanation that could still have rescued 841, that the blind panels were too small to hold a line of text, was
-registered as a prediction and refuted: enlarging them from 1.4 to 4.6 letter heights changed nothing on 841 and went
-on working on the control. **Nothing is claimed here about unpublished letters.**
+a blind reader with random controls found nothing — **and that null turned out to carry no information**. The blind
+panels of 841, by an oversight in how they were drawn, contained all seven of the sheet's known, labelled letters,
+each filled to 59–76 % by the map under test. The reader named none of them. On the control scroll PHerc. Paris 4 w02,
+run identically, the one panel holding known letters is the one where he named two, and another panel yielded a letter
+outside the labelled zone. It is not a difference of how much is marked: 841's densest panel marks 14.0 % against the
+control's 12.3 %, and 841's sparsest panel is sparser than a control panel showing three legible rows. What differs is
+the *shape* of what is marked — lumps on one scroll, strokes on the other. So the finding is not that 841 holds no
+more text; it is that **no available map of 841 renders a letter legibly, including the letters that are labelled**,
+which leaves every negative search on it uninformative. **Nothing is claimed here about unpublished letters** — and
+nothing is claimed about their absence either.
+
+### The one picture
+
+The same protocol, the same reader, the same day, the same rendering. **The red boxes are letters that are
+labelled — we know they are there.** The reader did not see the boxes and was asked only *do you see letters, and
+where?*
+
+![Positive control on PHerc. 841 w00](images/control_841_w00.png)
+
+On PHerc. 841 w00 the seven known letters of the sheet fall inside panels A and C, filled to 59–76 % by the map.
+The reader named none of them. Panels A and C mark 17.2 % and 14.0 % of their area.
+
+![Positive control on PHerc. Paris 4 w02](images/control_paris4_w02.png)
+
+On PHerc. Paris 4 w02, run identically, the reader named **T and A** on panel M — which holds the two known letters
+of that region — and an **N** on panel J, which holds no labelled ink at all. Panel M marks 12.3 %, *less* than
+841's panel C. Panel J marks 3.5 %.
+
+Equal fill of the known letters, comparable coverage, opposite outcome. The difference is not how much is marked,
+it is what shape it has.
 
 What this repository is therefore about is not a result but a **record**: what was predicted before it was measured,
 what the measurement said, and which of our own conclusions did not survive. Six different quantities were tried as
