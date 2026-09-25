@@ -1889,3 +1889,43 @@ where text is known to be, and almost nothing on 841.
 
 **Status of this repository, therefore.** It documents a failed attempt, in full, with everything that was
 predicted before it was measured. That is what it is for.
+
+## PR-16 — the positive control this whole search method never had
+
+*Registered 2026-09-25, before any zone of PHerc. Paris 4 w02 has been rendered or seen. No GPU.*
+
+**Why this must be run, and why it should have been run first.** PR-14 and PR-15 both returned null, and the
+conclusion drawn from them is that PHerc. 841's published maps carry no second readable passage. **That conclusion
+is only worth what the search method is worth, and the method has never been shown to work.** A blind panel of
+candidate zones against random controls has produced two nulls and zero positives. If it produces a null where
+text is *known* to be, then it measures nothing and both 841 results collapse — which is the exact mistake made
+earlier the same day with an uncalibrated shape detector, repeated one level up. `METHOD.md` rule 1 says an
+instrument must be shown to light up where something is known to be. It was never applied to this instrument.
+
+**The segment and why it is the right one.** PHerc. Paris 4, segment w02. At the same sheet coverage that 841's
+w00 reaches (10.6 % marked), its published prediction shows **158** letter-shaped objects outside its labels
+against 841's **8**, with sensitivity **16 of 16** on its known letters. And it is the segment on which this
+project's own run 2 read ΤΗΟΚΑΤ outside the label mask on 2026-09-20, confirmed against the organisers'
+prediction — so text outside the labels is not hypothetical there, it has already been read once.
+
+**Protocol, identical to PR-14 and PR-15 in every respect** so that a difference in outcome cannot be attributed
+to a difference in method: candidate zones ranked by density of shape-criterion objects, an equal number of
+controls drawn at random, same size, same map, same threshold — fixed once on the *known* letters at the fill
+where sensitivity is maximal — same rendering, none overlapping any other by more than 2 %, randomised order,
+sealed key, one question.
+
+**Prediction.** The reader reads letters on the candidate zones and not on the controls.
+
+**What each outcome means, written before the reading:**
+
+- **Reader reads the candidates** → the method works. The two nulls on 841 are then statements about 841, and the
+  conclusion registered in PR-15 stands.
+- **Reader reads nothing** → the method does not detect letters even where they are known to exist. **PR-14 and
+  PR-15 are then void**, the conclusion that 841's maps carry no second passage is withdrawn, and what needs
+  replacing is the search, not the scroll.
+- **Reader reads both candidates and controls** → the rendering suggests letters on its own; the shape criterion
+  contributes nothing and the ranking is worthless.
+
+**Stated plainly so it cannot be claimed later.** If this reads, it is **not** a new reading of Paris 4. That
+scroll is the most worked-on in the field, its text is published, and "outside our label mask" does not mean
+"never read by anyone". This panel is a control on our instrument and nothing else.
