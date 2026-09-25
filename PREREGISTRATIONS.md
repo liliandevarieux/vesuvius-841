@@ -2240,3 +2240,112 @@ primary fails, the quantity is recorded as a seventh failure and not rescued by 
 **What a success would be worth, stated before knowing.** Not a reading. A number that tracks legibility can be
 optimised, and every training decision on this project so far has been steered by separation or IoU — quantities
 now known not to track it. That is the whole value of it, and it is enough.
+
+### PR-18 — result, 2026-09-25: the primary fails. Elongation is the seventh quantity that does not predict legibility — and the third test gives the first number for what does differ.
+
+| test | registered prediction | result |
+|---|---|---|
+| **primary** — within Paris 4 w02, 4 read panels vs 6 unread | read > unread | **U = 17.0, p = 0.176 — fails** |
+| secondary — 841 w00's 4 panels vs Paris 4's 10 | 841 lower | U = 2.0, p = 0.0040 |
+| third — known labelled letters, ink against ink | 841 lower | U = 12.0, **p = 0.0010** |
+
+**The primary fails and the registration said what to do about it:** *"If the primary fails, the quantity is
+recorded as a seventh failure and not rescued by the other two."* It is so recorded. **Elongation does not predict
+which panel a reader reads.** The clearest counter-example is panel K of Paris 4 — unread, and the second highest
+elongation of all ten at 28.3, above three of the four read panels.
+
+Per-panel values, area-weighted median elongation:
+
+| sheet | panel | read? | elongation | share of marked area with elongation ≥ 12 | components |
+|---|---|---|---|---|---|
+| Paris 4 w02 | M | **read** | 32.97 | 82.5 % | 171 |
+| Paris 4 w02 | K | no | 28.27 | 82.2 % | 140 |
+| Paris 4 w02 | V | **read** | 25.86 | 95.6 % | 23 |
+| Paris 4 w02 | R | **read** | 24.78 | 83.8 % | 25 |
+| Paris 4 w02 | T | no | 24.73 | 62.9 % | 32 |
+| Paris 4 w02 | U | no | 23.75 | 81.2 % | 47 |
+| Paris 4 w02 | L | no | 19.52 | 70.4 % | 127 |
+| Paris 4 w02 | Q | no | 17.94 | 79.3 % | 35 |
+| Paris 4 w02 | J | **read** | 17.83 | 51.0 % | 103 |
+| Paris 4 w02 | S | no | 13.17 | 69.7 % | 11 |
+| 841 w00 | A | no | 14.23 | 60.1 % | 269 |
+| 841 w00 | C | no | 13.28 | 53.8 % | 255 |
+| 841 w00 | B | no | 7.93 | 19.3 % | 286 |
+| 841 w00 | D | no | 7.03 | 12.8 % | 158 |
+
+**What the third test gives, and it is the first number the day's finding has had.** Measured on the labelled
+letters alone — 7 on 841 w00, 16 on Paris 4 w02, each inside its own bounding box, each at its own sheet's
+threshold, each threshold already matched to ~70 % fill of those same letters:
+
+- **841 w00: median elongation 18.3** (range 9.8–28.6) — components roughly **4.6 times longer than wide**
+- **Paris 4 w02: median elongation 50.7** (range 16.0–96.1) — roughly **12.7 times longer than wide**
+
+A perfect disc scores 3.14. The published map of 841 renders its known ink as near-round chunks; the published map
+of Paris 4 renders the same kind of thing as strokes. Factor 2.8, U = 12.0, p = 0.0010, with no dependence on the
+reader, on which windows were drawn, or on which panels were shown.
+
+**The two outcomes are consistent and they say different things.** Elongation measures *how well ink is rendered*,
+not *whether a window is legible*. A window is legible when it contains text **and** that text is rendered as
+strokes; elongation sees only the second term. Panel J of Paris 4 has the lowest elongation of the four read panels
+(17.83) and was read — it contains one clear letter in a sparse field. Panel K has the second highest and was not
+read, though the figure shows three rows of letter-like forms in it: the reader named no letter, which by this
+protocol is not a reading.
+
+**What this is worth, measured against what was claimed for it in advance.** The registration said a working
+quantity would be worth having because every training decision on this project has been steered by separation or
+IoU, which do not track legibility. Elongation does not track legibility either, so it cannot serve that purpose.
+What it can do is narrower and still useful: it turns *"841's map gives lumps where Paris 4's gives strokes"* from
+an impression into a reader-independent measurement with a p value, and it gives a target that can be optimised —
+render ink at elongation 50 rather than 18 — without claiming that hitting the target would make the sheet
+readable.
+
+**Method note.** Computed at half resolution (`::2`); strokes here are over 100 px wide at full resolution, so
+nothing is broken by it, and elongation is scale-free in any case. Minimum component area 200 px full-resolution.
+`scripts/allongement.py`; raw values in `allongement.json`.
+
+### PR-18 — exploratory follow-up, 2026-09-25, declared exploratory before it was run: the degradation of 841's map is not recoverable by post-processing
+
+Two questions, neither registered as a test, both stated here as exploration rather than as evidence.
+
+**1. Stroke width, the concrete version of the elongation number.** Twice the mean Euclidean distance transform over
+marked pixels, inside the known letters, at the same matched 70 % fill:
+
+| sheet | stroke width | as a share of a letter | letter height |
+|---|---|---|---|
+| PHerc. Paris 4 w02 | **56.4 px** | 3.2 % | 1 790 px |
+| PHerc. 841 w00 | **96.5 px** | 5.3 % | 1 808 px |
+
+841's marks are **1.7 times thicker relative to the letter** than the control's. Combined with PR-18's elongation
+figures, the marks on 841 are both thicker and shorter: they are blobs, and now with a size.
+
+**2. Is it blur?** Blurring the control map and re-calibrating the threshold to 70 % fill at every step:
+
+| Gaussian σ (full-res px) | 0 | 2 | 4 | 8 | 16 | 32 | 48 | 64 |
+|---|---|---|---|---|---|---|---|---|
+| elongation of known letters | 43.6 | 33.2 | 25.5 | 23.9 | 23.6 | 23.5 | 19.6 | 18.7 |
+
+Elongation falls steeply to about 25 and then **sits on a plateau across σ = 8–32**, reaching 841's 18.3 only at
+**σ ≈ 64 px** — a blur whose standard deviation is larger than the control's entire stroke width, and comparable to
+841's. So the gap is not a mild loss of resolution; the control map has to be destroyed at the scale of a whole
+stroke before it looks like 841's. Caveat: blurring then re-thresholding is indistinguishable here from simple
+over-thick marking, and this test does not separate the two.
+
+**3. Can it be undone? No.** Unsharp masking of 841's map — `out = in + force × (in − gaussian(in, σ))` — swept over
+σ ∈ {2, 4, 8, 16} and force ∈ {0.5, 1, 2, 4}, sixteen settings, threshold re-calibrated to 70 % fill at every one:
+
+- elongation stays between **17.0 and 20.9**, against a baseline of 18.29 and a target of 43.6. Best gain **+14 %**
+  where **+140 %** is needed.
+- stroke width does respond, falling from 96.5 px to 72.9 px at the strongest setting.
+
+**The marks thin without lengthening.** Sharpening a blob gives a smaller blob, not a stroke. There are no strokes
+in this map to be recovered, so no post-processing of the published prediction will make 841 legible. Whatever is
+to be fixed is upstream of the map — in the model, or in the segmentation and flattening that feed it — and not in
+the rendering.
+
+**A caveat on the absolute numbers, found while running this.** PR-18's third test used each sheet's fixed
+published threshold; this follow-up re-derives the threshold as the quantile giving exactly 70 % fill. For 841 the
+two agree exactly (18.29 both ways, threshold 104 both ways). For Paris 4 the threshold moves from 227 to 226.0 and
+the median elongation moves from **50.7 to 43.6** — a 14 % swing from one grey level, because that map's thin
+strokes sit close to the threshold. **The absolute elongation of the control is threshold-sensitive; the comparison
+is not**, since 841 is at 18.3 under either convention and the gap remains a factor of 2.4–2.8. Reported because a
+number that moves 14 % under a convention change should not be quoted as if it were stable.
