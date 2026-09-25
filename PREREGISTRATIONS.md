@@ -1730,3 +1730,56 @@ search. Any conclusion of the form *"there is nothing more to read on 841"* is p
 **The caption bug, for the third time.** The panel's heading said *"six endroits"* while showing eight, because
 the count was written by hand. It is now computed. The same defect appeared on 2026-09-25 morning on PR-11
 (*"quatre panneaux"* for three) and was fixed there and not here.
+
+### PR-14 — RESULT, 2026-09-25. Null, and a measurement error of mine found while reporting it
+
+**The reading.** *"Je ne vois aucune lettre."* Nothing on any of the eight panels. Four of them were the candidate
+zones (A, E, G, H), four were controls. The registered prediction — the reader reads the candidates and not the
+controls — **fails**, and it fails in the one direction that was written down in advance as conclusive:
+
+> *"If the reader reads none, the honest conclusion is that there is no second reading to be had from this map on
+> these two sheets — which closes the goal as stated and forces a change of target, not another experiment."*
+
+**That conclusion stands for segA and segB, and it is correctly narrow.** It does not say there is no text there;
+it says this map does not render anything a reader can read, in the places where its letter-shaped structure is
+densest, at a threshold set for full sensitivity.
+
+**But the sentence "not another experiment" was written when I believed three sheets carried one published map
+each. Both halves of that were wrong**, and I found out while writing up the null.
+
+**Error 1 — the sensitivity metric.** I "measured sensitivity" by counting the objects that pass the shape
+criterion **inside** the labelled zone. That is not a sensitivity: one letter can produce several passing objects,
+and the dilated zone spills around them. It only became visible when the count printed **10 of 7 letters found** on
+w00 — impossible. On segA and segB it had never exceeded the letter count, so it passed unnoticed, and **it is
+what chose PR-14's 70 % threshold**. Correct definition, now implemented in `scripts/sensibilite.py`: a letter is
+found if at least one passing object overlaps it; only label components of letter size (900-3000 px) count in the
+denominator, since a 272 px fragment cannot be found by a criterion that demands 900.
+
+Re-measured properly, the calibrated point for segA is **53.3 % (4 of 6)**, not 70 %. PR-14 therefore ran segA's
+zones at a more permissive threshold than the rule prescribes — which yields **more** candidates, not fewer, so
+the null result is if anything generous and stands.
+
+**Error 2 — four published maps never searched.** Each 841 segment carries three prediction files in the bucket;
+the project's own notes recorded this on 2026-09-23 and I searched one map per sheet anyway. For w00 there are
+**four greyscale published predictions on disk**, in `preds/`, and I had searched only the *binarised* copy filed
+as training pseudo-labels in `ink-dataset-teacher` — the version that exists to be a target, not to be read.
+
+**What they show, at properly calibrated sensitivity:**
+
+| published map | best sensitivity | at fill | letter-shaped objects outside the read zone |
+|---|---|---|---|
+| segB `pred.tif` | 5 / 5 | 70.0 % | 11 |
+| segA `pred.tif` | 4 / 6 | 53.3 % | 5 |
+| w00 `new_canon_20260417_recale` | **7 / 7** | 52.7 % | **1** |
+| w00 `ps48_640_640_smooth_0.1_…` | **7 / 7** | 53.6 % | **2** |
+| w00 `w00_canonical_030726_reverse` | **7 / 7** | 53.5 % | **3** |
+| w00 `w00_canonical_2um_…` | **7 / 7** | 69.9 % | **8** |
+
+**Three of the four w00 maps reach full sensitivity** — better than segA's map ever does — and at that point they
+show between **one and eight** letter-shaped objects outside everything that has already been read. That is a
+sharper version of the original claim than the one I withdrew this morning, because this time the detector is
+known to find every letter it is shown.
+
+**So the goal is not closed, but it is now measurably narrow.** One test remains before the question is genuinely
+settled: those one-to-eight objects on w00, put to a reader the same way. If they read as nothing, three sheets
+and six published maps have been searched at declared sensitivity and the answer is no.
