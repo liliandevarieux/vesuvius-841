@@ -2472,3 +2472,54 @@ a different segmentation of the same sheet, on a grid of 16 460 × 18 560 agains
 cannot be compared against these labels without warping them, so it is untested. If the difference between 841 and
 the control lies in the flattening rather than in the network, a different segmentation of the same sheet is where
 it would show — and that is the cheapest remaining thing to check.
+
+### PR-19 — the decisive paired comparison, 2026-09-25: our own recipe has never produced strokes, anywhere
+
+**The question this answers.** Every measurement so far compared *scroll against scroll* using maps made by other
+people. That cannot separate "841 is harder" from "our recipe is behind". The separation needs our own model
+measured against a better map **on the same scroll, on the same letters** — and the obvious place is PHerc. Paris 4
+w02, where this project's run-2 checkpoint (`ink_w00_128_acc4`, ckpt 80 000) demonstrably reads: on 2026-09-20 it
+rendered the line ΤΗΟΚΑΤ outside the labelled area, correlation 0.79–0.84 with the published prediction. That is
+the best thing this project has produced.
+
+Our block covers y 26 000–30 500, x 19 500–31 000, which contains exactly two known letters entirely — components
+12 and 13. Both maps thresholded to 70 % fill on those same two letters:
+
+| map | threshold | elongation | stroke width |
+|---|---|---|---|
+| published `tile256_stride128_layers1_63_hann_fwd.tif` | 229 | **114.74** | **34.4 px** |
+| **ours**, run 2 `ink_w00_128_acc4` ckpt 80 000 | 206 | **28.89** | **97.8 px** |
+| *for reference* — the hand-drawn labels of this sheet | — | 23.04 | 132.3 px |
+
+Per letter: letter 12 — 124.05 against 32.00; letter 13 — 105.43 against 25.78. The direction is the same on both.
+
+**A factor of 4 in elongation and 2.8 in stroke width, on the scroll where our model reads.** Our map sits at
+28.89, barely above the hand tracing's 23.04 and in the same region as every map of 841 (15.8–18.3). The published
+map sits at 114.74, five times thinner than the tracing it was learned from.
+
+**What this settles.** The gap is not "841 is a hard scroll and Paris 4 is an easy one". **This project's training
+recipe has never produced stroke-shaped output anywhere, including where it succeeds.** The community's recipe
+does, by a factor of four, on the identical letters. That also explains the run-4 result recorded above — the
+fine-tunes gained IoU and lost elongation — without needing any hypothesis about 841: a recipe that paints regions
+gains region-overlap and cannot gain shape.
+
+**Verified blind.** Re-derived by a subagent told only what to compute, which wrote its own code from scratch and
+then re-implemented steps 4–5 a second time by a different route (`np.kron` instead of repeated `np.repeat`,
+explicit per-label loops, no `bincount`). Every figure reproduced exactly: 114.73684 / 34.3533 and 28.89269 /
+97.7794.
+
+**A caveat the blind check found, and it works against the conclusion.** The images are uint8, so the 30th-percentile
+threshold lands on an integer shared by many pixels. The realised fill is **71.6 %** for the published map and
+**70.0 %** for ours. A higher fill thickens and rounds what is measured, so the published map is scored at a mild
+disadvantage and still wins fourfold. Reported because a tie effect that had gone the other way would have needed
+the result withdrawn.
+
+**n = 2.** Two letters is a very small sample and the median of two values is the mean of two values. What carries
+the result is the size of the effect and the fact that it is paired — same letters, same labels, same threshold
+rule, same rendering code — not the number of letters.
+
+**Consequence for the plan, stated here because it reverses the project's direction.** Training further on PHerc.
+841 is the wrong next move: there is no reference map on 841 against which progress could be measured. On Paris 4
+w02 there is one, four times better than ours, on data already downloaded, and elongation on known letters is
+computed in seconds with no blind reader involved. **The development loop moves to the control scroll**, and the
+recipe that closes the gap there is what will then be applied to 841.
