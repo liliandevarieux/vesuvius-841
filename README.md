@@ -12,7 +12,12 @@ letter a person can read* are not the same thing, and this project spent two day
 readers blind, our maps are not read; the organisers' published prediction is, and was picked out of mixed panels
 three times without the reader knowing which it was. Searched outside the labelled area, on three sheets and six
 published maps, at thresholds where each map's sensitivity on the *known* letters was measured rather than assumed,
-a blind reader with random controls found nothing. **Nothing is claimed here about unpublished letters.**
+a blind reader with random controls found nothing. That search now has the **positive control** it lacked: run
+unchanged on PHerc. Paris 4 w02, a scroll whose published maps are known to carry readable text, the same reader named
+letters in **4 windows of 10** — while PHerc. 841 has been shown **18 windows without a single letter named**. The one
+explanation that could still have rescued 841, that the blind panels were too small to hold a line of text, was
+registered as a prediction and refuted: enlarging them from 1.4 to 4.6 letter heights changed nothing on 841 and went
+on working on the control. **Nothing is claimed here about unpublished letters.**
 
 What this repository is therefore about is not a result but a **record**: what was predicted before it was measured,
 what the measurement said, and which of our own conclusions did not survive. Six different quantities were tried as

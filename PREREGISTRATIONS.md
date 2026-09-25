@@ -2052,3 +2052,76 @@ re-reading the script would not.
 keys, and prediction 2 — *at least one window of 841 w00 is read* — which is the one that carries the experiment
 and is a prediction against the conclusion published earlier today. Prediction 1 is restated for the new design:
 **Paris 4 w02 yields at least as many read windows as 841 w00.**
+
+### PR-17 — result, 2026-09-25: the reader named letters on the control scroll and nothing on 841. Prediction 2 fails.
+
+**The reading, sealed and committed before either key was opened** (`images/841_segments/2026-09-25_PR17_LECTURE.txt`,
+commit `09a0da0`). Verbatim, in the reader's French:
+
+> Sur PR17 A non on ne voit aucune lettre, par contre sur PR17B on voit sur le panneau J je pense un N mais c'est a
+> peu pres la seule chose que je peux imaginer pour le panneau L je ne vois rien pour la panneau je vois des
+> strucutures qui ressemble a des lettres pour le panneau M je pense lire un T un A peut etre plusieurs T dans
+> l'image je ne suis pas sure
+
+*Sheet A: no letter at all. Sheet B: an N on panel J; nothing on L; "structures that look like letters" on an
+unnamed panel; a T and an A, maybe several Ts, on M.*
+
+**Then the keys.** Sheet A was **841 w00**. Sheet B was **Paris 4 w02**.
+
+| sheet | map | panels | windows read | letters named |
+|---|---|---|---|---|
+| A = **841 w00** | `w00_canonical_2um_20250807020208.tif`, threshold 104 | A B C D | **0 of 4** | none |
+| B = **Paris 4 w02** | `tile256_stride128_layers1_63_hann_fwd.tif`, threshold 227 | J K L M | **2 of 4** | N (J); T, A (M) |
+
+**Prediction 1 — confirmed.** Paris 4 w02 yields at least as many read windows as 841 w00: 2 against 0.
+
+**Prediction 2 — refuted.** No window of 841 w00 was read. This was the prediction that carried the experiment and
+it was a prediction *against* the conclusion published earlier the same day. It fails. **PR-14 and PR-15 are not
+withdrawn.** They survive a test designed to break them.
+
+**What this settles.** The defect found this afternoon was real: every blind panel from PR-10 to PR-16 was 2 512 px
+tall against a letter height of 1 790–1 808 px, i.e. **1.4 letter heights — at most one line of text**, and the
+reader was being asked to recognise letters with the line context removed. PR-17's panels are 8 328 px, **4.6 letter
+heights**. Enlargement did what it should on a scroll that has text: Paris 4 went from 2 read of 6 to 2 read of 4.
+It did nothing on 841: still 0, on four more windows. So **the small window was not what was hiding 841's text**.
+That explanation is spent.
+
+**Scoring, by the rule set before the reading.** The unnamed panel — K by elimination, and the inference is written
+in the sealed file rather than supplied afterwards — said "structures that look like letters" without naming one.
+It is scored **not read**: since PR-10 this protocol counts a reading only when a letter is *named*, because an
+impression of shape is exactly what noise produces. Scored the other way, Paris 4 would be 3 of 4 and the direction
+would be unchanged.
+
+**The statistics, stated as what they are.** PR-17's own registered comparison, 2 of 4 against 0 of 4, gives
+**Fisher one-sided p = 0.21** — four windows a side is too few to conclude from alone, and that is a limitation of
+the design as registered, not a finding. Pooling PR-16 and PR-17 gives 4 of 10 against 0 of 18 and **p = 0.010**,
+but *that pooling was not registered in advance*. It is reported here as a post-hoc figure indicating a direction,
+and it does not have the standing of the registered test. The registered results are: PR-16 p = 0.079, PR-17
+p = 0.21, both in the same direction, neither individually conclusive.
+
+**Cumulative count across the blind protocol.** On PHerc. 841 — 8 panels in PR-14 (segA, segB), 6 in PR-15 (w00),
+4 in PR-17 (w00) — **18 windows, not one letter named**. On the positive control PHerc. Paris 4 w02 — 6 in PR-16,
+4 in PR-17 — **10 windows, 4 read, 5 letters named** (E, T, C, I, N, then N, T, A).
+
+**A defect in PR-16's key, found the same hour and reported here because it could have inverted this result.** The
+key file for PR-16 contradicted itself: its header named the Paris 4 map, its six panel lines each said `w00`. Had
+the panel lines been right, the letters read on 2026-09-25 morning would have been on 841 and every conclusion of
+that day inverted. The header is right, by three independent proofs: (1) `scripts/panneau_pr15.py` wrote the token
+`w00` as a **hardcoded literal** in each panel line while building the header from `os.path.basename(SRC)`, so
+generalising the script to a second map moved one and not the other; (2) the six windows appear line for line in
+`zones_p4w02.txt` and none is in `zones_w00c.txt`; (3) w00's map is 15 827 × 18 868 px and PR-16's panel U extends
+to X = 30 136, which cannot exist on it. No published result changes — the scoring already treated those panels as
+Paris 4. The script is fixed, the key annotated in place without altering its sealed lines.
+**It was found by a subagent asked only to re-count panels, deliberately not told what the count was for.** The
+rule that caught it is not "check your keys", which nobody does; it is **have the arithmetic re-derived by someone
+with no stake in the answer**, who then reports the contradiction as a matter of course.
+Transferable form for `METHOD.md`: *a constant hardcoded into a reporting line does not survive the generalisation
+of the script around it.* `scripts/panneau_pr17.py` never had the defect: it writes the key from the same variable
+it reads the pixels from, and carries no per-panel token at all.
+
+**Limits of this result, declared.** The reader is not naive — he knows the project, and he had seen twelve
+small-scale zones of both sheets before. What he did not know, and could not infer from the images, is **which
+sheet was which**; that is the blinding this comparison depends on and it held. The two sheets differ in more than
+their scroll: different segment, different model lineage, different threshold. This experiment shows that *the
+published maps of 841 w00 do not yield letters to a reader who reads the control maps at the same protocol*. It
+does not isolate why.

@@ -82,3 +82,28 @@ Not one was findable by re-reading the code. All four were found by opening the 
 its caption is part of the experiment, not a formality after it.** The caption is included: it has twice announced
 the wrong number of panels, and it once stated how many letters were in the frame — which answers half of the
 question the reader is being asked.
+
+## 9. The arithmetic is re-derived by someone with no stake in the answer
+
+On 2026-09-25 a subagent was asked to do one dull thing: re-count the panels of four blind readings and say how
+many had a letter named. It was deliberately not told what the count was for. It came back with the count — and
+with the fact that one of the sealed key files **contradicted itself about its own source**: its header named the
+control scroll's map, its six panel lines each named the target scroll's segment. Had the panel lines been right,
+every conclusion of that day would have inverted. Three independent proofs settled it in favour of the header, and
+nothing published had to change; but the contradiction had stood unnoticed for nine hours in a file that had been
+read, quoted and committed.
+
+The cause was ordinary: a constant written into a reporting line. The script printed the source in its header from
+a variable and in each panel line from a hardcoded literal. That was harmless while both said the same thing, and
+became a lie the moment the script was generalised to a second map. **A constant hardcoded into a reporting line
+does not survive the generalisation of the script around it** — and a reporting line is the worst place for one,
+because it is the part nobody re-derives.
+
+What made the difference was not diligence. Nobody re-reads a key they wrote themselves and already believe; the
+number that carries a conclusion is precisely the number its author is least able to audit. What works is handing
+the arithmetic to someone who does not know which answer is wanted, who then reports the contradiction as a routine
+observation rather than a discovery. It costs one delegated task. It is the cheapest check in this document and it
+is the only one that has ever caught a defect in a file that had already been committed.
+
+Corollary: **tell the checker what to count, never what the count is for.** A checker who knows the expected answer
+reconstructs it.
