@@ -1337,3 +1337,176 @@ component count does not predict what a reader sees — the second measure tonig
 legibility, after the inscribed-thickness one. That is now two independent failures, and the lesson is the same
 one PR-9 taught: **no single shape number has yet predicted a reading.** PR-11's endpoint stays what it was, a
 reader, and the registered prediction is unchanged; only my description of what σ = 32 achieves is corrected.
+
+### PR-11 — a second prediction, registered 2026-09-24 23:40, still before any reader has looked
+
+Every comparison since 2026-09-24 has been made **at matched fill** — the threshold of each map is set so that it
+marks 53.4 % of the labelled letter pixels. That fixes **recall** and makes it identical everywhere. The other half
+was never looked at: **precision**, the share of what a map blackens that actually falls on a letter. Two maps can
+cover the same half of the letters while one blackens three times more background than the other.
+
+Measured in the PR-11 frame, at that same matched recall:
+
+| map | recall | **precision** | IoU |
+|---|---|---|---|
+| the organisers' prediction | 52.9 % | **85.8 %** | 0.486 |
+| `demi`, blurred σ = 32 | 53.5 % | 77.2 % | 0.462 |
+| `demi`, raw | 53.4 % | 76.3 % | 0.458 |
+| `pr2v24`, blurred σ = 32 | 53.5 % | 66.2 % | 0.420 |
+| `pr2v24`, raw | 53.3 % | **64.0 %** | 0.410 |
+
+A third of what our full-resolution arm blackens is not on a letter. And this is the first number in this project
+that orders the maps the same way the one legibility observation does: the teacher was read with effort, ours was
+not, and `demi` sits between them. (At fixed recall, IoU is a monotone function of precision, so it carries the
+same information here and is printed only for continuity with earlier tables.)
+
+**Registered prediction, second and independent of the first.** When the naive reader judges PR-11's four panels,
+**the panels they report letters on will be the higher-precision ones**, in that order. Specifically: the
+organisers' panel is read at least as often as `demi` blurred, which is read at least as often as `pr2v24`
+blurred.
+
+**What would invalidate it.** The reader reads `pr2v24` blurred as readily as the organisers' panel, or reads none
+of them. Then precision joins component count and inscribed thickness on the list of shape numbers that do not
+predict a reading, and the honest conclusion is that we still have no measurable proxy for legibility at all.
+
+**Stated in advance.** One legibility observation is what suggested this ordering, and a prediction fitted to one
+observation is worth very little until it survives a second. It is registered precisely so that it can fail.
+
+**A non-finding, recorded so it is not rediscovered.** Our maps looked systematically shifted by −40 px in Y
+against the labels while the teacher sat at 0 — which would have meant a registration bug in our stitching. It is
+an artefact of a 40-pixel search step: at 8-pixel resolution the teacher is itself at −16 px, our sheets at −24 to
+−32, and correcting the shift buys between 0.003 and 0.022 of IoU. Against a 22-point precision gap that is
+nothing. **There is no registration bug.**
+
+### Explored and closed the same night, 2026-09-24 23:45 — combining our maps does not help
+
+Measured in the PR-11 frame at matched recall, so directly comparable to the precision table above. *(Object counts
+are deliberately omitted here: they were computed at level 3, not at full resolution, and mixing those two is the
+error corrected earlier tonight.)*
+
+| map | precision |
+|---|---|
+| `demi` alone | **76.3 %** |
+| mean of `pr2v24` and `demi` | 72.1 % |
+| minimum — both arms agree | 71.5 % |
+| maximum — either arm | 71.6 % |
+| mean, then blurred σ = 32 | 73.7 % |
+| minimum, then blurred σ = 32 | 74.0 % |
+
+**Every combination lands between the two arms and none beats the better one.** The weaker arm drags the stronger
+one down; there is no free ensemble gain here. Combining with the organisers' map reaches 83–86 %, which is simply
+the organisers' map back again (85.8 % alone), so there is nothing there either.
+
+**What this leaves.** `demi` alone, at 76.3 % precision, is the best map this project has produced, and nothing
+costless improves it. That deserves stating precisely, because it sits next to a failure: **PR-10 failed its
+registered prediction** — no reader saw letters on either arm — **and the arm it produced is nevertheless our best
+map by the only quantity that has so far tracked the one legibility observation we have.** Both sentences are
+true, the first is the registered result, and the second is not a rescue of it.
+
+### Explored the same night, 2026-09-24 23:50 — where the wrong ink goes, and one read-out that helps a little
+
+**Where the wrongly-marked ink sits**, decomposed by distance to the nearest labelled letter, at matched recall:
+
+| map | precision | < 200 px (hugging the stroke) | 400–800 px | beyond a letter's width |
+|---|---|---|---|---|
+| the organisers' prediction | 85.8 % | **73 %** | 19 % | 0 % |
+| `pr2v24` | 64.0 % | **43 %** | **37 %** | 0 % |
+| `demi` | 76.3 % | 65 % | 18 % | 0 % |
+
+**No map invents ink far from the letters** — nothing beyond one letter's width, on any of them. The difference is
+entirely in the 200–800 px band: the teacher's surplus **thickens the stroke**, ours **fills the gaps inside the
+letter**. Ink 400–800 px from a stroke is exactly what closes the fork of a Κ and turns it into a lump. This is
+the first mechanism proposed tonight that explains what a reader sees, and `demi` halves the defect (37 % → 18 %),
+which is where its 12 points of precision come from.
+
+**Hysteresis thresholding**, the classical remedy for that defect — keep weak ink only where it touches strong ink
+— tuned on the control zone at matched recall: `pr2v24` 64.0 → **74.5 %**, `demi` 76.3 → **81.1 %**.
+
+**And the honest version of that number.** Those thresholds were tuned where the answer is known. Applied
+unchanged to the three held-out windows, the average gain reads +9.1 points for `pr2v24` and +2.7 for `demi` —
+**but that average is not the result.** It is dominated by window 1, where the fixed thresholds land at 8–23 %
+recall instead of 53 %, and precision rises mechanically when recall falls. On the two windows where recall is
+comparable, the gain is **+1.6 and +2.6 points** for `pr2v24`, **+0.2 and +0.7** for `demi`.
+
+**So: hysteresis helps, modestly, and the fixed thresholds do not transfer their operating point.** A read-out
+tuned on the zone that holds the answer is worth what it is worth, and quoting the +9.1 would have been quoting an
+artefact of a shifted operating point. Anything built on this needs thresholds set per zone by a rule that does
+not look at the labels.
+
+### The night's correction, 2026-09-24 23:55 — almost nothing measured in the control zone replicates
+
+Every number produced tonight — the precision ranking, the halo decomposition, the hysteresis gain — was measured
+in **one zone of one segment**, the control zone, which is also the zone whose answer is known and on which
+thresholds were tuned. The segA sheet finished at 23:20 and made the replication possible: the same precision
+measurement on the **six held-out windows**, three per segment, which were never used to set anything.
+
+| | control zone (one place) | six held-out windows |
+|---|---|---|
+| the organisers' prediction | 85.8 % | 82.9 % ± 12.7 |
+| `demi` | 76.3 % | 78.2 % ± 14.6 |
+| `pr2v24` | 64.0 % | 77.1 % ± 15.4 |
+
+Window-to-window variation (precision runs from 53 % to 96 %) dwarfs every gap, so the comparison must be paired:
+
+| paired difference | mean | t, 5 d.f. | verdict |
+|---|---|---|---|
+| teacher − `pr2v24` | **+5.8 pt** | 2.30 | a tendency; the 5 % bar is 2.571 |
+| teacher − `demi` | +4.7 pt | 1.77 | a tendency |
+| **`demi` − `pr2v24`** | **+1.1 pt** | **0.55** | **nothing** |
+
+**What this destroys.** The sentence written two hours earlier — *"`demi` alone, at 76.3 % precision, is the best
+map this project has produced"* — does not survive. The 12-point gap between `demi` and `pr2v24` is a property of
+the control zone and of nowhere else; on six windows that never set anything, the two arms are indistinguishable.
+So PR-10's arm is not measurably better than its twin after all, and the consolation offered alongside PR-10's
+failure is withdrawn.
+
+**What survives, weakly.** The teacher is ahead of both our arms by about 5 points of precision, consistently in
+sign on 4 of 6 windows but not significantly on 6. That is compatible with the one legibility observation and
+proves nothing on its own.
+
+**What this says about the last two days of method.** The control zone was chosen because it holds the labelled
+letters — which is exactly what makes it unrepresentative. Every quantity measured there is measured where the
+teacher is strongest and where our thresholds were tuned. **The halo decomposition (43 % against 73 % hugging the
+stroke) and the hysteresis gain (+10.5 points) were measured there too, and neither has been replicated.** They
+are hypotheses, not findings, and they are labelled as such from here.
+
+**The instruction that follows, for tomorrow.** Nothing measured in the control zone counts until it is repeated
+on the six held-out windows. That is one line of code away every time, it was skipped all night, and it changed
+the answer.
+
+### PR-11 — amendment, 2026-09-25 morning, still before any reader has looked
+
+**The panel as first generated would have answered its own question.** PR-11 registers four maps shown together in
+randomised order, one of them being *the human labels*. Rendered exactly like the other three and stacked in one
+image, that panel shows Eta Kappa Alpha, clean and unambiguous, in the same frame and at the same three positions
+as the maps under test. A reader meets it first and then looks at the others already knowing which three letters
+to find and exactly where. Whatever they say next is guided recognition, not reading, and the primary endpoint —
+*do you see letters, and where?* — can no longer be answered honestly.
+
+This is the failure PR-10's generator already forbade under the name *no red outlines*: a contour tells the reader
+where the letter is and destroys the question. A truth panel is worse, because it also supplies the answer.
+
+**What changed.** The blind image now carries **three** panels — the organisers' prediction, `pr2v24` blurred at
+σ = 32, `demi` blurred at σ = 32 — randomised, at matched fill (52.9 / 53.4 / 53.4 % of the known letter pixels,
+a spread of 0.5 points, well inside the 3-point bar this project uses). The labels are kept in the *legended*
+version, which is only looked at after the reader has answered.
+
+**Why this does not weaken the test.** The truth panel was serving as a positive control — a check that letters
+rendered this way can be read at all. That control already exists and is dated: on 2026-09-24 at 19:50 the same
+letters, traced by hand and rendered identically, were read instantly. It does not need to be paid for a second
+time in blindness.
+
+**Two other leaks removed from the caption**, which said *"the three letters fit entirely in the frame"*. That
+sentence asserts there are letters and says how many, in a test whose whole question is whether any are visible,
+and it sits one line below *"I see nothing is a complete answer"* — which it contradicts. The caption now states
+only what it needed to state: that the frame cuts nothing. It also said *four panels* and there are three.
+
+**What is unchanged.** Both registered predictions, the frame, the seed, the matched fill, the σ = 32 setting, and
+the conditional status of PR-12. No reader had seen any version of this image when it was regenerated, so this is
+an amendment before data, not after. The flawed image is kept on disk as
+`2026-09-25_PR11_PERIME_verite_visible.png` rather than deleted.
+
+**The general point, for the record.** Every blinding defect this project has found — the unbalanced draw on
+2026-09-24 that fell the same way four times out of four, the frame that cut the third letter, and now a panel
+that gave the answer away — was found by *looking at the image*, not by reading the script that produced it. The
+script was correct each time: it randomised, it matched the fill, it rendered what it was asked to render.
