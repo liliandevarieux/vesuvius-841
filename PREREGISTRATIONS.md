@@ -1783,3 +1783,38 @@ known to find every letter it is shown.
 **So the goal is not closed, but it is now measurably narrow.** One test remains before the question is genuinely
 settled: those one-to-eight objects on w00, put to a reader the same way. If they read as nothing, three sheets
 and six published maps have been searched at declared sensitivity and the answer is no.
+
+## PR-15 — the last place left to look on PHerc. 841
+
+*Registered 2026-09-25, before any zone of w00 has been rendered or seen by anyone. No GPU. This is the test named
+at the end of PR-14's result as the one that settles the question.*
+
+**Where this sits.** PR-14 returned null on segA and segB: a reader saw no letters in the zones where the
+organisers' map carries its densest letter-shaped structure. Writing that up uncovered four greyscale published
+predictions for w00 that had never been searched, because the only copy of w00's prediction the project had ever
+touched was the **binarised** one filed as training pseudo-labels. Three of the four reach **7 of 7** sensitivity
+on w00's known letters — better than segA's map reaches at any threshold — and at that point they show 1, 2, 3 and
+8 letter-shaped objects outside everything already read.
+
+**The map under test and why that one.** `w00_canonical_2um_20250807020208.tif`, at 69.9 % fill, where it finds
+7 of 7 known letters and shows **8** objects outside. It is the only one of the four with enough to form a zone;
+the other three, with 1, 2 and 3 objects, cannot produce a window containing two and are reported by their counts
+rather than by a panel. Choosing the richest map is declared here rather than justified afterwards.
+
+**Protocol, unchanged from PR-14 because it worked.** Candidate zones ranked by density of shape-criterion
+objects; the same number of controls drawn at random, same size, same map, same rendering, none overlapping any
+other by more than 2 %, checked on the zones that reach the screen. Threshold fixed once on the *known* letters,
+never per zone. Randomised order, key sealed.
+
+**Prediction.** The reader reads letters on the candidate zones and not on the controls.
+
+**And the prediction I actually hold**, recorded separately so the first cannot be softened afterwards: **I expect
+null.** PR-14 was null, the shape counts here are smaller still, and eight objects on a whole sheet is not a
+paragraph. This is registered as the test that closes a question, not one that is expected to open it.
+
+**What a null means this time, and it is stronger than PR-14's.** Three sheets, six published maps, every one
+searched at a threshold where its sensitivity on known letters was measured rather than assumed, with the reading
+done blind against random controls. A null then means: **the published maps of PHerc. 841 do not carry a second
+readable passage that this method can find.** The goal set on 2026-09-23 — publish the first reading of
+PHerc. 841 — would not be reachable from the existing maps, and the honest move is to say so publicly with the
+measurements attached, not to run a seventh variant.
