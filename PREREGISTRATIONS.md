@@ -3297,7 +3297,7 @@ four scrolls' 1.2 m data moves the held-out control from below chance to above i
 Caveat seen on the maps: the brightest structures near the labels are unlabelled; 0343P has three labelled
 components, so unlabelled ink would depress its AUC.
 
-## PR-31 — registration, 2026-09-26 23:35, before any run: does fine-tuning on the 1.2 m scan type transfer? Leave-one-scroll-out
+## PR-31 — registration, 2026-09-26 23:25, before any run: does fine-tuning on the 1.2 m scan type transfer? Leave-one-scroll-out
 
 **Why this design.** PR-30's control, PHerc0343P, has three labelled components; using it to choose between
 variants would turn the only test of PHerc0800's scan type into a tuning set. Instead, transfer is measured on the
