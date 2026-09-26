@@ -3,7 +3,8 @@
 # Change : les donnees (5 segments etiquetes hors entrainement d ink_9um + l ancre officielle 0139 w035), le depart
 # (poids ink_9um graine 42 etape 75 000), le taux d apprentissage (0,002 au lieu de 0,01 : on affine), le lot (16 au lieu
 # de 64 : 8 Go de GPU), la duree, et AUCUNE validation pendant l entrainement (0343P reste hors de tout, evalue apres).
-# usage : ft12m_config.py SORTIE.json ITERATIONS [ROULEAU_EXCLU NOM_RUN]   (PR-31 : un rouleau laisse de cote)
+# usage : ft12m_config.py SORTIE.json ITERATIONS [ROULEAU_EXCLU NOM_RUN [JSON]]   (PR-31 : un rouleau laisse de cote ;
+#         PR-32 : JSON = variante, cles 'label_smoothing', 'learning_rate', 'labels_dir')
 import sys, json
 
 C = '/home/slusarska_holding/vesuvius'
@@ -46,5 +47,15 @@ c['checkpoint'] = '%s/checkpoints/ink_9um/hybrid_3d2d-seed42/step-075000.pth' % 
 c['weights_only'] = True
 c['out_dir'] = '%s/runs/%s' % (C, sys.argv[4] if len(sys.argv) > 4 else 'pr30_ft12m')
 c['description'] = 'PR-30 : ink_9um s42 75k affine sur scans 1,2 m (841 x3, 0009B, 0500P2, ancre 0139 w035)'
+V = json.loads(sys.argv[5]) if len(sys.argv) > 5 else {}
+if 'label_smoothing' in V:
+    c['loss']['bce_label_smoothing'] = V['label_smoothing']
+if 'learning_rate' in V:
+    c['learning_rate'] = V['learning_rate']
+if 'labels_dir' in V:                       # etiquettes variantes (l ancre 0139 w035 garde les siennes)
+    for d in c['datasets']:
+        if d['segments_path'] == lab:
+            d['segments_path'] = V['labels_dir']
+c['description'] += ' | variante %s' % json.dumps(V)
 json.dump(c, open(sys.argv[1], 'w'), indent=1)
 print('config ecrite', sys.argv[1], c['num_iterations'], 'iterations')

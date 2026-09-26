@@ -3348,3 +3348,22 @@ part of a Y-shaped sign, still short of letters one would read without the traci
 **What this establishes.** On the eligible scan type, training on other scrolls' 1.2 m data transfers to an unseen
 scroll: +0.03 to +0.05 AUC on three of three, where the released model had seen one such scroll. It does not yet
 render held-out letters legibly, so it does not yet license looking at PHerc0800 for letters.
+
+## PR-32 — registration, 2026-09-27 01:15, before any run: three recipe variants aimed at shape, on PR-31's leave-one-scroll-out loop
+
+**Why.** PR-31 transfers in AUC but not in shape. Reader-free, on the held-out letters (`scripts/eval_forme.py`: map
+on the level-2 label grid, threshold at 70 % fill of the segment's letters, PR-18's elongation, median over
+letters), the PR-31 recipe gives, at checkpoint 4 000: 841 w00 **8.80**, segA **10.73**, segB **13.69**, 0009B
+**12.35**, 0500P2 **11.17** — mean over the five held-out segments **11.35** — against 16–25 for the tracings; and it
+*lowers* shape on two segments while raising AUC. (Released ink_9um: 12.94 / 13.14 / 8.67 / 9.59 / 10.25.)
+
+**Variants** (each changes one thing in PR-31's recipe; same folds, same 4 000 iterations, same seeds):
+- **V1** — BCE label smoothing **0.5 → 0.1** (targets 0.05 / 0.95 instead of 0.25 / 0.75).
+- **V2** — ink labels **eroded by one pixel** on the 1.2 m grid (`scripts/ft12m_eroder.py`; supervision unchanged; the
+  0139 anchor keeps its official labels).
+- **V3** — learning rate **0.002 → 0.0005**.
+
+**Criterion, registered, per variant, at checkpoint 4 000, order by the label-free score:** mean held-out
+elongation over the five segments **≥ 13.35** (PR-31 + 2.0) **and** mean held-out AUC-in-supervision **≥ 0.7888**
+(PR-31's 0.7988 − 0.01). Three variants are tested, so a pass is a candidate, not a finding: the winner (if any) is
+then trained on all three scrolls and tested once on PHerc0343P before anything is looked at on PHerc0800.
