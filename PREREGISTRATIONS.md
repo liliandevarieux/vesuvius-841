@@ -3349,7 +3349,7 @@ part of a Y-shaped sign, still short of letters one would read without the traci
 scroll: +0.03 to +0.05 AUC on three of three, where the released model had seen one such scroll. It does not yet
 render held-out letters legibly, so it does not yet license looking at PHerc0800 for letters.
 
-## PR-32 — registration, 2026-09-27 00:49 (commit e5a17a0, pushed before the 00:50 launch), before any run: three recipe variants aimed at shape, on PR-31's leave-one-scroll-out loop
+## PR-32 — registration, 2026-09-27 00:50:10 (commit e5a17a0; the run started at 00:50:19), before any run: three recipe variants aimed at shape, on PR-31's leave-one-scroll-out loop
 
 **Why.** PR-31 transfers in AUC but not in shape. Reader-free, on the held-out letters (`scripts/eval_forme.py`: map
 on the level-2 label grid, threshold at 70 % fill of the segment's letters, PR-18's elongation, median over
