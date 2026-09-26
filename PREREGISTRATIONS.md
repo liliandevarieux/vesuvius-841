@@ -3061,3 +3061,32 @@ histogram of chosen k.
 
 **Declared in advance.** One checkpoint; the AUC's background region may contain unlabelled ink (ibara); tile seams
 are hard switches; five offsets only.
+
+### PR-26 — result, 2026-09-26: fails on both segments. The contrast criterion picks worse depths than the default.
+
+| map (seed 42, step 75 000, forward) | segB AUC | segB elongation | segA AUC | segA elongation |
+|---|---|---|---|---|
+| k = −12 planes (−28.8 µm) | 0.7852 | 15.01 | 0.8073 | 10.79 |
+| k = −6 | 0.8035 | 13.61 | 0.8273 | 11.08 |
+| **k = 0 (default)** | **0.8057** | 14.15 | **0.8283** | 10.61 |
+| k = +6 | 0.7956 | 12.52 | 0.8398 | 14.13 |
+| k = +12 | 0.7764 | 12.80 | 0.8105 | 13.30 |
+| **composite (label-free rule)** | **0.7880** | 12.62 | **0.8201** | 11.47 |
+| tiles chosen (−12 / −6 / 0 / +6 / +12) | 58 / 32 / 42 / 52 / 56 | | 65 / 49 / 39 / 47 / 55 | |
+
+**Primary: composite − k0 = −0.018 (segB) and −0.008 (segA), against +0.010 required on both. Fails.** Re-derived
+blind by a subagent with its own code on all pixels: 0.8053 / 0.7871 and 0.8285 / 0.8204, differences −0.0181 and
+−0.0081. k = 0 on segB reproduces PR-23's forward map exactly (0.8057, 14.15), so the shifted inputs are sound.
+
+**Why it fails, as far as the numbers show.** The rule favours the extreme shifts (k = 0 is the least chosen on
+both segments), and the composite's background level rises (82.8 vs 80.9 on segB; 87.4 vs 85.9 on segA): the
+contrast it rewards is not ink.
+
+**What the fixed shifts say (reported, not tested).** The best single shift differs by segment — 0 on segB, +6 on
+segA (+0.012 there) — which is Korkmaz's finding again, on a scroll he did not measure. And **no depth within ±29 µm
+renders 841's letters as strokes**: elongation stays between 10.6 and 15.0 at every shift, against 24.95 for segB's
+labels. Depth moves the AUC by a few hundredths; it does not change the shape.
+
+By the outcome written in advance: either depth does not matter enough on 841 at this scale, or it does and this
+criterion does not find it. The fixed-shift spread (0.78–0.81 on segB, 0.81–0.84 on segA) bounds what a better
+criterion could gain within ±29 µm at segment scale; a per-tile oracle was not computed.
