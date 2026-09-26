@@ -3128,3 +3128,18 @@ PHerc0814 (`auto_grown_20250925161630635`), and of **841 segB**, measured with t
   and 0800 at 0.91 is classed **with 841: packed** — not a promising target by this measure.
 - If the readable controls score **≥ 0.80** too, the 1.2 m scan saturates the metric and it **says nothing** about 0800.
 - Anything else: undetermined.
+
+**PR-27 — controls measured: undetermined.** Same scan type (9.36 µm / 1.2 m): PHerc0139 w025 **0.562**, PHerc0814
+**0.688**, 841 segB **0.688**. A readable scroll (0814) scores exactly like 841: on this scan type the metric does not
+separate them, so it **cannot qualify PHerc0800** (0.912). No claim about 0800 is made from occupancy.
+
+**This also threatens the exploratory claim above ("841 is packed").** At 2.4 µm, 0814 was never measured. Written
+before measuring it: sampled 2.399 µm volumes of **0814** (`auto_grown_20250925161630635`) and **0139** (w025),
+27 tiles of 512 px every 8 192 px, same script as the matched table (~9.6 µm, ~150 µm window). If 0814 scores
+**≥ 0.60** at 2.4 µm, the between-scroll separation does not hold and "841 is packed" is **withdrawn** as an
+explanation; if it scores ≤ 0.50 with 0139, the separation holds at 2.4 µm and the 1.2 m scan is what erased it.
+
+**Measured: 0814 at 2.4 µm = 0.562, 0139 w025 = 0.500** (1 984 and 2 119 columns). Neither bar: undetermined. The
+readable range at matched resolution becomes **0.31–0.56**, 841 **0.625**: a gap of 0.06, which vanishes on the 1.2 m
+scan (0814 = 841 = 0.688). **"841 is packed" is downgraded from "most likely reason" to "a small difference of
+unknown weight".** The occupancy gate does not explain 841 and does not qualify PHerc0800.
