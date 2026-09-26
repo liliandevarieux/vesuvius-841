@@ -2642,3 +2642,58 @@ and not the other does not count.
    early (4 000–8 000 of 24 000) and degraded afterwards, so a longer run is not obviously better and costs a day.
 3. Still n = 2 letters, still the control scroll, still nothing claimed about 841 until the recipe is carried over
    and measured there.
+
+## PR-22 — registration, 2026-09-26, before the run: the architecture, which turns out to be one config key and not a rewrite
+
+**What was found this morning, at no cost.** PR-20's and PR-21's fallback outcome was written as *"the gap is
+architectural — the reference map comes from a 2.5D network over layers-as-channels, ours is a 3D U-Net — and that
+would be days of build rather than hours."* That premise was wrong, and checking it took one `grep`. The villa
+training code this project has used since day one exposes **three** architectures:
+
+| `model_type` | what it is | used here before today |
+|---|---|---|
+| `vesuvius_unet` | 3D U-Net | **every run of this project** |
+| `vesuvius_unet_2p5d` | `SliceChannel2DModel` — the z slices become channels of a **2D** network | never |
+| `vesuvius_unet_3d_stem_2d` | 3D stem, 2D body, depth-aware fusion | never |
+
+The reference map is named `tile256_stride128_layers1_63_hann_fwd`: **layers 1–63 as channels** is precisely what
+`vesuvius_unet_2p5d` does. This project has been using a different architectural family from the maps it has been
+losing to, for six days, without ever reading the list of available ones.
+
+**Smoke-tested on CPU before registering**, so that the claim "it is one key" is verified and not assumed:
+`SliceChannel2DModel`, **34.5 M parameters**, input `(1, 1, 64, 128, 128)` → output `ink (1, 1, 128, 128)`.
+
+**The manipulation.** Run 2's config with `model_type` switched to `vesuvius_unet_2p5d`. Three keys move and the
+other two are **entailed** by the first, not chosen: the 2.5D builder forces `z_projection_mode` to `none` on both
+the model and the target, since there is no z axis left to project once the slices are channels. Everything else
+is run 2 exactly — **the original thick labels**, the same volume, the same patch size, the same 80 000 iterations,
+the same learning rate, the same seed, the same grad accumulation.
+
+**This is deliberately not combined with PR-21's thinned labels.** Two changes at once cannot be attributed. PR-21
+tests the label, PR-22 tests the architecture, both against the same baseline, and only if one of them moves does
+combining them make sense.
+
+**PRIMARY, registered.** On w02, letters 12 and 13, the same threshold rule and the same guard as PR-20 and PR-21:
+some checkpoint reaches **elongation above 28.89 with separation at or above 133.0**, both on the same checkpoint.
+Reference ceiling 114.74.
+
+**Secondary.** Predicted thickness falls from 97.8 toward 34.
+
+**What each outcome means, written before the result.**
+- *Both conditions met:* the architecture was the lever all along, and six days of work on labels, losses,
+  thresholds, field of view and reading protocols were spent on the wrong axis. The recipe then goes to 841
+  immediately.
+- *Elongation does not move:* the 2.5D family is not sufficient either, and what remains between us and the
+  reference map is neither the label nor the slice-as-channel framing — most plausibly the backbone itself
+  (a ResNet-152 rather than a U-Net) or the training data volume behind the published map.
+- *The guard fails:* the 2.5D model does not learn to find ink in this budget from a random start, which is what
+  happened to PR-20 and would say the same thing — start it warm instead.
+
+**Declared in advance.**
+1. Nothing here says the reference map *is* a `vesuvius_unet_2p5d`. Its name says layers-as-channels and the
+   project's earlier notes call it a ResNet-152; this run tests the **framing**, not the backbone.
+2. A 2D body over 64 channels is not the same parameter count or receptive field as the 3D U-Net, so a difference
+   in result cannot be attributed to the slice framing alone rather than to capacity. This is a confound of the
+   comparison and it is not removable by a config key.
+3. Still n = 2 letters, still the control scroll, still nothing claimed about 841 until a recipe is carried over
+   and measured there.
