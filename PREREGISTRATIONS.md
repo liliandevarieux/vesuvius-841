@@ -3143,3 +3143,28 @@ explanation; if it scores ≤ 0.50 with 0139, the separation holds at 2.4 µm an
 readable range at matched resolution becomes **0.31–0.56**, 841 **0.625**: a gap of 0.06, which vanishes on the 1.2 m
 scan (0814 = 841 = 0.688). **"841 is packed" is downgraded from "most likely reason" to "a small difference of
 unknown weight".** The occupancy gate does not explain 841 and does not qualify PHerc0800.
+
+## PR-28 — registration, 2026-09-26, before any inference: ink_9um on PHerc0800, with a positive control on the same scan type
+
+**Why.** No shortcut qualifies PHerc0800 (PR-27). What remains is the First Letters workflow itself — run the shared
+model, look — done with the control this project learned it needs: the same pipeline on a scroll that reads, on
+the same kind of scan, checked **before** anyone is shown a panel of 0800.
+
+**Inputs** (`scripts/prep_12m.py`): 1.2 m surface volumes are already ~9 µm, so the official preparation is reused
+with no z pooling: the 21 centred native layers, no XY resampling (Korkmaz: native 9.362 vs derived 9.6 µm not
+measurably different; 0800 is 8.64 µm, 10 % finer, declared). ink_9um **seed 42, step 75 000**, both depth orders.
+- **Positive control: PHerc0139 w035**, 9.362 µm / 1.2 m, 28 layers, labelled. 0139 is one of ink_9um's training
+  scrolls, so this controls the *pipeline on this scan type*, not transfer.
+- **841 segB**, 9.366 µm / 1.2 m, labelled, held out — reported for comparison with #1898 (0.7614 median there).
+- **PHerc0800**, 6 segments, 8.64 µm / 1.2 m, 31 layers, no labels.
+
+**Scoring** (`scripts/eval_12m.py`): labels read at level 3 and mapped onto the map by the voxel-size ratio
+(3.9025 for 0139, 3.8977 for 841), origin 0; AUC with the usual regions. Label-free depth-order score: **p99 − p50**
+of the map on papyrus; the order with the higher score is the one kept for 0800.
+
+**Control, registered.** The pipeline counts as working on this scan type only if **all** hold on 0139 w035:
+(1) AUC **≥ 0.80** in the better order; (2) the label-free score picks that order; (3) the author, looking at that
+map before any 0800 panel exists, sees lines of writing. If any fails, **no 0800 panel is built or shown**.
+
+**0800.** Nothing is claimed from its maps in this registration. If the control passes, the reading of 0800
+(windows chosen without looking, controls mixed in, readers blind) is registered separately before any panel is built.
