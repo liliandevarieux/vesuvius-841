@@ -3247,3 +3247,34 @@ scanned like PHerc0800, ink_9um shows no writing. This agrees with AndreasHad04'
 organisers filed as "unused" — so it does not prove ink_9um *cannot* read 0800; it shows that **no one currently has
 a measured reason to trust what ink_9um shows on 0800's scan type**. By the registered rule, the six 0800 maps from
 PR-28 stay unlooked-at.
+
+## PR-30 — registration, 2026-09-26, before training: fine-tune ink_9um on the eligible scan type, test on the held-out control
+
+**Why.** PR-28/29 measured the wall: on 1.2 m scans, ink_9um shows no writing on a scroll it never saw. Its
+training included native 1.2 m volumes of **one** scroll (PHerc0139, five segments, per the ink_9um dataset README).
+Every other labelled scroll published with a 1.2 m volume was outside its training. This run adds them.
+
+**Data** (`scripts/ft12m_build.py`, `ft12m_config.py`): native 1.2 m surface volumes used as-is, as the recipe
+does for 0139 — **841 w00, segA, segB** (9.366 µm), **0009B** `20250919125754` (8.64 µm, 31 layers), **0500P2**
+`20250825181859--1` (9.362 µm), and the official **0139 w035** native labels as an anchor. The organisers'
+20260918 labels (level 2 of the 2.4 µm grid) are carried onto each 1.2 m grid by nearest neighbour, using the
+canvas-size ratio (equal to the voxel ratio within 0.3 %; physical extents agree within 0.1 %), and written in the
+native-label format (labels on layer D // 2 only). 11 695 training patches.
+
+**Training.** The released recipe `aligned21_hybrid_3d2d.json` unchanged except: start from **ink_9um seed 42,
+step 75 000** (weights only), learning rate 0.002 (fine-tuning), batch 16 (8 GB GPU; per batch 841 ×6, 0009B ×3,
+0500P2 ×3, 0139 ×4), **12 000 iterations**, a checkpoint every 1 000, **no validation during training**.
+
+**Held-out control: PHerc0343P**, exactly PR-29's (never seen by ink_9um, never by this run; same scan configuration
+as PHerc0800). **PRIMARY, registered:** the **final checkpoint (12 000)** passes PR-29's criteria — AUC ≥ **0.80** in
+the order the label-free score picks, **and** the author sees the labelled components rendered as letter shapes.
+The other eleven checkpoints are reported and exploratory.
+
+**What each outcome means.** *Passes:* the first model shown to render writing on a held-out scroll of the eligible
+scan type; the reading of PHerc0800 is then registered separately (blind windows, 0343P letters mixed in as
+controls) before any 0800 panel is built. *Fails:* adding four scrolls' 1.2 m data does not buy transfer to a fifth,
+at this size and length of fine-tuning.
+
+**Declared in advance.** The control is thin (three labelled components, filed "unused"); label transfer is by
+canvas ratio with origin assumed; 841's labels cover ~10 % of its surface (ibara), so 841 contributes labelled
+patches only there; the 0139 anchor is data ink_9um already trained on.
