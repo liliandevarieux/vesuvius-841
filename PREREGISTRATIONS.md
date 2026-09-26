@@ -2849,3 +2849,120 @@ reference map does (1.89× its labels) and what no map of 841 has ever done.
 
 **Declared in advance.** n = 5 letters, one segment of 841. Four maps with one pre-specified, so the other three
 carry a selection penalty. Nothing about unlabelled text is claimed by this run.
+
+### PR-23 — result, 2026-09-26: primary fails
+
+| map (segB, 9.6 µm, upsampled ×4) | elongation | thickness | AUC (guard) | |
+|---|---|---|---|---|
+| **seed 42, step 75 000, reversed — PRIMARY** | **15.26** | 149.2 px | **0.6295** | fails the guard |
+| seed 42, step 75 000, forward | 14.15 | 153.9 px | 0.8057 | exploratory |
+| seed 43, step 75 000, reversed | 11.64 | 174.4 px | 0.6080 | exploratory |
+| seed 43, step 75 000, forward | 12.95 | 164.1 px | 0.7975 | exploratory |
+| *bars: published map* | *15.09* | | *0.8656* | |
+| *human labels* | *24.95* | 142.6 px | — | |
+
+**Verdict: the primary fails.** Its elongation clears 15.09 by 0.17, but its AUC is 0.63 against 0.8656. By the
+outcome written in advance: the released cross-scroll models do not render segB better than its published map.
+
+**Blind re-derivation.** A subagent given only the definitions and the file paths, with its own code, reproduced
+the primary and the seed-42 forward map: elongation 15.263 / 14.149, thresholds 70.955 / 86.926, identical;
+AUC 0.6288 / 0.8053 on all pixels, against 0.6295 / 0.8057 here on 200 000-pixel subsamples.
+
+**The choice of primary was wrong, and the right one was derivable in advance.** Reversed order was chosen because
+PR-1 found this volume prefers it — but PR-1 measured *this project's* model, trained on the w00 render. On
+2026-09-23 this project had already established two facts that settle the question for ink_9um: AndreasHad04's
+tool keeps *reverse* for ink_9um on all three 841 segments **in the bucket renders** (#1867), and the renders and
+the 2.403 µm published volumes are stored in **opposite** layer orders (PR-1). Together they predict *forward* on
+this volume, which is what was measured (0.81 vs 0.63 on both seeds). The forward maps are still exploratory and
+still below both bars, so the correct choice would not have changed the verdict.
+
+**Correction to the registration.** The input used planes **13–96** ([13, 97), the official
+`prepare_9um_isotropic_input` centring), not 12–95 as written.
+
+**Prior art known and not used.** AndreasHad04 had already run ink_9um on PHerc. 841, more fully, and this
+project knew it: villa issue **#1867** (2026-09-22: 14 checkpoints, three 841 segments at 4.681 µm, both depth
+orders, held-out AUC 0.64–0.71) is cited in this project's plan since 2026-09-23, and a correction was posted on it
+that day. The registration of PR-23 described ink_9um as never run on 841 by this project — true — and did not say
+that it had been run by someone else. His follow-up **#1898** (2026-09-25, not seen before this run) scores the
+2.403 µm volumes through the 9 µm recipe: AUC on supervision 0.8531 / 0.8176 / **0.8294 for segB**; depth
+sharpening adds about 0.03. His 0.8294 and this run's 0.8057 use different background regions and agree. PR-23
+therefore stands only as an independent replication, plus one measurement his does not make: the **shape** of the
+ink (elongation), which does not improve either.
+
+**Caveat on every AUC in this file, raised by ibara (`github.com/ibarapascal/ink-disagree`).** On 841 the
+validation masks cover about 90 % unannotated surface, and it is unknown whether that surface is unlabelled or
+checked blank. This project's background region (> 320 px from any label, on papyrus) lies in it. If it holds
+unlabelled ink, every AUC here is depressed — the baseline's as much as the models'.
+
+## PR-24 — registration, 2026-09-26, panels built, before anyone has looked: does the raw scan show 841's letters, and what is in ibara's candidates?
+
+**Why the medium changes.** PR-14 to PR-19 read *model maps*, and PR-18/19 measured that every published map of
+841 renders its known letters as round chunks — PR-23 adds the released cross-scroll models to that list. Reading
+candidates on a map would repeat PR-17. The one medium never tested on 841 is the **scan itself**, which is what
+the letters' tracers must have been able to see: 841's labels are as stroke-like as Paris 4's (PR-19).
+
+**Why these places.** ibara (`github.com/ibarapascal/ink-disagree`, 2026-09-23) lists, per segment, blobs the
+organisers' canon model calls ink at least 64 px from any label, and ranks as priority A those of at least 5 000
+level-2 px on which ink_9um, a different architecture, agrees on at least half. segB (his `20260221022814`) has 36.
+Coordinates only are published; nobody has published what they show.
+
+**The panels** (`scripts/pr24_panneaux.py`, built and not viewed). A 2048 px window at full resolution centred on
+the object, halved to 1024 px; eight slabs, each the mean of 8 layers, layers 22–85 of the 109; contrast 1–99 % on
+the window's papyrus; eight 512 px tiles per panel. Same rendering for every family. 38 panels, numbered by a
+seeded random permutation; the key stays on the machine that built them.
+- **5 positive controls**: the 5 labelled components of segB (every one of them).
+- **5 negative controls**: random windows (seed 24) on papyrus (published map > 0 on 95 %), touching no label and no
+  priority A or B blob. *Changed before any panel was viewed:* the first rule excluded blobs of every priority and
+  found no window in 20 000 draws — segB's 220 blobs touch almost every 2048 px window (6 in 3 000 escape) — so
+  small priority-C blobs are tolerated.
+- **28 candidates**: segB's 36 priority-A blobs minus the 8 whose window touches a label (which would show a known
+  letter).
+
+**Readers and answer.** (1) A subagent with no knowledge of the families, the counts or the aim; (2) Lilian,
+afterwards, with no knowledge of the first reader's answers. Per panel, exactly one of **writing strokes visible /
+nothing / don't know**, and, if strokes, any letter named and the tile where it is clearest.
+
+**Rules, per reader.**
+- *Sensitivity:* at least **3 of 5** positive controls called "strokes visible".
+- *Specificity:* at most **1 of 5** negative controls called "strokes visible".
+- A reader who passes both has their candidate calls counted. A reader who fails either has none counted.
+- A candidate is reported as **showing writing** only if both readers pass and **both** call it "strokes visible";
+  a letter is reported only if both name the same one.
+
+**What each outcome means, written before the result.**
+- *Both readers fail sensitivity:* at this rendering the raw scan does not show 841's known letters to these
+  readers; the candidates are not interpretable and nothing is claimed about them. The next variable is the
+  rendering (single layers, other depths), not the list.
+- *At least one reader passes both:* the scan is a readable medium for 841 at this rendering; candidates called by
+  both readers are the first places on 841 outside its labels where writing is seen, with coordinates, and go to
+  close inspection before anything is said about what they read.
+
+**Declared in advance.** 5 + 5 controls is a small check: 3 of 5 by chance alone is not rare for a reader who says
+"strokes" often, which is why specificity is required alongside. Positive controls are labelled components of
+1 100–2 100 px, larger than the median candidate (~700 px): a reader may see size. Reader 1 is a vision model, not a
+papyrologist. One segment of 841.
+
+### PR-24 — result, 2026-09-26: both readers fail the positive control. The raw scan, rendered this way, does not show 841's known letters.
+
+| reader | known letters called "strokes" | empty windows called "strokes" | candidates counted |
+|---|---|---|---|
+| 1 — subagent, blind to everything | **0 / 5** | 0 / 5 | none (fails sensitivity) |
+| 2 — Lilian | **declined after looking**: *"these are only blotches, whatever happens I could not do what you ask"* | — | none |
+
+Reader 1 called 35 panels "nothing" and 3 "don't know" (one of them an empty window). Reader 2's refusal is
+counted as what it is — no stroke seen anywhere — and not as a failure of the reader: the known letters were in
+the set, and they looked like blotches too.
+
+**Checked after the result, by the author, on one positive control (P05, a labelled component).** The panel is
+dominated by black voids between crushed layers; each 8-layer slab cuts through several sheet layers at once. At
+the exact place where a letter was traced, nothing has the shape of a stroke. The rendering is faithful to the
+data — contrast and windows are right — and the data at this rendering does not show the ink.
+
+**By the outcome written in advance:** nothing is claimed about ibara's candidates. The next variable would be
+the rendering (single layers, depth following the sheet), not the list.
+
+**Where this leaves PHerc. 841 for this project.** Maps from every recipe available — ours, and the released
+cross-scroll models — render its known letters as round chunks (PR-18, PR-19, PR-23); the raw scan at slab
+rendering shows them as nothing (PR-24). Yet its labels are as stroke-like as Paris 4's (PR-19): **someone saw
+strokes, on some rendering this project does not have.** How 841's labels were made is the one open question that
+could change this, and it is a question for the organisers, not a computation.
