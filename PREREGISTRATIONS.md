@@ -3025,3 +3025,39 @@ By the outcome written in advance: packing may separate scrolls, but it does not
 well, so it does not say where on 841 to look. The between-scroll table stays exploratory. Noted without weight,
 because it was seen after the result: every one of the 11 letters sits at occupancy 0.47–0.68, all at or above
 Paris 4's sheet median (0.484) — the range inside 841 may simply be too narrow for the effect to show.
+
+## PR-26 — registration, 2026-09-26, before any inference: a label-free, per-patch depth for ink_9um on 841
+
+**Why.** T. C. Korkmaz (`github.com/tarikcankorkmaz00/ink9um-depth-calibration`) measured on ink_9um that the best
+window depth varies *below* segment scale — per-tile oracle depth is worth +0.111 AUC, while no per-scroll or
+per-segment offset beats the default — and wrote that the fix would be *"a per-patch depth map … with a label-free
+criterion to choose the depth at inference time, which I have not built."* 841 is packed (exploratory table above):
+the sheet is exactly where a fixed window is least likely to sit on the ink. This builds that criterion and tests
+it on 841 only.
+
+**Inputs.** The official `prepare_9um_isotropic_input`, unchanged except that its 84-plane window is shifted by
+k ∈ {−12, −6, 0, +6, +12} planes of 2.403 µm (±28.8 µm; Korkmaz's measured optima were −24.0 and +33.6 µm; +12 is
+the largest shift the 109-plane volume allows). k = 0 is PR-23's input. One checkpoint, one order, fixed now:
+**seed 42, step 75 000, forward** (forward is the order PR-23 showed and the arrays predict).
+
+**The rule (label-free).** Cut each 9.6 µm map into 256 × 256 px tiles (~2.5 mm, about two letters). In each tile,
+over papyrus pixels (map > 0), score each k by **p95 − p50** of the map — how far the confident part stands above the
+tile's typical level — and keep the k with the highest score. The composite map takes each tile from its chosen k.
+No label is read.
+
+**Primary, registered.** On **segB**: the composite's AUC (PR-23's guard, same code) exceeds the k = 0 map's by
+**at least +0.010**. **Replication, registered:** the same on **segA** (`auto_grown_20260220144552896`, 6 letters), whose
+maps have not been computed. Both must hold for the rule to be called useful on 841.
+
+**Reported, not tested:** elongation of every map; the five fixed-k AUCs (whether depth matters on 841 at all); the
+histogram of chosen k.
+
+**What each outcome means.**
+- *Both hold:* the first label-free depth policy that helps ink_9um on a scroll it never saw; the composite becomes
+  this project's map of 841 and the depth map goes to Korkmaz's and AndreasHad's threads (with Lilian's go).
+- *segB only:* not replicated; nothing claimed.
+- *Neither:* either depth does not matter on 841 at this scale (read from the fixed-k AUCs), or it does and this
+  criterion does not find it.
+
+**Declared in advance.** One checkpoint; the AUC's background region may contain unlabelled ink (ibara); tile seams
+are hard switches; five offsets only.
