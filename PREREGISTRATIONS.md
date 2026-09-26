@@ -2697,3 +2697,59 @@ Reference ceiling 114.74.
    comparison and it is not removable by a config key.
 3. Still n = 2 letters, still the control scroll, still nothing claimed about 841 until a recipe is carried over
    and measured there.
+
+### PR-20 — full result, 2026-09-26: the guard fails on all ten checkpoints. Thin labels from a random start do not train.
+
+| checkpoint | 8k | 16k | 24k | 32k | 40k | 48k | 56k | 64k | 72k | 80k |
+|---|---|---|---|---|---|---|---|---|---|---|
+| elongation | 493.4 | 193.9 | 118.1 | 242.8 | 96.4 | 135.2 | 86.2 | 110.5 | 91.2 | 80.6 |
+| thickness | 19.7 | 28.3 | 29.7 | 27.4 | 37.1 | 37.7 | 43.6 | 46.1 | 48.3 | 47.4 |
+| **guard (separation)** | **0.4** | **−0.0** | **2.1** | **2.8** | **5.5** | **5.1** | **13.2** | **17.4** | **19.8** | **20.7** |
+
+Baseline separation **133.0**. The guard fails everywhere, by a factor of six at its best. It does climb over the
+second half — 5.1 → 20.7 — so the network is learning, extremely slowly, and the run is not a bug; at that rate
+and decelerating it would need several hundred thousand iterations to reach the baseline. Registered outcome 3:
+**recorded as a failure**, and the hypothesis under test was never reached.
+
+The elongation row is the reason the guard exists. 493.4 sits at the checkpoint whose separation is **0.4** — an
+output that is essentially constant, out of which a 70 %-fill threshold carves filaments. Read alone against a
+baseline of 28.89 and a ceiling of 114.74, that number says "four times better than the reference map".
+
+### PR-21 — result, 2026-09-26: the guard falls. Thinning the prediction is not the same thing as making it stroke-shaped.
+
+Warm-started from run 2's ckpt 80 000, thinned labels, learning rate 0.001, 24 000 iterations.
+
+| checkpoint | 4k | 8k | 12k | 16k | 20k | 24k | baseline | reference |
+|---|---|---|---|---|---|---|---|---|
+| elongation | 31.05 | **34.55** | 32.46 | 33.86 | 32.35 | 33.12 | 28.89 | **114.74** |
+| thickness | 71.9 | 74.7 | 80.1 | 73.9 | 72.3 | 72.9 | 97.8 | **34.4** |
+| **guard** | 40.4 | 49.2 | 55.6 | 50.3 | 50.5 | 52.1 | **133.0** | — |
+
+**The primary fails.** It required elongation above 28.89 **and** separation at or above 133.0 **on the same
+checkpoint**. Elongation clears its bar on all six; the guard clears it on none, sitting at 38–42 % of baseline.
+Registered outcome 3: *the thin target destroys ink detection even from a working start.*
+
+**But the interesting part is the exchange rate, and it was not anticipated.** Take the best checkpoint, 8 000:
+
+- thickness **97.8 → 74.7**, a 24 % reduction — the manipulation worked, the prediction genuinely got thinner
+- elongation **28.89 → 34.55**, a gain of **5.7 points**
+- separation **133.0 → 49.2**, a loss of **83.8 points**
+
+**Roughly 15 points of ink detection destroyed per point of elongation gained.** The reference map is 81 points of
+elongation above our baseline. At this exchange rate, reaching it would cost twelve times more separation than
+exists. **The label-thickness lever is real, measurable, in the right direction, and hopelessly weak.**
+
+The registration's remedy for this outcome — *"the thinning must be gentler, an intermediate label set at roughly
+70 px"* — is **not being run.** The measured gradient says a gentler thinning buys proportionally less elongation,
+not more; it would trade a smaller loss for a smaller gain along the same bad line. Recording that the registered
+next step is being dropped, and why, rather than executing it because it was written down.
+
+**What this pair of runs establishes, stated carefully.** Prediction thickness and prediction *shape* are separate
+axes. Our model can be made to draw thinner and it stays just as blobby: at 74.7 px it scores 34.6, while the
+reference map at 34.4 px scores 114.7. Thinness is not what makes the reference map's marks stroke-like, so
+whatever does is not in the labels. That leaves the architecture, which PR-22 is testing as this is written.
+
+**Verification.** These figures come from `eval_pr20.py`, whose elongation and thickness functions are the same
+ones re-derived from scratch by two independent blind subagents earlier in this project, and whose baseline
+(28.89 / 97.8) was reproduced exactly through two different inference paths. The individual run numbers above were
+not separately blind-checked.
