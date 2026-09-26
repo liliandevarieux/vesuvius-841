@@ -2966,3 +2966,62 @@ cross-scroll models — render its known letters as round chunks (PR-18, PR-19, 
 rendering shows them as nothing (PR-24). Yet its labels are as stroke-like as Paris 4's (PR-19): **someone saw
 strokes, on some rendering this project does not have.** How 841's labels were made is the one open question that
 could change this, and it is a question for the organisers, not a computation.
+
+## Exploratory, 2026-09-26, measured before any registration: 841 is packed
+
+The *readability gate* of robertlangdonn (`github.com/robertlangdonn/vesuvius-readability-gate`, cited in villa
+#1180) scores the **input**, not the ink: per depth column, the fraction of the 62-layer window brighter than half
+its (smoothed) maximum. One sheet isolated between dark gaps scores low; packed laminae saturate. Its formula,
+reused verbatim and vectorised (`scripts/occupation.py`), on every segment this project holds, one 1 024 px tile in
+16, centred 62-layer window:
+
+| segment | reads? | median occupancy | clean (≤ 0.5) |
+|---|---|---|---|
+| PHerc0139 w035 | yes | 0.306 | 0.848 (768 columns only) |
+| PHerc1667 w018 | yes | 0.347 | 0.925 (80 columns only) |
+| PHerc Paris 4 w00 / w02 | yes | 0.484 / 0.484 | 0.531 / 0.530 |
+| **PHerc0841 segA / segB / w00v24 / w00** | no | **0.629 / 0.629 / 0.629 / 0.694** | 0.333 / 0.297 / 0.329 / 0.234 |
+| PHerc0500P2 | no (ink_9um at chance, #1867) | 0.694 | 0.169 |
+| PHerc0009B | no | 0.710 | 0.096 |
+
+No overlap between the scrolls that read and those that do not. Caveats: chosen after the fact; two readable
+samples are tiny; voxel sizes not all checked equal. This matches what PR-24's positive-control panel showed.
+
+## PR-25 — registration, 2026-09-26, before the measurement: inside 841, do less-packed letters render more like strokes?
+
+**Why.** If packing is why 841's maps give round chunks, then *within* 841 the known letters that sit in
+less-packed places should come out more stroke-like. If it holds, the lever for reading 841 is **where** to look —
+its least-packed regions — not which model to run.
+
+**Measurement** (`scripts/pr25.py`). The 11 letter-sized labelled components of segA (6) and segB (5), 2.403 µm
+published volumes. Per letter: (1) **occupancy** = median of the gate's column occupancy over the letter's bounding
+box, one column every 8 px, centred 62-layer window (layers 23–84); (2) **elongation** of the organisers' published
+map (`pred.tif`) on that letter, by the definition of PR-18 (threshold at 70 % fill of the segment's own labelled
+letters).
+
+**Primary, registered.** Spearman ρ between occupancy and elongation over the 11 letters is **negative, with
+one-sided p < 0.05** (for n = 11, about ρ ≤ −0.53).
+
+**What each outcome means.**
+- *Holds:* packing predicts rendering quality within 841; next step is an occupancy map of the three segments, to
+  find the least-packed surface and look there first.
+- *Fails:* packing may separate scrolls but does not explain which of 841's letters render well; the between-scroll
+  table above stays exploratory, and where to look is not given by it.
+
+**Declared in advance.** n = 11, two segments of one scroll; the published map only; bounding boxes include
+background around the letter.
+
+### PR-25 — result, 2026-09-26: fails. Inside 841, local packing does not predict which letters render as strokes.
+
+| segment, letter | occupancy | elongation |
+|---|---|---|
+| segA 1 / 2 / 3 / 4 / 5 / 6 | 0.677 / 0.597 / 0.516 / 0.661 / 0.645 / 0.677 | 14.25 / 13.76 / 8.14 / 11.36 / 13.20 / 15.38 |
+| segB 1 / 2 / 3 / 4 / 5 | 0.548 / 0.468 / 0.532 / 0.581 / 0.645 | 13.22 / 18.26 / 15.09 / 16.91 / 14.85 |
+
+Spearman ρ = **−0.114**, one-sided p = 0.369 (n = 11). **The prediction fails.** Re-derived blind by a subagent
+with its own code from the definitions: all 11 pairs identical, ρ = −0.1142, two-sided p = 0.738.
+
+By the outcome written in advance: packing may separate scrolls, but it does not say which of 841's letters render
+well, so it does not say where on 841 to look. The between-scroll table stays exploratory. Noted without weight,
+because it was seen after the result: every one of the 11 letters sits at occupancy 0.47–0.68, all at or above
+Paris 4's sheet median (0.484) — the range inside 841 may simply be too narrow for the effect to show.
