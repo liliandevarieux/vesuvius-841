@@ -3168,3 +3168,34 @@ map before any 0800 panel exists, sees lines of writing. If any fails, **no 0800
 
 **0800.** Nothing is claimed from its maps in this registration. If the control passes, the reading of 0800
 (windows chosen without looking, controls mixed in, readers blind) is registered separately before any panel is built.
+
+### PR-28 — result, 2026-09-26: the positive control fails. No panel of PHerc0800 is built or shown.
+
+| map (seed 42, step 75 000) | forward AUC | reverse AUC | label-free order score (p99 − p50) fwd / rev |
+|---|---|---|---|
+| **PHerc0139 w035, 1.2 m — control** | **0.5630** | 0.4737 | 132 / 108 → forward (the better one) |
+| 841 segB, 1.2 m | 0.7199 | 0.6685 | 113 / 106 → forward |
+| PHerc0800, 6 segments | — | — | 85/83, 114/74, 102/91, 85/75, 76/75, 84/75 → forward on all six, three of them by ≤ 2 |
+
+Re-derived blind by a subagent with its own code: 0.5630 / 0.4737, identical.
+
+**Control, criterion by criterion.** (1) AUC ≥ 0.80: **fails** (0.563). (2) The label-free score picks the better
+order: holds. (3) The author's look at the control map
+(`images/2026-09-26_pr28_controle_0139w035_carte.png`, labels beside it): **crisp letter shapes appear only where
+labels lie inside the segment's supervision mask** — ρ ΝΟ, ΝΛ, Τ Ρ, Ν ΥCΙ, exactly their tracing — and nowhere
+else; the two labelled letters *outside* supervision (an Ο and a Τ) do not appear, and the rest of the sheet, which
+is written, is rows of blobs. That is not "lines of writing". **The control fails; by the registered rule no
+PHerc0800 panel is built or shown.** The six 0800 maps exist and have not been looked at.
+
+**What the look suggests, and what the numbers do not support.** The picture suggests ink_9um reproduces labels it
+was supervised on (0139 is one of its training scrolls) rather than reading this 1.2 m scan. The blind re-derivation
+does **not** back that with pixel statistics: ink inside supervision scores AUC 0.544, *below* ink outside it
+(0.665), with means 127.6 vs 114.2 against a background of 80.9 — the supervised strokes are bright but the label
+masks are wider than them, and the unlabelled rest of the sheet is full of bright blobs. So the claim is only the
+visual one, stated as such. **What stands:** on a 1.2 m scan of a scroll it trained on, this pipeline does not
+render the sheet's unlabelled writing legibly, so it cannot be trusted to show writing on PHerc0800.
+
+**Consequence.** A trustworthy control for 0800 needs a *readable, labelled* scroll that ink_9um did not train on,
+scanned at 1.2 m. None was found among the published data checked here (0139, 0814, 1667, Paris 4 are its training
+scrolls; 841, 0500P2, 0009B do not read well). Until one exists, **looking at 0800 through ink_9um has no measured
+sensitivity**, which is exactly the situation PR-17 showed must not be read.
