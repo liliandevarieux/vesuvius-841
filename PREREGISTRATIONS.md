@@ -3224,3 +3224,26 @@ as the result, and no 0800 map is looked at.
 **Declared in advance.** Three labelled components is a thin control; "unused" in the dataset may mean the
 organisers judged these labels unfit for training; origin alignment between the render and the 1.2 m volume is
 assumed, not measured.
+
+### PR-29 — result, 2026-09-26: the held-out control fails. No map of PHerc0800 is looked at.
+
+| PHerc0343P, 8.64 µm / 1.2 m | AUC | ink / background mean | label-free order score |
+|---|---|---|---|
+| forward | **0.4176** | 73.2 / 81.4 | 112 → picked |
+| reverse | 0.3332 | 66.8 / 77.7 | 94 |
+
+Re-derived blind with independent code (two AUC computations agreeing): 0.4176 / 0.3332.
+
+**Criterion by criterion.** (1) AUC ≥ 0.80: **fails** — both orders are *below* chance: labelled ink is darker than
+background. (2) The label-free score picks the better order: holds. (3) The author's look
+(`images/2026-09-26_pr29_controle_0343P_carte_etiquettes.png`, label outlines in red): **no letter shape anywhere
+on the map**, only blobs; under the two labelled strokes the map is mostly dark. Criterion 3 does not depend on the
+label alignment (origin assumed, not measured): a map that rendered writing would show strokes somewhere.
+**The control fails.**
+
+**What this says, as far as it goes.** On the one published scroll that is labelled, held out from ink_9um, and
+scanned like PHerc0800, ink_9um shows no writing. This agrees with AndreasHad04's #1867, where the exposed fragment
+500p2a scored at chance for every checkpoint. It is a thin control — three labelled components, labels the
+organisers filed as "unused" — so it does not prove ink_9um *cannot* read 0800; it shows that **no one currently has
+a measured reason to trust what ink_9um shows on 0800's scan type**. By the registered rule, the six 0800 maps from
+PR-28 stay unlooked-at.
