@@ -3321,3 +3321,30 @@ held-out scrolls. Other checkpoints reported, exploratory.
 **What it decides.** *Holds:* adding 1.2 m data from other scrolls transfers to an unseen scroll of that scan type;
 PR-30's all-scroll model is then the best current candidate for PHerc0800, and 0343P stays its untouched control.
 *Fails:* on this data, fine-tuning on the eligible scan type does not transfer; nothing is looked at on 0800.
+
+### PR-31 — result, 2026-09-27 00:46: holds on all three folds. Fine-tuning on the 1.2 m scan type transfers to an unseen scroll — in AUC, not yet in legibility.
+
+AUC inside the supervision mask, order picked by the label-free score (forward in every case), checkpoint 4 000:
+
+| held-out scroll | released ink_9um | fine-tuned without it | difference |
+|---|---|---|---|
+| 841 w00 / segA / segB | 0.7498 / 0.7224 / 0.7533 | 0.8031 / 0.7643 / 0.7850 | +0.053 / +0.042 / +0.032 |
+| **841 (mean)** | **0.7418** | **0.7841** | **+0.042** |
+| **0009B** | **0.8074** | **0.8530** | **+0.046** |
+| **0500P2** | **0.7377** | **0.7884** | **+0.051** |
+
+**PRIMARY: ≥ +0.03 on at least 2 of 3 — holds on 3 of 3.** Re-derived blind by a subagent with its own code: every
+AUC identical to four decimals, forward picked everywhere, no tie.
+
+Exploratory (checkpoints 1 000–3 000): the gain is largest at 1 000 on every fold (841 mean +0.065, 0009B +0.052,
+0500P2 +0.086) and settles by 2 000.
+
+**Legibility, looked at after the result and reported as such.** Held-out labelled letters, released vs fine-tuned
+(`images/2026-09-27_pr31_lettres_*`): on 841 segB (Α, Α, Π) and 0009B (Η, Ν, Μ) the fine-tuned maps put more ink
+where the letters are, but no letter is recognisable; on 0500P2 both maps render the stem of a Τ as a clean bar and
+part of a Y-shaped sign, still short of letters one would read without the tracing beside them. Reader-free, on
+841 segB's letters: elongation 8.7 (released, 1.2 m) → 13.7 (fine-tuned), against 24.95 for the tracing.
+
+**What this establishes.** On the eligible scan type, training on other scrolls' 1.2 m data transfers to an unseen
+scroll: +0.03 to +0.05 AUC on three of three, where the released model had seen one such scroll. It does not yet
+render held-out letters legibly, so it does not yet license looking at PHerc0800 for letters.
