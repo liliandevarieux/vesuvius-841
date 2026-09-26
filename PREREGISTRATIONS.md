@@ -3199,3 +3199,28 @@ render the sheet's unlabelled writing legibly, so it cannot be trusted to show w
 scanned at 1.2 m. None was found among the published data checked here (0139, 0814, 1667, Paris 4 are its training
 scrolls; 841, 0500P2, 0009B do not read well). Until one exists, **looking at 0800 through ink_9um has no measured
 sensitivity**, which is exactly the situation PR-17 showed must not be read.
+
+## PR-29 — registration, 2026-09-26, before any inference: a held-out control on PHerc0800's own scan type
+
+**Why.** PR-28's control was a scroll ink_9um trained on, and showed only the letters it was supervised on. The
+control that 0800 needs is a scroll that **reads, is labelled, was never in ink_9um's training, and was scanned like
+0800**. The published data has one: **PHerc0343P**, segment `20250511003658`, surface volume
+**8.64 µm / 1.2 m / 116 keV, 31 layers** (3440 × 2060) — the same configuration as PHerc0800 — with ink labels in
+`ink/unused/P343p` (3 labelled components, 13 559 level-3 px; its "supervision" mask equals the labels and plays no
+role here, since ink_9um never saw this scroll).
+
+**Pipeline:** exactly PR-28's (`prep_12m.py`: 21 centred native layers; ink_9um seed 42, step 75 000, both orders).
+Labels are on a 2.215 µm render grid (13 491 × 8 099); mapped by the voxel ratio **8.64 / 2.215 = 3.901**, origin 0.
+
+**Control passes only if all hold** (PR-28's criteria, unchanged): (1) AUC ≥ **0.80** in the better order;
+(2) the label-free p99 − p50 score picks that order; (3) the author, looking at the map beside the labels, sees the
+labelled components rendered as **letter shapes**, not blobs.
+
+**What it decides.** *Passes:* ink_9um shows writing on a scroll it never saw, on 0800's scan type; the reading of
+0800 is then registered (blind windows, 0343P letters mixed in as positive controls, readers blind) before any panel
+is built. *Fails:* no one can currently look at 0800 through ink_9um with a measured sensitivity; that is published
+as the result, and no 0800 map is looked at.
+
+**Declared in advance.** Three labelled components is a thin control; "unused" in the dataset may mean the
+organisers judged these labels unfit for training; origin alignment between the render and the 1.2 m volume is
+assumed, not measured.
