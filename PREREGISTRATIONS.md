@@ -3090,3 +3090,27 @@ labels. Depth moves the AUC by a few hundredths; it does not change the shape.
 By the outcome written in advance: either depth does not matter enough on 841 at this scale, or it does and this
 criterion does not find it. The fixed-shift spread (0.78–0.81 on segB, 0.81–0.84 on segA) bounds what a better
 criterion could gain within ±29 µm at segment scale; a per-tile oracle was not computed.
+
+## PR-27 — registration, 2026-09-26, before PHerc0800 is measured: is the next target packed like 841?
+
+**Why.** Decision of Lilian, 2026-09-26: 841 is put on hold pending the organisers' answer, and a First Letters
+scroll where nothing has been read becomes the active target if it looks readable. PHerc0800 is the only eligible
+scroll with published segments small enough to hold whole here (6 segments, 8.64 µm, 1.2 m / 116 keV, 31 layers).
+
+**Reference at matched resolution, measured before this registration** (`scripts/occupation2.py`: layers averaged
+to ~9.6 µm, a centred ~150 µm window, smoothing kept at 3.6 µm physical): readable scrolls **0.312 (0139), 0.344
+(1667), 0.500 / 0.500 (Paris 4 w00 / w02)**; PHerc0841 **0.625 / 0.625 / 0.625 (segA / segB / w00v24), 0.750 (w00
+render)**; 0009B 0.688. The separation of the exploratory table survives resolution matching.
+
+**Measurement.** Each of 0800's 6 segments at native 8.64 µm (pool 1), window 17 layers (147 µm), smoothing
+3.6 µm, every 1 024 px tile; median occupancy per segment, and the median of the 6.
+
+**Rule, registered.**
+- median of the 6 **≤ 0.50** (at or below the highest readable reference): **not packed** — and robust, because
+  the 1.2 m scan's extra depth blur (#1898) can only *raise* occupancy;
+- **≥ 0.625** (at or above 841's lowest): **packed or blurred** — not distinguishable with this scan, so *not*
+  evidence that 0800 is unreadable;
+- between: undetermined.
+
+**What it decides.** *Not packed:* 0800 becomes the active target — run ink_9um, then look, with a positive control
+built before any reader sees a panel. Otherwise the choice goes back to Lilian with the number.
