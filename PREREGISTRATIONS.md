@@ -2753,3 +2753,99 @@ whatever does is not in the labels. That leaves the architecture, which PR-22 is
 ones re-derived from scratch by two independent blind subagents earlier in this project, and whose baseline
 (28.89 / 97.8) was reproduced exactly through two different inference paths. The individual run numbers above were
 not separately blind-checked.
+
+### PR-22 — result, 2026-09-26: the 2.5D architecture fails the guard too, and every single-segment variant now lands in the same place
+
+| checkpoint | 8k | 16k | 24k | 32k | 40k | 48k | 56k | 64k | 72k | 80k |
+|---|---|---|---|---|---|---|---|---|---|---|
+| elongation | 154.5 | 65.6 | 46.2 | 24.2 | 33.0 | 31.8 | 33.3 | 30.4 | 32.5 | 32.4 |
+| **guard (separation)** | 1.5 | 8.2 | 37.8 | 58.9 | 68.6 | 68.6 | 74.5 | 84.1 | 82.4 | **86.6** |
+
+Baseline separation 133.0: **the guard never clears it**, so the registered primary fails. It is still rising at
+80 000, so the 2.5D model is learning ink more slowly than the 3D one did, not failing to learn it. The early
+elongation of 154.5 again sits at a guard of 1.5 — noise carved by a threshold.
+
+**The pattern across four runs is the result, more than any one of them.** Every model trained here that finds ink
+at all lands at an elongation between **28.9 and 35**, whatever was changed:
+
+| run | what changed | best elongation with a working guard | guard there |
+|---|---|---|---|
+| run 2 | — (baseline) | 28.89 | 133.0 |
+| PR-21 | label thickness, warm start | 34.55 | 49.2 |
+| PR-22 | architecture 3D → 2.5D | 33.34 | 74.5 |
+| PR-20 | label thickness, cold start | — (never found ink) | ≤ 20.7 |
+| *reference* | *published map* | ***114.74*** | — |
+
+Label thickness moved it by five points; architecture by four. **What none of these runs changed is the training
+data: one segment of one scroll.** The reference map and the models released with the pipeline were both trained
+on many segments across several scrolls. That is the variable left standing, and it can be tested without training.
+
+## PR-23 — registration, 2026-09-26, before any inference: the released cross-scroll models on 841, which this project had never run
+
+**What was found, and how.** Looking for prior art on GitHub, as `CLAUDE.md` requires before investing in a
+direction, turned up what this project should have found on its first day. The villa ink-detection pipeline (PR
+#1456, merged 2026-08-14) ships a **released training recipe**, `aligned21_hybrid_3d2d.json`, and its companion
+#1458 documents **pretrained cross-scroll checkpoints**, `scrollprize/ink_9um` on Hugging Face. Tutorial 5 calls this
+the First Letters workflow in so many words: *"take a segment of an unread scroll, render it, run the shared models,
+and look."* This project has used the same pipeline since 2026-09-18, trained the default 3D U-Net from scratch on
+one segment at 2 µm, and never ran them.
+
+| | released recipe | this project, 2026-09-18 → 26 |
+|---|---|---|
+| model | `vesuvius_unet_3d_stem_2d`: small 3D stem, 2D U-Net | `vesuvius_unet`, 3D |
+| resolution | ~9.6 µm isotropic | 2.4 µm |
+| training data | 29 representations across **four scrolls** (0139, 1667, Paris 4, 0814) | one segment of Paris 4 |
+| batch | 64, fixed per-scroll counts | 2 × 4 accumulation |
+| weights | **published, 2 seeds × 7 checkpoints** | trained here from scratch |
+
+**PHerc. 841 is not in their training set**: for them it is exactly the case they were built for.
+
+**Prior art that shapes the protocol, found by Lilian on the project Discord.** T. C. Korkmaz
+(`github.com/tarikcankorkmaz00/ink9um-depth-calibration`) measured on these checkpoints that (1) the output depends
+on the window origin with period 8 px, so patch origins must stay on multiples of 8 — the default `--overlap 0.5`
+(stride 64) on a full-sheet input with origin 0 satisfies this and is what is used; (2) depth matters a great deal
+but varies below segment scale, and **per-segment depth calibration does not help** under honest cross-validation.
+So **no depth window is tuned on 841's known letters**; the default window is used. His `experiment2` also found no
+measurable difference between derived 9.6 µm and native 9.362 µm inputs, which licenses pooling 841's 2.4 µm volume.
+
+**The input.** PHerc. 841 segB (`auto_grown_20260220174252405`), published volume 109 × 14 660 × 19 100 at 2.403 µm —
+chosen over w00 because the recipe needs 84 centred planes and w00 has 65. Prepared as the model card specifies for
+2.4 µm volumes: centred 84 planes (12–95), mean-pooled 4:1 in z to 21 slices, mean-pooled 4 × 4 in XY. Done with a
+tiled script, because this volume has no pyramid level 2 to read.
+
+**Baseline, measured before registering with the code that will score the result** (`scripts/eval_segB.py`, the 5
+letter-sized labelled letters of segB):
+
+| segB | elongation | thickness | AUC (guard) |
+|---|---|---|---|
+| human labels | **24.95** | 142.6 px | — |
+| published map `pred.tif` | **15.09** | 158.9 px | **0.8656** |
+
+**The guard changes unit; the reason is written here before any result.** These models train with label smoothing
+0.5, so their no-ink output sits near 0.25 and their ink near 0.75: a separation in grey levels is compressed by
+construction, and yesterday's bar of 133 would be unreachable by a perfect model. The guard is therefore the **ROC
+AUC** of labelled ink pixels against pixels more than 320 px from any label — scale-free, and the metric Korkmaz
+used. Every map, the baseline included, is scored by the same code on the same 2.4 µm grid; a 9.6 µm output is
+upsampled ×4 bilinearly first.
+
+**Primary map, fixed now so it cannot be chosen afterwards.** `--direction both` writes two separate maps and there
+are two seeds, so four maps will exist. The primary is **seed 42, step 75 000, reversed layer order**: seed 42 because
+it is the tutorial's example, reversed because this project's PR-1 (2026-09-23) measured that this very 109-plane
+published volume prefers reversed order. The other three are reported and marked exploratory.
+
+**PRIMARY, registered.** On the primary map: **elongation above 15.09 with AUC at or above 0.8656** — better shape
+than the published map, without worse ink detection.
+
+**Stronger, registered.** Elongation above **24.95**, above the sheet's own labels — what the control scroll's
+reference map does (1.89× its labels) and what no map of 841 has ever done.
+
+**What each outcome means, written before the result.**
+- *Both bars cleared:* the first map of 841 whose letters render as strokes. The blind search of PR-14 to PR-17 is
+  then re-run on it, with the positive control on known letters those runs lacked, **before** anyone is shown a panel.
+- *Primary cleared, stronger not:* better than anything published for 841 but still below the tracing; worth
+  searching, with the same control first.
+- *Primary fails:* the released cross-scroll models do not render 841 better than its published map either. The
+  problem is then in no recipe available to this project, and 841's difficulty is the scroll's own.
+
+**Declared in advance.** n = 5 letters, one segment of 841. Four maps with one pre-specified, so the other three
+carry a selection penalty. Nothing about unlabelled text is claimed by this run.
