@@ -3278,3 +3278,21 @@ at this size and length of fine-tuning.
 **Declared in advance.** The control is thin (three labelled components, filed "unused"); label transfer is by
 canvas ratio with origin assumed; 841's labels cover ~10 % of its surface (ibara), so 841 contributes labelled
 patches only there; the 0139 anchor is data ink_9um already trained on.
+
+### PR-30 — result, 2026-09-26 23:23: fails at the registered checkpoint; a partial gain on the held-out control
+
+PHerc0343P (held out), AUC in the order the label-free score picks (forward at every checkpoint):
+
+| checkpoint | 1 000 | 2 000 | 3 000 | 4 000 | 5 000 | 6 000 | 7 000 | 8 000 | 9 000 | 10 000 | 11 000 | **12 000** |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| forward | 0.672 | 0.647 | 0.573 | 0.586 | 0.613 | 0.637 | 0.584 | 0.590 | 0.527 | 0.589 | 0.587 | **0.581** |
+| reverse | 0.500 | 0.496 | 0.469 | 0.385 | 0.464 | 0.516 | 0.485 | 0.459 | 0.445 | 0.480 | 0.450 | 0.450 |
+
+Released ink_9um on the same control: 0.418 (PR-29). **Primary (checkpoint 12 000): 0.581 < 0.80, and no letter
+shape on the map** (`images/2026-09-26_pr30_temoin_0343P_publie_1000_12000.png`). **Fails.**
+
+Exploratory, and chosen by looking, so without weight: the best checkpoint is the first (0.672), and on its map a
+bright elongated mark follows part of the labelled diagonal stroke; later checkpoints drift away. Fine-tuning on
+four scrolls' 1.2 m data moves the held-out control from below chance to above it, but nowhere near legible.
+Caveat seen on the maps: the brightest structures near the labels are unlabelled; 0343P has three labelled
+components, so unlabelled ink would depress its AUC.
