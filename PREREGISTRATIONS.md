@@ -3114,3 +3114,17 @@ render)**; 0009B 0.688. The separation of the exploratory table survives resolut
 
 **What it decides.** *Not packed:* 0800 becomes the active target — run ink_9um, then look, with a positive control
 built before any reader sees a panel. Otherwise the choice goes back to Lilian with the number.
+
+### PR-27 — result, and an amendment registered before the controls are measured
+
+**Result.** PHerc0800, six segments: median occupancy **0.882 / 0.882 / 0.824 / 0.941 / 1.000 / 1.000**, median of
+the six **0.912**; clean fraction 0.03–0.09. By the rule: **packed or blurred — undetermined with this scan.**
+
+**Amendment, registered with 0800's value known and the controls' not.** The ambiguity is the scan, so the
+controls are the same scan type: 9.36 µm / 1.2 m volumes of **two readable scrolls**, PHerc0139 (w025) and
+PHerc0814 (`auto_grown_20250925161630635`), and of **841 segB**, measured with the same script (pool 1, ~150 µm,
+3.6 µm smoothing).
+- If both readable controls score **≤ 0.60** and 841 **≥ 0.80**, the metric still separates on this scan type,
+  and 0800 at 0.91 is classed **with 841: packed** — not a promising target by this measure.
+- If the readable controls score **≥ 0.80** too, the 1.2 m scan saturates the metric and it **says nothing** about 0800.
+- Anything else: undetermined.
