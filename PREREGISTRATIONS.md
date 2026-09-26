@@ -2579,3 +2579,66 @@ failure whatever the elongation does.
    were measured with the identical code.
 4. This tests a mechanism on the **control scroll**, not on 841. Nothing here claims anything about 841 until the
    recipe is carried over and measured there.
+
+## PR-21 — registration, 2026-09-26, written while PR-20's evaluation is still running: the same manipulation, started from a model that already finds ink
+
+**PR-20's outcome, as far as it is measured at the time of writing** (six checkpoints of ten; the remaining four are
+recorded with the full result and this section is not revised afterwards):
+
+| checkpoint | 8 000 | 16 000 | 24 000 | 32 000 | 40 000 | 48 000 |
+|---|---|---|---|---|---|---|
+| elongation | 493.4 | 193.9 | 118.1 | 242.8 | 96.4 | 135.2 |
+| **guard (separation)** | **0.4** | **−0.0** | **2.1** | **2.8** | **5.5** | **5.1** |
+
+Baseline separation 133.0. **The guard fails on every checkpoint**, and it plateaus around 5 rather than climbing.
+This is outcome 3 of the three written before the run: *elongation rises and the guard fails — the model has
+thinned by losing the ink. Recorded as a failure.* The elongation figures are meaningless: at 70 % fill of a
+near-constant image the threshold carves filaments out of noise, which is why 493 appears at the checkpoint whose
+separation is 0.4. **Without the co-primary guard, 493 against a baseline of 28.89 and a reference ceiling of
+114.74 would have read as a spectacular success.**
+
+**What actually happened, and it is not what PR-20 set out to test.** The network never learned anything. Its
+single-batch loss stayed inside 0.50–0.62 for all 80 000 iterations, while run 2's ranged 0.10–0.91 over the same
+schedule. A loss that does not respond to which batch it is given is the signature of an output that does not
+respond to its input. So PR-20 does **not** show that a thin target is unreachable; it shows that **reaching it
+from a random initialisation, with this recipe and this budget, does not happen.** The hypothesis under test —
+does label thickness set prediction thickness — was not reached.
+
+**PR-21, the same manipulation started from somewhere that already works.** Run 2's ckpt 80 000 finds ink: that is
+the whole reason it reads ΤΗΟΚΑΤ. Load its weights, keep the thinned labels unchanged, drop the learning rate to
+one tenth (0.001), and train 24 000 iterations instead of 80 000. The model is not asked to learn ink detection
+again; it is asked to move what it already finds toward a thinner target. The project has used exactly this shape
+before — run 4 on 841 warm-started from run 2 at a reduced rate. Config differs from run 2 in seven keys, all
+listed in the commit.
+
+**The guard changes role, and this is the point of the design.** In PR-20 the guard was never satisfied at any
+moment. In PR-21 it is satisfied **by construction at iteration zero**, because the starting weights are run 2's.
+The question therefore becomes precise and hard to fake: **does elongation rise while the guard survives the
+fine-tuning?**
+
+**PRIMARY, registered.** On w02, letters 12 and 13, same threshold rule: some checkpoint reaches **elongation above
+28.89 with separation at or above 133.0**. Both conditions on the same checkpoint; a checkpoint that satisfies one
+and not the other does not count.
+
+**Secondary.** Predicted thickness falls from 97.8 toward 34.
+
+**What each outcome means, written before the result.**
+- *Both conditions met:* label thickness is the lever, the thinning is carried to 841's labels and the recipe
+  applied there. This is the outcome the project is working toward.
+- *Elongation does not move while the guard holds:* the model keeps run 2's behaviour and ignores the thinner
+  target. Label thickness is then **not** sufficient by itself, and the remaining suspect is architectural — the
+  reference map comes from a 2.5D ResNet-152 at tile 256 over 63 layers as channels, against our 3D U-Net at patch
+  128 with a max projection over z. That would redirect the work from loss and labels to reproducing the community
+  architecture, which is days of build rather than hours.
+- *The guard falls during fine-tuning:* the thin target destroys ink detection even from a working start, and the
+  thinning must be gentler — an intermediate label set at roughly 70 px rather than 36 — before the question can be
+  asked again.
+
+**Declared in advance.**
+1. Warm-starting means the run cannot fail in PR-20's way, but it also means a null result is weaker: a model that
+   does not move may be held by its initialisation rather than by anything about the target. That is why the second
+   outcome above is written as "not sufficient by itself" and not as a refutation.
+2. 24 000 iterations is a quarter of PR-20's budget. Chosen because run 4's warm-started checkpoints were best
+   early (4 000–8 000 of 24 000) and degraded afterwards, so a longer run is not obviously better and costs a day.
+3. Still n = 2 letters, still the control scroll, still nothing claimed about 841 until the recipe is carried over
+   and measured there.
