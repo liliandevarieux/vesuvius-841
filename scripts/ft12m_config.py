@@ -3,7 +3,7 @@
 # Change : les donnees (5 segments etiquetes hors entrainement d ink_9um + l ancre officielle 0139 w035), le depart
 # (poids ink_9um graine 42 etape 75 000), le taux d apprentissage (0,002 au lieu de 0,01 : on affine), le lot (16 au lieu
 # de 64 : 8 Go de GPU), la duree, et AUCUNE validation pendant l entrainement (0343P reste hors de tout, evalue apres).
-# usage : ft12m_config.py SORTIE.json ITERATIONS
+# usage : ft12m_config.py SORTIE.json ITERATIONS [ROULEAU_EXCLU NOM_RUN]   (PR-31 : un rouleau laisse de cote)
 import sys, json
 
 C = '/home/slusarska_holding/vesuvius'
@@ -30,6 +30,11 @@ c['datasets'] = [
      'surface_volume_paths': {'w035': '%s/ink-dataset/ref_12m/w035.zarr' % C}},
 ]
 c['fixed_scroll_prior'] = {'seed': 42, 'target_batch_counts': {'0841': 6, '0009B': 3, '0500P2': 3, '0139': 4}}
+EXCLU = sys.argv[3] if len(sys.argv) > 3 else None
+if EXCLU:                                   # PR-31 : le rouleau exclu sort des donnees, les deux autres se partagent 12
+    c['datasets'] = [d for d in c['datasets'] if d['sampling_scroll'] != EXCLU]
+    restants = [d['sampling_scroll'] for d in c['datasets'] if d['sampling_scroll'] != '0139']
+    c['fixed_scroll_prior']['target_batch_counts'] = dict({r: 6 for r in restants}, **{'0139': 4})
 c['batch_size'] = 16
 c['learning_rate'] = 0.002
 c['warmup_steps'] = 200
@@ -39,7 +44,7 @@ c['val_every'] = 10 ** 9
 c['dataloader_workers'] = 4
 c['checkpoint'] = '%s/checkpoints/ink_9um/hybrid_3d2d-seed42/step-075000.pth' % C
 c['weights_only'] = True
-c['out_dir'] = '%s/runs/pr30_ft12m' % C
+c['out_dir'] = '%s/runs/%s' % (C, sys.argv[4] if len(sys.argv) > 4 else 'pr30_ft12m')
 c['description'] = 'PR-30 : ink_9um s42 75k affine sur scans 1,2 m (841 x3, 0009B, 0500P2, ancre 0139 w035)'
 json.dump(c, open(sys.argv[1], 'w'), indent=1)
 print('config ecrite', sys.argv[1], c['num_iterations'], 'iterations')

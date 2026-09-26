@@ -3296,3 +3296,28 @@ bright elongated mark follows part of the labelled diagonal stroke; later checkp
 four scrolls' 1.2 m data moves the held-out control from below chance to above it, but nowhere near legible.
 Caveat seen on the maps: the brightest structures near the labels are unlabelled; 0343P has three labelled
 components, so unlabelled ink would depress its AUC.
+
+## PR-31 — registration, 2026-09-26 23:35, before any run: does fine-tuning on the 1.2 m scan type transfer? Leave-one-scroll-out
+
+**Why this design.** PR-30's control, PHerc0343P, has three labelled components; using it to choose between
+variants would turn the only test of PHerc0800's scan type into a tuning set. Instead, transfer is measured on the
+three labelled scrolls with 1.2 m volumes, each held out in turn, and 0343P is left untouched.
+
+**Folds.** For each of **841** (w00, segA, segB), **0009B**, **0500P2**: PR-30's recipe (`ft12m_config.py`: start
+from ink_9um s42 step 75 000, lr 0.002, batch 16, anchor 0139 w035) trained on the *other two* scrolls (6 + 6 per
+batch, 0139 ×4), **4 000 iterations**, checkpoint every 1 000. The length is shorter than PR-30's 12 000 because
+PR-30's held-out curve peaked early — a choice made after seeing that curve, declared as such.
+
+**Metric** (`scripts/eval_sup.py`): AUC **inside the supervision mask** — labelled ink vs supervised non-ink more
+than 2 level-2 px from any label — the "on supervision" measure of #1898, whose background cannot hold unlabelled
+ink. Order chosen by the label-free p99 − p50 score. For 841, the mean over its three segments. Checked before
+registering: released ink_9um on 841 segB 1.2 m = 0.753 (#1898: 0.7614 median).
+
+**Baseline:** released ink_9um s42 step 75 000 on each held-out scroll, same metric, same order rule.
+
+**PRIMARY, registered.** At checkpoint **4 000**, fine-tuned − baseline **≥ +0.03** on **at least 2 of the 3**
+held-out scrolls. Other checkpoints reported, exploratory.
+
+**What it decides.** *Holds:* adding 1.2 m data from other scrolls transfers to an unseen scroll of that scan type;
+PR-30's all-scroll model is then the best current candidate for PHerc0800, and 0343P stays its untouched control.
+*Fails:* on this data, fine-tuning on the eligible scan type does not transfer; nothing is looked at on 0800.
