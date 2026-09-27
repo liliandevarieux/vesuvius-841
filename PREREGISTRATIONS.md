@@ -3643,3 +3643,25 @@ scroll whose letters lengthen under self-training, in all four runs (+2.9, +1.4,
 0009B also has the most pseudo-ink (0.24 Mpx of strokes, 2.3 Mpx in PR-36). One scroll, not tested.
 **What this closes:** one round of self-training on the target scroll, with blob or stroke pseudo-labels, is a
 detection lever (+0.018 to +0.024 AUC, no label needed) and not a shape lever on these three scrolls.
+
+
+### PR-38 — result (primary), 2026-09-27 17:12: fails. More letters in the eligible appearance make held-out shape worse, not better.
+
+Checkpoint 4 000, forward chosen on all 20 pairs; re-derived blind with independent code, identical.
+
+| run | 841 w00 | 841 segA | 841 segB | 0009B | 0500P2 | letters | background | AUC |
+|---|---|---|---|---|---|---|---|---|
+| B42 | 7.98 | 9.34 | 11.53 | 12.10 | 7.92 | 9.77 | 9.99 | 0.8069 |
+| B43 | 9.59 | 10.80 | 10.55 | 13.17 | 11.55 | 11.13 | 10.59 | 0.8034 |
+| T42 (PR-31) | 8.80 | 10.73 | 13.69 | 12.35 | 11.17 | 11.35 | 9.50 | 0.7988 |
+| T43 (PR-35 B43) | 10.92 | 11.55 | 11.90 | 15.69 | 10.34 | 12.08 | 10.35 | 0.7923 |
+
+**Primary: letters B − T = −1.26 (bar +2.0); letters − background = −1.62 (bar +1.0). Fails.** AUC +0.0096 (guard
+met; small, about the seed noise on AUC). Both seeds go the same way (−1.58, −0.95). The sharp-corpus arm U (secondary:
+does the blur matter?) is still running and will be reported below.
+
+**What this closes.** Letter diversity was the last lever the diagnostic pointed to, and the largest public labelled
+corpus (24 segments, four scrolls) added in the eligible appearance does not move shape on unseen scrolls at 1.2 m;
+if anything it dilutes the eligible data (6/16 of each batch instead of 12/16). Together with PR-32 to PR-37: on this
+scan type, no training-side lever we could build turns held-out letters into strokes. Detection transfers
+(PR-31, PR-35, PR-36, PR-37, and marginally here).
