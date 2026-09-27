@@ -3437,3 +3437,19 @@ scroll are not the diversity that matters.
 same recipe draws strokes on letters it has seen (28–46). The one lever not tried is **cross-scroll** diversity of
 1.2 m training data, and the public data caps it: labelled 1.2 m surface volumes exist for PHerc0139, 0814, 0841,
 0009B, 0500P2 and 0343P — six scrolls, three of them used as folds here.
+
+## PR-34 — registration, 2026-09-27 05:10:20 (machine clock), before the run: one more scroll in training (cross-scroll diversity)
+
+**Why.** PR-32/33 changed the recipe and the anchor's sheets; shape did not move. The untested lever is the number of
+*scrolls*. The only other labelled segment published with a 1.2 m volume is **PHerc0814**
+`20260226000000-46527_2um_try2` (9.362 µm, 28 layers; 20260918 labels at level 2, carried as in PR-30).
+
+**One variable.** PR-31's recipe and folds, plus 0814 as a third training scroll in every fold (batch: 4 per
+training scroll, 0139 ×4). 0814 is one of ink_9um's own training scrolls (through its 2.4 µm representation), so it
+adds a scroll to the 1.2 m data, not an unseen one.
+
+**Criterion, registered (PR-32's):** mean held-out elongation **≥ 13.35** with mean held-out AUC-in-supervision
+**≥ 0.7888**, checkpoint 4 000, forward by the label-free score.
+
+**What it decides.** *Passes:* cross-scroll diversity is the lever for shape on the eligible scan type — the case for
+labelling more scrolls at 1.2 m. *Fails:* going from two training scrolls to three does not move shape either.

@@ -52,6 +52,10 @@ if 'label_smoothing' in V:
     c['loss']['bce_label_smoothing'] = V['label_smoothing']
 if 'learning_rate' in V:
     c['learning_rate'] = V['learning_rate']
+if V.get('add0814'):                        # PR-34 : un quatrieme rouleau etiquete a 1,2 m (diversite entre rouleaux)
+    c['datasets'].insert(0, entree('0814', ['0814']))
+    restants = [d['sampling_scroll'] for d in c['datasets'] if d['sampling_scroll'] != '0139']
+    c['fixed_scroll_prior']['target_batch_counts'] = dict({r: 12 // len(restants) for r in restants}, **{'0139': 16 - 12 // len(restants) * len(restants)})
 if 'anchors' in V:                          # PR-33 : ancre 0139 elargie aux segments natifs 1,2 m etiquetes
     for d in c['datasets']:
         if d['sampling_scroll'] == '0139':
