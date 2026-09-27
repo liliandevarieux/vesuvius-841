@@ -3418,3 +3418,22 @@ AUC-in-supervision **≥ 0.7888**. Reported: both means against PR-31 (11.35 / 0
 
 **What it decides.** *Passes:* data diversity is the lever for shape; the next step is more 1.2 m data (the other
 0139 segments with aligned labels). *Fails:* four more sheets of one scroll are not the diversity that matters.
+
+### PR-33 — result, 2026-09-27 05:04: fails. Four more sheets of the anchor scroll change nothing.
+
+| held-out | 841 w00 | 841 segA | 841 segB | 0009B | 0500P2 | **mean elongation** | **mean AUC-sup** |
+|---|---|---|---|---|---|---|---|
+| PR-31 (anchor w035 only) | 8.80 / .803 | 10.73 / .764 | 13.69 / .785 | 12.35 / .853 | 11.17 / .788 | 11.35 | 0.799 |
+| **PR-33 (anchor 5 native 0139)** | 8.72 / .800 | 10.38 / .749 | 14.74 / .775 | 11.85 / .851 | 11.26 / .789 | **11.39** | **0.793** |
+
+Bar ≥ 13.35: **fails.** Re-derived blind with independent code: 11.390 / 0.7927, identical. More sheets of one
+scroll are not the diversity that matters.
+
+**Exploratory, PR-31 maps re-read at every checkpoint** (held-out mean elongation): 12.27 (1 000), 12.03 (2 000),
+11.28 (3 000), 11.35 (4 000). Stopping early helps shape by at most ~1 point — noise-level, far from the tracings.
+
+**Where the night leaves the eligible-scan problem.** Transfer to an unseen scroll's 1.2 m scan is real in detection
+(PR-31, +0.04–0.05 AUC on 3/3) and absent in shape (PR-32, PR-33, all ≈ 11.3 against 16–25 for tracings), while the
+same recipe draws strokes on letters it has seen (28–46). The one lever not tried is **cross-scroll** diversity of
+1.2 m training data, and the public data caps it: labelled 1.2 m surface volumes exist for PHerc0139, 0814, 0841,
+0009B, 0500P2 and 0343P — six scrolls, three of them used as folds here.
