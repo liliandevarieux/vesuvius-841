@@ -3453,3 +3453,19 @@ adds a scroll to the 1.2 m data, not an unseen one.
 
 **What it decides.** *Passes:* cross-scroll diversity is the lever for shape on the eligible scan type — the case for
 labelling more scrolls at 1.2 m. *Fails:* going from two training scrolls to three does not move shape either.
+
+## PR-35 — registration, 2026-09-27 06:00:34 (machine clock), before the run: does PR-34's shape gain survive a second seed?
+
+**Why.** PR-34 (0814 as a third training scroll) raised held-out mean elongation by +1.25 over PR-31 — the largest
+shape gain of any lever tried, but one run, with per-segment swings of ±3. Before anything is built on it, it must
+replicate, and the seed-to-seed noise must be measured.
+
+**Runs.** PR-31's recipe (**B43**) and PR-34's recipe (**R43**), identical except for the sampling and
+augmentation seed **43** instead of 42 (the starting weights are the same ink_9um checkpoint). Same folds, same
+metrics, checkpoint 4 000, forward by the label-free score.
+
+**PRIMARY, registered:** mean held-out elongation **R43 − B43 ≥ +0.8** (about two thirds of the seed-42 effect).
+**Reported:** the seed noise, |B43 − 11.35| and |R43 − 12.60| (PR-31 and PR-34 at seed 42), and both AUC means.
+
+**What it decides.** *Holds:* the cross-scroll gain replicates; the next steps are the all-scroll model with 0814 and
+the case, to the community, for labelling more scrolls at 1.2 m. *Fails:* PR-34's +1.25 is within seed noise.

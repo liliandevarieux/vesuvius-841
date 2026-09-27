@@ -52,6 +52,9 @@ if 'label_smoothing' in V:
     c['loss']['bce_label_smoothing'] = V['label_smoothing']
 if 'learning_rate' in V:
     c['learning_rate'] = V['learning_rate']
+if 'seed' in V:                             # PR-35 : replication a une autre graine (echantillonnage, augmentations)
+    c['seed'] = V['seed']
+    c['fixed_scroll_prior']['seed'] = V['seed']
 if V.get('add0814'):                        # PR-34 : un quatrieme rouleau etiquete a 1,2 m (diversite entre rouleaux)
     c['datasets'].insert(0, entree('0814', ['0814']))
     restants = [d['sampling_scroll'] for d in c['datasets'] if d['sampling_scroll'] != '0139']
@@ -67,6 +70,8 @@ if 'labels_dir' in V:                       # etiquettes variantes (l ancre 0139
     for d in c['datasets']:
         if d['segments_path'] == lab:
             d['segments_path'] = V['labels_dir']
+if 'seed' in V:
+    c['fixed_scroll_prior']['seed'] = V['seed']
 c['description'] += ' | variante %s' % json.dumps(V)
 json.dump(c, open(sys.argv[1], 'w'), indent=1)
 print('config ecrite', sys.argv[1], c['num_iterations'], 'iterations')
