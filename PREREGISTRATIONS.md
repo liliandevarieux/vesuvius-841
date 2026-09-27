@@ -3481,3 +3481,28 @@ Bar ≥ 13.35: **fails.** Re-derived blind with independent code: 12.604 / 0.803
 the largest of the six levers tried (PR-32 V1–V3 and PR-33: −0.13 to +0.28), and moves in the direction the
 in-sample diagnostic points to. One run: PR-35 (registered 06:00:35, before this result was written up) tests
 whether it survives a second seed.
+
+### PR-35 — result, 2026-09-27 07:38: fails. PR-34's shape gain does not replicate; seed noise is as large as the effects tested tonight.
+
+Seed 43, checkpoint 4 000, forward; re-derived blind with independent code, identical.
+
+| held-out | 841 w00 | 841 segA | 841 segB | 0009B | 0500P2 | **mean elongation** | **mean AUC-sup** |
+|---|---|---|---|---|---|---|---|
+| B43 (PR-31 recipe) | 10.92 / .796 | 11.55 / .793 | 11.90 / .746 | 15.69 / .841 | 10.34 / .785 | **12.08** | 0.792 |
+| R43 (PR-34 recipe, + 0814) | 9.44 / .778 | 7.22 / .773 | 17.20 / .776 | 13.40 / .862 | 11.11 / .786 | **11.67** | 0.795 |
+
+**Primary R43 − B43 ≥ +0.8: −0.41. Fails.** The segments split three lower, two higher, with swings of −4.3 to +5.3.
+Seed noise on the five-segment mean elongation: |12.08 − 11.35| = 0.73 (PR-31 recipe) and |11.67 − 12.60| = 0.93
+(PR-34 recipe). PR-34's +1.25 is within it. **The mean-elongation measure over five held-out segments cannot resolve
+effects below about one point with one seed per arm** — which also bounds what PR-32 and PR-33 could have shown
+(both were more than 1.7 below their bar).
+
+**What does replicate (exploratory, same seed-43 runs):** PR-31's detection gain. B43 against released ink_9um:
+841 mean 0.778 vs 0.742 (+0.037), 0009B 0.841 vs 0.807 (+0.034), 0500P2 0.785 vs 0.738 (+0.048) — above +0.03 on 3 of
+3 again. Seed noise on mean AUC is ~0.01.
+
+**Summary of the night (PR-30 to PR-35).** On the eligible 1.2 m scan type, fine-tuning ink_9um on other scrolls'
+1.2 m data transfers in **detection** (+0.03 to +0.05 AUC on an unseen scroll, two seeds, 3/3 folds each) and does
+not measurably transfer in **shape**: every lever tried (label smoothing, thinner labels, learning rate, more anchor
+sheets, one more scroll) lands within seed noise of ≈ 11–12, against 16–25 for tracings and 28–46 on letters the
+model has seen. No map of PHerc0800 has been looked at: no model yet renders held-out letters legibly.
