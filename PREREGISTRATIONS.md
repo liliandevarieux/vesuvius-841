@@ -3469,3 +3469,15 @@ metrics, checkpoint 4 000, forward by the label-free score.
 
 **What it decides.** *Holds:* the cross-scroll gain replicates; the next steps are the all-scroll model with 0814 and
 the case, to the community, for labelling more scrolls at 1.2 m. *Fails:* PR-34's +1.25 is within seed noise.
+
+### PR-34 — result, 2026-09-27 05:59: fails the bar; the largest shape gain of any lever so far
+
+| held-out | 841 w00 | 841 segA | 841 segB | 0009B | 0500P2 | **mean elongation** | **mean AUC-sup** |
+|---|---|---|---|---|---|---|---|
+| PR-31 (2 training scrolls) | 8.80 / .803 | 10.73 / .764 | 13.69 / .785 | 12.35 / .853 | 11.17 / .788 | 11.35 | 0.799 |
+| **PR-34 (+ 0814: 3 scrolls)** | 11.21 / .814 | 10.80 / .759 | 12.40 / .779 | 15.19 / .862 | 13.42 / .803 | **12.60** | **0.803** |
+
+Bar ≥ 13.35: **fails.** Re-derived blind with independent code: 12.604 / 0.8034, identical. The gain, +1.25, is
+the largest of the six levers tried (PR-32 V1–V3 and PR-33: −0.13 to +0.28), and moves in the direction the
+in-sample diagnostic points to. One run: PR-35 (registered 06:00:35, before this result was written up) tests
+whether it survives a second seed.
