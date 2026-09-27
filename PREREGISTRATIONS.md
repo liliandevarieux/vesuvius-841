@@ -3403,3 +3403,18 @@ On seen letters the model outputs strokes finer than the tracings; on the same s
 resolution nor architecture caps the shape at 1.2 m.** With AUC ≈ 0.99 in sample, this may be memorised tracings
 rather than ink read, so it does not show that the ink signal alone defines strokes on an unseen sheet; it does show
 a large generalisation gap, the signature of too little varied training data. Next lever: more 1.2 m data.
+
+## PR-33 — registration, 2026-09-27 04:13:30 (machine clock), before the run: more 1.2 m training data
+
+**Why.** The in-sample diagnostic shows a generalisation gap (strokes on seen letters, blobs on unseen), the
+signature of too little varied data. The ink_9um dataset publishes **five** native 1.2 m segments of PHerc0139 with
+official labels (w035, w039, w040, w041, w044); PR-30 to PR-32 used only w035 as the anchor.
+
+**One variable.** PR-31's recipe and folds exactly, except the 0139 anchor now draws from all **five** native
+segments (still 4 of 16 per batch). Checkpoint 4 000, forward by the label-free score, same metrics.
+
+**Criterion, registered (PR-32's):** mean held-out elongation over the five segments **≥ 13.35**, with mean held-out
+AUC-in-supervision **≥ 0.7888**. Reported: both means against PR-31 (11.35 / 0.7988) and released ink_9um (—/0.7541).
+
+**What it decides.** *Passes:* data diversity is the lever for shape; the next step is more 1.2 m data (the other
+0139 segments with aligned labels). *Fails:* four more sheets of one scroll are not the diversity that matters.
