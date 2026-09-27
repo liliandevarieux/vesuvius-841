@@ -51,6 +51,7 @@ def charge(ij):
     if not os.path.exists(f):
         b = get(URL + '0%s%d%s%d' % (sep, ij[0], sep, ij[1]))
         if b is not None:
+            os.makedirs(os.path.dirname(f), exist_ok=True)      # separateur '/' : sous-dossiers
             open(f + '.tmp', 'wb').write(b)
             os.replace(f + '.tmp', f)
 
@@ -59,7 +60,7 @@ t0 = time.time()
 with ThreadPoolExecutor(8) as p:
     list(p.map(charge, cles))
 print('%s : %d chunks sur %d (%.1f %%), %.0f Mo, %.0f s' % (seg, len(cles), c.size, 100 * len(cles) / c.size,
-      sum(os.path.getsize(os.path.join(src, f)) for f in os.listdir(src)) / 1e6, time.time() - t0), flush=True)
+      sum(os.path.getsize(os.path.join(r, f)) for r, _, fs in os.walk(src) for f in fs) / 1e6, time.time() - t0), flush=True)
 
 a = zarr.open_array(src, mode='r')
 z0 = math.ceil((Z - 84) / 2)
