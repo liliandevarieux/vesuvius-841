@@ -5,7 +5,7 @@
 # de 64 : 8 Go de GPU), la duree, et AUCUNE validation pendant l entrainement (0343P reste hors de tout, evalue apres).
 # usage : ft12m_config.py SORTIE.json ITERATIONS [ROULEAU_EXCLU NOM_RUN [JSON]]   (PR-31 : un rouleau laisse de cote ;
 #         PR-32/33 : JSON = variante, cles 'label_smoothing', 'learning_rate', 'labels_dir', 'anchors' ;
-#         PR-36 : 'pseudo_dir', 'checkpoint', 'counts')
+#         PR-36 : 'pseudo_dir', 'checkpoint', 'counts' ; PR-38 : 'corpus' {dir, vol_dir, segs, suffixe})
 import sys, json
 
 C = '/home/slusarska_holding/vesuvius'
@@ -76,6 +76,17 @@ if 'pseudo_dir' in V:                       # PR-36 : le rouleau exclu revient, 
     e = entree(EXCLU, segs)
     e['segments_path'] = V['pseudo_dir']
     c['datasets'].insert(0, e)
+if 'corpus' in V:                           # PR-38 : corpus d ink_9um (2,4 um poole), eventuellement floute
+    K = V['corpus']
+    par = {}
+    for sg in K['segs']:
+        par.setdefault({'pherc0139': '0139', 'pherc1667': '1667', 'phercparis4': 'Paris4', 'pherc0814': '0814'}[sg.split('-')[0]], []).append(sg)
+    rep = 'public_2p4_level2_zmean4' + K.get('suffixe', '')
+    for sc, segs in par.items():
+        c['datasets'].append({'segments_path': K['dir'], 'segments': segs, 'volume_scale': 0, 'sampling_scroll': sc,
+                              'sampling_physical_segment_keys': {x: '%s:%s' % (sc, x) for x in segs},
+                              'sampling_representation_keys': {x: '%s:%s' % (rep, x) for x in segs},
+                              'surface_volume_paths': {x: '%s/%s/surface-volume.zarr' % (K.get('vol_dir', K['dir']), x) for x in segs}})
 if 'checkpoint' in V:                       # PR-36 : depart = modele du pli (poids seuls, optimiseur neuf)
     c['checkpoint'] = V['checkpoint']
 if 'counts' in V:

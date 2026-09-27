@@ -3573,3 +3573,53 @@ Q ≥ T − 0.01.** Otherwise fails.
 merged blobs. A pass would be the first shape gain on unseen letters; a fail closes naive self-training for shape.
 
 **Nothing is looked at on PHerc0800** whatever the outcome.
+
+
+### PR-36 — result, 2026-09-27 11:35: fails on shape; self-training on the target scroll is a robust detection gain
+
+Checkpoint 3 000, order chosen label-free (forward won all 20 pairs); re-derived blind with independent code, identical
+to the fourth decimal (a uint8-vs-float resampling variant moves P − T to −0.49).
+
+| run | 841 w00 | 841 segA | 841 segB | 0009B | 0500P2 | mean elongation | mean AUC-sup |
+|---|---|---|---|---|---|---|---|
+| P42 | 8.30 / .790 | 8.90 / .766 | 12.73 / .793 | 13.93 / .850 | 11.12 / .813 | 11.00 | 0.8023 |
+| P43 | 9.80 / .802 | 10.53 / .769 | 11.98 / .781 | 13.42 / .860 | 9.57 / .803 | 11.06 | 0.8031 |
+| T42 | 10.60 / .775 | 10.63 / .755 | 11.72 / .764 | 11.02 / .814 | 11.04 / .770 | 11.00 | 0.7755 |
+| T43 | 12.38 / .780 | 11.14 / .760 | 12.48 / .749 | 12.03 / .839 | 11.27 / .781 | 11.86 | 0.7820 |
+
+**Primary: elongation P − T = −0.40 (bar +2.0). Fails.** AUC P − T = +0.0239 (guard met).
+**What holds (secondary, both seeds):** self-training on the unlabelled surface of the held-out scroll raises AUC on
+**all ten** segment × seed pairs (+0.008 to +0.046; seed means +0.027 and +0.021). On PHerc0800 this is a detection
+gain available without any label. It does not make letters: shape moves the other way on 841 (−1.0 at seed 42),
+and 0009B's +2.9 at seed 42 shrinks to +1.4 at seed 43. The prior expectation written at registration held.
+
+## PR-38 — registration, 2026-09-27 11:51:31 (machine clock), before the run: many more letters in the eligible scan's appearance
+
+**Why.** The shape gap is a generalisation gap (strokes on seen letters, blobs on unseen ones), and the labelled
+eligible-scan data is six scrolls. The largest labelled corpus is ink_9um's own: 24 segments of PHerc0139, 1667,
+Paris 4 and 0814 at 2.4 µm pooled to ~9.6 µm. ink_9um saw it **sharp**; AndreasHad04 (#1898, and his note on #1867)
+finds that the eligible scans differ from it mainly by depth blur. PR-38 adds that corpus to the fine-tune, blurred
+to the eligible appearance, so the model meets many more letters looking like PHerc0800.
+
+**Data.** Labels `hf://buckets/scrollprize/datasets/ink_9um/labels/aligned-scrollprizeorg-21slices`. Volumes: the
+public 2.4 µm surface volumes, level 2, **only the chunks under each segment's supervision plus one chunk of margin**
+(4 % of a segment; the full level 2 is ~20 GB per segment), pooled exactly as `prepare_9um_isotropic_input.py`
+(84 centred planes, rounded mean of 4, 21 planes; `corpus_prep.py`); zero elsewhere.
+
+**Blur (fixed now, label-free):** Gaussian, 0.69 px in plane and **0.70 plane in depth** on every voxel
+(`ft12m_flou.py`). Andreas's 0.55–0.575 plane reproduces his 841 match here (pherc1667-w013 pooled: adjacent-plane
+correlation 0.693 → 0.810; he reports 0.699 → 0.812), but our eligible training inputs are blurrier (0009B 0.863,
+841 segB 0.840, 0500P2 0.825; PHerc0800 0.873 in #1898); 0.70 targets their mean 0.843 (measured 0.684 → 0.841).
+
+**Design.** PR-31's leave-one-scroll-out loop, from ink_9um seed 42 step 75 000, 4 000 iterations, batch 16:
+the fold's two eligible scrolls 3 + 3, 0139 3 (w035 native + nine aligned), 1667 3, Paris 4 3, 0814 1.
+Arm **B** = corpus blurred; arm **U** = corpus sharp (as ink_9um saw it). Seeds 42 and 43. **Control T = PR-31's
+recipe at the same seeds** (PR-31 seed 42, PR-35 B43). Checkpoint 4 000 maps the held-out segments.
+
+**Primary (fixed now).** Mean over five held-out segments and two seeds, order chosen label-free per map:
+**B − T ≥ +2.0 elongation on the letters, AND (B − T letters) − (B − T background, `eval_forme_fond.py`) ≥ +1.0,
+AND AUC-sup B ≥ T − 0.01.** Otherwise fails. **Secondary:** B − U (does the blur matter, or only the letters?);
+per fold. **Prior expectation:** uncertain. The eligible data now gets 6/16 of each batch instead of 12/16, which can
+cost detection; khj1222's weaker blur augmentation did nothing for AUC (#1898); nobody has measured shape.
+
+**Nothing is looked at on PHerc0800** whatever the outcome.
