@@ -3506,3 +3506,36 @@ effects below about one point with one seed per arm** — which also bounds what
 not measurably transfer in **shape**: every lever tried (label smoothing, thinner labels, learning rate, more anchor
 sheets, one more scroll) lands within seed noise of ≈ 11–12, against 16–25 for tracings and 28–46 on letters the
 model has seen. No map of PHerc0800 has been looked at: no model yet renders held-out letters legibly.
+
+
+## PR-36 — registration, 2026-09-27 08:41:24 (machine clock), before the run: self-training on the target scroll (pseudo-label loop), leave-one-scroll-out
+
+**Question.** PR-31 to PR-35 show a generalisation gap: letters the model was trained on come out as strokes, letters
+of an unseen scroll as blobs. The loop that produced the historical readings (organisers' PHerc. 1667 iterations 0–5)
+trains on the **target** scroll's own unlabelled surface through pseudo-labels. Does one round of it, with no human
+label of the target scroll, move shape on that scroll's held-out letters? This is exactly what could be done on
+PHerc0800, which has no labels.
+
+**Design.** For each PR-31 fold (841, 0009B, 0500P2), the fold model (seed 42, 4 000 iterations, never saw that
+scroll) maps the held-out scroll (forward order, as in PR-31). `ft12m_pseudo.py` turns the map into pseudo-labels:
+ink = map ≥ 92nd percentile, background = map ≤ 60th percentile, the rest unsupervised, ink components < 30 px
+dropped; percentiles over papyrus outside the evaluation zone. **Evaluation zone** = the human supervision mask of
+each held-out segment dilated by 128 px (257-px square): nothing in it is supervised, and no 128-px training patch
+that contains a supervised pixel reaches it (checked: 0 pseudo-supervised pixels inside the zone, all five segments).
+Two arms, both starting from the fold model's weights (fresh optimiser), 3 000 iterations, seeds 42 and 43:
+- **P**: the two other scrolls (human labels) + 0139 w035 anchor + the held-out scroll's pseudo-labels, 4/4/4/4 per batch of 16;
+- **T** (control for "more training"): the same continuation without pseudo-labels (PR-31's mix).
+Checkpoint 3 000 of each run maps its held-out segments (both orders); `eval_sup.py` and `eval_forme.py` unchanged.
+
+**Primary (fixed now).** Over the five held-out segments (841 w00/segA/segB, 0009B, 0500P2) and both seeds, order
+chosen per map by the label-free p99−p50 score (PR-31's rule): **mean elongation P − T ≥ +2.0 and mean AUC-sup
+P ≥ T − 0.01**. Otherwise fails. The +2.0 bar is about twice the seed noise measured on one arm in PR-35 (0.7–0.9),
+and two seeds per arm halve the variance of the difference.
+**Secondary (reported, not decisive):** each fold separately; P and T against the fold model itself (PR-31 fold
+numbers); both orders.
+
+**Prior expectation, written before running.** The pseudo-labels are the teacher's blobs
+(`images/2026-09-27_pr36_pseudo_apercu.png`); training on them may simply reinforce blobs. We expect a detection gain
+more than a shape gain. A fail is informative for PHerc0800: one round of naive self-training does not close the gap.
+
+**Nothing is looked at on PHerc0800** whatever the outcome; a pass leads to a separate registration.

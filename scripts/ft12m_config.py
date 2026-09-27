@@ -4,7 +4,8 @@
 # (poids ink_9um graine 42 etape 75 000), le taux d apprentissage (0,002 au lieu de 0,01 : on affine), le lot (16 au lieu
 # de 64 : 8 Go de GPU), la duree, et AUCUNE validation pendant l entrainement (0343P reste hors de tout, evalue apres).
 # usage : ft12m_config.py SORTIE.json ITERATIONS [ROULEAU_EXCLU NOM_RUN [JSON]]   (PR-31 : un rouleau laisse de cote ;
-#         PR-32/33 : JSON = variante, cles 'label_smoothing', 'learning_rate', 'labels_dir', 'anchors')
+#         PR-32/33 : JSON = variante, cles 'label_smoothing', 'learning_rate', 'labels_dir', 'anchors' ;
+#         PR-36 : 'pseudo_dir', 'checkpoint', 'counts')
 import sys, json
 
 C = '/home/slusarska_holding/vesuvius'
@@ -70,6 +71,15 @@ if 'labels_dir' in V:                       # etiquettes variantes (l ancre 0139
     for d in c['datasets']:
         if d['segments_path'] == lab:
             d['segments_path'] = V['labels_dir']
+if 'pseudo_dir' in V:                       # PR-36 : le rouleau exclu revient, avec ses pseudo-etiquettes seulement
+    segs = {'0841': ['841_w00', '841_segA', '841_segB']}.get(EXCLU, [EXCLU])
+    e = entree(EXCLU, segs)
+    e['segments_path'] = V['pseudo_dir']
+    c['datasets'].insert(0, e)
+if 'checkpoint' in V:                       # PR-36 : depart = modele du pli (poids seuls, optimiseur neuf)
+    c['checkpoint'] = V['checkpoint']
+if 'counts' in V:
+    c['fixed_scroll_prior']['target_batch_counts'] = V['counts']
 if 'seed' in V:
     c['fixed_scroll_prior']['seed'] = V['seed']
 c['description'] += ' | variante %s' % json.dumps(V)
