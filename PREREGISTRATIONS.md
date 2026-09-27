@@ -3623,3 +3623,23 @@ per fold. **Prior expectation:** uncertain. The eligible data now gets 6/16 of e
 cost detection; khj1222's weaker blur augmentation did nothing for AUC (#1898); nobody has measured shape.
 
 **Nothing is looked at on PHerc0800** whatever the outcome.
+
+
+### PR-37 — result, 2026-09-27 13:08: fails. Stroke-shaped pseudo-labels do not move shape either.
+
+Checkpoint 3 000, forward chosen on all 10 pairs; re-derived blind with independent code, identical.
+
+| run | 841 w00 | 841 segA | 841 segB | 0009B | 0500P2 | letters | background | AUC |
+|---|---|---|---|---|---|---|---|---|
+| Q42 | 10.55 | 10.50 | 10.76 | 13.76 | 9.85 | 11.08 | 10.48 | 0.7925 |
+| Q43 | 6.40 | 9.77 | 12.67 | 14.31 | 10.53 | 10.74 | 9.26 | 0.8006 |
+| T42 (PR-36) | 10.60 | 10.63 | 11.72 | 11.02 | 11.04 | 11.00 | 9.43 | 0.7755 |
+| T43 (PR-36) | 12.38 | 11.14 | 12.48 | 12.03 | 11.27 | 11.86 | 10.22 | 0.7820 |
+
+**Primary: letters Q − T = −0.52 (bar +2.0); letters − background = −0.56 (bar +1.0). Fails.** AUC +0.0178 (guard
+met). The prior expectation held.
+**One pattern across PR-36 and PR-37, exploratory (seen after the fact, not a claim):** 0009B is the only held-out
+scroll whose letters lengthen under self-training, in all four runs (+2.9, +1.4, +2.7, +2.3); 841 and 0500P2 do not.
+0009B also has the most pseudo-ink (0.24 Mpx of strokes, 2.3 Mpx in PR-36). One scroll, not tested.
+**What this closes:** one round of self-training on the target scroll, with blob or stroke pseudo-labels, is a
+detection lever (+0.018 to +0.024 AUC, no label needed) and not a shape lever on these three scrolls.
