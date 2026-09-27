@@ -3688,3 +3688,54 @@ U − T: AUC −0.0006, letters −0.37 (nothing). **B − U (the blur): AUC +0.
 −1.55. Adding the labelled 2.4 µm corpus as ink_9um saw it does nothing on the eligible scan; blurring it to the
 eligible appearance helps detection slightly (consistent with #1898's reading that depth blur drives the AUC loss) and
 costs shape. Neither makes held-out letters.
+
+## PR-39 — registration, 2026-09-27 22:52, before training: another sheet of the SAME scroll — do held-out letters become strokes on the eligible scan?
+
+*Registered before the run. Scripts: `scripts/run_pr39.sh`, `scripts/ft12m_config.py` (new key `sheets_841`),
+`scripts/recouvrement_841.py`.*
+
+**Why.** PR-31 to PR-38 held out whole scrolls: detection transfers across scrolls, letter shape does not, and letters
+seen in training come out as strokes. The untested cell lies in between: letters of a sheet never seen, on a scroll
+whose other sheets were seen. That is the situation of a team that has labelled a first handful of letters by hand on
+its target scroll (Nader's route). If shape transfers within a scroll, that is the lever for an unlabelled eligible
+scroll such as PHerc0800; if it does not, the eligible scan itself is the wall at this label density.
+
+**Design.** PHerc0841 has three labelled sheets at 1.2 m. PR-34's recipe is kept and its fourth scroll (0814, 4 per
+batch) is replaced by 841's other sheet(s), 4 per batch: 841 ×4, 0009B ×4, 0500P2 ×4, 0139 w035 ×4. Same start
+(ink_9um seed 42, step 75 000, weights only), learning rate 0.002, batch 16, 4 000 iterations; seeds 42 and 43, global
+and sampling seeds identical to PR-34 (42) and PR-35 (43). The configs differ from the controls' only in that slot.
+
+**The sheets are not independent, and that fixed the folds** (`recouvrement_841.py`, surfaces from the tifxyz meshes on
+the 2.403 µm volume). w00 and segA are neighbouring surfaces: median distance 33.6 voxels, 10.4 % of w00 within 15
+voxels of segA, and their labelled letters come within 5.6 voxels of each other. segB is far from both: its letters lie
+at least 150 voxels from any other labelled letter and at least 83 voxels from the other two surfaces. Hence:
+- **fold B**: hold out **segB**, train with **w00 + segA**;
+- **fold WA**: hold out **w00** and **segA**, train with **segB only** (one model per seed, measured on both sheets).
+
+Declared bias: segB's surface passes within 15 voxels of 4.45 % of w00's labelled points; where segB's supervision
+covers them as background, training pushes them toward "no ink" — a bias against the hypothesis, not for it.
+
+**Controls, fixed now (already measured, order chosen label-free — forward on all six maps):**
+
+| held-out sheet | letters | C seed 42 (PR-34 R4): AUC-sup / elongation | C seed 43 (PR-35 R43) | tracings |
+|---|---|---|---|---|
+| 841 w00 | 7 | 0.8135 / 11.21 | 0.7782 / 9.44 | 20.12 |
+| 841 segA | 6 | 0.7593 / 10.80 | 0.7727 / 7.22 | 21.66 |
+| 841 segB | 5 | 0.7792 / 12.40 | 0.7757 / 17.20 | 25.05 |
+| **mean** | | **0.7798 / 11.38** (six maps) | | |
+
+**Primary (fixed now).** Mean over the three held-out sheets and two seeds, order chosen label-free per map
+(p99 − p50): **elongation W − C ≥ +2.0 and AUC-sup W ≥ C − 0.01**, i.e. mean W elongation ≥ 13.38 with mean AUC-sup
+≥ 0.7698. Same bar as PR-36 and PR-37.
+
+**Secondary.** (1) AUC-sup W − C; (2) held-out elongation against the tracings (20–25) and the in-sample range (28–46);
+(3) shape on the background (`eval_forme_fond.py`), the guard from PR-37; (4) the author's look at the held-out maps
+beside their labels.
+
+**Prediction, written now.** Detection gains clearly more than across scrolls (same ink, same scan); shape is the open
+question. A failure closes the within-scroll route on this scan type at this label density (5 to 7 letters per sheet),
+not in general.
+
+**Declared in advance.** Eighteen labelled letters in all; per-map elongation is noisy (segB's control moves from 12.40
+to 17.20 between seeds); folds W and A share one model per seed; labels on the eligible volumes were carried from level
+2 by the canvas ratio, as in PR-31 to PR-38.

@@ -67,6 +67,8 @@ if 'anchors' in V:                          # PR-33 : ancre 0139 elargie aux seg
             d['sampling_physical_segment_keys'] = {w: '0139:%s' % w for w in V['anchors']}
             d['sampling_representation_keys'] = {w: 'native_9p362_level0:%s' % w for w in V['anchors']}
             d['surface_volume_paths'] = {w: '%s/ink-dataset/ref_12m/%s.zarr' % (C, w) for w in V['anchors']}
+if 'sheets_841' in V:                       # PR-39 : seulement certains feuillets de 841 a l entrainement (meme rouleau)
+    c['datasets'] = [entree('0841', V['sheets_841']) if d['sampling_scroll'] == '0841' else d for d in c['datasets']]
 if 'labels_dir' in V:                       # etiquettes variantes (l ancre 0139 w035 garde les siennes)
     for d in c['datasets']:
         if d['segments_path'] == lab:
