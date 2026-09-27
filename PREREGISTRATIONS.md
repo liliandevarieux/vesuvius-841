@@ -3665,3 +3665,19 @@ corpus (24 segments, four scrolls) added in the eligible appearance does not mov
 if anything it dilutes the eligible data (6/16 of each batch instead of 12/16). Together with PR-32 to PR-37: on this
 scan type, no training-side lever we could build turns held-out letters into strokes. Detection transfers
 (PR-31, PR-35, PR-36, PR-37, and marginally here).
+
+
+### PR-38 — secondary, 2026-09-27 20:03: the sharp corpus changes nothing; the blur trades shape for a little detection
+
+Re-derived blind, identical. Two-seed means over the five held-out segments:
+
+| arm | AUC-sup | letters | background |
+|---|---|---|---|
+| B (corpus blurred) | 0.8052 | 10.45 | 10.29 |
+| U (corpus sharp) | 0.7949 | 11.34 | 9.63 |
+| T (PR-31 recipe) | 0.7956 | 11.71 | 9.92 |
+
+U − T: AUC −0.0006, letters −0.37 (nothing). **B − U (the blur): AUC +0.0102, letters −0.89**, letters − background
+−1.55. Adding the labelled 2.4 µm corpus as ink_9um saw it does nothing on the eligible scan; blurring it to the
+eligible appearance helps detection slightly (consistent with #1898's reading that depth blur drives the AUC loss) and
+costs shape. Neither makes held-out letters.
