@@ -3539,3 +3539,37 @@ numbers); both orders.
 more than a shape gain. A fail is informative for PHerc0800: one round of naive self-training does not close the gap.
 
 **Nothing is looked at on PHerc0800** whatever the outcome; a pass leads to a separate registration.
+
+
+## PR-37 — registration, 2026-09-27 10:12:40 (machine clock), before the run: self-training on stroke-shaped pseudo-labels only
+
+**Disclosed before anything else: designed after seeing PR-36's seed-42 half** (all five segments): self-training
+raised AUC-sup on every held-out segment (mean 0.802 vs 0.776 for the control) and left mean elongation exactly
+unchanged (11.00 vs 11.00). PR-36's registered primary is still read at the end of both seeds.
+
+**Why.** In the historical loop, a human kept the traces that looked like writing; PR-36's automatic version keeps the
+teacher's blobs (weighted median elongation of its pseudo-ink components 7.7–8.4). The question: does self-training
+on the target scroll move shape if only **stroke-shaped** pseudo-ink is kept?
+
+**Design.** PR-36's P arm with one change in `ft12m_pseudo.py` (4th argument 16): pseudo-ink components with elongation
+area / r² < 16 (same definition as `eval_forme.py`) become unsupervised, not background. Two corrections made after
+looking at the **pseudo-labels only** (no evaluation data, `images/2026-09-27_pr37_pseudo_traits_apercu.png`):
+(1) background is kept only within 96 px of a kept stroke (193-px square) — otherwise ink : background fell to
+1 : 50–300; now 1 : 3.6–4.3, PR-36 was 1 : 7.5; (2) nothing within 64 px of the papyrus edge — the bright edge of
+0009B passed the filter as its longest "stroke". Pseudo-ink kept: 0.03–0.24 Mpx per segment. Evaluation zone as in
+PR-36 (0 pseudo-supervised pixels inside it, all five segments). Arm **Q**, seeds 42 and 43, from each fold model,
+3 000 iterations, 4/4/4/4 per batch. **Control = PR-36's T runs** (same seeds, start, duration and mix without
+pseudo-labels).
+
+**New guard, `eval_forme_fond.py`:** the same map, the same threshold as `eval_forme.py` (70 % fill of the letters),
+elongation measured on the supervised **background** (supervision minus labels dilated by 10 px at level 2). A
+model that learns to draw lines everywhere raises this as much as the letters. Measured on PR-36 maps before
+registering: background 7.2–8.8, letters 8.3–13.9.
+
+**Primary (fixed now).** Mean over five held-out segments and two seeds, order chosen label-free per map:
+**elongation Q − T ≥ +2.0 on the letters, AND (Q − T on letters) − (Q − T on background) ≥ +1.0, AND AUC-sup
+Q ≥ T − 0.01.** Otherwise fails.
+**Prior expectation.** Weak: 0.03–0.24 Mpx of pseudo-ink per segment is little, and several kept "strokes" look like
+merged blobs. A pass would be the first shape gain on unseen letters; a fail closes naive self-training for shape.
+
+**Nothing is looked at on PHerc0800** whatever the outcome.

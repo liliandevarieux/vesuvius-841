@@ -4,7 +4,11 @@
 # Hors de cette zone, sur le papyrus (carte > 0) : encre = carte >= 92e centile, fond = carte <= 60e centile, le reste
 # inconnu (hors supervision) ; composantes d encre de moins de 30 px retirees. Centiles pris hors zone d evaluation.
 # Format identique a ft12m_build.py : zarr v2 (D, H, W), 0 / 255 sur la couche D // 2.
-# usage : ft12m_pseudo.py NOM CARTE.tif SORTIE_DIR   (ecrit SORTIE_DIR/NOM/NOM_{inklabels,supervision_mask}.zarr)
+# PR-37 : 4e argument optionnel ALLONG_MIN : seules les composantes d encre d allongement aire / r^2 >= ALLONG_MIN
+# (r = rayon inscrit max, definition d eval_forme.py) restent encre ; les autres deviennent inconnues (ni encre ni fond),
+# rien a moins de 64 px du bord du papyrus (carte = 0 ; le bord brille et passe le filtre, vu sur 0009B),
+# et le fond n est garde qu a 96 px au plus d un trait garde (carre de 193 px) : equilibre encre / fond proche de PR-36.
+# usage : ft12m_pseudo.py NOM CARTE.tif SORTIE_DIR [ALLONG_MIN]   (ecrit SORTIE_DIR/NOM/NOM_{inklabels,supervision_mask}.zarr)
 import sys, os, shutil, numpy as np, tifffile, zarr
 from scipy import ndimage
 from numcodecs import Blosc
@@ -36,6 +40,17 @@ taille = np.bincount(lab.ravel())
 encre &= (taille >= 30)[lab]
 fond = libre & (P <= q60)
 sup = encre | fond
+if len(sys.argv) > 4:
+    bord = ndimage.maximum_filter((P == 0).astype(np.uint8), size=129) > 0   # bord du papyrus : artefact lumineux
+    encre &= ~bord
+    fond &= ~bord
+    lab, n = ndimage.label(encre)
+    r = np.asarray(ndimage.maximum(ndimage.distance_transform_edt(encre), lab, range(1, n + 1)))
+    al = np.bincount(lab.ravel())[1:] / np.maximum(r, 1.0) ** 2
+    garde = np.concatenate([[False], al >= float(sys.argv[4])])[lab]
+    encre &= garde
+    fond &= ndimage.maximum_filter(encre.astype(np.uint8), size=193) > 0
+    sup = encre | fond
 
 out = '%s/%s' % (sortie, nom)
 shutil.rmtree(out, ignore_errors=True)
