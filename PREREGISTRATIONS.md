@@ -3385,3 +3385,21 @@ its own code: all 20 maps identical to four decimals.
 Exploratory: V3 has the best held-out AUC (0.812, against 0.754 for released ink_9um on the same five segments).
 The subagent notes the 70 %-fill threshold varies from 47 to 117 between maps, so elongations are taken at
 different absolute levels — by design (the threshold is relative), stated here because it matters for reading them.
+
+### Exploratory diagnostic, 2026-09-27 03:25, after PR-32: the recipe draws strokes on letters it has seen
+
+PR-31's fold models applied to scrolls **inside** their own training (forward, checkpoint 4 000; `scripts/run_diag_vu.sh`):
+
+| fold (trained without) → scroll it trained on | AUC-sup | elongation | same scroll held out (PR-31) | tracing |
+|---|---|---|---|---|
+| 841 → 0009B | 0.9988 | **43.7** | 0.853 / 12.4 | 22.8 |
+| 841 → 0500P2 | 0.9987 | **32.8** | 0.788 / 11.2 | 16.3 |
+| 0500P2 → 841 segB | 0.9922 | **33.4** | 0.785 / 13.7 | 25.1 |
+| 0500P2 → 0009B | 0.9983 | **45.5** | 0.853 / 12.4 | 22.8 |
+| 0009B → 841 segB | 0.9886 | **38.8** | 0.785 / 13.7 | 25.1 |
+| 0009B → 0500P2 | 0.9985 | **28.0** | 0.788 / 11.2 | 16.3 |
+
+On seen letters the model outputs strokes finer than the tracings; on the same scrolls held out, blobs. **Neither
+resolution nor architecture caps the shape at 1.2 m.** With AUC ≈ 0.99 in sample, this may be memorised tracings
+rather than ink read, so it does not show that the ink signal alone defines strokes on an unseen sheet; it does show
+a large generalisation gap, the signature of too little varied training data. Next lever: more 1.2 m data.
