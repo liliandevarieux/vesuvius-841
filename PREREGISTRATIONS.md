@@ -3739,3 +3739,49 @@ not in general.
 **Declared in advance.** Eighteen labelled letters in all; per-map elongation is noisy (segB's control moves from 12.40
 to 17.20 between seeds); folds W and A share one model per seed; labels on the eligible volumes were carried from level
 2 by the canvas ratio, as in PR-31 to PR-38.
+
+## PR-40 to PR-43 — registered together, 2026-09-27 23:04, before any of them runs (night queue after PR-39)
+
+*Script: `scripts/run_nuit_2728.sh`, which waits for PR-39 to end (two trainings do not fit together on 8 GB) and then
+runs PR-40, 41, 42, 43 in that order. Same recipe, start, measurement and label-free order rule as PR-39 unless stated.*
+
+### PR-40 — PR-39 replicated at seeds 44 and 45, with its controls at the same seeds
+
+**Why.** Per-map elongation is noisy (segB's control: 12.40 at seed 42, 17.20 at seed 43), and PR-39 has two seeds.
+**Design.** PR-39's arms (fold B: segB held out, train w00 + segA; fold WA: w00 and segA held out, train segB only) at
+seeds 44 and 45, and new controls at the same seeds with PR-34's recipe (841 held out, 0814 ×4 in the slot).
+**Primary.** PR-39's criterion on seeds 44–45 alone: mean elongation W − C ≥ +2.0 over three sheets × two seeds, and
+AUC-sup W ≥ C − 0.01. **Reported with it:** the four-seed estimate (PR-39 + PR-40) and the per-seed spread. PR-39's
+verdict stands on its own registration; PR-40 says whether it replicates.
+
+### PR-41 — how many letters of the same scroll? One other sheet instead of two
+
+**Why.** Nader's route needs a *first handful* of hand labels; fold B trains on two sheets (13 letters).
+**Design.** segB held out; train with **w00 only** (7 letters) or **segA only** (6 letters), seeds 42 and 43 — both
+sheets lie ≥ 83 voxels from segB's surface and their letters ≥ 150 voxels from segB's. Measured on segB only.
+**Primary.** Mean over both one-sheet arms and both seeds: segB elongation − control ≥ +2.0 and AUC-sup ≥ control − 0.01,
+control = PR-34 R4 / PR-35 R43 on segB (12.40 / 0.7792 and 17.20 / 0.7757, mean 14.80 / 0.7775).
+**Secondary.** Dose: control (0 sheets) → one sheet → two sheets (PR-39 fold B) on segB. **Declared:** segB has five
+letters; this is the thinnest measurement of the night.
+
+### PR-42 — the all-scroll model (the tool's weights), judged on the untouched control PHerc0343P
+
+**Why.** The model other teams would use on an unlabelled eligible scroll is the one trained on every labelled 1.2 m
+volume: 841 ×3, 0009B, 0500P2, 0814 (3 per batch each) and the 0139 w035 anchor (4), seeds 42 and 43, 4 000 iterations.
+Its only unseen labelled scroll of 0800's scan type is PHerc0343P (PR-29).
+**Primary (PR-29's criteria, unchanged).** At checkpoint 4 000, AUC ≥ 0.80 in the order chosen label-free **and**
+letter shapes on the map (the author's look). Only then may PHerc0800 panels be built, under a separate registration.
+**Secondary.** (1) The checkpoint curve (1 000 to 4 000) against PR-30's (0.672 at 1 000, 0.581 at 12 000). (2) AUC on
+0343P against the number of labelled scrolls in training: the nine fold models of PR-31 (2 scrolls + anchor), PR-34 and
+PR-35 (3 + anchor), and PR-42 (4 + anchor), final checkpoints; Spearman ρ > 0 predicted.
+**Prediction.** The primary fails (PR-30 reached 0.581 with nearly the same data). **Declared:** three labelled
+components, filed "unused" by the organisers; the released ink_9um scores below chance there (0.418).
+
+### PR-43 — twice the training: does within-scroll shape grow with it?
+
+**Why.** Letters seen in training become strokes; whether held-out letters of the same scroll follow may depend on
+how long the model trains.
+**Design.** Fold B (segB held out, train w00 + segA) and its control (PR-34 recipe), seeds 42 and 43, **8 000
+iterations** (cosine schedule over 8 000), measured on segB at checkpoints 4 000 and 8 000.
+**Primary.** At 8 000: segB elongation W − C ≥ +2.0 (mean of two seeds) and AUC-sup W ≥ C − 0.01.
+**Secondary.** For each arm, 8 000 − 4 000; and W − C at 8 000 against PR-39's fold B at 4 000.
