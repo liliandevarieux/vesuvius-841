@@ -3367,3 +3367,21 @@ letters), the PR-31 recipe gives, at checkpoint 4 000: 841 w00 **8.80**, segA **
 elongation over the five segments **≥ 13.35** (PR-31 + 2.0) **and** mean held-out AUC-in-supervision **≥ 0.7888**
 (PR-31's 0.7988 − 0.01). Three variants are tested, so a pass is a candidate, not a finding: the winner (if any) is
 then trained on all three scrolls and tested once on PHerc0343P before anything is looked at on PHerc0800.
+
+### PR-32 — result, 2026-09-27 03:17: all three variants fail. Shape on held-out letters does not move.
+
+Checkpoint 4 000, forward (picked by the label-free score), held-out segments; blind re-derivation by a subagent with
+its own code: all 20 maps identical to four decimals.
+
+| recipe | 841 w00 | 841 segA | 841 segB | 0009B | 0500P2 | **mean elongation** | **mean AUC-sup** |
+|---|---|---|---|---|---|---|---|
+| PR-31 (reference) | 8.80 / .803 | 10.73 / .764 | 13.69 / .785 | 12.35 / .853 | 11.17 / .788 | **11.35** | **0.799** |
+| V1 label smoothing 0.1 | 8.98 / .809 | 8.65 / .785 | 14.93 / .790 | 13.95 / .857 | 11.63 / .788 | **11.63** | 0.806 |
+| V2 labels eroded 1 px | 5.96 / .787 | 14.26 / .759 | 11.73 / .763 | 14.67 / .857 | 10.46 / .786 | **11.42** | 0.790 |
+| V3 learning rate 0.0005 | 10.41 / .816 | 9.34 / .777 | 11.39 / .778 | 14.82 / .864 | 10.14 / .827 | **11.22** | **0.812** |
+| *tracings* | *20.1* | *21.7* | *25.1* | *22.8* | *16.3* | | |
+
+**Bar: mean elongation ≥ 13.35. No variant passes** (11.22–11.63); per-segment swings of ±3 cancel out in the mean.
+Exploratory: V3 has the best held-out AUC (0.812, against 0.754 for released ink_9um on the same five segments).
+The subagent notes the 70 %-fill threshold varies from 47 to 117 between maps, so elongations are taken at
+different absolute levels — by design (the threshold is relative), stated here because it matters for reading them.
