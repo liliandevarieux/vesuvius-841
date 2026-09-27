@@ -4,6 +4,13 @@ What we intend to measure, written **before** the result is known, with what wou
 posted whichever way they come out. Practice borrowed from [@AndreasHad04](https://github.com/AndreasHad04), who does
 the same in [villa-apple-silicon](https://github.com/AndreasHad04/villa-apple-silicon).
 
+> **Correction, 2026-09-27.** PHerc. Paris 4 data carry a publication reservation until 2027-06-25: no transcriptions
+> or scholarly claims based on them without permission (organisers' [data page](https://scrollprize.org/data_browser/PHercParis4),
+> "Data access and publication notice"). This registry used Paris 4 w02 as a positive control and named the letters read
+> there. Those letter identities are removed from nine passages; counts, results and conclusions are unchanged. One count
+> is corrected in passing: the cumulative blind-reading total said "5 letters named" while listing eight (five in PR-16,
+> three in PR-17).
+
 ---
 
 ## PR-1 — Does the depth direction belong to the array or to the segment?
@@ -1883,7 +1890,7 @@ finds every known letter on three sheets can still be the wrong instrument for l
 
 **And the comparison that puts the number in context.** At identical sheet coverage (10.6 % marked), PHerc. Paris 4
 segment w02 shows **158** letter-shaped objects outside its labels for 16 known letters; 841's w00 shows **8** for
-7. Nine times poorer. Paris 4 w02 is the segment on which this project's own run 2 read ΤΗΟΚΑΤ outside the labels
+7. Nine times poorer. Paris 4 w02 is the segment on which this project's own run 2 rendered a legible line outside the labels
 on 2026-09-20, so it serves as the positive control for the entire search method: the detector finds a great deal
 where text is known to be, and almost nothing on 841.
 
@@ -1905,7 +1912,7 @@ instrument must be shown to light up where something is known to be. It was neve
 **The segment and why it is the right one.** PHerc. Paris 4, segment w02. At the same sheet coverage that 841's
 w00 reaches (10.6 % marked), its published prediction shows **158** letter-shaped objects outside its labels
 against 841's **8**, with sensitivity **16 of 16** on its known letters. And it is the segment on which this
-project's own run 2 read ΤΗΟΚΑΤ outside the label mask on 2026-09-20, confirmed against the organisers'
+project's own run 2 rendered a legible line outside the label mask on 2026-09-20, confirmed against the organisers'
 prediction — so text outside the labels is not hypothetical there, it has already been read once.
 
 **Protocol, identical to PR-14 and PR-15 in every respect** so that a difference in outcome cannot be attributed
@@ -1950,7 +1957,7 @@ PR-12, PR-14 and PR-15's zone selection. A criterion calibrated to find every kn
 not concentrate unknown letters into the zones it picks.
 
 **But the other half passed, and that is what the control was for.** Shown a sheet where text is known to lie
-outside the label mask, the reader **named letters** — not "I see something", but E, T, C, I, N. Shown fourteen
+outside the label mask, the reader **named letters** — not "I see something", but five specific letters. Shown fourteen
 panels of PHerc. 841 across PR-14 and PR-15, the same reader named nothing at all. The rendering, the threshold,
 the framing and the question do detect letters. They found none on 841.
 
@@ -2063,15 +2070,15 @@ commit `09a0da0`). Verbatim, in the reader's French:
 > strucutures qui ressemble a des lettres pour le panneau M je pense lire un T un A peut etre plusieurs T dans
 > l'image je ne suis pas sure
 
-*Sheet A: no letter at all. Sheet B: an N on panel J; nothing on L; "structures that look like letters" on an
-unnamed panel; a T and an A, maybe several Ts, on M.*
+*Sheet A: no letter at all. Sheet B: one letter named on panel J; nothing on L; "structures that look like letters" on an
+unnamed panel; two letters named, maybe more, on M.*
 
 **Then the keys.** Sheet A was **841 w00**. Sheet B was **Paris 4 w02**.
 
 | sheet | map | panels | windows read | letters named |
 |---|---|---|---|---|
 | A = **841 w00** | `w00_canonical_2um_20250807020208.tif`, threshold 104 | A B C D | **0 of 4** | none |
-| B = **Paris 4 w02** | `tile256_stride128_layers1_63_hann_fwd.tif`, threshold 227 | J K L M | **2 of 4** | N (J); T, A (M) |
+| B = **Paris 4 w02** | `tile256_stride128_layers1_63_hann_fwd.tif`, threshold 227 | J K L M | **2 of 4** | one letter (J); two letters (M) |
 
 **Prediction 1 — confirmed.** Paris 4 w02 yields at least as many read windows as 841 w00: 2 against 0.
 
@@ -2101,7 +2108,7 @@ p = 0.21, both in the same direction, neither individually conclusive.
 
 **Cumulative count across the blind protocol.** On PHerc. 841 — 8 panels in PR-14 (segA, segB), 6 in PR-15 (w00),
 4 in PR-17 (w00) — **18 windows, not one letter named**. On the positive control PHerc. Paris 4 w02 — 6 in PR-16,
-4 in PR-17 — **10 windows, 4 read, 5 letters named** (E, T, C, I, N, then N, T, A).
+4 in PR-17 — **10 windows, 4 read, 8 letters named** (5 in PR-16, then 3 in PR-17).
 
 **A defect in PR-16's key, found the same hour and reported here because it could have inverted this result.** The
 key file for PR-16 contradicted itself: its header named the Paris 4 map, its six panel lines each said `w00`. Had
@@ -2149,7 +2156,7 @@ excludes almost nothing: the rest of the window is free to contain labelled ink.
 | Paris 4 w02 | J | 0 | — | 3.5 % | **N** |
 | Paris 4 w02 | K | 0 | — | 8.4 % | shapes, no letter named |
 | Paris 4 w02 | L | 0 | — | 6.6 % | nothing |
-| Paris 4 w02 | M | **2** (nos. 4, 7) | 68.6 %, 78.3 % | 12.3 % | **T, A** |
+| Paris 4 w02 | M | **2** (nos. 4, 7) | 68.6 %, 78.3 % | 12.3 % | **two letters named** |
 
 w00 has exactly seven label components of letter size (900–3 000 px). **Panels A and C between them contained all
 seven**, each filled to 59–76 % by the map at the threshold under test. The reader, blind, said *"on ne voit aucune
@@ -2479,7 +2486,7 @@ it would show — and that is the cheapest remaining thing to check.
 people. That cannot separate "841 is harder" from "our recipe is behind". The separation needs our own model
 measured against a better map **on the same scroll, on the same letters** — and the obvious place is PHerc. Paris 4
 w02, where this project's run-2 checkpoint (`ink_w00_128_acc4`, ckpt 80 000) demonstrably reads: on 2026-09-20 it
-rendered the line ΤΗΟΚΑΤ outside the labelled area, correlation 0.79–0.84 with the published prediction. That is
+rendered a legible line outside the labelled area, correlation 0.79–0.84 with the published prediction. That is
 the best thing this project has produced.
 
 Our block covers y 26 000–30 500, x 19 500–31 000, which contains exactly two known letters entirely — components
@@ -2605,7 +2612,7 @@ from a random initialisation, with this recipe and this budget, does not happen.
 does label thickness set prediction thickness — was not reached.
 
 **PR-21, the same manipulation started from somewhere that already works.** Run 2's ckpt 80 000 finds ink: that is
-the whole reason it reads ΤΗΟΚΑΤ. Load its weights, keep the thinned labels unchanged, drop the learning rate to
+the whole reason it renders a legible line there. Load its weights, keep the thinned labels unchanged, drop the learning rate to
 one tenth (0.001), and train 24 000 iterations instead of 80 000. The model is not asked to learn ink detection
 again; it is asked to move what it already finds toward a thinner target. The project has used exactly this shape
 before — run 4 on 841 warm-started from run 2 at a reduced rate. Config differs from run 2 in seven keys, all
