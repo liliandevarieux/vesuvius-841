@@ -4134,6 +4134,55 @@ detects better than R4 and less well than Reader v2.
   - If quarters fail too, the reading stops and PR-48's legibility is reported as not measured.
 - *Late answer.* If the first dry-run reader answers late, its answer is not used.
 
+## Result of PR-48 — written 2026-09-28 16:45, after the dry runs; no test sheet was read
+
+**Primary (legibility, RV2+ against Reader v2): not measured.** The reading stopped under the fallback rules
+registered above, before any test sheet was read. Every dry-run answer is kept in the project's logs; none is scored.
+
+| dry run | launched | outcome |
+|---|---|---|
+| full sheet, 28 crops | 16:10:55 | no answer at 600 s; later stopped by the tool: "no progress for 600 s" |
+| half a, crops 1–14 | 16:23:00 | no answer at 600 s; later stopped the same way |
+| half b, crops 15–28 | 16:23:00 | answered in 299 s |
+| quarter 1, crops 1–7 | 16:34:30 | no answer at 600 s (checked at 16:44:35) |
+| quarter 2, crops 8–14 | 16:34:30 | answered in 316 s |
+| quarter 3, crops 15–21 | 16:34:30 | answered in 165 s |
+| quarter 4, crops 22–28 | 16:34:30 | no answer at 600 s (checked at 16:44:35) |
+
+As registered: "If quarters fail too, the reading stops and PR-48's legibility is reported as not measured."
+- The dry-run crops contain no letter: they are taken 500 px to the right of each letter. The failure therefore
+  concerns the reading tool, and says nothing about the maps.
+- Its cause is not known. The same failure stopped every reader of the Reader v2 window in PR-47. This morning, full
+  28-crop sheets in PR-46 were read without incident.
+
+**Secondary, detection (recounted blind from the raw logs).** AUC against the labels inside the supervision mask, on
+the held-out scroll, in the label-free layer order.
+
+| map | 841 w00 | 841 segA | 841 segB | 841 mean | 0009B |
+|---|---|---|---|---|---|
+| R4 seed 42 (PR-34) | 0.8135 | 0.7593 | 0.7792 | 0.7840 | 0.8623 |
+| R4 seed 43 (PR-35) | 0.7782 | 0.7727 | 0.7757 | 0.7755 | 0.8623 |
+| R4 seed 44 | 0.7984 | 0.7669 | 0.7481 | 0.7711 | 0.8514 |
+| RV2+ seed 42 | 0.8267 | 0.8072 | 0.8084 | 0.8141 | 0.8802 |
+| RV2+ seed 43 | 0.8308 | 0.7910 | 0.7917 | 0.8045 | 0.8863 |
+| RV2+ seed 44 | 0.8233 | 0.8023 | 0.8073 | 0.8110 | 0.8789 |
+| Reader v2 (PR-44, PR-45) | 0.878 | 0.830 | 0.822 | 0.843 | 0.93 (half on its training surface) |
+
+- **Noise floor for detection (rule 3).**
+  - On the mean of 841's three segments, R4's three seeds span 0.013 and RV2+'s span 0.010.
+  - On a single segment, R4's seeds span up to 0.035 (w00). No conclusion is drawn from one segment.
+- **RV2+ against R4.** RV2+ detects better than R4: +0.033 on the 841 mean, and every RV2+ seed is above every R4
+  seed.
+- **RV2+ against Reader v2.** RV2+ detects less well than Reader v2 alone: 0.810 against 0.843 on 841. Our fine-tune
+  loses part of what Reader v2 had learned to find.
+- This is the registered prediction: RV2+ "detects better than R4 and less well than Reader v2".
+
+**Consequence.**
+- The legibility gain is not shown, so the registered "fails" branch applies: the 0800 and 1447 panels use Reader v2
+  and R4 side by side.
+- The maps, the sheets and the key stay as they are, and no test answer exists. A later reading of the same sheets
+  needs its own registration, with a reading format that has passed its dry run first.
+
 ## PR-49 — registration, 2026-09-28 14:03, before any training: does self-training on PHerc1447 make its known letters readable blind?
 
 *Self-training is the lever named in the organisers' announcement. On 24 September they announced that Youssef

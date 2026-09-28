@@ -1,0 +1,7 @@
+15: alpha (1)
+16: unreadable (1)
+17: alpha (1)
+18: eta (1)
+19: omicron (2)
+20: upsilon (2)
+21: omicron (2)
