@@ -4801,4 +4801,6 @@ panel is seen, and a late answer is discarded.
 - Rule 6: meanwhile the GPU computes maps (Reader v2 with shifted layer windows, then Reader v2's second released
   checkpoint), shown on the live page.
 - Rule 7: this is the window counterpart of bench version 2.
-*Corrected at 21:38, before any reading:* the first paragraph first said 26 readers for PR-51 and PR-52; they had 24, andthe 2 others were PR-48's diagnostic readers.
+
+*Corrected at 21:38, before any reading:* the first paragraph first said 26 readers for PR-51 and PR-52; they had 24,
+and the 2 others were PR-48's diagnostic readers.
