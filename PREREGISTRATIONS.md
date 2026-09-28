@@ -4324,6 +4324,40 @@ seed range on this mean, PR-48) and each of R4's three seeds is above the best b
 - Rules 2 and 7 do not apply: there is no reading.
 - Rule 6: it runs after PR-49, so the GPU does not idle.
 
+## Result of PR-50 — written 2026-09-28 17:14, after the run (recounted blind from the raw log lines)
+
+The run finished at 17:09:16. The label-free rule kept the forward layer order for every map.
+
+| map | 841 w00 | 841 segA | 841 segB | 841 mean | 0009B | 0500P2 |
+|---|---|---|---|---|---|---|
+| ink_9um seed 42 | 0.7498 | 0.7224 | 0.7533 | 0.7418 | 0.8074 | 0.7377 |
+| ink_9um seed 43 | 0.7739 | 0.6829 | 0.7579 | 0.7382 | 0.7943 | 0.7682 |
+| average of the two maps | 0.7880 | 0.7178 | 0.7758 | **0.7605** | 0.8318 | 0.7803 |
+| R4, mean of seeds 42, 43, 44 | | | | **0.7769** | 0.8587 | 0.7945 (seeds 42, 43) |
+
+**Primary: holds, narrowly.**
+- The best base variant is the map average: 0.7605 on 841.
+- G = 0.7769 − 0.7605 = +0.0164, above the bar of 0.013.
+- Each R4 seed is above the best base variant: by +0.0235, +0.0150 and +0.0106.
+
+**Secondary.**
+- On 0009B, R4 is ahead of the map average by +0.0269, and every seed is above it.
+- On 0500P2, R4 is ahead by +0.0142 (two seeds, both above).
+- The base's own seed gap (seed 43 minus seed 42) is −0.0036 on the 841 mean. Per segment it ranges from −0.0395 to
+  +0.0305, as large as R4's per-segment seed spread.
+
+**Reading.** Our fine-tune's detection gain survives the base's checkpoint lottery, but at half the size we reported.
+- Against seed42 step-075000 alone, the gain on 841 is +0.035.
+- Against the average of ink_9um's two final maps, it is +0.016.
+- About half of the reported gain can be had without training, by averaging the two released final checkpoints.
+- R4 is compared seed by seed with a two-map average. An average of R4's own seeds was not measured and might gain too.
+- The prediction holds: narrowly, with the best base variant at 0.7605 (predicted about 0.755) and a gain of 0.016
+  (predicted about 0.02).
+
+**Consequence.** From now on, a detection gain over ink_9um is stated against the average of its two final maps, not
+against seed 42 alone. The earlier figures "+0.042 / +0.046 / +0.051" were measured against seed 42 alone, on the
+PR-31 to PR-35 recipes. They overstate the gain, and are not to be cited without this correction.
+
 ## PR-51 — registration, 2026-09-28 16:57, before any reading: does a "first impression" instruction reproduce PR-46's blind-reading order?
 
 *Why.* PR-48's reading stopped because its readers stalled. Diagnostic readers, outside any test, were run on
