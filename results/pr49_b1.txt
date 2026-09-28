@@ -1,0 +1,4 @@
+F3: omicron (2)
+E3: sigma (1)
+D3: pi (1)
+G3: lambda (1)

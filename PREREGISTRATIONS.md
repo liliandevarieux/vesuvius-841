@@ -4873,3 +4873,56 @@ The key goes to `results/pr49_cle.txt`, which readers never see. Readers:
 - then 6 for Reader v2.
 
 That is 19 in all, under the tool's limit of 20 at once.
+
+## Result of PR-49 — written 2026-09-28 21:55, after the reading (scores recounted blind from the answer files)
+
+*Reading.* Window format version 2 (addendum at 21:48). The dry-run reader answered in 47 s on the far segment, so the
+panels were read whole. All 18 test readers answered, in 40 to 111 s, with no failure. They named 3 to 7 letters
+each, mostly on row 3, the line through the announced point.
+
+**Primary: fails.** The score is the longest common subsequence with περιε πιλεγει (12 letters). Mean score: P 1.67,
+T 1.50. P − T = +0.17 letters in order, exact one-sided p = 0.50. The prediction holds: fails, with P ahead by less
+than 2 letters and both arms near chance.
+
+| arm | scores of its 6 readers | mean | letters named per reader |
+|---|---|---|---|
+| P (self-training on 1447) | 2, 1, 1, 2, 2, 2 | 1.67 | 5 to 7 |
+| T (same continuation, without 1447) | 2, 1, 1, 2, 2, 1 | 1.50 | 3 to 7 |
+| Reader v2 as released (descriptive arm of the addendum) | 3, 3, 3, 2, 2, 3 | 2.67 | 3 to 6 |
+
+**Secondary.**
+1. *Line by line.* No reader matches more than 2 letters of περιε or more than 3 of πιλεγει.
+2. *Against chance* (letters drawn uniformly, as many as the reader named). No P or T reader exceeds its 95th
+   percentile. Two of Reader v2's six readers do, each with 3 letters in order.
+3. *Seeds.* P42 1, 2, 1 and P43 2, 2, 2. T42 2, 1, 1 and T43 2, 2, 1.
+4. *P's readers against chance.* Their mean, 1.67, stays below the 95th percentiles (2 to 3).
+
+**Observation, not registered: the order carries nothing.** The readers name iota most (14 times), then omicron, tau,
+lambda and omega. Each arm does as well with its readers' own letters put in random order as in their order:
+- P: 1.42 in random order, 1.67 observed;
+- T: 1.42 and 1.50;
+- Reader v2: 2.70 and 2.67.
+
+Reader v2's higher score therefore comes from which letters its readers name (iota, gamma, epsilon, all in the
+reference), not from reading them in sequence. Five of its six readers name a gamma in cell E3, next to the announced
+point.
+
+**Reading.** On PHerc1447's known text, on the scan type of PHerc0800, no map we have makes the text readable blind.
+That holds for one round of self-training on the scroll (P), for the same continuation without it (T), and for Reader
+v2 as released. Readers find a few letter-like forms near the announced point, not the text. The 0009B control read in
+the same session (PR-55) shows that these readers, with this format, do find letters where a map renders them: 2.7 of
+10 per reader on R4's window.
+
+**Consequence.** The registered "fails" branch applies, and self-training on the target is not registered for
+PHerc0800. At the point where villa#1907's public control ran four ink_9um-family maps, Reader v2 gives isolated
+letter-like forms, not text. Read with the maps we can make today, PHerc0800 is expected to show isolated forms at
+best. Its reading test, under its own registration, will say whether it does.
+
+**Files.**
+- Panels: `images/2026-09-28_pr49_fenetre_{b,d,f,j,n}.png`, and the dry run `images/2026-09-28_pr49_essai_x.png`.
+- Key: `results/pr49_cle.txt`.
+- Answers: `results/pr49_{n,j,b,d,f}{1..6}.txt` and `results/pr49_essai_x.txt`.
+- Reading times: `results/pr49_durees.txt`.
+- Scoring output: `results/pr49_score.txt` (`scripts/score_pr49.py`, unchanged).
+
+A subagent recomputed every score above with its own code and found the same, with the exact p-value 462 / 924 = 0.500.

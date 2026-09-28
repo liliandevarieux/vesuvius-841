@@ -1,0 +1,7 @@
+CLE PR-49 -- ne pas montrer aux lecteurs. Lettres tirees avec numpy default_rng(49).permutation(5)
+b = pr49_T42_1447_t
+d = pr49_T43_1447_t
+f = x1447_readerv2
+j = pr49_P43_1447_t
+n = pr49_P42_1447_t
+x = pr49_P42_1447_e (essai a blanc, non compte)

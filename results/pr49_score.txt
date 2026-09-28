@@ -1,0 +1,22 @@
+P  pr49_n1.txt                               5 lettres nommees : LCS 2 (ligne 2 : 1, ligne 3 : 2) ; hasard moyen 1.13, 95e centile 3 | omega tau theta pi lambda
+P  pr49_n2.txt                               6 lettres nommees : LCS 1 (ligne 2 : 0, ligne 3 : 1) ; hasard moyen 1.24, 95e centile 3 | omega omega tau theta kappa lambda
+P  pr49_n3.txt                               5 lettres nommees : LCS 1 (ligne 2 : 0, ligne 3 : 1) ; hasard moyen 1.12, 95e centile 2 | omega tau theta gamma lambda
+P  pr49_j1.txt                               5 lettres nommees : LCS 2 (ligne 2 : 1, ligne 3 : 2) ; hasard moyen 1.10, 95e centile 2 | pi theta tau lambda tau
+P  pr49_j2.txt                               7 lettres nommees : LCS 2 (ligne 2 : 1, ligne 3 : 2) ; hasard moyen 1.46, 95e centile 3 | omega nu pi theta tau lambda tau
+P  pr49_j3.txt                               6 lettres nommees : LCS 2 (ligne 2 : 1, ligne 3 : 2) ; hasard moyen 1.28, 95e centile 3 | upsilon omega pi theta tau lambda
+T  pr49_b1.txt                               4 lettres nommees : LCS 2 (ligne 2 : 1, ligne 3 : 2) ; hasard moyen 0.93, 95e centile 2 | pi sigma omicron lambda
+T  pr49_b2.txt                               3 lettres nommees : LCS 1 (ligne 2 : 1, ligne 3 : 1) ; hasard moyen 0.70, 95e centile 2 | tau epsilon omicron
+T  pr49_b3.txt                               3 lettres nommees : LCS 1 (ligne 2 : 1, ligne 3 : 1) ; hasard moyen 0.69, 95e centile 2 | tau epsilon omicron
+T  pr49_d1.txt                               4 lettres nommees : LCS 2 (ligne 2 : 2, ligne 3 : 2) ; hasard moyen 0.91, 95e centile 2 | omega omicron iota epsilon
+T  pr49_d2.txt                               7 lettres nommees : LCS 2 (ligne 2 : 1, ligne 3 : 2) ; hasard moyen 1.45, 95e centile 3 | xi sigma omega omicron iota omicron iota
+T  pr49_d3.txt                               4 lettres nommees : LCS 1 (ligne 2 : 1, ligne 3 : 1) ; hasard moyen 0.92, 95e centile 2 | sigma omega iota omicron
+V  pr49_f1.txt                               6 lettres nommees : LCS 3 (ligne 2 : 1, ligne 3 : 2) ; hasard moyen 1.32, 95e centile 3 | upsilon iota iota gamma omicron lambda
+V  pr49_f2.txt                               5 lettres nommees : LCS 3 (ligne 2 : 1, ligne 3 : 2) ; hasard moyen 1.12, 95e centile 3 | omicron iota iota iota omicron
+V  pr49_f3.txt                               4 lettres nommees : LCS 3 (ligne 2 : 1, ligne 3 : 2) ; hasard moyen 0.91, 95e centile 2 | iota iota gamma omicron
+V  pr49_f4.txt                               5 lettres nommees : LCS 2 (ligne 2 : 1, ligne 3 : 2) ; hasard moyen 1.12, 95e centile 2 | lambda upsilon iota gamma sigma
+V  pr49_f5.txt                               4 lettres nommees : LCS 2 (ligne 2 : 1, ligne 3 : 2) ; hasard moyen 0.89, 95e centile 2 | iota gamma omicron lambda
+V  pr49_f6.txt                               3 lettres nommees : LCS 3 (ligne 2 : 2, ligne 3 : 3) ; hasard moyen 0.69, 95e centile 2 | iota gamma epsilon
+P  : LCS moyen 1.67 sur 6 lecteurs [2, 1, 1, 2, 2, 2]
+T  : LCS moyen 1.50 sur 6 lecteurs [2, 1, 1, 2, 2, 1]
+V  : LCS moyen 2.67 sur 6 lecteurs [3, 3, 3, 2, 2, 3]
+PRIMAIRE : P - T = +0.17 lettres dans l ordre, p unilateral exact = 0.5000 -> echoue

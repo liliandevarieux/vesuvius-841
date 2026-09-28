@@ -1,0 +1,4 @@
+F3: omicron (2)
+E3: iota (1)
+B3: omega (1)
+E2: sigma (1)

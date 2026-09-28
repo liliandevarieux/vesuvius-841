@@ -1,0 +1,6 @@
+B3: omega (1)
+E3: tau (1)
+F3: theta (2)
+G3: kappa (2)
+H3: lambda (1)
+G1: omega (1)

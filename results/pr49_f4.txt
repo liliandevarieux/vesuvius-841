@@ -1,0 +1,5 @@
+D2: lambda (1)
+F2: upsilon (1)
+B3: iota (1)
+E3: gamma (1)
+F3: sigma (2)

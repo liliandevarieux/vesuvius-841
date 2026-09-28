@@ -1,0 +1,3 @@
+F3: epsilon (1)
+E3: gamma (1)
+D3: iota (1)

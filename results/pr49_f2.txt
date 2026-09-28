@@ -1,0 +1,5 @@
+A2: omicron (1)
+B3: iota (1)
+D3: iota (1)
+E3: iota (1)
+F3: omicron (2)

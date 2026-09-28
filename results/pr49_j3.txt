@@ -1,0 +1,6 @@
+E3: pi (1)
+F3: theta (2)
+G3: tau (2)
+H3: lambda (1)
+F2: upsilon (1)
+B3: omega (1)
