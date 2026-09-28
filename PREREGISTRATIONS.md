@@ -3919,3 +3919,21 @@ contamination could only have helped. The AUC of 0.93 is **not** evidence of gen
 held-out test for Reader v2 unless the seen letters are set apart (PR-46). The author's look: Reader v2's maps look
 cleaner, and some letters look more complete than ours (alpha and delta, both on unseen surface). That disagreement
 with elongation is what PR-46 tests.
+
+## Result of PR-46 — written 2026-09-28, after the reading (counts recounted blind from the key and the answer files)
+
+**Primary: no difference detectable (+1).** The reference reader named all 28 tracings; none was dropped. On the 23
+letters Reader v2 never saw: Reader v2 **8/23**, our R4 **7/23**, the base **2/23**. Discordant letters: 4 read only
+on Reader v2's map, 3 only on R4's. The +1 rests on one letter whose reference reading was the least confident
+(841 segA letter 5, sigma, confidence 1); without it, 7 against 7. The prediction held.
+**Secondary.** (1) Base against R4 on the 23 letters: 5 letters read on R4's map and not on the base's, none the
+other way. The base sits near chance. Fine-tuning made never-seen letters more identifiable, and elongation did not
+show it (841: 11.47 against 11.58). (2) Seen letters: Reader v2 3/5, R4 1/5, base 1/5 (contamination may help;
+five letters). (3) On 841 the ordering by readings (Reader v2 5/18 > R4 3/18 > base 1/18) is the **reverse** of the
+ordering by elongation (base 11.58 ≈ R4 11.47 > Reader v2 8.40). On 0009B's clean letters they agree (R4 4/5 > Reader
+v2 3/5 > base 1/5; elongation 15.19 > 11.46 > 9.59). By the registered rule, **elongation does not track
+legibility**, as PR-18 had already found (p = 0.176). The shape verdicts of PR-30 to PR-45 are verdicts on elongation,
+not on legibility. Counts are small (one reading per map), so the orderings themselves are uncertain.
+**Observation, not registered.** R4, trained without 0009B, had 5 of 0009B's 10 letters named blind (4 of the 5
+clean ones), on the scan type of PHerc0800 and PHerc1447. The base: 2 of 10. This is a single reading per map; it
+has to be confirmed under its own registration before it gates anything.
