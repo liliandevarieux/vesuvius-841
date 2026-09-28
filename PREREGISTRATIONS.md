@@ -3877,7 +3877,7 @@ does not track legibility, and every shape verdict since PR-30 has to be re-read
 **Prediction.** No difference detectable. Few letters are legible on any map, and the 0009B omicrons are rings
 everywhere.
 
-## Results of PR-39 to PR-45 — written 2026-09-28, after the runs (numbers recounted blind from the logs)
+## Results of PR-39 to PR-45 — written 2026-09-28, after the runs (detection and elongation figures recounted blind from the logs; contamination figures are the direct output of `scripts/recouvrement_0009B.py`)
 
 Order chosen label-free (p99 − p50) on every map: forward everywhere.
 
@@ -3937,3 +3937,7 @@ not on legibility. Counts are small (one reading per map), so the orderings them
 **Observation, not registered.** R4, trained without 0009B, had 5 of 0009B's 10 letters named blind (4 of the 5
 clean ones), on the scan type of PHerc0800 and PHerc1447. The base: 2 of 10. This is a single reading per map; it
 has to be confirmed under its own registration before it gates anything.
+**Files.** Sheets `images/2026-09-28_pr46_planche_*.png` (built by `scripts/lecture_aveugle.py`); key and answers
+`results/pr46_*`; scoring `scripts/score_pr46.py`. PR-44 and PR-45: `scripts/run_pr44.sh`, `scripts/run_pr45.sh`,
+letter panels `images/2026-09-28_pr44_841_*_lettres.png` and `images/2026-09-28_pr45_0009B_lettres.png`
+(`scripts/panneau_lettres_841.py`); contamination check `scripts/dl_mesh0009B.sh`, `scripts/recouvrement_0009B.py`.
