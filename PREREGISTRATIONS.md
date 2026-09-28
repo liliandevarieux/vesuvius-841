@@ -3876,3 +3876,46 @@ them. **≤ −4** = ours are. In between = no difference detectable at this siz
 does not track legibility, and every shape verdict since PR-30 has to be re-read.
 **Prediction.** No difference detectable. Few letters are legible on any map, and the 0009B omicrons are rings
 everywhere.
+
+## Results of PR-39 to PR-45 — written 2026-09-28, after the runs (numbers recounted blind from the logs)
+
+Order chosen label-free (p99 − p50) on every map: forward everywhere.
+
+**PR-39 — fails.** Mean over three held-out sheets × seeds 42–43: elongation W 10.51 against C 11.38 (**−0.87**; bar
++2.0). Detection gains: AUC-sup 0.8005 against 0.7798 (+0.021). Letters of another sheet of the same scroll improve
+where ink is found, not the shape of letters never seen.
+
+**PR-40 — fails, and replicates PR-39.** Seeds 44–45: elongation W − C **−2.26**, AUC-sup +0.016. Four seeds together:
+−1.56 (per seed −1.07, −0.68, −2.27, −2.24), AUC-sup +0.018. By sheet over four seeds: segB −4.87, segA −0.64, w00
++0.82.
+
+**PR-41 — fails.** One other sheet (w00 or segA), segB held out, mean of both arms and both seeds: elongation 10.71
+against the control's 14.80 (**−4.09**), AUC-sup +0.0075. Dose on segB: 14.80 (no sheet of 841) → 10.71 (one sheet) →
+9.00 (two sheets, PR-39 fold B). More letters of the same scroll make the held-out ones rounder, not thinner.
+
+**PR-42 — fails.** The all-scroll model on PHerc0343P at checkpoint 4 000: AUC **0.530 / 0.513** (seeds 42 / 43; bar
+0.80). It stays near chance at every checkpoint (0.46–0.58 in the forward order). The fold models score 0.40–0.62;
+Spearman ρ between AUC and the number of labelled scrolls in training = 0.136 (with ties): no trend. No PHerc0800 panel
+was built.
+
+**PR-43 — fails.** At 8 000 iterations on segB: elongation W − C **−3.50** (at 4 000: −3.36), AUC-sup +0.025. From
+4 000 to 8 000, W gains +0.91 and C +1.05: training longer thins both arms alike and does not open a gap.
+
+**PR-44 — fails.** Reader v2 on 841's three sheets: mean elongation **8.40** (w00 8.14, segA 9.23, segB 7.83; bar 16.0;
+our controls 11.4; the ink_9um base 11.6), best detection so far: mean AUC-sup **0.8434** (0.8782, 0.8302, 0.8218).
+On segA its background is more elongated than its letters (14.14 against 9.23). The author's look, letter by letter
+(`images/2026-09-28_pr44_841_*_lettres.png`): all three models bring out the **same pieces** of each letter (alpha's
+right leg, pi's arch); Reader v2's background is cleaner, and its strokes break into round beads. No model draws a whole
+letter.
+
+**PR-45 — fails, and the segment turned out to be contaminated.** Reader v2 on the 0009B segment: elongation **11.46**
+(bar 16.0; above its background, 9.07), against 15.19 for our R4 fold (**−3.73**), 12.35 for PR-31's fold and 9.59 for
+the base; AUC-sup **0.9295** against 0.8623 (+0.067). **Contamination check** (`recouvrement_0009B.py`, 8.64 µm
+meshes): three of Reader v2's training segments of 0009B (20250919064353, 20250919131352, 20250919132115; a fourth,
+20250919130642, marginally) lie on the same papyrus surface as ours, down to 0.1 voxel apart. Together they cover 53 %
+of our segment's surface and 54 % of its labelled letter points within 15 voxels. Letter by letter: letters 1, 3, 4, 7
+and 8 are on seen surface (85–100 %), letters 2, 5, 6, 9 and 10 off it (0–14 %). The primary's failure stands, since
+contamination could only have helped. The AUC of 0.93 is **not** evidence of generalisation. The segment is no
+held-out test for Reader v2 unless the seen letters are set apart (PR-46). The author's look: Reader v2's maps look
+cleaner, and some letters look more complete than ours (alpha and delta, both on unseen surface). That disagreement
+with elongation is what PR-46 tests.
