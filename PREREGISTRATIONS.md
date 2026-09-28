@@ -4116,6 +4116,24 @@ detects better than R4 and less well than Reader v2.
 
 (Rules 4 and 5 are numbered 6 and 7 in the project's own list.)
 
+**Addendum, 2026-09-28 16:24, before any test sheet was read.**
+- *Dry run failed.* Training ended at 16:04:37. The dry-run reader was launched at 16:10:55 (±3 s) on the dry-run sheet
+  (crops 500 px to the right of each letter, on RV2+ seed 42 and R4 seed 44). It had given no answer at 16:21:00,
+  which is past the 600 s limit.
+- *Sheets split in half.* As registered, every sheet is split into two halves of 14 crops, 1–14 and 15–28
+  (`scripts/moities_planches.py`).
+  - The crops are copied pixel for pixel from the original sheets and keep their original numbers.
+  - The assignment of letters to maps and readers is unchanged.
+- *Readers of the halves.* Each half is read by a fresh reader. PR-46's instructions change only in the number of
+  crops (14, numbered 1–14 or 15–28).
+  - The two halves' answers together make up reader r's answer. Each letter is still read 6 times on each map.
+  - For test readers, "no answer" in the reader-failure rule means no answer within 600 s of launch.
+- *Dry run of the halves, added now.* Both halves of the dry-run sheet are read first, by two fresh readers.
+  - If either gives no answer within 600 s, every sheet is split again, into quarters of 7 crops, under the same rules.
+    The dry run is then repeated once, on quarters.
+  - If quarters fail too, the reading stops and PR-48's legibility is reported as not measured.
+- *Late answer.* If the first dry-run reader answers late, its answer is not used.
+
 ## PR-49 — registration, 2026-09-28 14:03, before any training: does self-training on PHerc1447 make its known letters readable blind?
 
 *Self-training is the lever named in the organisers' announcement. On 24 September they announced that Youssef
