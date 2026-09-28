@@ -3785,3 +3785,27 @@ how long the model trains.
 iterations** (cosine schedule over 8 000), measured on segB at checkpoints 4 000 and 8 000.
 **Primary.** At 8 000: segB elongation W − C ≥ +2.0 (mean of two seeds) and AUC-sup W ≥ C − 0.01.
 **Secondary.** For each arm, 8 000 − 4 000; and W − C at 8 000 against PR-39's fold B at 4 000.
+
+## PR-44 — registration, 2026-09-28 09:30, before download: does Reader v2 draw PHerc0841's never-seen letters as strokes?
+
+*Registered before the checkpoint is downloaded or run. Model: DomRusso2's Reader v2 (github.com/DomRusso2/reader-v2,
+released 2026-09-27, MIT), checkpoint `reader-v2-step040000.pth`.*
+
+**Why.** Twelve levers in this registry (PR-32 to PR-43) moved detection and never shape: held-out letters stay blobs.
+The one lever left was more labelled letters at the eligible scan type, capped by public labels. Reader v2 takes it by
+another road: dense labels borrowed from the organisers' finer-scan maps on six scrolls (0139, 0814, 0500P2, 0009B,
+0343P, 0172) at their native 9 µm resolutions, and **PHerc0841 held out entirely**. Its README reports detection
+(AUC 0.824 against 841's human labels); it does not report letter shape.
+
+**Design.** The released checkpoint, basic inference mode (same CLI and the same 21-layer native inputs as PR-31 to
+PR-43), both layer orders, order chosen label-free (p99 − p50); measured with `eval_sup.py`, `eval_forme.py` and
+`eval_forme_fond.py` on 841 w00, segA and segB (18 labelled letters).
+
+**Primary (fixed now).** Mean held-out elongation over the three sheets **≥ 16.0**, the lower end of the tracings'
+range (16–25, #1907): *holds* = a public model draws 841's never-seen letters as strokes, and the wall measured here
+is our recipe's, not the scan's; *fails* = blobs like every model so far (controls 11.4; within-scroll arms 9.8).
+**Secondary.** (1) AUC-sup against our controls (0.78 mean); (2) shape on the background; (3) the author's look at the
+three maps beside their labels, then a naive reader if the primary holds; (4) if it holds, the same measurement on the
+other public 9 µm models (Hecate, Nieuwlaar).
+**Prediction.** Detection above our controls; shape below 16 — Reader v2 learns to reproduce the organisers' maps,
+and 841's own 2.4 µm map is blobby (PR-18). That is exactly what the test decides.
