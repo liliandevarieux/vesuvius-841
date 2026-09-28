@@ -3941,3 +3941,40 @@ has to be confirmed under its own registration before it gates anything.
 `results/pr46_*`; scoring `scripts/score_pr46.py`. PR-44 and PR-45: `scripts/run_pr44.sh`, `scripts/run_pr45.sh`,
 letter panels `images/2026-09-28_pr44_841_*_lettres.png` and `images/2026-09-28_pr45_0009B_lettres.png`
 (`scripts/panneau_lettres_841.py`); contamination check `scripts/dl_mesh0009B.sh`, `scripts/recouvrement_0009B.py`.
+
+## PR-47 — registration, 2026-09-28 10:59, before any panel is built: on the eligible scan type, can a naive reader find and name the letters of a map that never saw the scroll?
+
+*This is the gate written in PR-29 and PR-42 before any PHerc0800 or PHerc1447 map may be looked at: a held-out
+control must render letters. It is judged by blind reading, since PR-46 found that elongation does not track
+legibility.*
+
+**Why.** PR-46's observation: our R4 fold trained without 0009B had 5 of 0009B's 10 labelled letters named on centred
+crops, with one reading each. The real task is harder. On 0800 a reader faces a window of text and must find the
+letters. This test reproduces that task on the one held-out control of 0800's scan type that has human labels.
+
+**Design.** One text window per map on PHerc0009B segment 20250919125754: rows 4800–6700 and columns 1600–4800 of the
+8.64 µm map. The window holds two lines of text, the ten labelled letters (about 450 px tall on average) and the whole
+supervised area. Contrast 1–99.5 %, a grid of 8 columns (A–H, 400 px) by 5 rows (1–5, 380 px), no tracing.
+Maps, forward order (chosen label-free):
+- our R4 fold without 0009B (PR-34), for the primary;
+- the ink_9um base (PR-31);
+- Reader v2 (PR-45), where only its five unseen letters (2, 5, 6, 9, 10) are scored.
+
+Three fresh readers per map, each seeing one map only (nine readers). They are told that the text, if any, is Greek
+capitals on papyrus, and each lists `cell: letter (confidence)` or `none`. Reference names come from PR-46's tracing
+reader. Scoring:
+- A reader **hits** a labelled letter by naming it within one cell of the letter's centre. Each named item can match
+  at most one letter, the nearest.
+- A named item that hits nothing and lies inside the supervised area is a **false alarm**. Outside that area it is
+  not scored.
+
+**Primary (fixed now).** On the R4 map, the number of the 10 labelled letters hit by at least 2 of its 3 readers is
+**≥ 3**.
+- *Holds*: on the scan type of 0800 and 1447, a map that never saw the scroll shows letters that a naive reader finds
+  and names. The gate opens, and panels of 0800 and 1447 may be built under a separate registration.
+- *Fails*: the gate stays closed.
+
+**Secondary.** (1) The same count on the base, and on Reader v2 for its unseen letters only. (2) False alarms per map,
+by majority. (3) Letters hit by a single reader.
+**Prediction.** Holds narrowly: 3 to 5 on R4, 0 to 2 on the base. Finding a letter is harder than naming a centred
+crop.
