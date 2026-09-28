@@ -155,3 +155,29 @@ Monte Carlo check (1000000 draws, default_rng([20260928, n])) for n = [3, 4, 5, 
 Agent's note: pr49_b2.txt and pr49_b3.txt are byte-identical.
 Claude's check of that note against the session log: two separate reader reports, 45 s apart, each returned that
 answer (reading times 42 s and 86 s in pr49_durees.txt). Not a copying slip.
+
+=== Pass 3 (same agent, later that evening): exact null of each arm's SUM of S, verbatim ===
+Same parsing rule, reference and exact null; the six files of an arm are independent; the sum's distribution is the
+convolution of the six files' exact distributions. Groups: V = f1-f6; group 1 = b1-b3, d1-d3; group 2 = j1-j3, n1-n3.
+
+== V (pr49_f1 .. pr49_f6) ; n = [6, 5, 4, 5, 4, 3] ; S = [3, 3, 3, 2, 2, 3] ==
+observed sum of S = 16
+mean of the sum = 6.049314 ; mean / 6 = 1.008219 (= 289010477/286654464)
+P(sum >= 16) = 246227391078335516248388977703/72021731949915342720250399533563904 = 3.418793e-06
+
+== group 1 (pr49_b1 .. b3, pr49_d1 .. d3) ; n = [4, 3, 3, 4, 7, 4] ; S = [2, 1, 1, 2, 2, 1] ==
+observed sum of S = 9
+mean of the sum = 5.625538 ; mean / 6 = 0.937590 (= 3225171211/3439853568)
+P(sum >= 9) = 464903418014592534839523588649/6946540504428563148172299337728 = 6.692589e-02
+
+== group 2 (pr49_j1 .. j3, pr49_n1 .. n3) ; n = [5, 7, 6, 5, 6, 5] ; S = [2, 2, 2, 2, 1, 1] ==
+observed sum of S = 10
+mean of the sum = 7.403219 ; mean / 6 = 1.233870 (= 4244331331/3439853568)
+P(sum >= 10) = 6692889930598341010124296613443314862032717977/42281678783395138381516145098915043145456549888 = 1.582929e-01
+
+checks passed: each distribution sums to 1; mean of the sum = sum of the file means; tail from the convolution = tail
+from brute force over the six supports.
+Agent's notes: this null tests which letters were named and their order together, not order alone (sum of R, the
+shuffle average: V 16.25 against 16 observed; group 1 8.5 against 9; group 2 8.5 against 10). The null treats the six
+files of a group as independent; b2 and b3 are the same answer from two readers (see above).
+(The full per-k distributions printed by the agent are omitted here; the tails above are its verbatim output.)

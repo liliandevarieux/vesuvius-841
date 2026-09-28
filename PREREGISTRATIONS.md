@@ -4945,3 +4945,148 @@ absent from the reference grouped as one). Its output is in `results/pr49_recomp
 - *Two identical answers.* T's readers b2 and b3 gave the same three lines. Our session log holds two separate reader
   reports, 45 s apart, each with that answer, so it is not a copying slip.
 - *Files line, corrected.* The answers are `results/pr49_{n,j,b,d}{1..3}.txt` and `results/pr49_f{1..6}.txt`.
+
+## Re-check of PR-53, PR-54, PR-55 and PR-49 — written 2026-09-28 23:22
+
+*Why.* On 28 September Lilian made it a standing rule that everything is re-verified in full before it is published.
+The rule was applied at once to entries already published. Two subagents re-checked them claim by claim, against the
+files in this repository:
+- PR-53 and PR-54: registrations and results;
+- PR-55: registration and result;
+- PR-49: registration, addendum, result and 22:14 correction.
+
+About 360 claims were checked. A third subagent then checked this correction before it was published.
+
+**What held and what did not.** Every primary count, score, mean, p-value and interval that the checkers recomputed is
+right. The errors are in secondary reporting, wording and sources that were never published. There are also two
+departures from the registered protocol: an undisclosed change in the reading instructions (item 2), and the dry-run
+sheets that the bench built for PR-53 and PR-54 but that were never run or mentioned (item 12). They are listed below, with what is published now.
+
+### Several entries
+1. *Method rules.* PR-53, PR-54 and PR-55 cite `notes/14-methode.md`, which is a file of the project's private
+   repository. The rules they apply are the ones listed in PR-48's registration. This repository's `METHOD.md` numbers
+   its own rules differently, and its numbers do not apply to these entries.
+2. *Reader instructions.* The window format's first version was public in `results/pr47_consigne.txt`, and the added
+   sentence is quoted in PR-55 and in PR-49's addendum. The sheet format's instructions (PR-46, PR-48, PR-51 to PR-54)
+   were in no public file. All versions are now in `READER_INSTRUCTIONS.md`, word for word, with the tests that used
+   each.
+   - The file shows one change that was never disclosed. PR-51 and PR-52 put the first-impression sentence inside the
+     instructions, before the reply format (version 2a). PR-53 and PR-54 put it at the very end (version 2b). The rest
+     of the text is identical.
+   - Version 2b never had its own dry run or rule-1 check. Version 2a was validated by the two diagnostic readers and
+     by PR-51's rule-1 check; PR-52 used it. Both PR-53 and PR-54 still cite "bench version 2".
+   - The gaps between sessions that PR-53 and PR-54 report may therefore include this change, and not only reading
+     noise. These are R4 at 29 correct readings of 138 in PR-53, against 27 in PR-52, and plain Reader v2 at 44 in
+     PR-54, against 38 in PR-52.
+3. *Recounts.* The blind recounts that these results cite were not kept in this repository, except PR-49's exact
+   recount (`results/pr49_recomptage_exact.txt`). From now on, each recount's output is published with its result.
+
+### PR-53
+4. *Order of the durations.* The registration said it would report whether detection orders the durations as the
+   readers do. The result reported the first place only. The full orders are:
+   - reading: 4000 steps (29) > 1000 = 2000 (27) > 3000 (25);
+   - detection on PHerc0841: 4000 (0.7769) > 3000 (0.7749) > 2000 (0.7695) ≈ 1000 (0.7694);
+   - detection on PHerc0009B: 4000 (0.8587) > 1000 (0.8519) > 3000 (0.8489) > 2000 (0.8313).
+
+   The three orders agree on the first place only. No noise floor was registered for 0009B. On 0009B the 2000-step
+   checkpoint is 0.027 below 4000 steps, and it is below for each of the three seeds.
+5. *What was tested.* The result says that "training longer (PR-53)" has "left legibility where it was". The four maps
+   are checkpoints of one 4000-step schedule, so this holds within that schedule only. Training beyond 4000 steps was
+   not tested by blind reading: PR-43 trained to 8000 iterations but was judged on elongation, and PR-53's 8000-step
+   run was the branch that did not open.
+6. *Noise floor.* The detection rise (+0.0075) was compared with "the seed noise floor (0.01)". The floor measured in
+   PR-48, and used as PR-50's bar, is 0.013. The conclusion stands.
+7. *R4's detection gain* of +0.016 is measured against the pixel average of the maps of ink_9um's two final
+   checkpoints (PR-50), not against an average of the checkpoints themselves.
+8. *Map script.* `scripts/run_pr53_cartes.sh`, cited by the registration at 20:22, was published with the result at
+   20:58.
+9. *Launches.* "Three launches were held back by the tool before any reader had started" should read: three launches
+   were delayed, one by a transient refusal of the tool and two waiting for a free slot while 20 readers were running.
+
+### PR-54
+10. *Scope of the decision.* The registered branch reads "the plain maps stay, and mirror averaging is not used". The
+    result added "for reading". The registered decision is the one that applies. Any other use of mirror averaging
+    (detection gained +0.013) would need its own registration.
+11. *Interval.* [−1.83; +2.83] is exact with the registered bootstrap seed. With bootstrap seeds 1 to 30, the upper bound
+    is +2.83 in 14 runs and +3.00 in 16, and the lower bound is usually −2.00. "Excludes a gain above 2.8 letters" is
+    better read as "above about 3 letters".
+
+### PR-53, PR-54 and PR-55
+12. *Dry runs.* The bench built a dry-run sheet for PR-53 and for PR-54. Both are published now:
+    `images/2026-09-28_pr53_essai_blanc.png` and `images/2026-09-28_pr54_essai_blanc.png`.
+    - No reader was given either sheet, and neither registration said so.
+    - No reader failed in PR-53 or PR-54.
+    - PR-55's rule-2 list also leaves out the dry run without comment.
+13. *Reading times.* No reading-time file was published for PR-53 and PR-54, unlike PR-49 and PR-55
+    (`results/*_durees.txt`).
+
+### PR-55
+14. "…and 7 of their 12 or 13 match no known letter" should read: each Reader v2 reader has 9 lines that match no
+    labelled letter within one cell, 7 of them inside the supervised area. The Secondary and Files paragraphs say so.
+15. "with the same accuracy per reader" is too strong. R4's readers hit 2.7 letters each, against 3.0 in PR-47. The
+    base's readers hit 1.0 in both.
+16. *"The 2 diagnostic readers"* are the two readers of PR-48's whole dry-run sheet with the first-impression sentence.
+    They took 93 s and 154 s, in a diagnostic run, not a test. Their answers are not in this repository.
+    - The dry-run answers that are here come from PR-48's own dry runs, with version 1 of the instructions: a half sheet
+      (`results/pr48_essai_blanc_b.txt`) and two quarter sheets (`_q2.txt`, `_q3.txt`).
+
+### PR-49
+17. *Seeds* (secondary 3). "P42 1, 2, 1" should read "P42 2, 1, 1" (readers n1, n2, n3). The table's scores and every
+    mean were right.
+18. *Each line separately* (secondary 1). The result reported only the maxima. The means per arm are:
+    - on περιε: P 0.67, T 1.17, Reader v2 1.17;
+    - on πιλεγει: P 1.67, T 1.50, Reader v2 2.17.
+
+    On the first line, P trails T.
+19. *The primary's prediction* reads "both arms near chance except for isolated letters (epsilon, iota)".
+    - Neither arm reaches the 0.05 level against uniform chance. P scores 1.67 against 1.23 expected (exact
+      probability 0.16). T scores 1.50 against 0.94 (0.067), a figure that counts the identical b2 and b3 answers as two
+      readers.
+    - The isolated letters were not those for P: its readers named no epsilon and no iota. The reference letters they
+      named were lambda (6 times), pi (4) and gamma (1). T's readers named epsilon 3 times and iota 4 times.
+20. *The descriptive arm's prediction* ("near chance, like P and T, apart from isolated letters") was not judged.
+    - It does not hold as "near chance". Reader v2's readers score 2.67, against 1.01 expected by chance for the same
+      numbers of named letters. The exact probability of the arm reaching its sum is 3.4 × 10⁻⁶.
+    - The excess comes from which letters they name (iota, gamma, lambda and epsilon, all in the reference), not from
+      their order: shuffled, their own letters score 2.71.
+    - The checker of PR-55 and PR-49 and the subagent of the 22:14 recount computed these figures independently. The
+      subagent's output is in `results/pr49_recomptage_exact.txt`: 2.71 in Pass 1, the chance means and tails in Pass 3.
+21. *"These readers."* "The 0009B control read in the same session (PR-55) shows that these readers…" should read
+    "such readers". PR-55's readers were other fresh readers, with the same instructions, and each PR-49 reader saw one
+    1447 panel only. The addendum's wording was right.
+22. *The 21:55 recount* covered the scores, the means and the p-value. It did not cover the order observation or the
+    comparison with chance, which the 22:14 correction then fixed.
+23. *Reader v2's letters* (observation). "(iota, gamma, epsilon, all in the reference)" leaves out lambda, named 3 times.
+24. *Capacity.* The registration cited no script for its capacity table.
+    - The code ran inline at 13:56:48, before the registration. It is now published unchanged, apart from a header, as
+      `scripts/capacite_pr49.py`.
+    - Rerun, it reproduces the registered capacity figures exactly (76 % and 96 %), and the chance levels to within
+      rounding.
+25. *Start.* `run_pr49.sh` started when PR-48's whole queue had ended (training, maps and measurements), not only its
+    training.
+26. *Times.* The registration's heading says 14:03, and its commit is at 14:04:30. Only the registered 20-step technical
+    check had run by then; PR-49's maps date from 16:18 onward. The addendum says that Reader v2's map of the text
+    segment was "computed at 13:45". The file was written at 13:39:43, and the panel of three maps at 13:45:57. The
+    window, fixed at 13:38:23, still predates every 1447 map.
+27. *Map file.* `predictions/x1447_readerv2.tif` is not in this repository, which publishes no maps. Its panel is
+    `images/2026-09-28_pr49_fenetre_f.png`.
+
+*What still cannot be checked from this repository.* These items rest on sources that are not published.
+- Times:
+  - PR-53's start at 19:46 and the mirror maps' start at 20:45;
+  - PR-54's "starting with PHerc0800's, which are already computed" (its mirror maps), at its registration;
+  - PR-49's times of 13:38:23, 13:45, 13:56:48 and the 14:03 check;
+  - item 26's times (13:39:43, 13:45:57, 16:18), which come from file times in the project's private repository and in
+    its WSL copy.
+- Readings:
+  - the reading times of PR-53 and PR-54, and of PR-49's dry-run reader (47 s);
+  - PR-55's "stalled beyond 600 s" about PR-47's readers: PR-47's log only counts blocked attempts, and PR-47's own
+    text says "produced no output for 600 s";
+  - the times of 93 s and 154 s for the two diagnostic readers (item 16), from the session log.
+- Session-log facts, checked by the third subagent against the log: the launch incidents of item 9, what the 21:55
+  recount covered, and the two identical answers given 45 s apart.
+- PR-49's design:
+  - the 1447 segment's geometry (8.6 voxels, 2980 × 3240);
+  - the far segment and its distance;
+  - the pseudo-label figures.
+- The "inside the supervised area" test of item 14, which needs a supervision file that is not public.
