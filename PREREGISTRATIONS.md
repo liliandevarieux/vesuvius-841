@@ -4845,3 +4845,31 @@ right.
 **Files.** Answers `results/pr55_{q,k,w}{1..6}.txt`, reading times `results/pr55_durees.txt`, and scoring output
 `results/pr55_score.txt` (PR-47's script, unchanged). A subagent recounted the hits above with its own code, from the
 answer files and the reference table, and found the same: R4 16, the base 6, Reader v2 15, with the same letters. It also counted 9 lines per Reader v2 reader that match no labelled letter; the scoring script places 7 of them inside the supervised area.
+
+### PR-49 — addendum, 2026-09-28 21:48, before any PR-49 panel is built or read
+
+Three changes, all decided before any PR-49 panel exists. The primary, the arms, the score and the prediction are
+unchanged.
+1. *Reading format: window format version 2 (PR-55).* PR-47's instructions, as registered, with one sentence added at
+   the end: "Go by your first impression of each letter: do not deliberate at length over any of them." PR-55 showed
+   tonight that with it every reader completes this format, on Reader v2's maps too (18 of 18), and that it ranks maps
+   as PR-47 did. The dry run on the far segment stays as registered, and so does its fallback to half panels.
+2. *The 0009B control window of rule 2.* Rule 2 asks for one in every test on PHerc0800 or PHerc1447, and the 14:03
+   registration omitted it. The control is PR-55, read in the same session with the same instructions minutes before:
+   2.7 hits per reader on R4's 0009B window, and 2.5 per reader on Reader v2's five unseen letters. Each PR-49 reader
+   still sees one panel only, as registered.
+3. *A descriptive arm: Reader v2 as released.* Its map of the text segment (`predictions/x1447_readerv2.tif`, computed
+   at 13:45 for the exploratory look) is read by six more fresh readers and scored in the same way. It says what our
+   best released map shows at the known text. It is also the reader missing from the public control posted under
+   villa#1907 at the same point (TAUIL-Abd-Elilah, commit 17f3cf2), which ran four ink_9um-family models and found one
+   stroke-shaped mark and nothing legible. This arm is not part of the primary.
+   - *Prediction for it:* near chance, like P and T, apart from isolated letters.
+
+*Panels.* The registered window (rows 340–2340, columns 220–3220), built by `scripts/panneau_fenetre.py` with the
+label-free layer order. The five test panels get neutral letters, drawn at random with seed 49 when they are built.
+The key goes to `results/pr49_cle.txt`, which readers never see. Readers:
+- the dry-run reader first;
+- then 3 per seed map for P and T;
+- then 6 for Reader v2.
+
+That is 19 in all, under the tool's limit of 20 at once.
