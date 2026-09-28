@@ -3846,3 +3846,33 @@ cover the same papyrus. If the primary holds, measure the 3-D distance between t
 only have helped.
 **Prediction.** Fails, for PR-44's reason: Reader v2 learns to reproduce the organisers' maps. Detection above ours,
 shape at or below ours.
+
+## PR-46 — registration, 2026-09-28 10:13, before any sheet is built: are Reader v2's letters more legible than ours when read blind?
+
+*Registered after PR-45's measurements and its contamination check, before any reading sheet exists.*
+
+**Why.** PR-44 and PR-45 score Reader v2's letters as blobbier than our best model's (elongation 8.40 against 11.4
+on 841; 11.46 against 15.19 on 0009B). The author's look at the 0009B panel (PR-45, secondary 3) disagrees: several
+of Reader v2's letters look more complete than ours (the alpha, the delta), on a cleaner background. Elongation
+rewards thin strokes, thin fragments included, and may penalise smooth, wide, complete ones. Legibility is the real
+target, and only a blind reading can arbitrate. PR-45's contamination check puts 5 of the 0009B segment's 10
+labelled letters on surface that Reader v2 trained on (letters 1, 3, 4, 7, 8: 85–100 % of their mesh points within
+15 voxels of its training meshes), and the other 5 off it (letters 2, 5, 6, 9, 10: 0–14 %).
+
+**Design.** 28 labelled letters (841: 18, none ever seen by Reader v2; 0009B: 10, of which 5 unseen and 5 seen)
+× 3 maps: the ink_9um base (the common ancestor), our R4 recipe trained without that scroll (PR-34), and Reader v2
+(PR-44, PR-45). Forward layer order everywhere, as chosen label-free. Crops as in `panneau_lettres_841.py` (letter
+box plus margin, contrast 1–99.5 %), with no tracing and no model name, shuffled. Three readers each read every
+letter once, with the models rotated between readers (Latin square), so each of the 84 maps is read exactly once. A
+fourth reader names the 28 tracings alone, and its answer is the reference; a tracing it cannot name is dropped. The
+readers are fresh Claude subagents that know nothing of the project or the models: a naive eye, not a papyrologist.
+Human readers can follow with the same sheets.
+
+**Primary (fixed now).** On the 23 letters Reader v2 never saw, the number read correctly on Reader v2's maps minus
+the number read correctly on our R4 maps. **≥ +4** = Reader v2's letters are more legible, and elongation misjudged
+them. **≤ −4** = ours are. In between = no difference detectable at this size.
+**Secondary.** (1) The same count for the base. (2) The 5 seen letters, reported apart (contamination).
+(3) Does the ordering of the three maps by correct readings match their ordering by elongation? If not, elongation
+does not track legibility, and every shape verdict since PR-30 has to be re-read.
+**Prediction.** No difference detectable. Few letters are legible on any map, and the 0009B omicrons are rings
+everywhere.
