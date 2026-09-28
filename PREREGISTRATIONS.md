@@ -4323,3 +4323,50 @@ seed range on this mean, PR-48) and each of R4's three seeds is above the best b
   did not.
 - Rules 2 and 7 do not apply: there is no reading.
 - Rule 6: it runs after PR-49, so the GPU does not idle.
+
+## PR-51 — registration, 2026-09-28 16:57, before any reading: does a "first impression" instruction reproduce PR-46's blind-reading order?
+
+*Why.* PR-48's reading stopped because its readers stalled. Diagnostic readers, outside any test, were run on
+2026-09-28 between 16:46 and 16:57:
+- *PR-46's instructions, on PR-48's dry-run sheet.* Of 7 readers, 3 were stopped by the tool ("no progress for
+  600 s"), one answered after 777 s, and three answered in 165 to 316 s.
+- *PR-46's instructions, on PR-46's sheet 2*, which was read without incident this morning. One reader answered in
+  464 s; the other had given no answer at 600 s.
+- *The same instructions plus one sentence*, "Go by your first impression of each crop: do not deliberate at length
+  over any of them.", on the full 28-crop dry-run sheet: both readers answered, in 93 s and 154 s.
+- Each reader used 52,000 to 89,000 tokens. Readers deliberate at length over each crop, and the slowest pass the
+  tool's 600 s limit.
+
+The added sentence changes the measure. Rule 1: a measure judges nothing until it reproduces the blind-reading order
+on letters already read.
+
+*What runs.*
+- *Sheets and key.* PR-46's three sheets, unchanged (`images/2026-09-28_pr46_planche_{1,2,3}.png`, key
+  `results/pr46_cle.json`).
+- *Readers.* Each sheet is read by 2 fresh readers, 6 in all. Readers 1 to 3 read sheets 1 to 3, and readers 4 to 6
+  read them again. Each letter is thus read twice on each of the three maps: Reader v2, R4 and the base.
+- *Instructions.* PR-46's, plus the sentence above, word for word.
+- *Reference.* The names read on the tracings (three readers, unanimous on all 28).
+- *Scoring.* `scripts/score_pr46.py`, run on readers 1–3 and on readers 4–6, with the counts summed per map. It is
+  scored on the 23 letters Reader v2 never saw.
+- *Reader failure.* As in PR-48: a reader who gives no answer within 600 s is replaced by a fresh reader. The decision
+  is dated before any answer to that sheet is seen, and a late answer is discarded.
+- *Dry run of the format.* Done: the two diagnostic readers above, with this exact instruction.
+
+*Criterion (fixed now).* The format reproduces PR-46's order if Reader v2 and R4 each have **at least 4 more correct
+readings than the base**, out of 46 readings per map. PR-46, with one reading per letter, gave Reader v2 8, R4 7 and
+the base 2. Doubled, the gap is 10 to 12; the bar is set at less than half of it.
+- *Holds.* PR-48's sheets are read with this format under a new registration (PR-52). Its capacity is recomputed
+  from the accuracy measured here, before it is registered.
+- *Fails.* The quick format judges nothing, and PR-48's legibility stays unmeasured.
+
+*Also reported.* Correct readings per map, next to PR-46's; each reader's time and tokens; the agreement between the
+two readers of each sheet.
+
+*Prediction.* Holds, with a lower accuracy than PR-46 per reading.
+
+*Method rules.*
+- Rule 1 is the point of this test.
+- Rule 2: two readings per letter and map. The reference comes from three readers, and the reader-failure rule and
+  the dry run are written above.
+- Rule 7: if the format holds, it becomes version 2 of the legibility bench.
