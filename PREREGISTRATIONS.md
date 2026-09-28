@@ -4744,7 +4744,7 @@ answer files, and found the same. Its exact sign-flip p-value, over all 256 sign
 *Why.* PR-47's windows are the format of the real task on PHerc0800 and PHerc1447: a window of text in which the
 reader must find and name the letters. In PR-47, the readers of Reader v2's window stalled nine times out of nine, so
 this format has never been read on our best map. On sheets of crops, the first-impression sentence removed the stalls:
-all 26 readers answered in PR-51 and PR-52, and all 36 in PR-53 and PR-54. PR-49 (PHerc1447) and the 0800 test need a
+all 24 readers answered in PR-51 and PR-52 (and the 2 diagnostic readers before them), and all 36 in PR-53 and PR-54. PR-49 (PHerc1447) and the 0800 test need a
 window format that every reader completes and that still ranks maps as PR-47 did.
 
 *Material.* PR-47's three panels, unchanged: `images/2026-09-28_pr47_fenetre_{q,k,w}.png`. In PR-47's key
@@ -4801,3 +4801,4 @@ panel is seen, and a late answer is discarded.
 - Rule 6: meanwhile the GPU computes maps (Reader v2 with shifted layer windows, then Reader v2's second released
   checkpoint), shown on the live page.
 - Rule 7: this is the window counterpart of bench version 2.
+*Corrected at 21:38, before any reading:* the first paragraph first said 26 readers for PR-51 and PR-52; they had 24, andthe 2 others were PR-48's diagnostic readers.
