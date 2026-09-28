@@ -4580,3 +4580,54 @@ Reader v2 on our letters did not make them more legible (PR-52).
 - Rule 6: when these maps end, the GPU goes straight on to the next queued job, shown on the live page. That job is
   Reader v2 with mirror test-time augmentation, maps only, on 841, 0009B and 0800.
 - Rule 7: bench version 2, configuration `configs/banc_pr53.json`.
+
+## Result of PR-53 — written 2026-09-28 20:58, after the reading (counts recounted blind from the key and the answer files)
+
+All 24 readers answered, in 52 to 121 s. There was no failure and no replacement. Three launches were held back by
+the tool before any reader had started: one transient refusal, and two waits for a free slot (20 readers at a time).
+They were launched within three minutes. The three tracing readers agree on all 28 reference names, so no letter was
+dropped. The primary counts 23 letters × 6 readings at each duration.
+
+**Primary: fails.** 4000 steps against 1000 steps: +2 correct readings, that is +0.33 letters per reading, with a 95 %
+interval from −2.17 to +3.17 and a one-sided p of 0.44. Letter by letter, the 4000-step maps are ahead on 4 letters,
+behind on 5 and level on 14.
+
+| training steps | correct readings, out of 138 | letters per reading, out of 23 | by seed (42, 43, 44), out of 46 | detection, 841 (mean of 3 sheets) | detection, 0009B |
+|---|---|---|---|---|---|
+| 1000 | 27 | 4.5 | 11, 8, 8 | 0.7694 | 0.8519 |
+| 2000 | 27 | 4.5 | 7, 13, 7 | 0.7695 | 0.8313 |
+| 3000 | 25 | 4.2 | 6, 7, 12 | 0.7749 | 0.8489 |
+| 4000 | 29 | 4.8 | 9, 10, 10 | 0.7769 | 0.8587 |
+
+**Secondary.** 4000 steps against 2000 steps: +0.33 letters per reading [−1.83 ; +2.50], p = 0.42.
+
+**Reported, not judged.**
+- *The curve.* Reading is flat from 1000 to 4000 steps: 25 to 29 correct readings out of 138. The seed-to-seed spread
+  within one duration is wider (6 to 13 out of 46).
+- *Reading drift between sessions.* The 4000-step arm re-read PR-52's R4 maps: 29 of 138 tonight against 27 in PR-52,
+  and by seed 9, 10, 10 against 8, 9, 10. That is less than one letter per reading.
+- *Detection.* The label-free rule kept the forward layer order for all 48 maps. On 841, detection creeps up from 0.769
+  at 1000 steps to 0.777 at 4000 steps, about the seed noise floor (0.01). On 0009B it does not rise in order. The
+  4000-step values reproduce PR-50's (0.7769 and 0.8587). Detection and reading both put 4000 steps first, each by a
+  margin inside its noise. By rule 1, detection does not judge.
+
+**Reading.** Between 1000 and 4000 steps of our recipe, never-seen letters do not become detectably more legible. The
+prediction holds: fails, with the two within 2 letters (+0.33). The interval, however, reaches +3.17 letters, above
+the registered 2-letter bound. So the registered "wider interval" branch applies: nothing changes, and recipes stay at
+4000 steps. A 1000-step checkpoint is mid-schedule (89 % of the peak learning rate), so this says nothing yet about a
+short run that completes its own schedule.
+
+**Consequence.** The "holds" branch, a longer run, does not open. Two training-side levers on our letter set have now
+left legibility where it was: fine-tuning Reader v2 (PR-52) and training longer (PR-53). The next tests are on the
+inference side of Reader v2: mirror averaging, and a layer window shifted by up to two layers. Their maps are being
+computed, and each test will be registered before any reading.
+
+**Files.** Sheets `images/2026-09-28_pr53_planche_01.png` to `_24.png`; key `results/pr53_cle.json`; answers
+`results/pr53_lecteur01.txt` to `_24.txt`; scoring output `results/pr53_score.txt`; detection log
+`results/pr53_detection.log`; scripts `scripts/run_pr53_cartes.sh`, `scripts/run_pr53_detection.sh`,
+`scripts/capacite_pr53.py`; configuration `configs/banc_pr53.json`. A subagent recounted every reading count above with
+its own script, from the key and the answer files, and found the same. Its exact sign-flip p-values, over all sign
+patterns, are 0.445 and 0.418.
+
+*Also added:* PR-48's 18 sheets (`images/2026-09-28_pr48_planche_01.png` to `_18.png`), which PR-52's text cites but
+which were not yet in this repository.

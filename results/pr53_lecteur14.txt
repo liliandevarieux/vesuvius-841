@@ -1,0 +1,28 @@
+1: omega (1)
+2: unreadable
+3: alpha (1)
+4: nu (1)
+5: lambda (1)
+6: unreadable
+7: omega (1)
+8: pi (2)
+9: unreadable
+10: gamma (1)
+11: delta (1)
+12: tau (1)
+13: iota (1)
+14: zeta (1)
+15: unreadable
+16: xi (1)
+17: omega (1)
+18: unreadable
+19: upsilon (1)
+20: kappa (1)
+21: phi (1)
+22: alpha (1)
+23: omicron (2)
+24: alpha (1)
+25: unreadable
+26: iota (1)
+27: lambda (1)
+28: omicron (2)

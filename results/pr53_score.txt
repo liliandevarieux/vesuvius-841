@@ -1,0 +1,20 @@
+lettres propres comptees : 23
+4000      :  29 lectures justes sur 138  (4.8 lettres sur 23, a 6 lectures par lettre)
+            graine 0 : 9 / 46
+            graine 1 : 10 / 46
+            graine 2 : 10 / 46
+3000      :  25 lectures justes sur 138  (4.2 lettres sur 23, a 6 lectures par lettre)
+            graine 0 : 6 / 46
+            graine 1 : 7 / 46
+            graine 2 : 12 / 46
+2000      :  27 lectures justes sur 138  (4.5 lettres sur 23, a 6 lectures par lettre)
+            graine 0 : 7 / 46
+            graine 1 : 13 / 46
+            graine 2 : 7 / 46
+1000      :  27 lectures justes sur 138  (4.5 lettres sur 23, a 6 lectures par lettre)
+            graine 0 : 11 / 46
+            graine 1 : 8 / 46
+            graine 2 : 8 / 46
+4000      - 1000      : +2 lectures = +0.33 lettres [IC 95 % -2.17 ; +3.17], p unilateral = 0.4432 (23 lettres)
+PRIMAIRE : echoue
+4000      - 2000      : +2 lectures = +0.33 lettres [IC 95 % -1.83 ; +2.50], p unilateral = 0.4209 (23 lettres)
