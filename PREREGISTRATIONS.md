@@ -4738,3 +4738,66 @@ reading. The PHerc0800 maps computed with it tonight are kept, but not read.
 `results/pr54_detection.log`; scripts `scripts/run_rv2tta_cartes.sh`, `scripts/capacite_pr54.py`; configuration
 `configs/banc_pr54.json`. A subagent recounted every reading count above with its own script, from the key and the
 answer files, and found the same. Its exact sign-flip p-value, over all 256 sign patterns, is 0.391.
+
+## PR-55 — registration, 2026-09-28 21:38, before any reading: does the first-impression instruction make PR-47's window format readable, Reader v2 included?
+
+*Why.* PR-47's windows are the format of the real task on PHerc0800 and PHerc1447: a window of text in which the
+reader must find and name the letters. In PR-47, the readers of Reader v2's window stalled nine times out of nine, so
+this format has never been read on our best map. On sheets of crops, the first-impression sentence removed the stalls:
+all 26 readers answered in PR-51 and PR-52, and all 36 in PR-53 and PR-54. PR-49 (PHerc1447) and the 0800 test need a
+window format that every reader completes and that still ranks maps as PR-47 did.
+
+*Material.* PR-47's three panels, unchanged: `images/2026-09-28_pr47_fenetre_{q,k,w}.png`. In PR-47's key
+(`results/pr47_cle.txt`), q is our R4 fold without 0009B, k is the ink_9um base and w is Reader v2. PR-47's scoring is
+also unchanged (`scripts/score_pr47.py`):
+- a hit is a letter named within one cell of a labelled letter's centre;
+- Reader v2 is scored on its five unseen letters only (2, 5, 6, 9 and 10);
+- the reference names are PR-47's, which the three tracing readers of PR-48 confirm on all 28 letters.
+
+*Readers.* Six fresh readers per panel (rule 2), 18 in all, each seeing one panel only. Their instructions are PR-47's
+(`results/pr47_consigne.txt`), identical except for the image name, and end with one added sentence: "Go by your first
+impression of each letter: do not deliberate at length over any of them."
+
+*Primary.* Both parts must hold.
+1. *Completion.* On each of the three panels, at least 5 of the first 6 readers answer within 600 s.
+2. *Order.* The total number of letters hit by R4's six readers exceeds the base's total by at least 4. In PR-47, with
+   three readers each, the totals were 9 and 3.
+
+*What each outcome decides.*
+- Holds: the window format with the first-impression sentence becomes version 2 of the window format. PR-49 and the 0800
+  test use it, Reader v2 included.
+- Completion fails on Reader v2's panel: windows of Reader v2 maps are cut into smaller panels, under their own
+  registration.
+- The order fails: the quick window format is not validated, and nothing is read in it.
+
+*Secondary.*
+- Reader v2's hits on its five unseen letters, per reader.
+- False alarms per map.
+- Letters hit by at least 4 of the 6 readers of each map.
+
+*Capacity*, computed before registering (`scripts/capacite_pr55.py`). Per-letter hit probabilities are drawn around
+PR-47's counts, then reduced by the quick format's loss of accuracy seen in PR-51. Part 2 is met:
+- 85 % of the time with no loss;
+- 78 % with a 20 % loss;
+- 71 % with a 33 % loss.
+
+If R4 and the base were equal at the base's level, part 2 would be met by chance 13 % of the time.
+
+*Reader failure.* A reader who gives no answer within 600 s counts as a non-completion for part 1. For the counts of
+part 2, that reader is replaced once by a fresh reader. The replacement is decided and dated before any answer to that
+panel is seen, and a late answer is discarded.
+
+*Prediction.* Holds: all 18 readers answer, and R4 leads the base by about 6 hits.
+
+*Method rules* (`notes/14-methode.md`).
+- Rule 1: this is the rule-1 check of the quick window format against PR-47's blind reading, before the format judges
+  anything.
+- Rule 2:
+  - 6 readers per map;
+  - capacity above;
+  - reader-failure rule above;
+  - reference names confirmed by three readers.
+- Rule 3: the maps are fixed, so there is no seed. PR-47's counts are the comparison point.
+- Rule 6: meanwhile the GPU computes maps (Reader v2 with shifted layer windows, then Reader v2's second released
+  checkpoint), shown on the live page.
+- Rule 7: this is the window counterpart of bench version 2.
