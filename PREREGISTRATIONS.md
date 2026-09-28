@@ -4019,3 +4019,99 @@ letters were read without incident.
 `results/pr47_cle.txt` (q = R4, k = base, w = Reader v2). Reader instructions `results/pr47_consigne.txt`, identical
 for all twelve readers except for the image name. Answers `results/pr47_{q,k}{1,2,3}.txt`; scoring
 `scripts/score_pr47.py`, output `results/pr47.log`.
+
+## PR-48 — registration, 2026-09-28 13:32, before any training: does our recipe, started from Reader v2's weights, make never-seen letters more legible than Reader v2 alone?
+
+*Lilian's question after PR-44 to PR-46: use what Reader v2 puts in our hands to surpass it. Reader v2 detects ink
+better than our fine-tune (PR-44), but its letters are not more legible when read blind (PR-46). Its README and
+training config show the same architecture and training settings as ours. The differences are its data (about 100
+segments from 8 scrolls, with dense targets copied from the team's maps of 3.6× finer scans) and 40 times more
+training examples. Our recipe adds hand-traced letters. This test combines the two. It is the first test under the
+method rules adopted today, listed at the end of this entry.*
+
+**Training.** Our R4 recipe exactly as in PR-34: the ft12m labels plus 0814, the 0139 w035 anchor, 4 000 iterations,
+batch 16, learning rate 0.002, weights only. One change: it starts from Reader v2's released weights
+(`reader-v2-step040000.pth`) instead of ink_9um.
+- Two folds: without 0841 (maps of 841 w00, segA and segB) and without 0009B (map of 0009B).
+- Three seeds, 42, 43 and 44: **RV2+**.
+- A third seed of R4 itself (44) is trained alongside, so R4 also has three seeds (42 and 43 are PR-34 and PR-35).
+- A technical check at 13:27 (20 steps) confirmed that Reader v2's weights load into our recipe. Nothing was
+  measured.
+- Maps are made in both layer orders. The forward map is used unless the label-free rule (higher "sens p99-p50")
+  prefers the reverse. Script: `scripts/run_pr48.sh`.
+
+**Reading: legibility bench v1** (the PR-46 format, with the changes below).
+- *Letters.* The 28 labelled letters of PR-46 (18 on 841 w00, segA and segB; 10 on 0009B), as centred 200 px crops,
+  one sheet of 28 crops per reader. The primary uses the 23 letters Reader v2 never saw: all 18 of 841, and 0009B
+  letters 2, 5, 6, 9 and 10. The other five 0009B letters lie on Reader v2's training surface (PR-45). They stay on
+  the sheets, as in PR-46, but are not scored in the primary.
+- *Maps and readers.* The maps are RV2+, Reader v2 (the PR-44 and PR-45 maps) and R4.
+  - Latin square: reader r reads letter j from map (j + r) mod 3.
+  - **18 fresh readers**, each seeing one sheet only, so each letter is read 6 times on each map.
+  - For RV2+ and R4 the seed is balanced: reader r uses seed index (r div 3) mod 3, so each seed provides 2 of the
+    6 readings of each letter.
+- *Reference names.* The names read on the tracings. Between 13:24 and 13:30, two fresh readers re-read PR-46's tracing sheet with
+  PR-46's instructions: all three readers give the same name to all 28 tracings. This also settles PR-47's open
+  point. Letters 4 and 7 read omicron and eta on the tracings for all three readers, so the sigma and upsilon named
+  on R4's map come from the map.
+- *Instructions.* Those of PR-46, unchanged. A reading is correct when the name equals the reference; "unreadable"
+  counts as not correct.
+- *Dry run.* Before any test sheet is read, one reader reads a sheet built the same way from crops taken 500 px to
+  the right of each letter on the new maps (RV2+ and R4 seed 44). Its answer is not scored. If it gives no answer
+  within 600 s, every sheet is split into two halves of 14 crops (same crops, same assignment) before any test sheet
+  is read, and the change is reported.
+- *Reader failure.* A reader who gives no answer for a technical reason is replaced by a fresh reader with the
+  identical sheet and instructions. The replacement is decided before any answer to that sheet is seen, a late answer
+  is discarded, and every incident is reported.
+
+**Primary (fixed now).** On the 23 never-seen letters: correct readings on RV2+ against Reader v2, 6 readings of each
+letter on each map. Test: one-sided sign-flip permutation over letters, on the per-letter difference in correct
+readings (10 000 permutations). **Holds if p < 0.05** with RV2+ ahead.
+- *Holds*: adding hand-traced letters to Reader v2's weights makes never-seen letters more legible than Reader v2
+  alone. RV2+ becomes the model for the PHerc0800 and PHerc1447 panels.
+- *Fails*: no gain of this size is seen. The 0800 and 1447 panels then use Reader v2 and R4 side by side.
+
+**Capacity, computed before registering.** The simulation is calibrated on PR-46: letter difficulty on a logit scale
+with mean −1.10 and SD 1.75 reproduces PR-46's rates, and seed noise has an assumed SD of 0.3. With 6 readings per
+letter and map:
+
+| gain | detected |
+|---|---|
+| 3.6 letters | 88 % of the time |
+| 2.6 letters | 68 % |
+| 1.7 letters | 44 % |
+
+With 2 readings per letter and map (6 readers in all), a gain of 3.6 letters would be detected 46 % of the time. The
+result is also given as a difference in letters (correct readings divided by 6), with a 95 % interval from a
+bootstrap over letters and readers.
+
+**Secondary.**
+1. RV2+ against R4, same test.
+2. Reader v2 against R4: repeats PR-46 with 6 readings instead of 1.
+3. Detection (AUC-sup) of every map on its held-out scroll. The spread over the three seeds of R4, and over those of
+   RV2+, is the noise floor for detection. RV2+ is also compared with Reader v2 (841: 0.843; 0009B: 0.93,
+   contaminated).
+4. Correct readings per seed, descriptive: 2 readings per letter and seed.
+5. Elongation, descriptive only. It is not a judge (PR-46).
+
+**Prediction.** Fails: RV2+ within 2 letters of Reader v2. PR-46 found Reader v2 and R4 one letter apart. If
+legibility is capped by the 9 µm scan, neither the dense start nor the traced letters move it much. On 841, RV2+
+detects better than R4 and less well than Reader v2.
+
+**Method rules adopted on 2026-09-28, applied here.**
+1. A metric judges nothing until it has reproduced the blind-reading order on letters already read. The judge here
+   is blind reading.
+2. Tests are sized to see a difference:
+   - six readers per map;
+   - capacity computed before registering;
+   - intervals, not only pass or fail;
+   - a 0009B control window in every 0800 or 1447 test;
+   - a reader-failure rule and a dry run written in advance;
+   - reference names from three readers.
+3. A noise floor comes before any comparison of recipes: three seeds per recipe, with the seed as a random factor in
+   the reading.
+4. The GPU does not sit idle: this run fills it.
+5. A fixed legibility bench. Version 1 is the PR-46 protocol with the changes above; its scripts are committed before
+   the reading.
+
+(Rules 4 and 5 are numbered 6 and 7 in the project's own list.)
