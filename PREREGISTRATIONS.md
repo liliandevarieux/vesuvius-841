@@ -4702,3 +4702,39 @@ overlapping patches (overlap 0.5, Hann weights), so mirror averaging should smoo
   (about one letter per reading) is not reported as a gain, whatever its p-value.
 - Rule 6: the GPU goes on to Reader v2 with shifted layer windows (maps only), shown on the live page.
 - Rule 7: bench version 2, configuration `configs/banc_pr54.json`.
+
+## Result of PR-54 — written 2026-09-28 21:07, after the reading (counts recounted blind from the key and the answer files)
+
+All 12 readers answered, in 54 to 89 s, with no failure and no replacement. The three tracing readers agree on all 28
+reference names. The primary counts 23 letters × 6 readings on each map.
+
+**Primary: fails.** Mirror-averaged against plain: +3 correct readings, that is +0.50 letters per reading, with a 95 %
+interval from −1.83 to +2.83 and a one-sided p of 0.39. Letter by letter, the averaged map is ahead on 5 letters,
+behind on 3 and level on 15.
+
+| Reader v2 map | correct readings, out of 138 | letters per reading, out of 23 | detection, 841 (mean of 3 sheets) | detection, 0009B (contaminated) |
+|---|---|---|---|---|
+| mirror-averaged | 47 | 7.8 | 0.8566 | 0.9310 |
+| plain | 44 | 7.3 | 0.8434 | 0.9295 |
+
+**Reported, not judged.**
+- *Reading drift between sessions.* The plain arm re-read PR-52's Reader v2 maps: 44 of 138 tonight against 38 in
+  PR-52, one letter per reading more. That is about the reading noise floor, and the largest drift from one session to
+  the next measured so far (PR-53's re-read moved by 2 readings). It is why the bench only compares arms read in the
+  same session.
+- *Detection.* The label-free rule kept the forward layer order for all 8 maps. Mirror averaging raises detection on
+  841 by +0.013 (0.843 to 0.857; sheet by sheet +0.018, +0.011 and +0.010) and on 0009B by +0.002. By rule 1,
+  detection does not judge: here it moves while the reading does not detectably.
+
+**Reading.** Mirror averaging does not make never-seen letters detectably more legible on Reader v2's maps. The
+prediction holds: fails, within 1 letter (+0.50). The test could see a gain of 3.4 letters 90 % of the time, and its
+interval excludes a gain above 2.8 letters.
+
+**Consequence.** The registered "fails" branch applies: the plain maps stay, and mirror averaging is not used for
+reading. The PHerc0800 maps computed with it tonight are kept, but not read.
+
+**Files.** Sheets `images/2026-09-28_pr54_planche_01.png` to `_12.png`; key `results/pr54_cle.json`; answers
+`results/pr54_lecteur01.txt` to `_12.txt`; scoring output `results/pr54_score.txt`; detection log
+`results/pr54_detection.log`; scripts `scripts/run_rv2tta_cartes.sh`, `scripts/capacite_pr54.py`; configuration
+`configs/banc_pr54.json`. A subagent recounted every reading count above with its own script, from the key and the
+answer files, and found the same. Its exact sign-flip p-value, over all 256 sign patterns, is 0.391.

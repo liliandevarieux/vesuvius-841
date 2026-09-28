@@ -1,0 +1,7 @@
+lettres propres comptees : 23
+miroir    :  47 lectures justes sur 138  (7.8 lettres sur 23, a 6 lectures par lettre)
+            graine 0 : 47 / 138
+readerv2  :  44 lectures justes sur 138  (7.3 lettres sur 23, a 6 lectures par lettre)
+            graine 0 : 44 / 138
+miroir    - readerv2  : +3 lectures = +0.50 lettres [IC 95 % -1.83 ; +2.83], p unilateral = 0.3904 (23 lettres)
+PRIMAIRE : echoue

@@ -1,0 +1,16 @@
+rv2tta_841_w00.tif                       841_w00   AUC-sup 0.8966  (encre 337527, fond 1165657, gris 127.4 / 77.4)  sens p99-p50 113.0
+rv2tta_841_w00_reverse.tif               841_w00   AUC-sup 0.5727  (encre 337527, fond 1165657, gris 78.0 / 75.4)  sens p99-p50 55.0
+pr44_readerv2_841_w00.tif                841_w00   AUC-sup 0.8782  (encre 337527, fond 1165657, gris 126.0 / 76.6)  sens p99-p50 113.0
+pr44_readerv2_841_w00_reverse.tif        841_w00   AUC-sup 0.5661  (encre 337527, fond 1165657, gris 77.1 / 75.3)  sens p99-p50 62.0
+rv2tta_841_segA.tif                      841_segA  AUC-sup 0.8414  (encre 301993, fond 615290, gris 134.4 / 85.6)  sens p99-p50 114.0
+rv2tta_841_segA_reverse.tif              841_segA  AUC-sup 0.5455  (encre 301993, fond 615290, gris 77.5 / 76.1)  sens p99-p50 49.0
+pr44_readerv2_841_segA.tif               841_segA  AUC-sup 0.8302  (encre 301993, fond 615290, gris 135.1 / 85.9)  sens p99-p50 116.0
+pr44_readerv2_841_segA_reverse.tif       841_segA  AUC-sup 0.5499  (encre 301993, fond 615290, gris 78.0 / 76.0)  sens p99-p50 57.0
+rv2tta_841_segB.tif                      841_segB  AUC-sup 0.8317  (encre 275423, fond 924552, gris 125.4 / 79.6)  sens p99-p50 115.0
+rv2tta_841_segB_reverse.tif              841_segB  AUC-sup 0.5622  (encre 275423, fond 924552, gris 94.9 / 89.7)  sens p99-p50 82.0
+pr44_readerv2_841_segB.tif               841_segB  AUC-sup 0.8218  (encre 275423, fond 924552, gris 125.2 / 79.5)  sens p99-p50 117.0
+pr44_readerv2_841_segB_reverse.tif       841_segB  AUC-sup 0.5756  (encre 275423, fond 924552, gris 96.1 / 90.8)  sens p99-p50 88.0
+rv2tta_0009B.tif                         0009B     AUC-sup 0.9310  (encre 618632, fond 2115110, gris 144.4 / 72.4)  sens p99-p50 122.0
+rv2tta_0009B_reverse.tif                 0009B     AUC-sup 0.5906  (encre 618632, fond 2115110, gris 72.3 / 69.6)  sens p99-p50 73.0
+pr45_readerv2_0009B.tif                  0009B     AUC-sup 0.9295  (encre 618632, fond 2115110, gris 146.6 / 72.5)  sens p99-p50 123.0
+pr45_readerv2_0009B_reverse.tif          0009B     AUC-sup 0.5797  (encre 618632, fond 2115110, gris 72.8 / 69.9)  sens p99-p50 78.0
