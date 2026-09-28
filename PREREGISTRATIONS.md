@@ -4926,3 +4926,22 @@ best. Its reading test, under its own registration, will say whether it does.
 - Scoring output: `results/pr49_score.txt` (`scripts/score_pr49.py`, unchanged).
 
 A subagent recomputed every score above with its own code and found the same, with the exact p-value 462 / 924 = 0.500.
+
+### Result of PR-49 — correction, 2026-09-28 22:14, after an exact blind recount of the order observation and of secondary 2
+
+A subagent recounted two things with its own code, from the 18 answer files only, this time exactly: every ordering of
+each reader's letters, and the exact score distribution for letters drawn uniformly (all 7^n cases, with the 18 names
+absent from the reference grouped as one). Its output is in `results/pr49_recomptage_exact.txt`.
+- *Random order* (the observation, not registered). Reader v2: 65/24 = 2.71, not 2.70; the earlier figures came from
+  random draws. P and T: 17/12 = 1.42 each, as reported. The observation stands: no arm does better in its readers'
+  order than with their own letters shuffled, beyond P's +0.25.
+- *Against chance* (secondary 2). **Three** of Reader v2's six readers are above their 95th percentile, not two.
+  - For 5 letters, the exact probability of 3 or more in order is 0.049, just under 0.05, so that percentile is 2. The
+    script's 2 000 draws had put it at 3 for reader f2.
+  - That reader is above it only by naming iota three times: every ordering of their letters scores 3.
+  - No P or T reader is above it, as reported.
+- *Unchanged.* Every score, the three means, the primary and its p-value, and the five of six Reader v2 readers who
+  name a gamma in cell E3.
+- *Two identical answers.* T's readers b2 and b3 gave the same three lines. Our session log holds two separate reader
+  reports, 45 s apart, each with that answer, so it is not a copying slip.
+- *Files line, corrected.* The answers are `results/pr49_{n,j,b,d}{1..3}.txt` and `results/pr49_f{1..6}.txt`.

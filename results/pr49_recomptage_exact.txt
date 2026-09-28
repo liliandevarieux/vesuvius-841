@@ -1,0 +1,157 @@
+PR-49 -- exact blind recount, 2026-09-28 evening. A fresh subagent, told only the parsing rule, the reference and the
+computations below, read the answer files and nothing else in the repository, and wrote its own code.
+S = longest common subsequence of the reader's letters (row by row, then column) with the reference.
+R = mean of that length over every ordering of the reader's own letters (exact enumeration).
+Null = letters drawn uniformly from the 24 names; p95 = smallest k with P(L <= k) >= 0.95.
+Files f = Reader v2 as released; b, d = T; j, n = P (key: pr49_cle.txt; the recounting agent was not told it).
+
+=== Pass 1: f1-f6 (verbatim) ===
+Reference (12): pi epsilon rho iota epsilon pi iota lambda epsilon gamma epsilon iota
+Null: 1000000 uniform draws per n from the 24 names, numpy default_rng([20260928, n])
+
+== pr49_f1.txt ==
+1. n = 6 ; sequence: F2 upsilon, G2 iota, B3 iota, E3 gamma, F3 omicron, H3 lambda
+2. S = 3
+3. R = 37/12 = 3.083333 (exact, 720 permutations)
+4. random n=6: mean LCS = 1.298176 ; p95 = 3.0 ; S > p95: False
+5. gamma in E3: True
+
+== pr49_f2.txt ==
+1. n = 5 ; sequence: A2 omicron, B3 iota, D3 iota, E3 iota, F3 omicron
+2. S = 3
+3. R = 3 = 3.000000 (exact, 120 permutations)
+4. random n=5: mean LCS = 1.110042 ; p95 = 2.0 ; S > p95: True
+5. gamma in E3: False
+
+== pr49_f3.txt ==
+1. n = 4 ; sequence: B3 iota, D3 iota, E3 gamma, F3 omicron
+2. S = 3
+3. R = 8/3 = 2.666667 (exact, 24 permutations)
+4. random n=4: mean LCS = 0.913197 ; p95 = 2.0 ; S > p95: True
+5. gamma in E3: True
+
+== pr49_f4.txt ==
+1. n = 5 ; sequence: D2 lambda, F2 upsilon, B3 iota, E3 gamma, F3 sigma
+2. S = 2
+3. R = 7/3 = 2.333333 (exact, 120 permutations)
+4. random n=5: mean LCS = 1.110042 ; p95 = 2.0 ; S > p95: False
+5. gamma in E3: True
+
+== pr49_f5.txt ==
+1. n = 4 ; sequence: D3 iota, E3 gamma, F3 omicron, H3 lambda
+2. S = 2
+3. R = 7/3 = 2.333333 (exact, 24 permutations)
+4. random n=4: mean LCS = 0.913197 ; p95 = 2.0 ; S > p95: False
+5. gamma in E3: True
+
+== pr49_f6.txt ==
+1. n = 3 ; sequence: D3 iota, E3 gamma, F3 epsilon
+2. S = 3
+3. R = 17/6 = 2.833333 (exact, 6 permutations)
+4. random n=3: mean LCS = 0.704343 ; p95 = 2.0 ; S > p95: True
+5. gamma in E3: True
+
+== summary over the six files ==
+mean S = 8/3 = 2.666667
+mean R = 65/24 = 2.708333
+min n = 3 ; max n = 6
+files with S strictly above their p95 = 3
+files naming gamma in E3 = 5
+
+Agent's note: for n = 5 the exact probability of scoring 3 or more is 0.048944, just under 0.05, so p95 = 2 (a second
+seed gives P = 0.049031, p95 = 2.0). Exact p95 by n: 3: 2, 4: 2, 5: 2, 6: 3. Exact means: 0.7049, 0.9130, 1.1103,
+1.2978. f2 is above its p95 only because it names iota three times: R = 3, every ordering scores 3.
+
+=== Pass 2: b, d, j, n (verbatim) ===
+Reference (12): pi epsilon rho iota epsilon pi iota lambda epsilon gamma epsilon iota
+Item 4: exact null (all 7^n sequences: the 6 reference names at weight 1/24 each, the 18 other names as one category at 18/24); p95 = smallest k with P(L<=k) >= 0.95
+
+== pr49_b1.txt ==
+1. n = 4 ; sequence: D3 pi, E3 sigma, F3 omicron, G3 lambda
+2. S = 2
+3. R = 3/2 = 1.500000 (exact, 24 permutations)
+4. exact null n=4: mean LCS = 0.913032 ; p95 = 2 (P(L<=1) = 0.794114, P(L<=2) = 0.977195) ; S > p95: False
+
+== pr49_b2.txt ==
+1. n = 3 ; sequence: D3 tau, E3 epsilon, F3 omicron
+2. S = 1
+3. R = 1 = 1.000000 (exact, 6 permutations)
+4. exact null n=3: mean LCS = 0.704861 ; p95 = 2 (P(L<=1) = 0.879919, P(L<=2) = 0.993345) ; S > p95: False
+
+== pr49_b3.txt ==
+1. n = 3 ; sequence: D3 tau, E3 epsilon, F3 omicron
+2. S = 1
+3. R = 1 = 1.000000 (exact, 6 permutations)
+4. exact null n=3: mean LCS = 0.704861 ; p95 = 2 (P(L<=1) = 0.879919, P(L<=2) = 0.993345) ; S > p95: False
+
+== pr49_d1.txt ==
+1. n = 4 ; sequence: A3 omega, D3 omicron, E3 iota, F3 epsilon
+2. S = 2
+3. R = 2 = 2.000000 (exact, 24 permutations)
+4. exact null n=4: mean LCS = 0.913032 ; p95 = 2 (P(L<=1) = 0.794114, P(L<=2) = 0.977195) ; S > p95: False
+
+== pr49_d2.txt ==
+1. n = 7 ; sequence: G1 xi, E2 sigma, A3 omega, D3 omicron, E3 iota, F3 omicron, G4 iota
+2. S = 2
+3. R = 2 = 2.000000 (exact, 5040 permutations)
+4. exact null n=7: mean LCS = 1.476721 ; p95 = 3 (P(L<=2) = 0.872920, P(L<=3) = 0.982929) ; S > p95: False
+
+== pr49_d3.txt ==
+1. n = 4 ; sequence: E2 sigma, B3 omega, E3 iota, F3 omicron
+2. S = 1
+3. R = 1 = 1.000000 (exact, 24 permutations)
+4. exact null n=4: mean LCS = 0.913032 ; p95 = 2 (P(L<=1) = 0.794114, P(L<=2) = 0.977195) ; S > p95: False
+
+== group 1 summary (b1, b2, b3, d1, d2, d3) ==
+mean S = 3/2 = 1.500000
+mean R = 17/12 = 1.416667
+min n = 3 ; max n = 7
+files with S strictly above their exact p95 = 0
+
+== pr49_j1.txt ==
+1. n = 5 ; sequence: E3 pi, F3 theta, G3 tau, H3 lambda, A4 tau
+2. S = 2
+3. R = 3/2 = 1.500000 (exact, 120 permutations)
+4. exact null n=5: mean LCS = 1.110281 ; p95 = 2 (P(L<=1) = 0.704657, P(L<=2) = 0.951056) ; S > p95: False
+
+== pr49_j2.txt ==
+1. n = 7 ; sequence: B3 omega, D3 nu, E3 pi, F3 theta, G3 tau, H3 lambda, A4 tau
+2. S = 2
+3. R = 3/2 = 1.500000 (exact, 5040 permutations)
+4. exact null n=7: mean LCS = 1.476721 ; p95 = 3 (P(L<=2) = 0.872920, P(L<=3) = 0.982929) ; S > p95: False
+
+== pr49_j3.txt ==
+1. n = 6 ; sequence: F2 upsilon, B3 omega, E3 pi, F3 theta, G3 tau, H3 lambda
+2. S = 2
+3. R = 3/2 = 1.500000 (exact, 720 permutations)
+4. exact null n=6: mean LCS = 1.297827 ; p95 = 3 (P(L<=2) = 0.915782, P(L<=3) = 0.991574) ; S > p95: False
+
+== pr49_n1.txt ==
+1. n = 5 ; sequence: B3 omega, E3 tau, F3 theta, G3 pi, H3 lambda
+2. S = 2
+3. R = 3/2 = 1.500000 (exact, 120 permutations)
+4. exact null n=5: mean LCS = 1.110281 ; p95 = 2 (P(L<=1) = 0.704657, P(L<=2) = 0.951056) ; S > p95: False
+
+== pr49_n2.txt ==
+1. n = 6 ; sequence: G1 omega, B3 omega, E3 tau, F3 theta, G3 kappa, H3 lambda
+2. S = 1
+3. R = 1 = 1.000000 (exact, 720 permutations)
+4. exact null n=6: mean LCS = 1.297827 ; p95 = 3 (P(L<=2) = 0.915782, P(L<=3) = 0.991574) ; S > p95: False
+
+== pr49_n3.txt ==
+1. n = 5 ; sequence: B3 omega, E3 tau, F3 theta, G3 gamma, H3 lambda
+2. S = 1
+3. R = 3/2 = 1.500000 (exact, 120 permutations)
+4. exact null n=5: mean LCS = 1.110281 ; p95 = 2 (P(L<=1) = 0.704657, P(L<=2) = 0.951056) ; S > p95: False
+
+== group 2 summary (j1, j2, j3, n1, n2, n3) ==
+mean S = 5/3 = 1.666667
+mean R = 17/12 = 1.416667
+min n = 5 ; max n = 7
+files with S strictly above their exact p95 = 0
+
+Monte Carlo check (1000000 draws, default_rng([20260928, n])) for n = [3, 4, 5, 6, 7]: agrees with the exact null everywhere (same p95, mean within 4 standard errors)
+
+Agent's note: pr49_b2.txt and pr49_b3.txt are byte-identical.
+Claude's check of that note against the session log: two separate reader reports, 45 s apart, each returned that
+answer (reading times 42 s and 86 s in pr49_durees.txt). Not a copying slip.
