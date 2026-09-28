@@ -3809,3 +3809,40 @@ three maps beside their labels, then a naive reader if the primary holds; (4) if
 other public 9 µm models (Hecate, Nieuwlaar).
 **Prediction.** Detection above our controls; shape below 16 — Reader v2 learns to reproduce the organisers' maps,
 and 841's own 2.4 µm map is blobby (PR-18). That is exactly what the test decides.
+
+## PR-45 — registration, 2026-09-28 10:00, before the run: does Reader v2 draw never-seen letters as strokes on the eligible scan type (PHerc0009B, 8.64 µm, 116 keV)?
+
+*Registered before Reader v2 is run on this segment.*
+
+**Why.** PR-44 failed: on PHerc0841, Reader v2 detects better than our controls (AUC-sup 0.843 against 0.78) but
+draws the letters as blobs (mean elongation 8.40; controls 11.4; tracings 20–25). But 841 is not scanned like the
+prize-eligible scrolls (9.366 µm, 113 keV, against 8.64 µm, 116 keV for PHerc0800 and PHerc1447). PHerc0009B segment
+`20250919125754` is scanned like them and carries human labels (10 letters, tracings' elongation 22.81). It is **not**
+among Reader v2's 14 training segments of 0009B: it appears nowhere in its `train_config.json`. This test asks whether
+the wall is 841's. (Checked at the same time: the PHerc0343P segment `20250511003658`, our control in PR-28 to PR-42,
+**is** in Reader v2's training set, so it cannot test it.)
+
+**Known before this run** (same segment and measurements, logs of PR-34 and PR-38, forward order chosen label-free
+each time): our models trained without 0009B reach 9.91 to 15.19 (PR-34 recipe R4: 15.19; PR-38 arms: 12.10, 13.17,
+9.91, 14.64), AUC-sup 0.85–0.86. On 841 the same recipe reaches 11.4, so this segment is already less blobby for our
+models, and the result is read against that.
+
+**Design.** Reader v2 `reader-v2-step040000.pth`, same CLI and same 21-layer native input as PR-31 to PR-44
+(`crops/pr31/0009B_in.zarr`), both layer orders, order chosen label-free (p99 − p50), measured with `eval_sup.py`,
+`eval_forme.py` and `eval_forme_fond.py`. The same three measurements on maps that already exist, for reference: the
+ink_9um base (PR-31), PR-31's fold without 0009B and PR-34's R4 fold without 0009B (no new inference).
+
+**Primary (fixed now).** Reader v2's elongation on this segment **≥ 16.0** (PR-44's bar, the lower end of the
+tracings' range) **and** above its own background elongation (same map): strokes shaped by letters, not texture.
+*Holds* = on the eligible scan type, the best public model draws never-seen letters as strokes; the wall is 841's,
+and the road to 0800 and 1447 reopens with Reader v2 as the starting point, **but only after the contamination check
+below**. *Fails* = blobs there too; the wall holds for the best public model on the scan type that matters.
+**Secondary.** (1) Reader v2 against our best model on this segment (15.19): a difference ≥ +2.0 (PR-39's bar) would
+be a shape advantage of its training over ours. (2) AUC-sup against ours (0.85–0.86). (3) The author's look at the ten
+letters, tracing beside each map, before any number is reported. (4) **Contamination check, required before a
+*holds* is reported.** Reader v2's 14 training segments of 0009B were traced the same day as ours (2025-09-19) and may
+cover the same papyrus. If the primary holds, measure the 3-D distance between their meshes and ours (method of
+`recouvrement_841.py`); any shared surface voids the *holds*. If it fails, the check is moot, since contamination could
+only have helped.
+**Prediction.** Fails, for PR-44's reason: Reader v2 learns to reproduce the organisers' maps. Detection above ours,
+shape at or below ours.
