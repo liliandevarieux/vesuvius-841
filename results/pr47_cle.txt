@@ -1,0 +1,1 @@
+q=R4 (pr34_R4_0009B_0009B.tif) k=base (pr31_base_0009B.tif) w=readerv2 (pr45_readerv2_0009B.tif)

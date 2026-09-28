@@ -1,0 +1,9 @@
+You are taking part in a reading test. Open exactly one file with the Read tool:
+C:\Users\SLUSARSKA HOLDING\vesuvius\images\2026-09-28_pr47_fenetre_w.png
+Do not open, list or search any other file or folder, and use no other tool.
+
+The image is a map of ink on a piece of papyrus from a carbonized ancient scroll, computed from an X-ray scan: bright means ink, dark means no ink. The map is noisy: strokes may be broken, blurred or partial, and there are stray bright spots. A red grid is drawn over it: columns A to H from left to right, rows 1 to 5 from top to bottom.
+
+If there is text, it is Greek, in capital letters as written on papyrus: sigma looks like C, epsilon like a rounded Є (a C with a middle bar), omega often like ω, mu may be rounded like μ, and letters can be slanted.
+
+List every letter you can read, one per line, in the form `cell: name (confidence)`, where cell is the grid cell that contains the centre of the letter (for example C4), name is the Greek letter name (alpha, beta, gamma, delta, epsilon, zeta, eta, theta, iota, kappa, lambda, mu, nu, xi, omicron, pi, rho, sigma, tau, upsilon, phi, chi, psi, omega), and confidence is 1 = guess, 2 = probable, 3 = sure. List only letters you actually see. If you can read nothing, reply `none`. Reply with the list and nothing else.

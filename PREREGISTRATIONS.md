@@ -3978,3 +3978,44 @@ reader. Scoring:
 by majority. (3) Letters hit by a single reader.
 **Prediction.** Holds narrowly: 3 to 5 on R4, 0 to 2 on the base. Finding a letter is harder than naming a centred
 crop.
+
+## Result of PR-47 — written 2026-09-28, after the reading (counts recounted blind from the answer files)
+
+**Primary: holds, at the threshold (3 ≥ 3).** On the R4 map, three of the ten labelled letters were found and named
+by at least 2 of its 3 readers: 8 (sigma, cell C4), 9 (omicron, E4) and 10 (delta, D4). The readers found 2, 3 and 4
+letters. Letter 8 was named by exactly two readers, so one changed answer would have failed the test: the gate opens
+narrowly. The prediction (3 to 5 on R4, 0 to 2 on the base) held.
+**Secondary.** (1) The base: 1 letter by majority (9, omicron, named by all three readers). Reader v2: **not
+measured** (see Incident). (2) False alarms per reader: R4 3, 3, 2; base 3, 0, 3. "By majority" was not defined
+further in the registration; counted at scoring time as a (cell, name) pair that is a false alarm for at least 2
+readers of the same map: R4 2 (C2 sigma and B4 upsilon, each named by all three readers), base 2 (B4 epsilon, C4
+gamma). (3) Letters hit by a single reader: R4 letter 5 (zeta); base none.
+**Observation, not registered.** 13 of the 14 false alarms of R4 and the base sit in a cell that holds a labelled
+letter, named differently from the reference; one (F3) lies between the two lines. The readers misname letters more
+than they invent them on blank papyrus. On R4, cell C2 holds letter 4 (reference omicron) and B4 letter 7 (reference
+eta): all three readers named them sigma and upsilon, the same two names that PR-46's single readings gave on R4's
+centred crops. The map shows a consistent letter-like form there that differs from the reference name. Whether the
+map distorts these two letters or the tracing reference misreads them is open.
+**Incident: the Reader v2 map could not be read.**
+- The three first readers of the Reader v2 map each opened the image, then produced no output for 600 s and were
+  stopped by the agent service's watchdog.
+- They were resumed once at 11:24 with a neutral message ("Your session was interrupted by a technical stall. Please
+  continue your task where you left off and give your final answer in the format requested.") and stalled again.
+- At 11:40, before any Reader v2 answer existed, the rule was fixed: replace them with three fresh readers with
+  identical instructions, and discard any late answer from the first three.
+- The three fresh readers stalled in the same way: nine attempts out of nine.
+
+The six readers of the other two maps answered 3 to 5 minutes after opening their image. The image file of the
+Reader v2 map has the same format and size as the other two (PNG, RGB, 1640 × 990, no metadata), with more contrast.
+The likeliest explanation, not established, is that this panel makes a reader deliberate longer than the watchdog
+allows. The instructions had to stay identical for the three maps, so Reader v2's secondary could not be scored. It
+is reported as not measured, and no answer file exists for it.
+**Consequence.** The gate of PR-29 and PR-42 opens: panels of PHerc0800 and PHerc1447 may be built under a separate
+registration, with models that never saw them. The pass is exactly at the threshold, so every such test will include a
+0009B control window read by the same readers, and this result is re-tested each time. Tests that read a Reader v2
+map, or a map derived from it, will use a format that its readers complete. PR-46's centred crops of Reader v2's
+letters were read without incident.
+**Files.** Panels `images/2026-09-28_pr47_fenetre_{q,k,w}.png` (`scripts/panneau_pr47.py`). Key
+`results/pr47_cle.txt` (q = R4, k = base, w = Reader v2). Reader instructions `results/pr47_consigne.txt`, identical
+for all twelve readers except for the image name. Answers `results/pr47_{q,k}{1,2,3}.txt`; scoring
+`scripts/score_pr47.py`, output `results/pr47.log`.

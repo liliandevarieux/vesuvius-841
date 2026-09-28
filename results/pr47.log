@@ -1,0 +1,10 @@
+R4       lecteur 1 : 2 lettres touchees [9, 10], 3 fausses alertes | C2 sigma -> FAUSSE ALERTE ; B4 upsilon -> FAUSSE ALERTE ; C4 pi -> FAUSSE ALERTE ; D4 delta -> lettre 10 ; E4 omicron -> lettre 9
+R4       lecteur 2 : 3 lettres touchees [8, 9, 10], 3 fausses alertes | C2 sigma -> FAUSSE ALERTE ; F3 pi -> FAUSSE ALERTE ; B4 upsilon -> FAUSSE ALERTE ; C4 sigma -> lettre 8 ; D4 delta -> lettre 10 ; E4 omicron -> lettre 9
+R4       lecteur 3 : 4 lettres touchees [5, 8, 9, 10], 2 fausses alertes | C2 sigma -> FAUSSE ALERTE ; B4 upsilon -> FAUSSE ALERTE ; C4 sigma -> lettre 8 ; D4 delta -> lettre 10 ; E4 omicron -> lettre 9 ; F2 zeta -> lettre 5
+R4       : lettres touchees par >= 2 lecteurs sur 3 : 3 sur 10 [8, 9, 10] ; par un seul : [5] ; fausses alertes [3, 3, 2]
+PRIMAIRE : 3 (>= 3 : la porte de 0800 et 1447 s ouvre)
+base     lecteur 1 : 1 lettres touchees [9], 3 fausses alertes | C2 sigma -> FAUSSE ALERTE ; B4 epsilon -> FAUSSE ALERTE ; C4 gamma -> FAUSSE ALERTE ; E4 omicron -> lettre 9
+base     lecteur 2 : 1 lettres touchees [9], 0 fausses alertes | E4 omicron -> lettre 9
+base     lecteur 3 : 1 lettres touchees [9], 3 fausses alertes | B4 epsilon -> FAUSSE ALERTE ; C4 gamma -> FAUSSE ALERTE ; D4 iota -> FAUSSE ALERTE ; E4 omicron -> lettre 9
+base     : lettres touchees par >= 2 lecteurs sur 3 : 1 sur 10 [9] ; par un seul : [] ; fausses alertes [3, 0, 3]
+readerv2 : non mesure (9 tentatives de lecture bloquees, voir le registre)

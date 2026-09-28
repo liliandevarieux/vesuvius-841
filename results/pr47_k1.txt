@@ -1,0 +1,4 @@
+C2: sigma (1)
+B4: epsilon (1)
+C4: gamma (1)
+E4: omicron (2)
