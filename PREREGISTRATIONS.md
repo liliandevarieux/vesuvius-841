@@ -4490,3 +4490,93 @@ of the time, and its interval excludes a gain above 0.7 letters. The prediction 
 **Consequence.** Reader v2, used as released, remains our best map for both detection and legibility on these letters.
 The registered "fails" branch applies: the 0800 and 1447 panels use Reader v2 and R4 side by side. Fine-tuning Reader
 v2 on our small letter set is dropped as a lever.
+
+## PR-53 — registration, 2026-09-28 20:22, before any reading or detection measure: along our recipe's runs, does legibility grow with training length?
+
+*Question.* Our recipe R4 fine-tunes ink_9um (seed 42, step 75,000) for 4000 steps. Read blind, are never-seen letters
+more legible at the end of the run (4000 steps) than after 1000 steps?
+
+*Why it matters.* If legibility still grows between 1000 and 4000 steps, a longer run is worth a test. If it does not,
+recipes could be screened at 1000 steps, four times cheaper. The earlier answer, PR-43 ("twice the training"), was
+judged on elongation, which PR-46 showed does not track legibility.
+
+*Maps.*
+- The checkpoints at 1000, 2000 and 3000 steps of the three R4 runs whose final maps PR-52 read: seeds 42, 43 and 44
+  (`pr34_R4`, `pr35_R43`, `pr48_R44`). Each letter is seen through the runs that held its scroll out: 841's letters
+  through the runs without 841, 0009B's through the runs without 0009B. The 4000-step maps are PR-52's R4 maps,
+  unchanged.
+- These are checkpoints of single 4000-step runs, not separate short runs. The learning rate rises for 200 steps to
+  0.002, then follows a cosine decay that reaches zero at step 4000. At 1000 steps it is still at 89 % of its peak,
+  54 % at 2000 and 16 % at 3000. A short run that completes its own schedule could behave differently from these
+  checkpoints.
+- Inference with the settings of the 4000-step maps (overlap 0.5, Hann blending, both layer orders), by
+  `scripts/run_pr53_cartes.sh`, started at 19:46. As in the bench, the layer order is chosen without labels (the
+  higher p99−p50 on the papyrus). No new map has been looked at or measured.
+
+*Reading: bench version 2 (rule 7).*
+- PR-46's 28 letters, of which the 23 clean ones count (0009B's letters 1, 3, 4, 7 and 8 stay out, as in PR-48 and
+  PR-52). Reference names: the majority of the three tracing readers, who agree on all 28.
+- The four durations are the four arms of the Latin square. There are 24 sheets of 28 crops, each read by one fresh
+  reader with PR-46's instructions and the first-impression sentence. Each letter is read 6 times at each duration,
+  twice per seed.
+- The sheets are built by `scripts/banc_lisibilite.py planches configs/banc_pr53.json`, only after this registration is
+  pushed. The key goes to `logs/pr53_cle.json`, which readers never see. Scoring: `banc_lisibilite.py score
+  configs/banc_pr53.json`.
+
+*Primary.* 4000 steps against 1000 steps: one-sided sign-flip permutation over letters (4000 ahead), p < 0.05, with a
+two-level bootstrap interval.
+
+*Secondary.* 4000 steps against 2000 steps, same test.
+
+*Reported, not judged.*
+- The counts at each duration and seed, 3000 steps included: the shape of the curve.
+- The 4000-step arm re-reads PR-52's R4 maps on the same bench. Its count, set against PR-52's 27 of 138, shows how
+  much the reading drifts from one session to the next.
+- Detection (`eval_sup.py`, as in PR-48 and PR-50) at each checkpoint, on 841's three sheets and on 0009B, computed
+  after this registration. It does not judge legibility (rule 1). Whether it orders the durations as the readers do
+  is reported.
+
+*Capacity*, computed before registering (`scripts/capacite_pr53.py`). The model is PR-52's (letter difficulty SD 1.75
+on the logit scale, 6 readings per letter and map), with two changes. Both arms carry seed noise (SD 0.3, drawn
+independently, which is cautious since both arms come from the same runs). The 4000-step arm is set at R4's accuracy
+in PR-52, 19.6 %. A lead of the 4000-step maps is detected:
+- 82 % of the time for 2.5 letters per reading;
+- 67 % for 2.1 letters;
+- 48 % for 1.7 letters;
+- 35 % for 1.3 letters;
+- 20 % for 0.8 letters.
+
+With no real difference, the test says "holds" 6 % of the time: seed noise is shared by all the letters of a map, and
+a permutation over letters cannot absorb it. A failure therefore rules out only large gains, and the interval says
+how large.
+
+*Reader failure.* As in PR-52. A reader who gives no answer within 600 s is replaced by a fresh reader. The
+replacement is decided and dated before any answer to that sheet is seen, a late answer is discarded, and every
+incident is reported. A sheet still unanswered after two replacements is reported missing, and the comparisons use the
+remaining readings.
+
+*Prediction.* Fails, with the 4000-step maps within 2 letters of the 1000-step maps. Reason: fine-tuning changes these
+maps little. Against the average of ink_9um's two final checkpoints, R4's detection gain is only +0.016 (PR-50), and fine-tuning
+Reader v2 on our letters did not make them more legible (PR-52).
+
+*What each outcome decides.*
+- Holds: legibility still grows with training. A longer run (8000 steps) is the next test, registered separately.
+- Fails, with the interval's upper bound below 2 letters: stopping at 1000 steps costs less than 2 letters per
+  reading. Recipe screens may then use 1000 steps, quoting this bound.
+- Fails with a wider interval: nothing changes, and recipes stay at 4000 steps.
+
+*Method rules* (`notes/14-methode.md`).
+- Rule 1: only the blind reading judges. Detection is reported beside it.
+- Rule 2:
+  - 6 readings per letter and map;
+  - capacity above;
+  - intervals, not only holds or fails;
+  - reader-failure rule above;
+  - reference names read by three readers, at majority.
+  
+  No 0800 or 1447 map is read, so no 0009B control window is needed.
+- Rule 3: 3 seeds at every duration. A difference smaller than PR-52's seed-to-seed reading noise (about one letter per
+  reading) is not reported as a gain, whatever its p-value.
+- Rule 6: when these maps end, the GPU goes straight on to the next queued job, shown on the live page. That job is
+  Reader v2 with mirror test-time augmentation, maps only, on 841, 0009B and 0800.
+- Rule 7: bench version 2, configuration `configs/banc_pr53.json`.
