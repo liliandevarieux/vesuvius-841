@@ -4370,3 +4370,58 @@ two readers of each sheet.
 - Rule 2: two readings per letter and map. The reference comes from three readers, and the reader-failure rule and
   the dry run are written above.
 - Rule 7: if the format holds, it becomes version 2 of the legibility bench.
+
+## Result of PR-51 — written 2026-09-28 17:03, after the reading (counts recounted blind from the answer files)
+
+**Holds.** All six readers answered, in 60 to 110 s, with 49,000 to 53,000 tokens each. On the 23 letters Reader
+v2 never saw:
+
+| map | readers 1–3 | readers 4–6 | total, out of 46 | PR-46, one reading, out of 23 |
+|---|---|---|---|---|
+| Reader v2 | 6 | 8 | **14** | 8 |
+| R4 | 5 | 4 | **9** | 7 |
+| base | 1 | 2 | **3** | 2 |
+
+- Reader v2 − base = +11 and R4 − base = +6. The bar was +4 each.
+- The order is PR-46's: Reader v2 ≥ R4 > base.
+- The quick format reads a little less than PR-46's per reading: Reader v2 30 % (PR-46: 35 %), R4 20 % (30 %), base
+  7 % (9 %).
+- The two readers of a sheet gave the same name on 15, 19 and 18 of the 28 crops. Both said "unreadable" on 5 of
+  those in each case.
+- A subagent recounted every number above with its own script, from the key and the answer files, and found the same.
+
+**Consequence.** The quick format is version 2 of the legibility bench. PR-48's sheets are read with it under PR-52.
+
+## PR-52 — registration, 2026-09-28 17:03, before any reading: PR-48's primary, read with bench version 2
+
+*What changes from PR-48.* Only the reading instructions: PR-46's, plus the sentence validated in PR-51 ("Go by your
+first impression of each crop: do not deliberate at length over any of them.").
+- *Sheets.* PR-48's 18 sheets, built at 16:08 and unchanged (`images/2026-09-28_pr48_planche_01.png` to `_18.png`),
+  read as full sheets of 28 crops. The half and quarter sheets are not used.
+- *Readers.* Each sheet is read by one fresh reader, as registered in PR-48.
+
+*What stays PR-48's.* The key (`pr48_cle.json`, written at 16:08), the 23 letters and the reference names read by
+three tracing readers. Also kept:
+- the Latin square with balanced seeds;
+- the primary: RV2+ against Reader v2, one-sided sign-flip permutation over letters, p < 0.05;
+- the secondaries: RV2+ against R4, and Reader v2 against R4;
+- two-level bootstrap intervals;
+- the scoring, `scripts/banc_lisibilite.py score configs/banc_pr52.json`, which is PR-48's configuration with only
+  the answer files renamed.
+
+*Capacity*, recomputed before registering. The model is PR-48's (letter difficulty SD 1.75 on the logit scale, seed
+SD 0.3, 6 readings per letter and map), with Reader v2's accuracy set to PR-51's 30 %. A gain per reading is detected:
+- 88 % of the time for 3.6 letters;
+- 66 % for 2.6 letters;
+- 46 % for 1.9 letters;
+- 26 % for 1.2 letters.
+
+*Dry run.* The format has already been run on PR-48's own dry-run sheet, by two diagnostic readers (93 s and 154 s),
+and in PR-51 (six readers, 60 to 110 s).
+
+*Reader failure.* A reader who gives no answer within 600 s is replaced by a fresh reader. The replacement is decided
+and dated before any answer to that sheet is seen, a late answer is discarded, and every incident is reported.
+
+*Prediction.* PR-48's: fails, with RV2+ within 2 letters of Reader v2.
+
+*Method rules.* As in PR-48, with bench version 2 (rule 7).

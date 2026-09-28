@@ -1,0 +1,81 @@
+{
+ "nom": "pr52",
+ "date": "2026-09-28",
+ "dossier_images": "/mnt/c/Users/SLUSARSKA HOLDING/vesuvius/images",
+ "cle": "logs/pr48_cle.json",
+ "lecteurs": 18,
+ "graine": 480,
+ "recettes": {
+  "RV2+": [
+   "pr48_V42_{pli}_{s}.tif",
+   "pr48_V43_{pli}_{s}.tif",
+   "pr48_V44_{pli}_{s}.tif"
+  ],
+  "readerv2": [
+   "{rv2}"
+  ],
+  "R4": [
+   "pr34_R4_{pli}_{s}.tif",
+   "pr35_R43_{pli}_{s}.tif",
+   "pr48_R44_{pli}_{s}.tif"
+  ]
+ },
+ "essai_a_blanc": {
+  "decalage": 500,
+  "cartes": [
+   [
+    "RV2+",
+    0
+   ],
+   [
+    "R4",
+    2
+   ]
+  ]
+ },
+ "reference": {
+  "cle_traces": "logs/pr46_cle.json",
+  "lecteurs": [
+   "logs/pr46_traces.txt",
+   "logs/pr48_traces_r2.txt",
+   "logs/pr48_traces_r3.txt"
+  ]
+ },
+ "vues": [
+  [
+   "0009B",
+   1
+  ],
+  [
+   "0009B",
+   3
+  ],
+  [
+   "0009B",
+   4
+  ],
+  [
+   "0009B",
+   7
+  ],
+  [
+   "0009B",
+   8
+  ]
+ ],
+ "reponses": "logs/pr52_lecteur{:02d}.txt",
+ "primaire": [
+  "RV2+",
+  "readerv2"
+ ],
+ "secondaires": [
+  [
+   "RV2+",
+   "R4"
+  ],
+  [
+   "readerv2",
+   "R4"
+  ]
+ ]
+}
