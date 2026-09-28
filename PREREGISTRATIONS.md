@@ -4425,3 +4425,34 @@ and dated before any answer to that sheet is seen, a late answer is discarded, a
 *Prediction.* PR-48's: fails, with RV2+ within 2 letters of Reader v2.
 
 *Method rules.* As in PR-48, with bench version 2 (rule 7).
+
+## Result of PR-52 — written 2026-09-28 17:10, after the reading (counts recounted blind from the answer files)
+
+All 18 readers answered, in 55 to 135 s. There was no failure and no replacement. The three tracing readers agree on
+all 28 reference names, so no letter was dropped. The primary counts 23 letters × 6 readings on each map.
+
+**Primary: fails.** RV2+ against Reader v2: −8 correct readings, that is −1.33 letters per reading, with a 95 %
+interval from −3.67 to +0.67 and a one-sided p of 0.93. Letter by letter, RV2+ is ahead on 4, behind on 6, and level
+on 13.
+
+| map | correct readings, out of 138 | letters per reading, out of 23 | by seed, out of 46 |
+|---|---|---|---|
+| Reader v2 | 38 | 6.3 | one map |
+| RV2+ (Reader v2's weights, then our recipe) | 30 | 5.0 | 11, 9, 10 |
+| R4 (our recipe from ink_9um) | 27 | 4.5 | 8, 9, 10 |
+
+**Secondary.**
+- RV2+ against R4: +0.50 letters [−2.33 ; +3.50], p = 0.40.
+- Reader v2 against R4: +1.83 letters [−1.67 ; +5.67], p = 0.19. This is the direction PR-46 found (+1 letter, one
+  reading) and PR-51 found (+2.5 letters per reading).
+- *Reading noise floor (rule 3).* R4's three seeds give 8, 9 and 10 correct readings out of 46, and RV2+'s give 11,
+  9 and 10. Seed to seed, reading varies by about one letter per reading.
+- *Detection* (from PR-48's result): RV2+ detects better than R4 (+0.033) and less well than Reader v2 (−0.033).
+
+**Reading.** Starting from Reader v2's weights and fine-tuning on our hand-traced letters does not make never-seen
+letters more legible than Reader v2 alone. It also costs detection. The test could see a gain of 3.6 letters 88 %
+of the time, and its interval excludes a gain above 0.7 letters. The prediction holds: fails, within 2 letters.
+
+**Consequence.** Reader v2, used as released, remains our best map for both detection and legibility on these letters.
+The registered "fails" branch applies: the 0800 and 1447 panels use Reader v2 and R4 side by side. Fine-tuning Reader
+v2 on our small letter set is dropped as a lever.
