@@ -29,9 +29,13 @@ def reporte(a):
     return a[np.ix_(iy, ix)]
 
 
-s2 = np.asarray(zarr.open('%s/src/%s/supervision.zarr' % (H, nom), mode='r')['2'][:]).squeeze()
-s2 = (s2.any(axis=0) if s2.ndim == 3 else s2) > 0
-zone = ndimage.maximum_filter(reporte(s2).astype(np.uint8), size=257) > 0
+if os.path.exists('%s/src/%s/supervision.zarr' % (H, nom)):
+    s2 = np.asarray(zarr.open('%s/src/%s/supervision.zarr' % (H, nom), mode='r')['2'][:]).squeeze()
+    s2 = (s2.any(axis=0) if s2.ndim == 3 else s2) > 0
+    zone = ndimage.maximum_filter(reporte(s2).astype(np.uint8), size=257) > 0
+else:                                       # PR-49 (1447) : aucune etiquette humaine, zone d evaluation vide (transductif)
+    print('%s : pas de supervision, zone d evaluation vide' % nom)
+    zone = np.zeros((Hh, W), bool)
 libre = (P > 0) & ~zone
 q60, q92 = np.percentile(P[libre], [60, 92])
 encre = libre & (P >= q92)

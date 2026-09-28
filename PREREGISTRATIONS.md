@@ -4115,3 +4115,99 @@ detects better than R4 and less well than Reader v2.
    the reading.
 
 (Rules 4 and 5 are numbered 6 and 7 in the project's own list.)
+
+## PR-49 — registration, 2026-09-28 14:03, before any training: does self-training on PHerc1447 make its known letters readable blind?
+
+*Self-training is the lever named in the organisers' announcement. On 24 September they announced that Youssef
+Nader's new 9 µm recipe shows a few strokes on PHerc1447 without fine-tuning, and about ten letters with fine-tuning on
+the scroll itself. 1447 was withdrawn from the First Letters prize. Their papyrologists read περιε (after two uncertain
+letters) and, on the line below, ]πιλεγει, near (x, y, z) = (4144, 2742, 12557) of the public 8.64 µm volume. We saw
+the announcement on 28 September. 1447 is on the scan type of PHerc0800 and has known letters, and neither our models
+nor Reader v2 were trained on it: it is the best positive control available. Self-training on the target scroll was
+tested in PR-36 and PR-37, but judged by elongation, which PR-46 showed does not track legibility. This test re-judges
+the lever by blind reading.*
+
+**Disclosed before anything else.**
+- The point lies 8.6 voxels from segment `20250702235910-auto_grown_20250702235910292` (tifxyz mesh), at about row
+  1340, column 1720 of its 2980 × 3240 surface.
+- At 13:38:23, before any 1447 map existed, the reading window was fixed as rows 340–2340 and columns 220–3220 (the
+  announced point ± 1000 / ± 1500 px), with an 8 × 5 grid.
+- At 13:45, three exploratory maps of that window were made (R4, Reader v2 and the ink_9um base;
+  `images/2026-09-28_x1447_trois_cartes.png`). Only Claude looked at them.
+  - Reader v2 and the base show one letter-like form (epsilon-like) near the point.
+  - R4 shows mostly blobs.
+  - No line is readable on any of the three.
+- Reader v2 was chosen as the starting model below after that look, and after its detection record (PR-44).
+
+**Design.** Two arms. Both start from Reader v2's released weights and run 3 000 iterations with our settings (batch
+16, learning rate 0.002), with seeds 42 and 43.
+- **P** mixes, per batch of 16:
+  - human labels of our four labelled scrolls (0814, 0841, 0009B and 0500P2), 2 patches each;
+  - the 0139 w035 anchor, 4 patches;
+  - **pseudo-labels of the 1447 text segment**, 4 patches.
+
+  The pseudo-labels come from Reader v2's own forward map of that segment, with PR-36's rule: ink is the map at or
+  above the 92nd percentile of the papyrus, background at or below the 60th, the rest is unsupervised, and ink
+  components under 30 px are dropped. This gives thresholds of 97 and 71, with 0.56 Mpx of ink and 4.27 Mpx of
+  background. No human label of 1447 exists; the papyrologists' reading is used only for scoring. The whole segment
+  is pseudo-labelled, the text window included: this is the transductive use we would make of it on PHerc0800.
+- **T** is the same continuation without 1447: 3 patches from each labelled scroll and 4 from the anchor.
+
+A technical check at 14:03 (20 steps of P) confirmed that the 1447 pseudo-labels load. Each checkpoint 3 000 maps the
+text segment in both orders, with the label-free choice by p99−p50. Script: `scripts/run_pr49.sh`, which starts when
+PR-48's training ends.
+
+**Reading.** PR-47's format and instructions (`results/pr47_consigne.txt`, with the image name changed).
+- *Panels.* One panel of the fixed window per map (`scripts/panneau_fenetre.py`): contrast 1–99.5 %, half resolution,
+  red grid, no model name.
+- *Readers.* Readers find and name letters as `cell: name (confidence)`. There are six fresh readers per arm, three
+  per seed map, and each reader sees one panel only.
+- *Dry run.* Before any test panel is read, one reader reads the same window on another 1447 segment far from the text
+  (`20250703025628`, 5 700 voxels from the point), mapped by P seed 42. Its answer is not scored. If it gives no answer
+  within 600 s, every panel is cut into a left half (columns A–E) and a right half (D–H), and each reader reads both
+  halves of its map. The change would be reported.
+- *Reader failure.* As in PR-48.
+
+**Score.** A reader's transcription is its letters ordered by row, then by column. Its score is the longest common
+subsequence with the papyrologists' reading of lines 2 and 3 end to end: π ε ρ ι ε π ι λ ε γ ε ι (12 letters). A
+simulation of chance, with letters named uniformly at random:
+
+| letters named | mean score | 95th percentile |
+|---|---|---|
+| 6 | 1.3 | 3 |
+| 8 | 1.6 | 3 |
+| 12 | 2.3 | 4 |
+
+**Primary (fixed now).** Mean score of P's six readers minus T's six readers, with an exact one-sided permutation test
+(924 splits of the 12 readers). **Holds if p < 0.05 with P ahead.**
+
+Capacity, from a simulation where each reference letter is found in order with probability q, plus 3 stray letters
+per reader:
+
+| q, P against T | expected gap | detected |
+|---|---|---|
+| 0.3 against 0.1 | 2.4 letters | 76 % |
+| 0.4 against 0.1 | 3.6 letters | 96 % |
+
+- *Holds*: self-training on the target scroll makes the known letters of a never-seen scroll more readable. The same
+  recipe is then registered for PHerc0800.
+- *Fails*: one round of transductive self-training from Reader v2 does not make 1447's known text readable at this
+  size.
+
+**Secondary.**
+1. Each line separately: περιε, then πιλεγει.
+2. Each reader's score against chance for the same number of named letters.
+3. Each seed.
+4. Whether P's readers exceed chance at all: mean score above the 95th percentile of chance.
+
+**Prediction.** Fails: P ahead by less than 2 letters in order, and both arms near chance except for isolated letters
+(epsilon, iota). One round on one segment is less than the organisers' fine-tuning.
+
+**Method rules (2026-09-28).**
+1. The judge is blind reading against an external reading.
+2. Six readers per arm, capacity computed above, dry run and failure rule written in advance. The reference comes
+   from the organisers' papyrologists.
+3. Two seeds per arm, pooled within the arm.
+4. The run is queued after PR-48, so the GPU does not idle.
+5. The reading uses PR-47's window format. The bench's crop format cannot be used here, because the letter positions
+   are only known approximately.

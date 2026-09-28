@@ -78,6 +78,11 @@ if 'pseudo_dir' in V:                       # PR-36 : le rouleau exclu revient, 
     e = entree(EXCLU, segs)
     e['segments_path'] = V['pseudo_dir']
     c['datasets'].insert(0, e)
+if 'pseudo_extra' in V:                     # PR-49 : un rouleau sans etiquette (1447) ajoute avec ses pseudo-etiquettes
+    X = V['pseudo_extra']
+    e = entree(X['scroll'], X['segs'])
+    e['segments_path'] = X['dir']
+    c['datasets'].insert(0, e)
 if 'corpus' in V:                           # PR-38 : corpus d ink_9um (2,4 um poole), eventuellement floute
     K = V['corpus']
     par = {}
