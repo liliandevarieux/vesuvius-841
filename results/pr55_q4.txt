@@ -1,0 +1,6 @@
+E4: omicron (3)
+C2: sigma (2)
+C4: sigma (1)
+F3: pi (1)
+B4: upsilon (1)
+D4: delta (1)

@@ -4804,3 +4804,44 @@ panel is seen, and a late answer is discarded.
 
 *Corrected at 21:38, before any reading:* the first paragraph first said 26 readers for PR-51 and PR-52; they had 24,
 and the 2 others were PR-48's diagnostic readers.
+
+## Result of PR-55 — written 2026-09-28 21:46, after the reading (counts recounted blind from the answer files)
+
+All 18 readers answered, in 33 to 143 s, with no failure and no replacement.
+
+**Primary: holds.**
+1. *Completion.* On each panel, 6 of 6 readers answered. Reader v2's readers took 76 to 143 s; all nine of PR-47's
+   had stalled beyond 600 s.
+2. *Order.* R4's six readers hit 16 letters in all, and the base's six hit 6: +10, above the bar of 4. Per reader, R4
+   hits 2.7 letters (PR-47: 3.0) and the base 1.0 (PR-47: 1.0).
+
+| map | hits per reader | total, 6 readers | letters hit by at least 4 of 6 | false alarms per reader | letters named per reader |
+|---|---|---|---|---|---|
+| R4 without 0009B | 3, 1, 3, 3, 3, 3 | 16 of 60 | 8, 9, 10 | 4, 5, 4, 3, 4, 2 | 5 to 7 |
+| ink_9um base | 1 each | 6 of 60 | 9 | 1, 2, 2, 2, 1, 1 | 2 to 3 |
+| Reader v2, its 5 unseen letters | 3, 3, 3, 2, 2, 2 | 15 of 30 | 9, 10 | 7 each | 12 to 13 |
+
+**Secondary.**
+- *Reader v2 is read in this format for the first time.* On its five unseen letters it gets 15 hits. Letters 9 and 10
+  are hit by all six readers, letter 2 by two, letter 6 by one and letter 5 by none.
+- *False alarms.* Reader v2's readers name 12 to 13 letters each, about twice as many as on R4's window. Seven of them,
+  for every reader, match no labelled letter within one cell and lie in the supervised area.
+- *Majority, at least 4 of 6 readers.* R4: letters 8, 9 and 10, PR-47's three. The base: letter 9. Reader v2: letters
+  9 and 10.
+
+**Observation, not registered.** On the five letters Reader v2 never saw, the three maps rank as on the bench of
+crops: Reader v2 15 hits, R4 11, the base 6, each out of 30.
+
+**Reading.** With the first-impression sentence, every reader completes PR-47's window format, Reader v2's included.
+The format ranks R4 and the base as PR-47 did, with the same accuracy per reader. The prediction holds, with a lead of
+10 rather than the predicted 6.
+
+**Consequence.** The quick window format becomes version 2 of the window format, and PR-49 and the 0800 test use it,
+Reader v2 included. One caveat for PHerc0800: on Reader v2's window, readers name about twice as many letters, and 7 of
+their 12 or 13 match no known letter. A letter named on a Reader v2 window of 0800 is therefore weak evidence on its
+own. The 0800 test must measure, on the 0009B control window read by the same readers, how often a named letter is
+right.
+
+**Files.** Answers `results/pr55_{q,k,w}{1..6}.txt`, reading times `results/pr55_durees.txt`, and scoring output
+`results/pr55_score.txt` (PR-47's script, unchanged). A subagent recounted the hits above with its own code, from the
+answer files and the reference table, and found the same: R4 16, the base 6, Reader v2 15, with the same letters. It also counted 9 lines per Reader v2 reader that match no labelled letter; the scoring script places 7 of them inside the supervised area.
