@@ -4229,3 +4229,48 @@ per reader:
 4. The run is queued after PR-48, so the GPU does not idle.
 5. The reading uses PR-47's window format. The bench's crop format cannot be used here, because the letter positions
    are only known approximately.
+
+## PR-50 — registration, 2026-09-28 16:26, before any inference: is our fine-tune's detection gain larger than ink_9um's own checkpoint-to-checkpoint variation?
+
+*Why.* On villa #1867 (28/09), AndreasHad04 decomposed the held-out scores of ink_9um's 14 released checkpoints
+(2 seeds × 7 steps). Most of their spread is variation that does not repeat between seeds.
+- On the eligible 9.366 µm volumes of PHerc0841, the 14 checkpoints span 0.7106 to 0.7796. The two final checkpoints
+  averaged give 0.7826, against 0.7614 for seed42 step-075000 (his protocol, 23/09).
+- Every detection gain we have reported for the cross-scroll fine-tune was measured against seed42 step-075000 alone.
+- With our protocol, R4 (seeds 42, 43, 44) scores 0.7769 on the mean of 841's three segments, against 0.7418 for that
+  checkpoint: a gain of 0.035.
+
+*What runs* (`scripts/run_pr50.sh`, queued after PR-49; no training):
+- *Seed-43 maps.* ink_9um seed43 step-075000, the other final checkpoint, is inferred on the five held-out segments:
+  841 w00, segA and segB; 0009B; 0500P2. The chain is the one that made the seed-42 maps in PR-31: same inputs, same
+  settings, both layer orders.
+- *Averaged maps.* The pixel average of the seed-42 and seed-43 maps (`scripts/moyenne_cartes.py`). Andreas may have
+  averaged weights rather than maps; the map average is what we can test without a new model.
+- *Measure.* Detection with `eval_sup.py`, exactly as for R4: the AUC of the map against the labels, inside the
+  supervision mask. The layer order is chosen without labels, by the larger p99 − p50. For seed 42, this is the forward
+  order on all five segments.
+
+*Primary (fixed now).* G = R4's mean over its three seeds (0.7769) minus the best of the three base variants: seed 42
+(0.7418), seed 43, and their average. All values are means over 841's three segments. It holds if G > 0.013 (R4's own
+seed range on this mean, PR-48) and each of R4's three seeds is above the best base variant.
+- *Holds*: the fine-tune's detection gain is larger than both its own seed noise and the base's checkpoint lottery.
+  Future texts give the gain against the best base variant, not against seed 42 alone.
+- *Fails*: the gain is not established. Our texts stop citing it, and later comparisons use the best base variant as
+  the reference.
+
+*Secondary.*
+1. The same comparison on 0009B and on 0500P2, descriptive.
+   - 0009B: R4 0.8623, 0.8623, 0.8514; base seed 42 0.8074.
+   - 0500P2: R4 seeds 42 and 43 only, 0.8028 and 0.7862; base seed 42 0.7377.
+2. The base's own seed gap (seed 43 minus seed 42), per segment and on the 841 mean. It sits next to R4's range of
+   0.013 on that mean.
+
+*Prediction.* Holds narrowly. The best base variant is the map average, around 0.755 on 841, and the gain shrinks from
+0.035 to about 0.02.
+
+*Method rules.*
+- Rule 1: the claim is about detection, and the measure is detection itself.
+- Rule 3, a noise floor before comparing recipes, is the point of this test: it measures the base's floor, which PR-48
+  did not.
+- Rules 2 and 7 do not apply: there is no reading.
+- Rule 6: it runs after PR-49, so the GPU does not idle.
