@@ -1,0 +1,65 @@
+{
+ "nom": "pr54",
+ "date": "2026-09-28",
+ "dossier_images": "/mnt/c/Users/SLUSARSKA HOLDING/vesuvius/images",
+ "cle": "logs/pr54_cle.json",
+ "lecteurs": 12,
+ "graine": 540,
+ "recettes": {
+  "miroir": [
+   "rv2tta_{s}.tif"
+  ],
+  "readerv2": [
+   "{rv2}"
+  ]
+ },
+ "essai_a_blanc": {
+  "decalage": 500,
+  "cartes": [
+   [
+    "miroir",
+    0
+   ],
+   [
+    "readerv2",
+    0
+   ]
+  ]
+ },
+ "reference": {
+  "cle_traces": "logs/pr46_cle.json",
+  "lecteurs": [
+   "logs/pr46_traces.txt",
+   "logs/pr48_traces_r2.txt",
+   "logs/pr48_traces_r3.txt"
+  ]
+ },
+ "vues": [
+  [
+   "0009B",
+   1
+  ],
+  [
+   "0009B",
+   3
+  ],
+  [
+   "0009B",
+   4
+  ],
+  [
+   "0009B",
+   7
+  ],
+  [
+   "0009B",
+   8
+  ]
+ ],
+ "reponses": "logs/pr54_lecteur{:02d}.txt",
+ "primaire": [
+  "miroir",
+  "readerv2"
+ ],
+ "secondaires": []
+}

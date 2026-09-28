@@ -4631,3 +4631,74 @@ patterns, are 0.445 and 0.418.
 
 *Also added:* PR-48's 18 sheets (`images/2026-09-28_pr48_planche_01.png` to `_18.png`), which PR-52's text cites but
 which were not yet in this repository.
+
+## PR-54 — registration, 2026-09-28 21:00, before any reading: does mirror averaging at prediction time make Reader v2's letters more legible?
+
+*Question.* Reader v2, used as released, is our most legible map (PR-52). Its inference can average each patch's
+prediction over mirror flips (`--tta-mirror`): the patch is predicted as it is and flipped along each in-plane axis,
+four variants in all, which are flipped back and averaged. Read blind, are never-seen letters more legible on the
+averaged map than on the plain one?
+
+*Why it matters.* It costs no training. If it helps, every Reader v2 map we read on PHerc0800 and PHerc1447 uses it.
+If it does not, we keep the plain maps, which are four times cheaper to compute.
+
+*Maps.*
+- Averaged: Reader v2 (`reader-v2-step040000.pth`) with `--tta-mirror`, by `scripts/run_rv2tta_cartes.sh`, started
+  at 20:45. Every other setting and the input crops are those of the plain maps (overlap 0.5, Hann blending, batch 4,
+  both layer orders).
+- Plain: PR-44's and PR-45's Reader v2 maps, the ones PR-52 read.
+- As in the bench, the layer order is chosen without labels. No averaged map has been looked at or measured.
+
+*Reading: bench version 2 (rule 7).*
+- PR-46's 23 clean letters. 0009B's letters 1, 3, 4, 7 and 8 stay out, since they lie on surface Reader v2 was trained
+  on (PR-45).
+- Two arms in the Latin square: 12 sheets of 28 crops, each read by one fresh reader with PR-46's instructions and the
+  first-impression sentence. Each letter is read 6 times on each map.
+- The sheets are built by `scripts/banc_lisibilite.py planches configs/banc_pr54.json`, only after this registration is
+  pushed. The key goes to `logs/pr54_cle.json`, which readers never see.
+
+*Primary.* Averaged against plain: one-sided sign-flip permutation over letters (averaged ahead), p < 0.05, with a
+two-level bootstrap interval.
+
+*Reported, not judged.*
+- The plain arm re-reads PR-52's Reader v2 maps. Its count, set against PR-52's 38 of 138, shows how much the reading
+  drifts between sessions.
+- Detection (`eval_sup.py`) of the averaged maps on 841's three sheets and on 0009B, computed after this registration.
+  The 0009B figure is contaminated (PR-45) and is reported as such.
+
+*Capacity*, computed before registering (`scripts/capacite_pr54.py`). The model is PR-52's, with no seed noise since
+each arm is a single map, and with the plain arm set at Reader v2's accuracy in PR-52, 27.5 %. A lead of the averaged
+map is detected:
+- 90 % of the time for 3.4 letters per reading;
+- 66 % for 2.5 letters;
+- 44 % for 1.8 letters;
+- 22 % for 1.1 letters.
+
+With no real difference, the test says "holds" 3 % of the time.
+
+*Reader failure.* As in PR-52 and PR-53. A reader who gives no answer within 600 s is replaced by a fresh reader,
+decided and dated before any answer to that sheet is seen, and a late answer is discarded. A sheet still unanswered
+after two replacements is reported missing.
+
+*Prediction.* Fails, with the averaged map within 1 letter of the plain one. Reason: the plain maps already average
+overlapping patches (overlap 0.5, Hann weights), so mirror averaging should smooth them little further.
+
+*What each outcome decides.*
+- Holds: Reader v2 maps are computed with mirror averaging from now on, starting with PHerc0800's, which are already
+  computed.
+- Fails: the plain maps stay, and mirror averaging is not used.
+
+*Method rules* (`notes/14-methode.md`).
+- Rule 1: only the blind reading judges. Detection is reported beside it.
+- Rule 2:
+  - 6 readings per letter and map;
+  - capacity above;
+  - intervals, not only holds or fails;
+  - reader-failure rule above;
+  - reference names read by three readers, at majority.
+
+  No 0800 or 1447 map is read.
+- Rule 3: nothing is trained here, so there is no seed. A difference smaller than PR-52's seed-to-seed reading noise
+  (about one letter per reading) is not reported as a gain, whatever its p-value.
+- Rule 6: the GPU goes on to Reader v2 with shifted layer windows (maps only), shown on the live page.
+- Rule 7: bench version 2, configuration `configs/banc_pr54.json`.
