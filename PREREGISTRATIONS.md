@@ -4116,7 +4116,7 @@ detects better than R4 and less well than Reader v2.
 
 (Rules 4 and 5 are numbered 6 and 7 in the project's own list.)
 
-**Addendum, 2026-09-28 16:24, before any test sheet was read.**
+**Addendum, 2026-09-28 16:22 (commit a7a76ca, 16:22:35), before any test sheet was read.**
 - *Dry run failed.* Training ended at 16:04:37. The dry-run reader was launched at 16:10:55 (±3 s) on the dry-run sheet
   (crops 500 px to the right of each letter, on RV2+ seed 42 and R4 seed 44). It had given no answer at 16:21:00,
   which is past the 600 s limit.
