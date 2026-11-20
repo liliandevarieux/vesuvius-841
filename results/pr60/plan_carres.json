@@ -1,0 +1,550 @@
+{
+ "taille": 1024,
+ "carres": [
+  {
+   "zone": "0800",
+   "surface": "z11072_w020",
+   "zarr": "c0800/atlas/z11072_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 90,
+   "x": 30,
+   "couvert": 0.766
+  },
+  {
+   "zone": "0800",
+   "surface": "z11072_w020",
+   "zarr": "c0800/atlas/z11072_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 90,
+   "x": 1054,
+   "couvert": 0.775
+  },
+  {
+   "zone": "0800",
+   "surface": "z11072_w020",
+   "zarr": "c0800/atlas/z11072_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 90,
+   "x": 2078,
+   "couvert": 0.757
+  },
+  {
+   "zone": "0800",
+   "surface": "z11072_w040",
+   "zarr": "c0800/atlas/z11072_w040/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 30,
+   "couvert": 0.726
+  },
+  {
+   "zone": "0800",
+   "surface": "z11072_w040",
+   "zarr": "c0800/atlas/z11072_w040/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 1054,
+   "couvert": 0.815
+  },
+  {
+   "zone": "0800",
+   "surface": "z11072_w040",
+   "zarr": "c0800/atlas/z11072_w040/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 2078,
+   "couvert": 0.779
+  },
+  {
+   "zone": "0800",
+   "surface": "z11072_w040",
+   "zarr": "c0800/atlas/z11072_w040/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 3102,
+   "couvert": 0.759
+  },
+  {
+   "zone": "0800",
+   "surface": "z11072_w040",
+   "zarr": "c0800/atlas/z11072_w040/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 4126,
+   "couvert": 0.753
+  },
+  {
+   "zone": "0800",
+   "surface": "z11072_w040",
+   "zarr": "c0800/atlas/z11072_w040/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 5150,
+   "couvert": 0.727
+  },
+  {
+   "zone": "0800",
+   "surface": "z12272_w020",
+   "zarr": "c0800/atlas/z12272_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 30,
+   "couvert": 0.775
+  },
+  {
+   "zone": "0800",
+   "surface": "z12272_w020",
+   "zarr": "c0800/atlas/z12272_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 1054,
+   "couvert": 0.838
+  },
+  {
+   "zone": "0800",
+   "surface": "z12272_w020",
+   "zarr": "c0800/atlas/z12272_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 2078,
+   "couvert": 0.796
+  },
+  {
+   "zone": "0800",
+   "surface": "z13472_w020",
+   "zarr": "c0800/atlas/z13472_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 50,
+   "x": 30,
+   "couvert": 0.739
+  },
+  {
+   "zone": "0800",
+   "surface": "z13472_w020",
+   "zarr": "c0800/atlas/z13472_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 50,
+   "x": 1054,
+   "couvert": 0.749
+  },
+  {
+   "zone": "0800",
+   "surface": "z13472_w020",
+   "zarr": "c0800/atlas/z13472_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 50,
+   "x": 2078,
+   "couvert": 0.815
+  },
+  {
+   "zone": "0800",
+   "surface": "z14064_w020",
+   "zarr": "c0800/atlas/z14064_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 90,
+   "x": 30,
+   "couvert": 0.746
+  },
+  {
+   "zone": "0800",
+   "surface": "z14064_w020",
+   "zarr": "c0800/atlas/z14064_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 90,
+   "x": 1054,
+   "couvert": 0.75
+  },
+  {
+   "zone": "0800",
+   "surface": "z14064_w020",
+   "zarr": "c0800/atlas/z14064_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 90,
+   "x": 2078,
+   "couvert": 0.778
+  },
+  {
+   "zone": "0800",
+   "surface": "z14672_w020",
+   "zarr": "c0800/atlas/z14672_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 110,
+   "x": 30,
+   "couvert": 0.718
+  },
+  {
+   "zone": "0800",
+   "surface": "z14672_w020",
+   "zarr": "c0800/atlas/z14672_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 110,
+   "x": 1054,
+   "couvert": 0.731
+  },
+  {
+   "zone": "0800",
+   "surface": "z14672_w020",
+   "zarr": "c0800/atlas/z14672_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 110,
+   "x": 2078,
+   "couvert": 0.738
+  },
+  {
+   "zone": "0800",
+   "surface": "z15264_w020",
+   "zarr": "c0800/atlas/z15264_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 110,
+   "x": 30,
+   "couvert": 0.712
+  },
+  {
+   "zone": "0800",
+   "surface": "z15264_w020",
+   "zarr": "c0800/atlas/z15264_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 110,
+   "x": 1054,
+   "couvert": 0.734
+  },
+  {
+   "zone": "0800",
+   "surface": "z15264_w020",
+   "zarr": "c0800/atlas/z15264_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 110,
+   "x": 2078,
+   "couvert": 0.669
+  },
+  {
+   "zone": "0800",
+   "surface": "z15264_w100",
+   "zarr": "c0800/atlas/z15264_w100/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 30,
+   "couvert": 0.754
+  },
+  {
+   "zone": "0800",
+   "surface": "z15264_w100",
+   "zarr": "c0800/atlas/z15264_w100/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 1054,
+   "couvert": 0.786
+  },
+  {
+   "zone": "0800",
+   "surface": "z15264_w100",
+   "zarr": "c0800/atlas/z15264_w100/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 2078,
+   "couvert": 0.797
+  },
+  {
+   "zone": "0800",
+   "surface": "z15264_w100",
+   "zarr": "c0800/atlas/z15264_w100/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 3102,
+   "couvert": 0.775
+  },
+  {
+   "zone": "0800",
+   "surface": "z15264_w100",
+   "zarr": "c0800/atlas/z15264_w100/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 4126,
+   "couvert": 0.823
+  },
+  {
+   "zone": "0800",
+   "surface": "z15264_w100",
+   "zarr": "c0800/atlas/z15264_w100/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 5150,
+   "couvert": 0.512
+  },
+  {
+   "zone": "0800",
+   "surface": "z15264_w100",
+   "zarr": "c0800/atlas/z15264_w100/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 9246,
+   "couvert": 0.76
+  },
+  {
+   "zone": "0800",
+   "surface": "z15264_w100",
+   "zarr": "c0800/atlas/z15264_w100/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 10270,
+   "couvert": 0.774
+  },
+  {
+   "zone": "0800",
+   "surface": "z15264_w100",
+   "zarr": "c0800/atlas/z15264_w100/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 11294,
+   "couvert": 0.815
+  },
+  {
+   "zone": "0800",
+   "surface": "z15264_w100",
+   "zarr": "c0800/atlas/z15264_w100/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 12318,
+   "couvert": 0.852
+  },
+  {
+   "zone": "0800",
+   "surface": "z15264_w100",
+   "zarr": "c0800/atlas/z15264_w100/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 13342,
+   "couvert": 0.776
+  },
+  {
+   "zone": "0800",
+   "surface": "z16464_w020",
+   "zarr": "c0800/atlas/z16464_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 70,
+   "x": 30,
+   "couvert": 0.706
+  },
+  {
+   "zone": "0800",
+   "surface": "z16464_w020",
+   "zarr": "c0800/atlas/z16464_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 70,
+   "x": 1054,
+   "couvert": 0.773
+  },
+  {
+   "zone": "0800",
+   "surface": "z5664_w020",
+   "zarr": "c0800/atlas/z5664_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 30,
+   "couvert": 0.765
+  },
+  {
+   "zone": "0800",
+   "surface": "z5664_w020",
+   "zarr": "c0800/atlas/z5664_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 1054,
+   "couvert": 0.91
+  },
+  {
+   "zone": "0800",
+   "surface": "z8672_w020",
+   "zarr": "c0800/atlas/z8672_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 30,
+   "couvert": 0.8
+  },
+  {
+   "zone": "0800",
+   "surface": "z8672_w020",
+   "zarr": "c0800/atlas/z8672_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 1054,
+   "couvert": 0.748
+  },
+  {
+   "zone": "0800",
+   "surface": "z8672_w020",
+   "zarr": "c0800/atlas/z8672_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 2078,
+   "couvert": 0.742
+  },
+  {
+   "zone": "0800",
+   "surface": "z8672_w040",
+   "zarr": "c0800/atlas/z8672_w040/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 30,
+   "couvert": 0.769
+  },
+  {
+   "zone": "0800",
+   "surface": "z8672_w040",
+   "zarr": "c0800/atlas/z8672_w040/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 1054,
+   "couvert": 0.615
+  },
+  {
+   "zone": "0800",
+   "surface": "z8672_w040",
+   "zarr": "c0800/atlas/z8672_w040/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 3102,
+   "couvert": 0.602
+  },
+  {
+   "zone": "0800",
+   "surface": "z8672_w040",
+   "zarr": "c0800/atlas/z8672_w040/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 30,
+   "x": 4126,
+   "couvert": 0.733
+  },
+  {
+   "zone": "0800",
+   "surface": "z9264_w020",
+   "zarr": "c0800/atlas/z9264_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 50,
+   "x": 30,
+   "couvert": 0.778
+  },
+  {
+   "zone": "0800",
+   "surface": "z9264_w020",
+   "zarr": "c0800/atlas/z9264_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 50,
+   "x": 1054,
+   "couvert": 0.837
+  },
+  {
+   "zone": "0800",
+   "surface": "z9264_w020",
+   "zarr": "c0800/atlas/z9264_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 50,
+   "x": 2078,
+   "couvert": 0.814
+  },
+  {
+   "zone": "0800",
+   "surface": "z9872_w020",
+   "zarr": "c0800/atlas/z9872_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 90,
+   "x": 30,
+   "couvert": 0.778
+  },
+  {
+   "zone": "0800",
+   "surface": "z9872_w020",
+   "zarr": "c0800/atlas/z9872_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 90,
+   "x": 1054,
+   "couvert": 0.775
+  },
+  {
+   "zone": "0800",
+   "surface": "z9872_w020",
+   "zarr": "c0800/atlas/z9872_w020/surface-volumes/8.64um-1.2m-116keV-volume-20250521135224.zarr",
+   "y": 90,
+   "x": 2078,
+   "couvert": 0.774
+  },
+  {
+   "zone": "erwin",
+   "y": 203,
+   "x": 260,
+   "lettres": []
+  },
+  {
+   "zone": "erwin",
+   "y": 203,
+   "x": 1284,
+   "lettres": []
+  },
+  {
+   "zone": "erwin",
+   "y": 203,
+   "x": 2308,
+   "lettres": []
+  },
+  {
+   "zone": "erwin",
+   "y": 203,
+   "x": 3332,
+   "lettres": [
+    11,
+    12
+   ]
+  },
+  {
+   "zone": "erwin",
+   "y": 203,
+   "x": 4356,
+   "lettres": [
+    10
+   ]
+  },
+  {
+   "zone": "erwin",
+   "y": 1227,
+   "x": 260,
+   "lettres": [
+    1,
+    2
+   ]
+  },
+  {
+   "zone": "erwin",
+   "y": 1227,
+   "x": 1284,
+   "lettres": [
+    3,
+    4
+   ]
+  },
+  {
+   "zone": "erwin",
+   "y": 1227,
+   "x": 2308,
+   "lettres": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "zone": "erwin",
+   "y": 1227,
+   "x": 3332,
+   "lettres": [
+    8,
+    9
+   ]
+  },
+  {
+   "zone": "erwin",
+   "y": 1227,
+   "x": 4356,
+   "lettres": []
+  },
+  {
+   "zone": "0009B",
+   "y": 4726,
+   "x": 1664,
+   "lettres": [
+    1,
+    4
+   ]
+  },
+  {
+   "zone": "0009B",
+   "y": 4726,
+   "x": 2688,
+   "lettres": [
+    2,
+    3
+   ]
+  },
+  {
+   "zone": "0009B",
+   "y": 4726,
+   "x": 3712,
+   "lettres": [
+    5,
+    6
+   ]
+  },
+  {
+   "zone": "0009B",
+   "y": 5750,
+   "x": 1664,
+   "lettres": [
+    7,
+    8
+   ]
+  },
+  {
+   "zone": "0009B",
+   "y": 5750,
+   "x": 2688,
+   "lettres": [
+    9,
+    10
+   ]
+  },
+  {
+   "zone": "0009B",
+   "y": 5750,
+   "x": 3712,
+   "lettres": []
+  }
+ ]
+}

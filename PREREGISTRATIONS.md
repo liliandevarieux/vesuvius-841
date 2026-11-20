@@ -5458,3 +5458,182 @@ Both pass again: PR-58's conclusion is reproduced.
 - the label-free order check, from `scripts/pr59_sens.py`.
 
 The intervals come from the scoring script's resampling and were not recomputed by the recount.
+
+## PR-60 — registration, 2026-11-20 18:36, before any PHerc0800 map is computed: on PHerc0800's eye-approved surfaces, do the three legible maps show writing that depends on the layer order, as known writing does?
+
+*Why.* PR-58 and PR-59 found three public 9 µm maps legible blind on PHerc. 343, the scan type of PHerc0800:
+- Reader V3, 15 then 20 correct readings out of 48;
+- Argus V3, 16 then 18;
+- v8-in, 8.
+
+PR-59 decided that the three go to PHerc0800, with their mean as the ensemble and each map also kept on its own.
+- PHerc0800 has no known letter, so a reading there cannot be scored against a reference.
+- What a test can ask is whether the maps show writing where the model reads the layers in the right order, and not
+  in the reverse order.
+- The reverse order is a control taken from the same papyrus, the same model and the same pixels.
+- On 0343P's camera truth, v8-in scores 0.744 in one order and 0.476 in the other (PR-59, part A): its ink is
+  order-specific.
+- Reader V3's author writes that the right order "depends on which face of the papyrus the render starts from: keep the
+  one that shows letters".
+
+*What has been done, all before this registration. No PHerc0800 ink map has been computed or looked at.*
+- *Surfaces.* The 14 PHerc0800 meshes of `pscamillo/vesuvius-eligible-meshes` approved by eye (verdict "aprova"),
+  36.87 cm² in all. Their author judged them on the scan's fibre weave, not on ink.
+- *Renders.* The surface volumes rendered by Carson Rodrigues (`rodriguescarson/eligible-scroll-atlas-renders`,
+  CC BY-NC 4.0).
+  - Rendered with `vc_render_tifxyz --flip-normals`, 31 layers. That setting reproduces the team's own PHerc0800 surface
+    volume (Pearson r 1.0000, per its README), so the stored layer order is the team's.
+  - Only the surface-volume archives were downloaded. The ink_9um maps in the same folders were not downloaded and
+    have not been viewed. The manifest's ink-score columns were not read.
+- *Weights.*
+  - Reader V3: `domenicor046/reader-v3`, MIT, sha256 `ea405417…`.
+  - Argus V3: `ruiconte/argus-v3`, MIT, sha256 `2d887d2b…`, identical to the hash its card publishes.
+  - v8-in: as in PR-59.
+- *Our install reproduces the organisers' maps.* Reader V3 and Argus V3 were run on Erwin's 343 surface volume, with
+  the authors' command (`infer --overlap 0.5 --blend-mode hann --direction both`, villa 5b2ff25b).
+  - Compared with the organisers' published maps of the same grid, over 15,233,136 pixels:
+    - Reader V3: r = 1.0000, mean absolute difference 0.01 / 255;
+    - Argus V3: r = 1.0000, mean absolute difference 0.02 / 255.
+  - So the maps read in PR-58 and PR-59 are the forward order.
+  - The reverse order gives different maps: r = 0.49 for Reader V3 and 0.38 for Argus V3.
+- *Control maps.* Reader V3 and Argus V3 (both orders) were computed on the 0009B surface volume. v8-in (both orders)
+  is being computed on the 0009B window.
+- *Tile plan.* `scripts/c0800_carres.py`, from the scan alone: tiles of 1024 px.
+  - PHerc0800: the mask is layer 15 > 0. The grid is anchored at the mask's top-left corner, and a tile is kept if at
+    least 50 % is covered. This gives **52 tiles** on the 14 surfaces.
+  - Erwin's reading frame: 2 × 5 tiles, centred. 6 of the 10 hold the centre of at least one of his 12 reference
+    letters.
+  - The 0009B window of PR-47, widened to 2 × 3 tiles: 5 of the 6 hold a labelled letter.
+
+*Maps and conditions.* There are 8 conditions: 4 maps × 2 layer orders.
+- *Maps.*
+  - Reader V3 and Argus V3, authors' command, `--direction both`.
+  - v8-in, `scripts/v8in_zarr.py` as in PR-59, both orders.
+  - The mean of the three.
+- *Layer orders.* "Forward" is the stored order for all three models: the team's order, the one that reads PHerc. 343
+  (above, and PR-59 part A). "Reverse" is the other order. It is fixed now, without looking.
+- *Erwin's tiles.* The maps are brought into his reading frame with the PR-58 field (`c343_recale.py`).
+- *Display.*
+  - Each map and order is stretched, per surface or per control zone, from its median to its 99.5th percentile over
+    the pixels on the surface, and clipped.
+  - The mean is the average of the three stretched maps, where all three are valid. It is stretched again the same
+    way.
+  - Each tile is reduced 4 × 4, to 256 px. Pixels off the surface are black.
+
+*Readers and sheets.*
+- *Readers.* 48 fresh readers, as a latin square.
+  - Reader r sees each of the 68 tiles exactly once: tile j in condition (j + r) mod 8.
+  - So every tile is read 6 times in each condition, 24 times forward and 24 times reverse, by different readers.
+- *Sheets.* The tiles are shuffled per reader (seed 60 + r) and numbered 1 to 68, over three sheets of 24, 24 and 20
+  tiles, in a 6 × 4 grid.
+- *Instructions, version "tiles v1", word for word:* "These images are sheets of numbered square crops. Each crop is an
+  ink-detection map of a small flat piece of a carbonised papyrus scroll: bright means the model thinks there is ink.
+  Some crops may show writing, ancient Greek capital letters about a quarter to a third of the crop's height; others
+  may show none, only fibres, cracks, noise or blotches. Writing may appear in any orientation, including mirrored. For
+  each crop, answer on its own line `n: yes` if you can see at least one recognisable letter, or `n: no` otherwise.
+  After `yes` you may add up to three letter names that you can read. Go by your first impression of each crop: do not
+  deliberate at length over any of them."
+- *Dry run.* One reader first reads a sheet of 0343P tiles (v8-in, both orders, outside the test), with the same
+  instructions. They must answer within 600 s, and their answer does not count.
+- *Reader failure.* Rule 2:
+  - a reader with no answer within 600 s, or with fewer than 68 parsable lines, is replaced once by a fresh reader
+    with the same sheets;
+  - the decision is dated before any answer on those sheets is seen;
+  - a late answer is discarded;
+  - every incident is published.
+
+*Primary.* For each PHerc0800 tile t:
+- Yf = the number of "yes" answers out of its 24 forward readings, all maps together; Yr = the same out of its 24
+  reverse readings.
+- The background rates bf and br are the "yes" rates over all 52 tiles, forward and reverse. A bias of one order spread
+  over every tile is thereby absorbed.
+- p_t = P(Bin(24, bf) − Bin(24, br) ≥ Yf − Yr), exact.
+- Holm correction over the 52 tiles. A tile is **retained** if its corrected p ≤ 0.05.
+
+*Gate, read first (rule 1).* The same test is run on Erwin's 6 tiles with reference letters, with bf and br taken from
+the PHerc0800 tiles and Holm over the 6.
+- The gate holds if **at least 3 of the 6** are retained: the measure then finds known, legible writing on this scan
+  type.
+
+*What each outcome decides.*
+- *The gate holds and at least one PHerc0800 tile is retained.*
+  - The retained tiles are candidates, not letters, and nothing is claimed publicly.
+  - Next steps, each registered before it runs:
+    - naming in window format v2 on those places, with the 0009B and Erwin windows read by the same readers;
+    - Lilian's own look, mixed with control tiles;
+    - renders of the neighbouring windings.
+- *The gate holds and no tile is retained.* The 14 eye-approved surfaces show no order-dependent writing with the three
+  legible maps, at the sensitivity stated under *Capacity*. PHerc0800 moves to its sharpest band (z ≈ 2700–3900),
+  where no surface is published.
+- *The gate fails.* This format does not see known writing, and nothing is concluded about PHerc0800 from it. The
+  fallback is window-format naming on a subset, under its own registration.
+
+*Secondary.*
+1. *Each map on its own.*
+   - The same test with 6 forward against 6 reverse readings, and per-map background rates.
+   - Each map's own gate on Erwin.
+   - The "yes" rate on Erwin's letter tiles in the forward order, per map. This shows whether the mean is weakened by
+     v8-in, as PR-59 asked.
+2. *The 0009B control (rule 2).* "Yes" rates per map and order on its 6 tiles.
+   - It is reported, not used to judge.
+   - Reader V3 keeps Reader v2's training data, which covers part of this segment (PR-45), and Argus V3 descends from
+     Reader V3. v8-in used 0009B for validation only.
+3. *Background.*
+   - bf and br on PHerc0800.
+   - The "yes" rates on Erwin's 4 tiles without a reference letter. These may hold unread text: they are not called
+     blank.
+4. *Letters named.* The names after "yes" are listed for retained tiles and for Erwin's tiles, and not scored.
+
+*Capacity*, computed before registering (`scripts/capacite_pr60.py`, output `results/pr60/capacite_pr60.txt`).
+- *Model.* A tile without writing gets "yes" at a rate b in both orders. A tile with writing gets qf forward and b in
+  reverse.
+- *With writing.* At least one tile is retained:
+  - for one written tile, 79 % (b = 0.10, qf = 0.50), 62 % (b = 0.25, qf = 0.70) and 62 % (b = 0.40, qf = 0.90);
+  - for two written tiles, 95 %, 81 % and 86 %.
+- *Weak writing.* If writing raises "yes" by only 0.20 to 0.25, the test mostly misses it: 11 to 18 % for one tile,
+  26 to 41 % for three.
+- *Without writing.* At least one tile is retained falsely 1.3 to 2.9 % of the time. With a bias of +0.05 or +0.10
+  for the forward order spread over every tile, the rate is 2.0 to 3.0 %.
+- *Rejected before registering.* A first statistic, the sum of the forward-minus-reverse differences over all tiles,
+  was dropped. It needed 8 to more than 10 written tiles out of 40 for 80 % power, and a +0.05 bias gave it 26 to 44 %
+  false signals.
+
+*Prediction.*
+- The gate holds.
+- On PHerc0800, no tile is retained, or one at most, in line with every published look at this scroll so far:
+  - at least six independent passes over the six public segments;
+  - Reader V3 on the band z 5700–7200.
+- Those passes looked elsewhere. We found no Reader V3 or Argus V3 map published on these 14 surfaces (search of
+  20 November, not exhaustive). Carson Rodrigues' atlas holds ink_9um maps of them, which we have not viewed.
+
+*Reservations, stated now.*
+- *Readers.* They are AI agents.
+- *Orientation.* Erwin's tiles are shown upright in his reading frame, whereas PHerc0800's orientation is unknown. The
+  question asked ("any recognisable letter, any orientation") is meant to make this matter little, but upright known
+  text may be easier.
+- *The control assumes the ink is specific to the layer order.* A model that shows ink in both orders would make a
+  real letter invisible to this test. The gate, run per map in secondary 1, measures exactly that on known writing.
+- *Cost.* 49 reader sessions.
+
+*Method rules.*
+- *Rule 1.* The gate validates the measure on Erwin's already-read letters before it judges PHerc0800.
+- *Rule 2.*
+  - 6 readers per map and order;
+  - capacity above;
+  - the 0009B control, with the reason it does not judge;
+  - reader-failure rule and dry run above.
+  - Reference names are not used: no name is scored.
+- *Rule 3.* Not applicable: no training.
+- *Rule 6.* The GPU computes the PHerc0800 maps after this registration, shown on the live page.
+- *Rule 7.* A new format, "tiles v1", validated inside this test by the gate. Window format v2 was not used for the
+  52 tiles: it would need about 20 panels × 8 conditions × 6 readers.
+
+*Files.* `results/pr60/`:
+- the capacity output;
+- the reproduction log (Reader V3 and Argus V3 against the organisers' maps);
+- the tile plan (`plan_carres.json`);
+- the weight hashes;
+- the download log.
+
+Scripts: `scripts/c0800_telecharge.sh` (with the list `c0800_surfaces14.tsv`), `c0800_repro.sh`, `c0800_temoins.sh`,
+`c0800_carres.py` and `capacite_pr60.py`.

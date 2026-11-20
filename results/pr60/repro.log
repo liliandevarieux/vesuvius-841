@@ -1,0 +1,8 @@
+debut 2026-11-20 18:19:19
+reader-v3 exit=0 18:20:29
+argus-v3 exit=0 18:21:45
+reader-v3 direct   r = 1.0000  |ecart| moyen 0.01  p99 1  pixels 15233136
+reader-v3 _reverse r = 0.4899  |ecart| moyen 14.38  p99 125  pixels 15233136
+argus-v3  direct   r = 1.0000  |ecart| moyen 0.02  p99 1  pixels 15233136
+argus-v3  _reverse r = 0.3761  |ecart| moyen 26.26  p99 190  pixels 15233136
+FINI 2026-11-20 18:21:49
