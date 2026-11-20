@@ -5291,3 +5291,65 @@ The intervals come from the scoring script's resampling and were not recomputed 
 - *Files.* `results/pr58/recompte_aveugle_seuil_capacite*`.
 
 *Not recounted.* The mesh-to-mesh residual (≤ 1.12 voxels in the plane) comes from `c343_recale.py` only.
+
+## PR-59 — registration, 2026-11-20 15:25, before any v8-in map is computed: does v8-in, the one public 9 µm model trained on no part of PHerc. 343, make its read letters legible blind?
+
+*Why.* PR-58 read three maps; all three models had seen part of 343, or were part of the reference ensemble.
+- Reader V3 and Argus V3 trained on the detached fragment 0343P.
+- Seed 43 is part of Erwin's ensemble.
+- v8-in (YoussefMoNader/ink-8um-v8in) has neither 343 nor 0343P in its training configuration
+  (`training/configs/v8in.json`).
+
+*Part A — calibration on 0343P, before any reading.*
+- *Run.* v8-in with its published code and weights, unmodified (last commit d89166b4, 28/09), via
+  `scripts/v8in_zarr.py`. The script calls the published `predict_stack`.
+  - Input: the organisers' surface volume of 0343P segment 20250511003658, level 0, 31 layers. The central 24 are
+    used, clipped at 200, as `predict.py` does.
+  - Both layer orders. Batch 4, the only change, for our 8 GB GPU.
+- *Score.* `DomRusso2/ir-truth-9um`, `scripts/score_map.py`, unchanged: AUC on the camera truth.
+- *Published reference.*
+  - v8-in 0.7438 (`results/scores.json`);
+  - reversed v8-in 0.48 (README, no file).
+- *Criterion.* Our pipeline reproduces v8-in if one order scores 0.744 ± 0.02 and the other at most 0.55.
+  - That order, called "the 0343P order", is used on Erwin's region.
+  - *Assumption, stated.* Both surface volumes come from the same organisers, the same scan protocol and, we assume,
+    the same renderer.
+- *Not reproduced.* No reading. The discrepancy is investigated first.
+
+*Part B — blind reading of Erwin's 12 letters.*
+- *Map.* v8-in in the 0343P order, on the organisers' surface volume of Erwin's segment (same 2660 × 6780 grid as
+  their maps, 31 layers, central 24). It is brought into Erwin's reading frame with the PR-58 field
+  (`c343_recale.py`).
+  - The other order is also computed and kept, but not read.
+  - For both orders, the label-free p99 − p50 on the papyrus is reported.
+- *Arms.* v8-in, plus Reader V3 and Argus V3 again: the same files as in PR-58, read by new readers.
+- *Format.* Identical to PR-58, through `c343_planches.py` with the arm list changed:
+  - letter boxes, margin, vignettes and contrast unchanged;
+  - instructions version 2b, word for word, with 12 crops;
+  - crop order shuffled with seed 59 + reader index;
+  - latin square: letter j on arm (j + r) mod 3;
+  - 12 fresh readers, so 48 readings per arm.
+- *Dry run.* One reader reads the shifted sheet, which now includes v8-in crops. It must answer within 600 s, and
+  its answer does not count.
+- *Reference names, reader failure, intervals and tests.* As in PR-58.
+
+*Primary criterion.* v8-in is **legible blind** if it gets at least 6 correct readings out of 48 (chance P = 0.014).
+
+*Secondary measures.* v8-in − Reader V3, v8-in − Argus V3 and Reader V3 − Argus V3, by exact sign permutation over
+the letters.
+- The capacity is PR-58's: about +25 to +35 points.
+- *Replication.* Reader V3's and Argus V3's counts are set beside PR-58's 15 and 16. PR-58's conclusion "both
+  legible" is reproduced if both reach at least 6 again.
+
+*Prediction.* Part A reproduces the published values. In part B, v8-in is legible blind at 15 to 30 %, not
+significantly different from Reader V3. Its 0343P camera AUC, 0.744, is close to Reader V3's 0.774. Reader V3 and Argus
+V3 are legible again.
+
+*Decision for PHerc0800, fixed now.*
+- *v8-in legible blind.* It joins Reader V3 and Argus V3 for PHerc0800. The 0800 ensemble is the mean of the legible
+  maps.
+- *Not legible.* PHerc0800 goes ahead with Reader V3 and Argus V3 only, as decided in PR-58.
+
+*Method rules.* Rule 1: the judge is the blind reading, and part A calibrates our use of the model before it is
+judged. Rule 2: as in PR-58, the capacity was written there. Rule 3: not applicable. Rule 6: this test is the GPU's
+work. Rule 7: bench version 2, sheet format, letter set "343 v1".
