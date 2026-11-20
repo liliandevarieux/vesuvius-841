@@ -5090,3 +5090,120 @@ sheets that the bench built for PR-53 and PR-54 but that were never run or menti
   - the far segment and its distance;
   - the pseudo-label figures.
 - The "inside the supervised area" test of item 14, which needs a supervision file that is not public.
+
+## PR-58 — registration, 2026-11-20 13:05, before any map of this test is looked at: do single public 9 µm maps make PHerc. 343's read letters legible blind?
+
+*Numbering.* PR-56 and PR-57 belong to a registry note of 29 September that was never published and never run. They
+are left unused here.
+
+*Why.* PHerc. 343 won a First Letters prize on 8 October 2026 (Erwin Nieuwlaar). Its scan type is PHerc0800's:
+8.64 µm, 116 keV. The papyrologists' reading is published: ΠΑΝΤΟΓΙΝΟΜ on the main line, ΜΕ above it. Before PHerc0800,
+we measure which single public map makes these known letters legible to a blind reader.
+- dlescanogithub/vesuvius-inkcheck (29/10) shows that Reader V3 and Reader v2 correlate with Erwin's map on this region.
+- No blind reading of single maps there is published, to our knowledge.
+
+*Done before this registration (no map of the test looked at; only file sizes, shapes and geometry).*
+- *Maps.* The organisers' three maps on the segment `PHerc0343/segments/20261007213123-concat_w047-w048_R5B2_z9500-11000/ink-detection/`
+  on the open-data bucket (uploaded 18/11), each 2660 × 6780 uint8 (sha256):
+  - ink_9um seed 43 (`…20260814010243-ink9um-hybrid3d2d-s43-20k-tile128-stride64.tif`, 7876680d…);
+  - Reader V3 (`…20261019111505-reader-v3-tile384-stride192.tif`, 5d218a4f…);
+  - Argus V3 (`…20261117205746-argus-v3-tile384-stride192.tif`, 3b208396…).
+- *Reference letters.* Built from the papyrologists' green tracings in the prize post's image
+  (scrollprize.substack.com, 8 Oct; image `9dfcc91f…_2000x1654.png`, lower panel).
+  - The lower panel is registered to the data panel of Erwin's submission image by scale search and cross-correlation:
+    scale 0.3530, correlation 0.766, green pixels masked.
+  - Each green component gives a box in Erwin's reading frame. Two components hold two letters each; they are split
+    at the minimum of their column profile, between the middle quarters (ΑΝ and ΤΟ).
+  - 12 letters, in reading order: π α ν τ ο γ ι ν ο μ (main line), μ ε (line above), file `reference_12_lettres.json`
+    (sha256 a65b7574…).
+  - Checked by eye on Erwin's image: each box sits on its letter.
+- *From the organisers' map frame to Erwin's reading frame.* The organisers' mesh starts from Erwin's (identical
+  `meta.json`). Every node of Erwin's mesh is placed on the organisers' final mesh: nearest node, then Gauss-Newton on
+  the bilinear surface.
+  - Inside the 12 letter boxes, the in-plane residual is at most 1.12 voxels. The exception is one sample at the edge
+    of π, whose box is 98 % covered by the organisers' mesh; the other 11 boxes are 100 % covered.
+  - The transform is a rotation of about 171°: determinant +0.996, no mirror.
+  - Script: `c343_recale.py`.
+
+*Arms.* The three maps, in the organisers' published orientation (one map per model; the organisers' files do not state
+the layer order).
+- *Known non-independence.* ink_9um seed 43 is one of the four models of Erwin's ensemble, the image on which the
+  papyrologists read. The letters were found where that ensemble shows ink, so seed 43 is favoured.
+- Reader V3 and Argus V3 were trained on PHerc0343P, a detached fragment of the same scroll with its own volume, but
+  not on these pixels (Reader V3 README).
+
+*Format.* The legibility bench's sheet format.
+- *Instructions.* Version 2b, word for word, with "28" replaced by "12".
+- *Crops.*
+  - Each crop is the letter box plus 40 px of margin, in the reading frame (1 px = 8.64 µm), shown in reading
+    orientation.
+  - Each crop is fitted into a 200 px vignette, with its contrast stretched from the 1st to the 99.5th percentile of
+    the crop.
+- *Order.* The crops are shuffled for each reader (seed 58 + reader index), so the word cannot be guessed from
+  context.
+- *Latin square.* Reader r reads letter j on map (j + r) mod 3.
+- *Readers.* 12 fresh Claude subagents, each given one image and the instructions, and nothing else. Each letter is
+  read 4 times on each map: 48 readings per map.
+  - The readers' model may differ from September's.
+  - Accuracies are therefore not compared with PR-46 to PR-55.
+
+*Reference names.* The papyrologists' published reading, assigned to the tracings in reading order.
+- This replaces rule 2's three reference readers, since the names come from experts.
+- The assignment is recounted blind before any reading: a subagent sees the green panel with the 12 boxes and names
+  each box.
+
+*Dry run of the format.* One reader reads a sheet outside the test and must answer within 600 s. Its answer does not
+count.
+- The sheet uses the same frames shifted 700 px down, below the main line.
+- The maps cycle from crop to crop.
+
+*Reader failure.* As in rule 2.
+- A reader who gives no answer within 600 s, for a technical reason, is replaced by a fresh reader with the same
+  instructions.
+- The decision is dated before any answer to that sheet is seen.
+- A late answer is discarded.
+- Every incident is reported with the result.
+
+*Primary measure, per map.* Correct readings out of 48, with a 95 % interval obtained by resampling letters, then
+readings.
+- *Criterion.* A map is **legible blind** if it has at least 6 correct readings out of 48.
+  - Under chance (1 in 24 names), P(≥ 6) = 0.014. That is under 0.05 / 3 for the three maps.
+
+*Secondary measures.* The three differences between maps: Reader V3 − Argus V3, Reader V3 − seed 43, Argus V3 − seed 43.
+- *Test.* Exact sign permutation per letter, one-sided, with a 95 % interval.
+- *Capacity, computed before this registration.* With 12 letters and 4 readings per letter and map, the smallest
+  difference detected 8 times out of 10 is:
+  - +25 points over a map at 5 %;
+  - +30 points over a map at 15 %;
+  - +35 points over a map at 30 %.
+  
+  The simulation uses a per-letter random effect (logit, standard deviation 1); script `capacite_pr58.py`.
+- *Consequence.* No winner is declared between two maps whose difference is not significant. This test cannot rank
+  models closer than about 30 points.
+
+*Decision for PHerc0800, fixed now.*
+- *Reader V3, Argus V3 or both legible blind.* Those maps go forward to PHerc0800. If both are, and their difference is
+  not significant, both are run, and so is their mean. No choice is made on noise.
+- *Neither legible, while seed 43 is.* On 343, single maps of models independent of the reference do not make the
+  letters legible. PHerc0800 needs an ensemble like Erwin's, registered as a new test.
+- *None legible.* Either this format or single maps fail on 343. We do not go to PHerc0800 with this format. The
+  window format (bench v2) is next.
+
+*Prediction.* Seed 43 has the most correct readings (selection bias). Reader V3 and Argus V3 are legible blind, at 10
+to 25 % each.
+
+*Also reported.* A table per letter; the rate of "unreadable"; each reader's time and tokens; agreement between the
+readers of the same crop.
+
+*Method rules.*
+- *Rule 1.* The judge is the blind reading itself.
+- *Rule 2.*
+  - Every map is read by all 12 readers, on 4 letters each.
+  - The capacity is written above.
+  - Intervals are given.
+  - The failure rule is written above.
+  - The PHerc0009B control window is required for tests on PHerc0800 or PHerc1447; this test is on 343, whose letters
+    were read by experts.
+- *Rule 3.* Not applicable: nothing is trained.
+- *Rule 6.* The GPU stays free for step b, PHerc0343 with v8-in in both layer orders, registered separately.
+- *Rule 7.* Bench version 2, sheet format, new letter set "343 v1".
