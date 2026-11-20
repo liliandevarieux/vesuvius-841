@@ -1,0 +1,29 @@
+readers: ['lecteur01', 'lecteur02', 'lecteur03', 'lecteur04', 'lecteur05', 'lecteur06', 'lecteur07', 'lecteur08', 'lecteur09', 'lecteur10', 'lecteur11', 'lecteur12'] maps: ['readerv3', 'argusv3', 'ink9um_s43']
+total rows 144
+(letter,map) pairs: 36 with count!=4: {}
+problems: none
+
+== per map ==
+readerv3: correct 15/48, unreadable 12, P(X>=15) = 5.83509e-10 (exact 345991961509238921712844286893043169856795232453548027495/...), identical non-unreadable pairs 25/72
+argusv3: correct 16/48, unreadable 6, P(X>=16) = 5.18877e-11 (exact 30766837761990945549745677650460730082923135168799885111/...), identical non-unreadable pairs 46/72
+ink9um_s43: correct 7/48, unreadable 27, P(X>=7) = 0.00357333 (exact 2118808835191387664309317623983540245605981954261814020680064841/...), identical non-unreadable pairs 17/72
+
+== per letter ==
+id name readerv3 argusv3 ink9um_s43
+1 pi 2/4 0/4 0/4 | answers: {'readerv3': ['pi', 'unreadable', 'pi', 'unreadable'], 'argusv3': ['tau', 'tau', 'tau', 'tau'], 'ink9um_s43': ['unreadable', 'unreadable', 'unreadable', 'unreadable']}
+2 alpha 0/4 0/4 0/4 | answers: {'readerv3': ['kappa', 'unreadable', 'unreadable', 'unreadable'], 'argusv3': ['nu', 'nu', 'nu', 'nu'], 'ink9um_s43': ['unreadable', 'unreadable', 'unreadable', 'unreadable']}
+3 nu 2/4 1/4 0/4 | answers: {'readerv3': ['nu', 'omega', 'nu', 'omega'], 'argusv3': ['omega', 'alpha', 'nu', 'omega'], 'ink9um_s43': ['unreadable', 'unreadable', 'unreadable', 'unreadable']}
+4 tau 0/4 1/4 3/4 | answers: {'readerv3': ['gamma', 'gamma', 'pi', 'gamma'], 'argusv3': ['pi', 'tau', 'pi', 'pi'], 'ink9um_s43': ['tau', 'tau', 'tau', 'pi']}
+5 omicron 1/4 2/4 0/4 | answers: {'readerv3': ['omicron', 'alpha', 'alpha', 'alpha'], 'argusv3': ['omicron', 'alpha', 'omicron', 'alpha'], 'ink9um_s43': ['chi', 'upsilon', 'chi', 'chi']}
+6 gamma 4/4 4/4 0/4 | answers: {'readerv3': ['gamma', 'gamma', 'gamma', 'gamma'], 'argusv3': ['gamma', 'gamma', 'gamma', 'gamma'], 'ink9um_s43': ['unreadable', 'unreadable', 'chi', 'chi']}
+7 iota 4/4 4/4 4/4 | answers: {'readerv3': ['iota', 'iota', 'iota', 'iota'], 'argusv3': ['iota', 'iota', 'iota', 'iota'], 'ink9um_s43': ['iota', 'iota', 'iota', 'iota']}
+8 nu 0/4 0/4 0/4 | answers: {'readerv3': ['mu', 'omega', 'unreadable', 'tau'], 'argusv3': ['alpha', 'omega', 'omega', 'omega'], 'ink9um_s43': ['unreadable', 'unreadable', 'unreadable', 'unreadable']}
+9 omicron 2/4 4/4 0/4 | answers: {'readerv3': ['alpha', 'omicron', 'omicron', 'alpha'], 'argusv3': ['omicron', 'omicron', 'omicron', 'omicron'], 'ink9um_s43': ['unreadable', 'unreadable', 'alpha', 'unreadable']}
+10 mu 0/4 0/4 0/4 | answers: {'readerv3': ['delta', 'tau', 'unreadable', 'unreadable'], 'argusv3': ['epsilon', 'unreadable', 'unreadable', 'epsilon'], 'ink9um_s43': ['unreadable', 'unreadable', 'unreadable', 'unreadable']}
+11 mu 0/4 0/4 0/4 | answers: {'readerv3': ['pi', 'pi', 'eta', 'eta'], 'argusv3': ['eta', 'eta', 'eta', 'eta'], 'ink9um_s43': ['omega', 'eta', 'omega', 'unreadable']}
+12 epsilon 0/4 0/4 0/4 | answers: {'readerv3': ['unreadable', 'unreadable', 'unreadable', 'unreadable'], 'argusv3': ['unreadable', 'unreadable', 'unreadable', 'unreadable'], 'ink9um_s43': ['unreadable', 'xi', 'xi', 'xi']}
+
+== sign permutation ==
+readerv3-argusv3: d=[2, 0, 1, -1, -1, 0, 0, 0, -2, 0, 0, 0] S=-1 p=2944/4096=0.71875
+readerv3-ink9um_s43: d=[2, 0, 2, -3, 1, 4, 0, 0, 2, 0, 0, 0] S=8 p=576/4096=0.140625
+argusv3-ink9um_s43: d=[0, 0, 1, -2, 2, 4, 0, 0, 4, 0, 0, 0] S=9 p=512/4096=0.125

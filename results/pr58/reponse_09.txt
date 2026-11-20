@@ -1,0 +1,12 @@
+1: omicron (1)
+2: unreadable
+3: gamma (2)
+4: unreadable
+5: eta (1)
+6: unreadable
+7: nu (1)
+8: unreadable
+9: tau (1)
+10: iota (1)
+11: alpha (1)
+12: unreadable

@@ -1,0 +1,31 @@
+lecteurs : 12 | lettres : 12
+
+MESURE PRINCIPALE (critere : >= 6 justes sur 48)
+readerv3    15 / 48 = 31.2 %  [IC 95 % 10.4 ; 54.2]  P(hasard >= k) = 5.84e-10  illisible 12/48  -> LISIBLE A L AVEUGLE
+argusv3     16 / 48 = 33.3 %  [IC 95 % 10.4 ; 58.3]  P(hasard >= k) = 5.19e-11  illisible 6/48  -> LISIBLE A L AVEUGLE
+ink9um_s43   7 / 48 = 14.6 %  [IC 95 %  0.0 ; 35.4]  P(hasard >= k) = 3.57e-03  illisible 27/48  -> LISIBLE A L AVEUGLE
+
+MESURES SECONDAIRES (permutation exacte des signes par lettre, unilaterale)
+readerv3   - argusv3    : -1 lectures (-2.1 points) [IC 95 % -18.8 ; +14.6], p = 0.7188
+readerv3   - ink9um_s43 : +8 lectures (+16.7 points) [IC 95 % -8.3 ; +41.7], p = 0.1406
+argusv3    - ink9um_s43 : +9 lectures (+18.8 points) [IC 95 % -4.2 ; +43.8], p = 0.1250
+
+PAR LETTRE (justes sur 4, par carte)
+id nom       readerv3   argusv3    ink9um_s43
+ 1 pi        2/4        0/4        0/4       
+ 2 alpha     0/4        0/4        0/4       
+ 3 nu        2/4        1/4        0/4       
+ 4 tau       0/4        1/4        3/4       
+ 5 omicron   1/4        2/4        0/4       
+ 6 gamma     4/4        4/4        0/4       
+ 7 iota      4/4        4/4        4/4       
+ 8 nu        0/4        0/4        0/4       
+ 9 omicron   2/4        4/4        0/4       
+10 mu        0/4        0/4        0/4       
+11 mu        0/4        0/4        0/4       
+12 epsilon   0/4        0/4        0/4       
+
+ACCORD ENTRE LECTEURS DU MEME COUPLE (lettre, carte) : paires identiques hors "illisible"
+readerv3    25 / 72 paires
+argusv3     46 / 72 paires
+ink9um_s43  17 / 72 paires

@@ -1,0 +1,765 @@
+{
+ "cartes": {
+  "readerv3": "20261019111505-reader-v3-tile384-stride192",
+  "argusv3": "20261117205746-argus-v3-tile384-stride192",
+  "ink9um_s43": "20260814010243-ink9um-hybrid3d2d-s43-20k-tile128-stride64"
+ },
+ "lettres": {
+  "1": "pi",
+  "2": "alpha",
+  "3": "nu",
+  "4": "tau",
+  "5": "omicron",
+  "6": "gamma",
+  "7": "iota",
+  "8": "nu",
+  "9": "omicron",
+  "10": "mu",
+  "11": "mu",
+  "12": "epsilon"
+ },
+ "lecteur01": {
+  "1": [
+   8,
+   "nu",
+   "argusv3"
+  ],
+  "2": [
+   5,
+   "omicron",
+   "argusv3"
+  ],
+  "3": [
+   7,
+   "iota",
+   "readerv3"
+  ],
+  "4": [
+   3,
+   "nu",
+   "ink9um_s43"
+  ],
+  "5": [
+   6,
+   "gamma",
+   "ink9um_s43"
+  ],
+  "6": [
+   9,
+   "omicron",
+   "ink9um_s43"
+  ],
+  "7": [
+   2,
+   "alpha",
+   "argusv3"
+  ],
+  "8": [
+   1,
+   "pi",
+   "readerv3"
+  ],
+  "9": [
+   12,
+   "epsilon",
+   "ink9um_s43"
+  ],
+  "10": [
+   11,
+   "mu",
+   "argusv3"
+  ],
+  "11": [
+   4,
+   "tau",
+   "readerv3"
+  ],
+  "12": [
+   10,
+   "mu",
+   "readerv3"
+  ]
+ },
+ "lecteur02": {
+  "1": [
+   12,
+   "epsilon",
+   "readerv3"
+  ],
+  "2": [
+   6,
+   "gamma",
+   "readerv3"
+  ],
+  "3": [
+   11,
+   "mu",
+   "ink9um_s43"
+  ],
+  "4": [
+   5,
+   "omicron",
+   "ink9um_s43"
+  ],
+  "5": [
+   9,
+   "omicron",
+   "readerv3"
+  ],
+  "6": [
+   10,
+   "mu",
+   "argusv3"
+  ],
+  "7": [
+   7,
+   "iota",
+   "argusv3"
+  ],
+  "8": [
+   3,
+   "nu",
+   "readerv3"
+  ],
+  "9": [
+   1,
+   "pi",
+   "argusv3"
+  ],
+  "10": [
+   8,
+   "nu",
+   "ink9um_s43"
+  ],
+  "11": [
+   2,
+   "alpha",
+   "ink9um_s43"
+  ],
+  "12": [
+   4,
+   "tau",
+   "argusv3"
+  ]
+ },
+ "lecteur03": {
+  "1": [
+   7,
+   "iota",
+   "ink9um_s43"
+  ],
+  "2": [
+   8,
+   "nu",
+   "readerv3"
+  ],
+  "3": [
+   1,
+   "pi",
+   "ink9um_s43"
+  ],
+  "4": [
+   9,
+   "omicron",
+   "argusv3"
+  ],
+  "5": [
+   6,
+   "gamma",
+   "argusv3"
+  ],
+  "6": [
+   4,
+   "tau",
+   "ink9um_s43"
+  ],
+  "7": [
+   2,
+   "alpha",
+   "readerv3"
+  ],
+  "8": [
+   11,
+   "mu",
+   "readerv3"
+  ],
+  "9": [
+   3,
+   "nu",
+   "argusv3"
+  ],
+  "10": [
+   10,
+   "mu",
+   "ink9um_s43"
+  ],
+  "11": [
+   12,
+   "epsilon",
+   "argusv3"
+  ],
+  "12": [
+   5,
+   "omicron",
+   "readerv3"
+  ]
+ },
+ "lecteur04": {
+  "1": [
+   5,
+   "omicron",
+   "argusv3"
+  ],
+  "2": [
+   12,
+   "epsilon",
+   "ink9um_s43"
+  ],
+  "3": [
+   2,
+   "alpha",
+   "argusv3"
+  ],
+  "4": [
+   10,
+   "mu",
+   "readerv3"
+  ],
+  "5": [
+   1,
+   "pi",
+   "readerv3"
+  ],
+  "6": [
+   7,
+   "iota",
+   "readerv3"
+  ],
+  "7": [
+   11,
+   "mu",
+   "argusv3"
+  ],
+  "8": [
+   6,
+   "gamma",
+   "ink9um_s43"
+  ],
+  "9": [
+   4,
+   "tau",
+   "readerv3"
+  ],
+  "10": [
+   9,
+   "omicron",
+   "ink9um_s43"
+  ],
+  "11": [
+   3,
+   "nu",
+   "ink9um_s43"
+  ],
+  "12": [
+   8,
+   "nu",
+   "argusv3"
+  ]
+ },
+ "lecteur05": {
+  "1": [
+   9,
+   "omicron",
+   "readerv3"
+  ],
+  "2": [
+   1,
+   "pi",
+   "argusv3"
+  ],
+  "3": [
+   5,
+   "omicron",
+   "ink9um_s43"
+  ],
+  "4": [
+   12,
+   "epsilon",
+   "readerv3"
+  ],
+  "5": [
+   7,
+   "iota",
+   "argusv3"
+  ],
+  "6": [
+   6,
+   "gamma",
+   "readerv3"
+  ],
+  "7": [
+   11,
+   "mu",
+   "ink9um_s43"
+  ],
+  "8": [
+   8,
+   "nu",
+   "ink9um_s43"
+  ],
+  "9": [
+   4,
+   "tau",
+   "argusv3"
+  ],
+  "10": [
+   2,
+   "alpha",
+   "ink9um_s43"
+  ],
+  "11": [
+   3,
+   "nu",
+   "readerv3"
+  ],
+  "12": [
+   10,
+   "mu",
+   "argusv3"
+  ]
+ },
+ "lecteur06": {
+  "1": [
+   2,
+   "alpha",
+   "readerv3"
+  ],
+  "2": [
+   3,
+   "nu",
+   "argusv3"
+  ],
+  "3": [
+   9,
+   "omicron",
+   "argusv3"
+  ],
+  "4": [
+   7,
+   "iota",
+   "ink9um_s43"
+  ],
+  "5": [
+   4,
+   "tau",
+   "ink9um_s43"
+  ],
+  "6": [
+   1,
+   "pi",
+   "ink9um_s43"
+  ],
+  "7": [
+   6,
+   "gamma",
+   "argusv3"
+  ],
+  "8": [
+   11,
+   "mu",
+   "readerv3"
+  ],
+  "9": [
+   10,
+   "mu",
+   "ink9um_s43"
+  ],
+  "10": [
+   5,
+   "omicron",
+   "readerv3"
+  ],
+  "11": [
+   12,
+   "epsilon",
+   "argusv3"
+  ],
+  "12": [
+   8,
+   "nu",
+   "readerv3"
+  ]
+ },
+ "lecteur07": {
+  "1": [
+   6,
+   "gamma",
+   "ink9um_s43"
+  ],
+  "2": [
+   4,
+   "tau",
+   "readerv3"
+  ],
+  "3": [
+   12,
+   "epsilon",
+   "ink9um_s43"
+  ],
+  "4": [
+   5,
+   "omicron",
+   "argusv3"
+  ],
+  "5": [
+   9,
+   "omicron",
+   "ink9um_s43"
+  ],
+  "6": [
+   3,
+   "nu",
+   "ink9um_s43"
+  ],
+  "7": [
+   11,
+   "mu",
+   "argusv3"
+  ],
+  "8": [
+   1,
+   "pi",
+   "readerv3"
+  ],
+  "9": [
+   7,
+   "iota",
+   "readerv3"
+  ],
+  "10": [
+   10,
+   "mu",
+   "readerv3"
+  ],
+  "11": [
+   2,
+   "alpha",
+   "argusv3"
+  ],
+  "12": [
+   8,
+   "nu",
+   "argusv3"
+  ]
+ },
+ "lecteur08": {
+  "1": [
+   1,
+   "pi",
+   "argusv3"
+  ],
+  "2": [
+   2,
+   "alpha",
+   "ink9um_s43"
+  ],
+  "3": [
+   3,
+   "nu",
+   "readerv3"
+  ],
+  "4": [
+   6,
+   "gamma",
+   "readerv3"
+  ],
+  "5": [
+   10,
+   "mu",
+   "argusv3"
+  ],
+  "6": [
+   12,
+   "epsilon",
+   "readerv3"
+  ],
+  "7": [
+   8,
+   "nu",
+   "ink9um_s43"
+  ],
+  "8": [
+   4,
+   "tau",
+   "argusv3"
+  ],
+  "9": [
+   9,
+   "omicron",
+   "readerv3"
+  ],
+  "10": [
+   11,
+   "mu",
+   "ink9um_s43"
+  ],
+  "11": [
+   5,
+   "omicron",
+   "ink9um_s43"
+  ],
+  "12": [
+   7,
+   "iota",
+   "argusv3"
+  ]
+ },
+ "lecteur09": {
+  "1": [
+   9,
+   "omicron",
+   "argusv3"
+  ],
+  "2": [
+   12,
+   "epsilon",
+   "argusv3"
+  ],
+  "3": [
+   6,
+   "gamma",
+   "argusv3"
+  ],
+  "4": [
+   1,
+   "pi",
+   "ink9um_s43"
+  ],
+  "5": [
+   11,
+   "mu",
+   "readerv3"
+  ],
+  "6": [
+   10,
+   "mu",
+   "ink9um_s43"
+  ],
+  "7": [
+   3,
+   "nu",
+   "argusv3"
+  ],
+  "8": [
+   8,
+   "nu",
+   "readerv3"
+  ],
+  "9": [
+   4,
+   "tau",
+   "ink9um_s43"
+  ],
+  "10": [
+   7,
+   "iota",
+   "ink9um_s43"
+  ],
+  "11": [
+   5,
+   "omicron",
+   "readerv3"
+  ],
+  "12": [
+   2,
+   "alpha",
+   "readerv3"
+  ]
+ },
+ "lecteur10": {
+  "1": [
+   1,
+   "pi",
+   "readerv3"
+  ],
+  "2": [
+   11,
+   "mu",
+   "argusv3"
+  ],
+  "3": [
+   9,
+   "omicron",
+   "ink9um_s43"
+  ],
+  "4": [
+   6,
+   "gamma",
+   "ink9um_s43"
+  ],
+  "5": [
+   4,
+   "tau",
+   "readerv3"
+  ],
+  "6": [
+   5,
+   "omicron",
+   "argusv3"
+  ],
+  "7": [
+   3,
+   "nu",
+   "ink9um_s43"
+  ],
+  "8": [
+   10,
+   "mu",
+   "readerv3"
+  ],
+  "9": [
+   8,
+   "nu",
+   "argusv3"
+  ],
+  "10": [
+   7,
+   "iota",
+   "readerv3"
+  ],
+  "11": [
+   12,
+   "epsilon",
+   "ink9um_s43"
+  ],
+  "12": [
+   2,
+   "alpha",
+   "argusv3"
+  ]
+ },
+ "lecteur11": {
+  "1": [
+   1,
+   "pi",
+   "argusv3"
+  ],
+  "2": [
+   6,
+   "gamma",
+   "readerv3"
+  ],
+  "3": [
+   10,
+   "mu",
+   "argusv3"
+  ],
+  "4": [
+   5,
+   "omicron",
+   "ink9um_s43"
+  ],
+  "5": [
+   3,
+   "nu",
+   "readerv3"
+  ],
+  "6": [
+   7,
+   "iota",
+   "argusv3"
+  ],
+  "7": [
+   11,
+   "mu",
+   "ink9um_s43"
+  ],
+  "8": [
+   4,
+   "tau",
+   "argusv3"
+  ],
+  "9": [
+   2,
+   "alpha",
+   "ink9um_s43"
+  ],
+  "10": [
+   9,
+   "omicron",
+   "readerv3"
+  ],
+  "11": [
+   8,
+   "nu",
+   "ink9um_s43"
+  ],
+  "12": [
+   12,
+   "epsilon",
+   "readerv3"
+  ]
+ },
+ "lecteur12": {
+  "1": [
+   12,
+   "epsilon",
+   "argusv3"
+  ],
+  "2": [
+   7,
+   "iota",
+   "ink9um_s43"
+  ],
+  "3": [
+   8,
+   "nu",
+   "readerv3"
+  ],
+  "4": [
+   4,
+   "tau",
+   "ink9um_s43"
+  ],
+  "5": [
+   6,
+   "gamma",
+   "argusv3"
+  ],
+  "6": [
+   9,
+   "omicron",
+   "argusv3"
+  ],
+  "7": [
+   5,
+   "omicron",
+   "readerv3"
+  ],
+  "8": [
+   10,
+   "mu",
+   "ink9um_s43"
+  ],
+  "9": [
+   3,
+   "nu",
+   "argusv3"
+  ],
+  "10": [
+   2,
+   "alpha",
+   "readerv3"
+  ],
+  "11": [
+   1,
+   "pi",
+   "ink9um_s43"
+  ],
+  "12": [
+   11,
+   "mu",
+   "readerv3"
+  ]
+ }
+}

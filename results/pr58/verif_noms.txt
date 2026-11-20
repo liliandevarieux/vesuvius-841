@@ -1,0 +1,16 @@
+Controle a l'aveugle des noms de reference (agent neuf, 20/11 ~13:12, 18,7 s), image images/verif_noms_pr58/boites_numerotees.png
+1: pi
+2: alpha (right edge of the box touches the start of box 3's letter, but holds one letter)
+3: nu
+4: tau
+5: omicron
+6: gamma
+7: iota
+8: nu
+9: omicron (closed loop with a small stroke on the left; could possibly be read as sigma, but omicron is the most likely)
+10: mu
+11: mu
+12: epsilon (lunate form, with a middle bar)
+Upper line: ΜΕ
+Lower line: ΠΑΝΤΟΓΙΝΟΜ
+=> 12/12 identiques a reference_12_lettres.json

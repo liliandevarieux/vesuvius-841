@@ -5207,3 +5207,77 @@ readers of the same crop.
 - *Rule 3.* Not applicable: nothing is trained.
 - *Rule 6.* The GPU stays free for step b, PHerc0343 with v8-in in both layer orders, registered separately.
 - *Rule 7.* Bench version 2, sheet format, new letter set "343 v1".
+
+## Result of PR-58 — written 2026-11-20, after the reading (all counts recounted blind from the answer files)
+
+**Reader V3 and Argus V3 make about a third of 343's known letters legible blind; ink_9um seed 43 alone, a seventh.**
+- All three maps pass the criterion (at least 6 of 48).
+- The prediction "seed 43 reads best" **fails**: seed 43 reads worst.
+
+*Running.* Name check, dry run and the 12 readers were all done on 20 November, after the 13:05 registration.
+- *Name check.* Done blind before any reading: a fresh subagent named the 12 boxes on the green panel and gave
+  π α ν τ ο γ ι ν ο μ, μ ε, 12 out of 12 as registered. It added one remark: box 9 could just possibly be sigma.
+- *Dry run.* The reader answered in 11 s, in the right format.
+- *Readers.* All 12 answered, in 9 to 14 s and about 50,000 tokens each. No failure, no replacement.
+
+| map | correct, out of 48 | 95 % interval | P(chance ≥ k) | "unreadable" | identical non-"unreadable" pairs |
+|---|---|---|---|---|---|
+| Reader V3 | **15** (31 %) | 10 – 54 % | 5.8 × 10⁻¹⁰ | 12 | 25 / 72 |
+| Argus V3 | **16** (33 %) | 10 – 58 % | 5.2 × 10⁻¹¹ | 6 | 46 / 72 |
+| ink_9um seed 43 | **7** (15 %) | 0 – 35 % | 3.6 × 10⁻³ | 27 | 17 / 72 |
+
+*Secondary measures (exact sign permutation over the 12 letters, one-sided).*
+
+| comparison | difference | 95 % interval | p |
+|---|---|---|---|
+| Reader V3 − Argus V3 | −1 reading (−2 points) | −19 to +15 points | 0.72 |
+| Reader V3 − seed 43 | +8 readings (+17 points) | −8 to +42 points | 0.14 |
+| Argus V3 − seed 43 | +9 readings (+19 points) | −4 to +44 points | 0.13 |
+
+None is significant. This is consistent with the capacity written in advance: about +30 points were needed.
+
+*Per letter (correct readings out of 4).*
+
+| letter | Reader V3 | Argus V3 | seed 43 |
+|---|---|---|---|
+| 1 π | 2 | 0 | 0 |
+| 2 α | 0 | 0 | 0 |
+| 3 ν | 2 | 1 | 0 |
+| 4 τ | 0 | 1 | 3 |
+| 5 ο | 1 | 2 | 0 |
+| 6 γ | 4 | 4 | 0 |
+| 7 ι | 4 | 4 | 4 |
+| 8 ν | 0 | 0 | 0 |
+| 9 ο | 2 | 4 | 0 |
+| 10 μ | 0 | 0 | 0 |
+| 11 μ | 0 | 0 | 0 |
+| 12 ε | 0 | 0 | 0 |
+
+*Reservations, found while reading the results.*
+- *Few letters carry the count.* γ, ι and the second ο make 10 of Reader V3's 15 and 12 of Argus V3's 16. Five
+  letters (α, the second ν, both μ, ε) are read on no map. Iota, a single bar, is read on all three maps.
+- *Consistent wrong names on Argus V3.* Four readers out of four gave the same wrong name three times: π read as
+  τ, α read as ν, the upper μ read as η. The second ν was also read as ω three times.
+  - This is why Argus V3 has the highest agreement (46 / 72). Agreement is not accuracy.
+  - The α box touches the ν (the name checker noted it), so a crop can hold most of a neighbour.
+- *Readers.* They are AI agents, and their model may differ from September's: the accuracies are not compared with
+  PR-46 to PR-55.
+- *Orientation.* Each map is read in the organisers' published layer order. Reader V3 and Argus V3 are evidently on
+  the reading side; for seed 43 alone this was not checked.
+- *Selection.* The letters were found with an ensemble that contains seed 43. That favours seed 43, and it still
+  reads worst. A single ink_9um map is much noisier than the four-model average over 31 depths that Erwin read
+  (figure `images/2026-11-20_pr58_trois_cartes.png`).
+
+*Decision, as registered.* Reader V3 and Argus V3 are both legible blind, and their difference is not significant.
+- Both go forward to PHerc0800, and so does their mean. No choice is made between them.
+- On 343, a single map of either is about as legible as the other, roughly a third of letters on first impression.
+
+*Files.* `results/pr58/`:
+- the key;
+- the 12 answers;
+- the name check and the dry run;
+- times and tokens;
+- the scoring output, from `scripts/c343_score.py`;
+- the blind recount script and its output: same counts, same p-values, exact.
+
+The intervals come from the scoring script's resampling and were not recomputed by the recount.
