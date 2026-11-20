@@ -5643,7 +5643,7 @@ Scripts: `scripts/c0800_telecharge.sh` (with the list `c0800_surfaces14.tsv`), `
 - *Code fixed now.* The sheet builder `scripts/c0800_planches.py` and the scoring script `scripts/c0800_score.py` are
   published as they will run. The scorer was checked on simulated answers only. The GPU queue is
   `scripts/c0800_cartes.sh`.
-- *Dry run, made longer.* The registration said "a sheet of 0343P tiles". 0343P is small: tiles of 1024 px covering at
-  least half of it fill only one row. So the dry run uses 68 overlapping 0343P tiles (v8-in, both orders, a step of
+- *Dry run, made longer.* The registration said "a sheet of 0343P tiles". 0343P is small: tiles of 1024 px, side by side,
+  covering at least half of the map give only 10 (5 per order). So the dry run uses 68 overlapping 0343P tiles (v8-in, both orders, a step of
   256 px), on three sheets of 24, 24 and 20, the length of a test session.
 - Nothing else changes.
