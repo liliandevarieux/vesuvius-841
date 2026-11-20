@@ -24,7 +24,7 @@ for inverse in (False, True):
             dernier[0] = time.time()
             print('  %s %d/%d tuiles (%.0f s) memoire %.2f Go' % ('inverse' if inverse else 'direct', n, tot,
                   time.time() - t0, torch.cuda.max_memory_allocated() / 1e9), flush=True)
-    p = predict_stack(modele, pile, reverse=inverse, batch_size=lot, num_workers=2, progress=prog)
+    p = predict_stack(modele, pile, reverse=inverse, batch_size=lot, num_workers=0, progress=prog)  # 0 : Python 3.14 relance le script dans chaque processus auxiliaire
     f = '%s_%s.tif' % (out, 'inverse' if inverse else 'direct')
     tifffile.imwrite(f, np.round(p * 255).astype(np.uint8))
     journal['inverse' if inverse else 'direct'] = dict(fichier=f, secondes=round(time.time() - t0),
