@@ -1,0 +1,14 @@
+{
+ "direct": {
+  "fichier": "c343/pr59/v8in_erwin_direct.tif",
+  "secondes": 2336,
+  "moyenne": 0.18558664619922638,
+  "p99": 0.6140230298042297
+ },
+ "inverse": {
+  "fichier": "c343/pr59/v8in_erwin_inverse.tif",
+  "secondes": 3144,
+  "moyenne": 0.18410350382328033,
+  "p99": 0.5855808258056641
+ }
+}

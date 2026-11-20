@@ -1,0 +1,14 @@
+{
+ "direct": {
+  "fichier": "c343/pr59/v8in_0343P_direct.tif",
+  "secondes": 908,
+  "moyenne": 0.22666050493717194,
+  "p99": 0.6177582144737244
+ },
+ "inverse": {
+  "fichier": "c343/pr59/v8in_0343P_inverse.tif",
+  "secondes": 907,
+  "moyenne": 0.15063130855560303,
+  "p99": 0.5465126633644104
+ }
+}

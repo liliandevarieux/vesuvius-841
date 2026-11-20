@@ -5353,3 +5353,108 @@ V3 are legible again.
 *Method rules.* Rule 1: the judge is the blind reading, and part A calibrates our use of the model before it is
 judged. Rule 2: as in PR-58, the capacity was written there. Rule 3: not applicable. Rule 6: this test is the GPU's
 work. Rule 7: bench version 2, sheet format, letter set "343 v1".
+
+## Result of PR-59 — written 2026-11-20, after the reading (all counts recounted blind from the answer files)
+
+**v8-in passes the criterion, narrowly: 8 correct readings out of 48 (17 %), carried by three letters. Reader V3 (20/48)
+and Argus V3 (18/48) are legible again with new readers.**
+- The prediction holds: part A reproduced the published values; v8-in falls inside the predicted 15 to 30 %, and its
+  difference with Reader V3 is not significant by the registered test.
+- Its 0343P camera AUC (0.744, close to Reader V3's 0.774) did not foretell the gap seen here: 12 fewer correct
+  readings than Reader V3.
+
+*Part A — calibration on 0343P.* Done before part B, scored with the unchanged `score_map.py`.
+
+| layer order | our AUC | published |
+|---|---|---|
+| direct | **0.7438** | 0.7438 (`results/scores.json`) |
+| reversed | **0.4763** | 0.48 (README) |
+
+- The criterion (one order at 0.744 ± 0.02, the other ≤ 0.55) is met. The 0343P order is the **direct** order.
+- Our direct map equals the published `v8-in.png` to within 1/255 at every pixel, the rounding of the 8-bit output.
+
+*Label-free layer-order check (p99 − p50 on the papyrus, pixels > 0, probability × 255), as registered.*
+
+| surface | direct | reversed | order the check picks |
+|---|---|---|---|
+| 0343P (part A) | 59 | 81 | reversed: **wrong**, the camera truth says direct |
+| Erwin's region | 81 | 71 | direct, which agrees with the 0343P order |
+
+- **Our label-free rule fails here.** Since September, the bench has chosen a map's layer order by the higher
+  p99 − p50, without labels (`banc_lisibilite.py`). On 0343P it picks the order whose AUC is at chance level (0.48).
+- On Erwin's region it agrees with the order fixed in part A, which was the only one read. Part B does not depend on
+  the check.
+- *Consequence for PHerc0800.* The layer order of v8-in is taken from part A, not from p99 − p50.
+
+*Running.* Dry run and the 12 readers were all done on 20 November, after the 15:25 registration and part A.
+- *Dry run.* The reader answered the shifted sheet in 7 s, in the right format.
+- *Readers.* All 12 answered, in 15 to 28 s and about 50,000 tokens each. No failure, no replacement.
+- *Reference names.* Unchanged from PR-58 (π α ν τ ο γ ι ν ο μ, μ ε).
+
+| map | correct, out of 48 | 95 % interval | P(chance ≥ k) | "unreadable" | identical non-"unreadable" pairs |
+|---|---|---|---|---|---|
+| v8-in | **8** (17 %) | 0 – 39.6 % | 7.7 × 10⁻⁴ | 31 | 14 / 72 |
+| Reader V3 | **20** (42 %) | 16.7 – 66.7 % | 1.3 × 10⁻¹⁵ | 14 | 29 / 72 |
+| Argus V3 | **18** (38 %) | 12.5 – 62.5 % | 3.1 × 10⁻¹³ | 6 | 41 / 72 |
+
+*Secondary measures (exact sign permutation over the 12 letters, one-sided, first named ahead).*
+
+| comparison | difference | 95 % interval | p |
+|---|---|---|---|
+| v8-in − Reader V3 | −12 readings (−25 points) | −52.1 to 0 points | 0.97 |
+| v8-in − Argus V3 | −10 readings (−21 points) | −47.9 to +2.1 points | 0.94 |
+| Reader V3 − Argus V3 | +2 readings (+4 points) | −8.3 to +16.7 points | 0.50 |
+
+- None is significant. The registered tests ask whether the first map reads better; here the gap runs the other way.
+- *Not registered, reported for completeness.* In the reverse direction the same exact test gives
+  Reader V3 − v8-in p = 0.0625 (256 / 4096) and Argus V3 − v8-in p = 0.125 (512 / 4096).
+- The capacity written in PR-58 was about +25 to +35 points. A 21 to 25 point gap sits at its lower edge, so "not
+  significant" here does not mean "equal".
+
+*Replication.* Reader V3 15 → 20 and Argus V3 16 → 18 between PR-58 and PR-59, with 24 different readers in all.
+Both pass again: PR-58's conclusion is reproduced.
+
+*Per letter (correct readings out of 4; PR-58 in brackets for the two repeated maps).*
+
+| letter | v8-in | Reader V3 | Argus V3 |
+|---|---|---|---|
+| 1 π | 0 | 2 (2) | 0 (0) |
+| 2 α | 0 | 0 (0) | 0 (0) |
+| 3 ν | 0 | 3 (2) | 3 (1) |
+| 4 τ | 1 | 1 (0) | 1 (1) |
+| 5 ο | 3 | 2 (1) | 2 (2) |
+| 6 γ | 0 | 4 (4) | 4 (4) |
+| 7 ι | 4 | 4 (4) | 4 (4) |
+| 8 ν | 0 | 0 (0) | 0 (0) |
+| 9 ο | 0 | 4 (2) | 4 (4) |
+| 10 μ | 0 | 0 (0) | 0 (0) |
+| 11 μ | 0 | 0 (0) | 0 (0) |
+| 12 ε | 0 | 0 (0) | 0 (0) |
+
+*Reservations, found while reading the results.*
+- *v8-in's count rests on three letters.* ι (4), the first ο (3) and τ (1). Iota is a single bar, read on every map
+  in both tests. γ and the second ο, read 4 times out of 4 on both other maps, are never read on v8-in. Its interval
+  reaches 0.
+- *The same five letters are read on no map*, as in PR-58: α, the second ν, both μ, ε.
+- *Consistent wrong names, again.*
+  - On Argus V3, new readers repeat PR-58's errors: π read as τ 4 times out of 4, the upper μ read as η 4 times out
+    of 4. α, read as ν 4 times in PR-58, is now ν twice and λ twice.
+  - τ is read as π on all three maps (3, 2 and 3 times out of 4). An error shared by three models points to the
+    crop or the letter's shape rather than to one model.
+- *Grid pattern.* v8-in's crops show a faint square grid, the trace of its 64-pixel tiles. It is the model's own
+  output, read unchanged as registered; it may cost it legibility at this scale.
+- *Readers.* AI agents, as in PR-58. Reader V3 and Argus V3 gained 5 and 2 readings with new readers: read the
+  per-map counts with that spread in mind.
+
+*Decision, as registered.* v8-in is legible blind.
+- It joins Reader V3 and Argus V3 for PHerc0800, and the 0800 ensemble is the mean of the three legible maps.
+- Each map is also kept on its own in the 0800 test, so a mean weakened by v8-in will show.
+
+*Files.* `results/pr59/`:
+- part A's scores and run log;
+- the key, the 12 answers, the dry run, times and tokens;
+- the scoring output, from `scripts/c343_score.py`;
+- the blind recount script and its output: same counts, same p-values, exact;
+- the label-free order check, from `scripts/pr59_sens.py`.
+
+The intervals come from the scoring script's resampling and were not recomputed by the recount.

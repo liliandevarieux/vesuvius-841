@@ -1,0 +1,40 @@
+volume (31, 3440, 2060) uint8
+couches 3..26 sur 31
+Loading weights from local directory
+  direct 4/8924 tuiles (1 s) memoire 3.26 Go
+  direct 604/8924 tuiles (62 s) memoire 3.26 Go
+  direct 1200/8924 tuiles (122 s) memoire 3.26 Go
+  direct 1800/8924 tuiles (182 s) memoire 3.26 Go
+  direct 2392/8924 tuiles (242 s) memoire 3.26 Go
+  direct 2980/8924 tuiles (302 s) memoire 3.26 Go
+  direct 3568/8924 tuiles (363 s) memoire 3.26 Go
+  direct 4160/8924 tuiles (423 s) memoire 3.26 Go
+  direct 4752/8924 tuiles (483 s) memoire 3.26 Go
+  direct 5344/8924 tuiles (543 s) memoire 3.26 Go
+  direct 5932/8924 tuiles (603 s) memoire 3.26 Go
+  direct 6520/8924 tuiles (663 s) memoire 3.26 Go
+  direct 7112/8924 tuiles (723 s) memoire 3.26 Go
+  direct 7708/8924 tuiles (784 s) memoire 3.26 Go
+  direct 8300/8924 tuiles (844 s) memoire 3.26 Go
+  direct 8888/8924 tuiles (904 s) memoire 3.26 Go
+  direct 8924/8924 tuiles (908 s) memoire 3.26 Go
+c343/pr59/v8in_0343P_direct.tif {'direct': {'fichier': 'c343/pr59/v8in_0343P_direct.tif', 'secondes': 908, 'moyenne': 0.22666050493717194, 'p99': 0.6177582144737244}}
+  inverse 4/8924 tuiles (1 s) memoire 3.26 Go
+  inverse 592/8924 tuiles (61 s) memoire 3.26 Go
+  inverse 1184/8924 tuiles (121 s) memoire 3.26 Go
+  inverse 1776/8924 tuiles (181 s) memoire 3.26 Go
+  inverse 2364/8924 tuiles (241 s) memoire 3.26 Go
+  inverse 2956/8924 tuiles (301 s) memoire 3.26 Go
+  inverse 3552/8924 tuiles (362 s) memoire 3.26 Go
+  inverse 4148/8924 tuiles (422 s) memoire 3.26 Go
+  inverse 4744/8924 tuiles (482 s) memoire 3.26 Go
+  inverse 5340/8924 tuiles (543 s) memoire 3.26 Go
+  inverse 5936/8924 tuiles (603 s) memoire 3.26 Go
+  inverse 6532/8924 tuiles (663 s) memoire 3.26 Go
+  inverse 7124/8924 tuiles (724 s) memoire 3.26 Go
+  inverse 7712/8924 tuiles (784 s) memoire 3.26 Go
+  inverse 8304/8924 tuiles (844 s) memoire 3.26 Go
+  inverse 8900/8924 tuiles (904 s) memoire 3.26 Go
+  inverse 8924/8924 tuiles (907 s) memoire 3.26 Go
+c343/pr59/v8in_0343P_inverse.tif {'direct': {'fichier': 'c343/pr59/v8in_0343P_direct.tif', 'secondes': 908, 'moyenne': 0.22666050493717194, 'p99': 0.6177582144737244}, 'inverse': {'fichier': 'c343/pr59/v8in_0343P_inverse.tif', 'secondes': 907, 'moyenne': 0.15063130855560303, 'p99': 0.5465126633644104}}
+FINI

@@ -1,0 +1,4 @@
+v8in_0343P_direct.tif	dtype=uint8	shape=(3440, 2060)	n_pos=4202944	p50=99.0	p99=158.0	p99-p50=59.0
+v8in_0343P_inverse.tif	dtype=uint8	shape=(3440, 2060)	n_pos=4202944	p50=58.0	p99=139.0	p99-p50=81.0
+v8in_erwin_direct.tif	dtype=uint8	shape=(2660, 6780)	n_pos=10187458	p50=76.0	p99=157.0	p99-p50=81.0
+v8in_erwin_inverse.tif	dtype=uint8	shape=(2660, 6780)	n_pos=10187458	p50=78.0	p99=149.0	p99-p50=71.0

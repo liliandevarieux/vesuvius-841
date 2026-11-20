@@ -56,7 +56,9 @@ for m in REC:
              'LISIBLE A L AVEUGLE' if k >= 6 else 'non lisible'))
 print('\nMESURES SECONDAIRES (permutation exacte des signes par lettre, unilaterale)')
 signes = np.array(list(itertools.product([-1, 1], repeat=len(L))))
-for a, b in [('readerv3', 'argusv3'), ('readerv3', 'ink9um_s43'), ('argusv3', 'ink9um_s43')]:
+PAIRES = ([('v8in', 'readerv3'), ('v8in', 'argusv3'), ('readerv3', 'argusv3')] if 'v8in' in REC   # PR-59
+          else [('readerv3', 'argusv3'), ('readerv3', 'ink9um_s43'), ('argusv3', 'ink9um_s43')])  # PR-58
+for a, b in PAIRES:
     d = np.array([sum(J[l][a]) - sum(J[l][b]) for l in L]); S = int(d.sum())
     p = float(((signes * d).sum(1) >= S).mean())
     boot = []

@@ -1,0 +1,31 @@
+lecteurs : 12 | lettres : 12
+
+MESURE PRINCIPALE (critere : >= 6 justes sur 48)
+v8in         8 / 48 = 16.7 %  [IC 95 %  0.0 ; 39.6]  P(hasard >= k) = 7.70e-04  illisible 31/48  -> LISIBLE A L AVEUGLE
+readerv3    20 / 48 = 41.7 %  [IC 95 % 16.7 ; 66.7]  P(hasard >= k) = 1.34e-15  illisible 14/48  -> LISIBLE A L AVEUGLE
+argusv3     18 / 48 = 37.5 %  [IC 95 % 12.5 ; 62.5]  P(hasard >= k) = 3.14e-13  illisible 6/48  -> LISIBLE A L AVEUGLE
+
+MESURES SECONDAIRES (permutation exacte des signes par lettre, unilaterale)
+v8in       - readerv3   : -12 lectures (-25.0 points) [IC 95 % -52.1 ; +0.0], p = 0.9688
+v8in       - argusv3    : -10 lectures (-20.8 points) [IC 95 % -47.9 ; +2.1], p = 0.9375
+readerv3   - argusv3    : +2 lectures (+4.2 points) [IC 95 % -8.3 ; +16.7], p = 0.5000
+
+PAR LETTRE (justes sur 4, par carte)
+id nom       v8in       readerv3   argusv3   
+ 1 pi        0/4        2/4        0/4       
+ 2 alpha     0/4        0/4        0/4       
+ 3 nu        0/4        3/4        3/4       
+ 4 tau       1/4        1/4        1/4       
+ 5 omicron   3/4        2/4        2/4       
+ 6 gamma     0/4        4/4        4/4       
+ 7 iota      4/4        4/4        4/4       
+ 8 nu        0/4        0/4        0/4       
+ 9 omicron   0/4        4/4        4/4       
+10 mu        0/4        0/4        0/4       
+11 mu        0/4        0/4        0/4       
+12 epsilon   0/4        0/4        0/4       
+
+ACCORD ENTRE LECTEURS DU MEME COUPLE (lettre, carte) : paires identiques hors "illisible"
+v8in        14 / 72 paires
+readerv3    29 / 72 paires
+argusv3     41 / 72 paires

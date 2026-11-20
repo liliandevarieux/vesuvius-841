@@ -1,0 +1,765 @@
+{
+ "cartes": {
+  "v8in": "pr59/v8in_erwin_direct.tif",
+  "readerv3": "equipe/cartes/20261019111505-reader-v3-tile384-stride192.tif",
+  "argusv3": "equipe/cartes/20261117205746-argus-v3-tile384-stride192.tif"
+ },
+ "lettres": {
+  "1": "pi",
+  "2": "alpha",
+  "3": "nu",
+  "4": "tau",
+  "5": "omicron",
+  "6": "gamma",
+  "7": "iota",
+  "8": "nu",
+  "9": "omicron",
+  "10": "mu",
+  "11": "mu",
+  "12": "epsilon"
+ },
+ "lecteur01": {
+  "1": [
+   12,
+   "epsilon",
+   "argusv3"
+  ],
+  "2": [
+   6,
+   "gamma",
+   "argusv3"
+  ],
+  "3": [
+   11,
+   "mu",
+   "readerv3"
+  ],
+  "4": [
+   5,
+   "omicron",
+   "readerv3"
+  ],
+  "5": [
+   9,
+   "omicron",
+   "argusv3"
+  ],
+  "6": [
+   10,
+   "mu",
+   "v8in"
+  ],
+  "7": [
+   7,
+   "iota",
+   "v8in"
+  ],
+  "8": [
+   3,
+   "nu",
+   "argusv3"
+  ],
+  "9": [
+   1,
+   "pi",
+   "v8in"
+  ],
+  "10": [
+   8,
+   "nu",
+   "readerv3"
+  ],
+  "11": [
+   2,
+   "alpha",
+   "readerv3"
+  ],
+  "12": [
+   4,
+   "tau",
+   "v8in"
+  ]
+ },
+ "lecteur02": {
+  "1": [
+   7,
+   "iota",
+   "readerv3"
+  ],
+  "2": [
+   8,
+   "nu",
+   "argusv3"
+  ],
+  "3": [
+   1,
+   "pi",
+   "readerv3"
+  ],
+  "4": [
+   9,
+   "omicron",
+   "v8in"
+  ],
+  "5": [
+   6,
+   "gamma",
+   "v8in"
+  ],
+  "6": [
+   4,
+   "tau",
+   "readerv3"
+  ],
+  "7": [
+   2,
+   "alpha",
+   "argusv3"
+  ],
+  "8": [
+   11,
+   "mu",
+   "argusv3"
+  ],
+  "9": [
+   3,
+   "nu",
+   "v8in"
+  ],
+  "10": [
+   10,
+   "mu",
+   "readerv3"
+  ],
+  "11": [
+   12,
+   "epsilon",
+   "v8in"
+  ],
+  "12": [
+   5,
+   "omicron",
+   "argusv3"
+  ]
+ },
+ "lecteur03": {
+  "1": [
+   5,
+   "omicron",
+   "v8in"
+  ],
+  "2": [
+   12,
+   "epsilon",
+   "readerv3"
+  ],
+  "3": [
+   2,
+   "alpha",
+   "v8in"
+  ],
+  "4": [
+   10,
+   "mu",
+   "argusv3"
+  ],
+  "5": [
+   1,
+   "pi",
+   "argusv3"
+  ],
+  "6": [
+   7,
+   "iota",
+   "argusv3"
+  ],
+  "7": [
+   11,
+   "mu",
+   "v8in"
+  ],
+  "8": [
+   6,
+   "gamma",
+   "readerv3"
+  ],
+  "9": [
+   4,
+   "tau",
+   "argusv3"
+  ],
+  "10": [
+   9,
+   "omicron",
+   "readerv3"
+  ],
+  "11": [
+   3,
+   "nu",
+   "readerv3"
+  ],
+  "12": [
+   8,
+   "nu",
+   "v8in"
+  ]
+ },
+ "lecteur04": {
+  "1": [
+   9,
+   "omicron",
+   "argusv3"
+  ],
+  "2": [
+   1,
+   "pi",
+   "v8in"
+  ],
+  "3": [
+   5,
+   "omicron",
+   "readerv3"
+  ],
+  "4": [
+   12,
+   "epsilon",
+   "argusv3"
+  ],
+  "5": [
+   7,
+   "iota",
+   "v8in"
+  ],
+  "6": [
+   6,
+   "gamma",
+   "argusv3"
+  ],
+  "7": [
+   11,
+   "mu",
+   "readerv3"
+  ],
+  "8": [
+   8,
+   "nu",
+   "readerv3"
+  ],
+  "9": [
+   4,
+   "tau",
+   "v8in"
+  ],
+  "10": [
+   2,
+   "alpha",
+   "readerv3"
+  ],
+  "11": [
+   3,
+   "nu",
+   "argusv3"
+  ],
+  "12": [
+   10,
+   "mu",
+   "v8in"
+  ]
+ },
+ "lecteur05": {
+  "1": [
+   2,
+   "alpha",
+   "argusv3"
+  ],
+  "2": [
+   3,
+   "nu",
+   "v8in"
+  ],
+  "3": [
+   9,
+   "omicron",
+   "v8in"
+  ],
+  "4": [
+   7,
+   "iota",
+   "readerv3"
+  ],
+  "5": [
+   4,
+   "tau",
+   "readerv3"
+  ],
+  "6": [
+   1,
+   "pi",
+   "readerv3"
+  ],
+  "7": [
+   6,
+   "gamma",
+   "v8in"
+  ],
+  "8": [
+   11,
+   "mu",
+   "argusv3"
+  ],
+  "9": [
+   10,
+   "mu",
+   "readerv3"
+  ],
+  "10": [
+   5,
+   "omicron",
+   "argusv3"
+  ],
+  "11": [
+   12,
+   "epsilon",
+   "v8in"
+  ],
+  "12": [
+   8,
+   "nu",
+   "argusv3"
+  ]
+ },
+ "lecteur06": {
+  "1": [
+   6,
+   "gamma",
+   "readerv3"
+  ],
+  "2": [
+   4,
+   "tau",
+   "argusv3"
+  ],
+  "3": [
+   12,
+   "epsilon",
+   "readerv3"
+  ],
+  "4": [
+   5,
+   "omicron",
+   "v8in"
+  ],
+  "5": [
+   9,
+   "omicron",
+   "readerv3"
+  ],
+  "6": [
+   3,
+   "nu",
+   "readerv3"
+  ],
+  "7": [
+   11,
+   "mu",
+   "v8in"
+  ],
+  "8": [
+   1,
+   "pi",
+   "argusv3"
+  ],
+  "9": [
+   7,
+   "iota",
+   "argusv3"
+  ],
+  "10": [
+   10,
+   "mu",
+   "argusv3"
+  ],
+  "11": [
+   2,
+   "alpha",
+   "v8in"
+  ],
+  "12": [
+   8,
+   "nu",
+   "v8in"
+  ]
+ },
+ "lecteur07": {
+  "1": [
+   1,
+   "pi",
+   "v8in"
+  ],
+  "2": [
+   2,
+   "alpha",
+   "readerv3"
+  ],
+  "3": [
+   3,
+   "nu",
+   "argusv3"
+  ],
+  "4": [
+   6,
+   "gamma",
+   "argusv3"
+  ],
+  "5": [
+   10,
+   "mu",
+   "v8in"
+  ],
+  "6": [
+   12,
+   "epsilon",
+   "argusv3"
+  ],
+  "7": [
+   8,
+   "nu",
+   "readerv3"
+  ],
+  "8": [
+   4,
+   "tau",
+   "v8in"
+  ],
+  "9": [
+   9,
+   "omicron",
+   "argusv3"
+  ],
+  "10": [
+   11,
+   "mu",
+   "readerv3"
+  ],
+  "11": [
+   5,
+   "omicron",
+   "readerv3"
+  ],
+  "12": [
+   7,
+   "iota",
+   "v8in"
+  ]
+ },
+ "lecteur08": {
+  "1": [
+   9,
+   "omicron",
+   "v8in"
+  ],
+  "2": [
+   12,
+   "epsilon",
+   "v8in"
+  ],
+  "3": [
+   6,
+   "gamma",
+   "v8in"
+  ],
+  "4": [
+   1,
+   "pi",
+   "readerv3"
+  ],
+  "5": [
+   11,
+   "mu",
+   "argusv3"
+  ],
+  "6": [
+   10,
+   "mu",
+   "readerv3"
+  ],
+  "7": [
+   3,
+   "nu",
+   "v8in"
+  ],
+  "8": [
+   8,
+   "nu",
+   "argusv3"
+  ],
+  "9": [
+   4,
+   "tau",
+   "readerv3"
+  ],
+  "10": [
+   7,
+   "iota",
+   "readerv3"
+  ],
+  "11": [
+   5,
+   "omicron",
+   "argusv3"
+  ],
+  "12": [
+   2,
+   "alpha",
+   "argusv3"
+  ]
+ },
+ "lecteur09": {
+  "1": [
+   1,
+   "pi",
+   "argusv3"
+  ],
+  "2": [
+   11,
+   "mu",
+   "v8in"
+  ],
+  "3": [
+   9,
+   "omicron",
+   "readerv3"
+  ],
+  "4": [
+   6,
+   "gamma",
+   "readerv3"
+  ],
+  "5": [
+   4,
+   "tau",
+   "argusv3"
+  ],
+  "6": [
+   5,
+   "omicron",
+   "v8in"
+  ],
+  "7": [
+   3,
+   "nu",
+   "readerv3"
+  ],
+  "8": [
+   10,
+   "mu",
+   "argusv3"
+  ],
+  "9": [
+   8,
+   "nu",
+   "v8in"
+  ],
+  "10": [
+   7,
+   "iota",
+   "argusv3"
+  ],
+  "11": [
+   12,
+   "epsilon",
+   "readerv3"
+  ],
+  "12": [
+   2,
+   "alpha",
+   "v8in"
+  ]
+ },
+ "lecteur10": {
+  "1": [
+   1,
+   "pi",
+   "v8in"
+  ],
+  "2": [
+   6,
+   "gamma",
+   "argusv3"
+  ],
+  "3": [
+   10,
+   "mu",
+   "v8in"
+  ],
+  "4": [
+   5,
+   "omicron",
+   "readerv3"
+  ],
+  "5": [
+   3,
+   "nu",
+   "argusv3"
+  ],
+  "6": [
+   7,
+   "iota",
+   "v8in"
+  ],
+  "7": [
+   11,
+   "mu",
+   "readerv3"
+  ],
+  "8": [
+   4,
+   "tau",
+   "v8in"
+  ],
+  "9": [
+   2,
+   "alpha",
+   "readerv3"
+  ],
+  "10": [
+   9,
+   "omicron",
+   "argusv3"
+  ],
+  "11": [
+   8,
+   "nu",
+   "readerv3"
+  ],
+  "12": [
+   12,
+   "epsilon",
+   "argusv3"
+  ]
+ },
+ "lecteur11": {
+  "1": [
+   12,
+   "epsilon",
+   "v8in"
+  ],
+  "2": [
+   7,
+   "iota",
+   "readerv3"
+  ],
+  "3": [
+   8,
+   "nu",
+   "argusv3"
+  ],
+  "4": [
+   4,
+   "tau",
+   "readerv3"
+  ],
+  "5": [
+   6,
+   "gamma",
+   "v8in"
+  ],
+  "6": [
+   9,
+   "omicron",
+   "v8in"
+  ],
+  "7": [
+   5,
+   "omicron",
+   "argusv3"
+  ],
+  "8": [
+   10,
+   "mu",
+   "readerv3"
+  ],
+  "9": [
+   3,
+   "nu",
+   "v8in"
+  ],
+  "10": [
+   2,
+   "alpha",
+   "argusv3"
+  ],
+  "11": [
+   1,
+   "pi",
+   "readerv3"
+  ],
+  "12": [
+   11,
+   "mu",
+   "argusv3"
+  ]
+ },
+ "lecteur12": {
+  "1": [
+   6,
+   "gamma",
+   "readerv3"
+  ],
+  "2": [
+   4,
+   "tau",
+   "argusv3"
+  ],
+  "3": [
+   7,
+   "iota",
+   "argusv3"
+  ],
+  "4": [
+   11,
+   "mu",
+   "v8in"
+  ],
+  "5": [
+   12,
+   "epsilon",
+   "readerv3"
+  ],
+  "6": [
+   1,
+   "pi",
+   "argusv3"
+  ],
+  "7": [
+   9,
+   "omicron",
+   "readerv3"
+  ],
+  "8": [
+   3,
+   "nu",
+   "readerv3"
+  ],
+  "9": [
+   10,
+   "mu",
+   "argusv3"
+  ],
+  "10": [
+   8,
+   "nu",
+   "v8in"
+  ],
+  "11": [
+   5,
+   "omicron",
+   "v8in"
+  ],
+  "12": [
+   2,
+   "alpha",
+   "v8in"
+  ]
+ }
+}

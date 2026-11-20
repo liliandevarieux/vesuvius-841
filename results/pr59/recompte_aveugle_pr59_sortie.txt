@@ -1,0 +1,82 @@
+== 1. Per arm: correct k / n, P(X>=k), X~Bin(n,1/24)
+v8in: 8/48  P=0.000769507  (exact 456279378819575499915155316015300722868818815139252808631594489/592950374150143629936045197877058029981741966425327706982833979392)
+readerv3: 20/48  P=1.34181e-15  (exact 1193437390161325976410338960048067177918326659471443/889425561225215444904067796815587044972612949637991560474250969088)
+argusv3: 18/48  P=3.13546e-13  (exact 92958584140159964698628722868777289864906966426938137/296475187075071814968022598938529014990870983212663853491416989696)
+
+== 2. Per arm x letter_id: correct / readings
+v8in: 1(pi)=0/4  2(alpha)=0/4  3(nu)=0/4  4(tau)=1/4  5(omicron)=3/4  6(gamma)=0/4  7(iota)=4/4  8(nu)=0/4  9(omicron)=0/4  10(mu)=0/4  11(mu)=0/4  12(epsilon)=0/4
+readerv3: 1(pi)=2/4  2(alpha)=0/4  3(nu)=3/4  4(tau)=1/4  5(omicron)=2/4  6(gamma)=4/4  7(iota)=4/4  8(nu)=0/4  9(omicron)=4/4  10(mu)=0/4  11(mu)=0/4  12(epsilon)=0/4
+argusv3: 1(pi)=0/4  2(alpha)=0/4  3(nu)=3/4  4(tau)=1/4  5(omicron)=2/4  6(gamma)=4/4  7(iota)=4/4  8(nu)=0/4  9(omicron)=4/4  10(mu)=0/4  11(mu)=0/4  12(epsilon)=0/4
+
+== 3. Sign-permutation tests (one-sided, exact over 2^12)
+(v8in, readerv3): d=[-2, 0, -3, 0, 1, -4, 0, 0, -4, 0, 0, 0] S=-12  p=3968/4096 = 0.968750
+(v8in, argusv3): d=[0, 0, -3, 0, 1, -4, 0, 0, -4, 0, 0, 0] S=-10  p=3840/4096 = 0.937500
+(readerv3, argusv3): d=[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] S=2  p=2048/4096 = 0.500000
+(readerv3, v8in): d=[2, 0, 3, 0, -1, 4, 0, 0, 4, 0, 0, 0] S=12  p=256/4096 = 0.062500
+(argusv3, v8in): d=[0, 0, 3, 0, -1, 4, 0, 0, 4, 0, 0, 0] S=10  p=512/4096 = 0.125000
+
+== 4. Sanity checks
+reader 01: answers=12 crops=True unparsed=[]
+reader 01: arm counts={'v8in': 4, 'readerv3': 4, 'argusv3': 4}
+reader 02: answers=12 crops=True unparsed=[]
+reader 02: arm counts={'v8in': 4, 'readerv3': 4, 'argusv3': 4}
+reader 03: answers=12 crops=True unparsed=[]
+reader 03: arm counts={'v8in': 4, 'readerv3': 4, 'argusv3': 4}
+reader 04: answers=12 crops=True unparsed=[]
+reader 04: arm counts={'v8in': 4, 'readerv3': 4, 'argusv3': 4}
+reader 05: answers=12 crops=True unparsed=[]
+reader 05: arm counts={'v8in': 4, 'readerv3': 4, 'argusv3': 4}
+reader 06: answers=12 crops=True unparsed=[]
+reader 06: arm counts={'v8in': 4, 'readerv3': 4, 'argusv3': 4}
+reader 07: answers=12 crops=True unparsed=[]
+reader 07: arm counts={'v8in': 4, 'readerv3': 4, 'argusv3': 4}
+reader 08: answers=12 crops=True unparsed=[]
+reader 08: arm counts={'v8in': 4, 'readerv3': 4, 'argusv3': 4}
+reader 09: answers=12 crops=True unparsed=[]
+reader 09: arm counts={'v8in': 4, 'readerv3': 4, 'argusv3': 4}
+reader 10: answers=12 crops=True unparsed=[]
+reader 10: arm counts={'v8in': 4, 'readerv3': 4, 'argusv3': 4}
+reader 11: answers=12 crops=True unparsed=[]
+reader 11: arm counts={'v8in': 4, 'readerv3': 4, 'argusv3': 4}
+reader 12: answers=12 crops=True unparsed=[]
+reader 12: arm counts={'v8in': 4, 'readerv3': 4, 'argusv3': 4}
+cells with != 4 readings listed above (none if empty); total cells: 36
+total readings: 144  missing answers: 0
+
+== 5. Answer multisets per (letter_id, arm) cell
+letter 1 (pi), v8in: {unreadable: 4}
+letter 1 (pi), readerv3: {pi: 2, omicron: 1, unreadable: 1}
+letter 1 (pi), argusv3: {tau: 4}
+letter 2 (alpha), v8in: {unreadable: 4}
+letter 2 (alpha), readerv3: {unreadable: 4}
+letter 2 (alpha), argusv3: {lambda: 2, nu: 2}
+letter 3 (nu), v8in: {unreadable: 4}
+letter 3 (nu), readerv3: {nu: 3, omega: 1}
+letter 3 (nu), argusv3: {nu: 3, omega: 1}
+letter 4 (tau), v8in: {pi: 3, tau: 1}
+letter 4 (tau), readerv3: {pi: 2, gamma: 1, tau: 1}
+letter 4 (tau), argusv3: {pi: 3, tau: 1}
+letter 5 (omicron), v8in: {omicron: 3, pi: 1}
+letter 5 (omicron), readerv3: {alpha: 2, omicron: 2}
+letter 5 (omicron), argusv3: {alpha: 2, omicron: 2}
+letter 6 (gamma), v8in: {unreadable: 3, kappa: 1}
+letter 6 (gamma), readerv3: {gamma: 4}
+letter 6 (gamma), argusv3: {gamma: 4}
+letter 7 (iota), v8in: {iota: 4}
+letter 7 (iota), readerv3: {iota: 4}
+letter 7 (iota), argusv3: {iota: 4}
+letter 8 (nu), v8in: {unreadable: 4}
+letter 8 (nu), readerv3: {omega: 2, unreadable: 2}
+letter 8 (nu), argusv3: {tau: 2, omega: 1, unreadable: 1}
+letter 9 (omicron), v8in: {mu: 2, unreadable: 2}
+letter 9 (omicron), readerv3: {omicron: 4}
+letter 9 (omicron), argusv3: {omicron: 4}
+letter 10 (mu), v8in: {unreadable: 4}
+letter 10 (mu), readerv3: {unreadable: 3, tau: 1}
+letter 10 (mu), argusv3: {epsilon: 1, gamma: 1, tau: 1, unreadable: 1}
+letter 11 (mu), v8in: {eta: 2, unreadable: 2}
+letter 11 (mu), readerv3: {pi: 3, eta: 1}
+letter 11 (mu), argusv3: {eta: 4}
+letter 12 (epsilon), v8in: {unreadable: 4}
+letter 12 (epsilon), readerv3: {unreadable: 4}
+letter 12 (epsilon), argusv3: {unreadable: 4}
