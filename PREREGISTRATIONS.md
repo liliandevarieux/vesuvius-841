@@ -5281,3 +5281,13 @@ None is significant. This is consistent with the capacity written in advance: ab
 - the blind recount script and its output: same counts, same p-values, exact.
 
 The intervals come from the scoring script's resampling and were not recomputed by the recount.
+
+*Second blind recount (threshold and capacity).* A fresh subagent rewrote both from scratch.
+- *Threshold.* The exact binomial gives P(X ≥ 6) = 0.0143 for n = 48 and p = 1/24. So 6 is the smallest count under
+  0.05 / 3.
+- *Capacity.* The power simulation (4000 runs, two seeds) gives, at 4 readings per letter and map, the registered
+  +25, +30 and +35 points. One cell the registration does not use differs: at 2 readings and a 30 % map, the
+  recount gives +50 points and our script gave +45. It sits at the 80 % line.
+- *Files.* `results/pr58/recompte_aveugle_seuil_capacite*`.
+
+*Not recounted.* The mesh-to-mesh residual (≤ 1.12 voxels in the plane) comes from `c343_recale.py` only.
