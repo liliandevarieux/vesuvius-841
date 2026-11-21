@@ -5647,3 +5647,119 @@ Scripts: `scripts/c0800_telecharge.sh` (with the list `c0800_surfaces14.tsv`), `
   covering at least half of the map give only 10 (5 per order). So the dry run uses 68 overlapping 0343P tiles (v8-in, both orders, a step of
   256 px), on three sheets of 24, 24 and 20, the length of a test session.
 - Nothing else changes.
+
+## Result of PR-60 — written 2026-11-21, after the reading (all counts recounted blind from the answer files)
+
+**The gate fails. The three legible maps show known, order-dependent writing on only 2 of Erwin's 6 letter tiles,
+where 3 were required. As registered, nothing is concluded about PHerc0800 from this test.**
+- The prediction "the gate holds" is wrong.
+- Two PHerc0800 tiles pass the per-tile threshold, and a third is read in the reverse order only. With the gate
+  failed they are not candidates. They are reported below.
+
+*Running.* Everything below was done after the 18:36 registration and the 18:41 addendum.
+- *Maps.* The 84 PHerc0800 maps (14 surfaces × 3 models × 2 orders) ran from 20 November 19:22 to 21 November 00:53.
+  Every job ended with exit code 0 (`cartes.log`).
+  - Each map was then checked to open, to have its surface's shape, and to be non-zero on more than half of its
+    surface.
+  - All 84 pass (`verif_cartes.txt`, `scripts/pr60_verif_cartes.py`).
+- *Sheets.* 144 sheets (48 readers × 3) were built at 00:54 by the published `c0800_planches.py`. Every (tile,
+  condition) pair is shown exactly 6 times, which makes 544 pairs.
+- *Dry run.* At 00:55 the reader gave 68 parsable lines in 21 s. All answers were "no".
+- *Readers.*
+  - 48 fresh readers read from 00:56 to about 01:20, two at a time.
+  - Every reader gave 68 parsable lines, in 21 to 40 s and about 55,500 tokens each.
+  - No reader failed and no reader was replaced.
+
+*Gate (rule 1).* bf and br are taken from PHerc0800: bf = 15/1248 = 0.012 and br = 20/1248 = 0.016.
+
+| Erwin tile | reference letters | forward "yes" / 24 | reverse "yes" / 24 | Holm p |
+|---|---|---|---|---|
+| 55 | μ ε (11, 12) | 0 | 0 | 1 |
+| 56 | μ (10) | 0 | 0 | 1 |
+| 57 | π α (1, 2) | 1 | 0 | 0.72 |
+| 58 | ν τ (3, 4) | **18** | 0 | 1.4 × 10⁻²⁹ |
+| 59 | ο γ ι (5, 6, 7) | **18** | 0 | 1.4 × 10⁻²⁹ |
+| 60 | ν ο (8, 9) | 0 | 0 | 1 |
+
+On tiles 58 and 59, Reader V3, Argus V3 and the mean each get 6 "yes" out of 6 forward and 0 reverse. Erwin's 4 tiles
+without a reference letter get no "yes" at all (0 / 192).
+
+*"Yes" per condition (yes / readings).*
+
+| condition | Erwin, letter tiles | Erwin, other tiles | 0009B | PHerc0800 |
+|---|---|---|---|---|
+| mean, forward | 13/36 | 0/24 | 30/36 | 2/312 |
+| mean, reverse | 0/36 | 0/24 | 0/36 | 6/312 |
+| Reader V3, forward | 12/36 | 0/24 | 31/36 | 6/312 |
+| Reader V3, reverse | 0/36 | 0/24 | 0/36 | 6/312 |
+| Argus V3, forward | 12/36 | 0/24 | 31/36 | 7/312 |
+| Argus V3, reverse | 0/36 | 0/24 | 0/36 | 8/312 |
+| v8-in, forward | 0/36 | 0/24 | 9/36 | 0/312 |
+| v8-in, reverse | 0/36 | 0/24 | 0/36 | 0/312 |
+
+*Primary on PHerc0800 (Holm over 52), and the reverse-only tile.* None of the three is a candidate, because the gate
+failed.
+
+| tile | surface | share on the surface | forward / 24 | reverse / 24 | Holm p | names given after "yes" |
+|---|---|---|---|---|---|---|
+| 3 | z11072_w040 | 73 % | **8** (Reader V3 4/6, Argus V3 4/6, mean 0, v8-in 0) | 0 | 9.6 × 10⁻⁹ | τ 4 times; π, γ, ε, ο, φ once |
+| 30 | z15264_w100 | 76 % | **5** (mean 2, Reader V3 2, Argus V3 1) | 1 (Argus V3) | 0.0065 | ι 5 times, η once |
+| 16 | z14064_w020 | 75 % | 0 | **16** (Reader V3 6/6, Argus V3 6/6, mean 4/6) | not tested | γ 10 times, τ 7, π 3, ε 1 |
+
+- The next smallest raw p is 0.18, on two tiles with a single "yes".
+- 44 of the 52 tiles get no "yes" in either order.
+- Tile 16 is not covered by the registered test, which is one-sided: it asks only for more "yes" forward. It is
+  reported because it is the largest order difference on PHerc0800.
+
+*Secondary 1: each map on its own (6 against 6, own background).*
+
+| map | bf | br | gate | PHerc0800 tiles retained |
+|---|---|---|---|---|
+| mean | 2/312 | 6/312 | 2 / 6, fails | tile 30 (2 against 0) |
+| Reader V3 | 6/312 | 6/312 | 2 / 6, fails | tile 3 (4 against 0) |
+| Argus V3 | 7/312 | 8/312 | 2 / 6, fails | tile 3 (4 against 0) |
+| v8-in | 0/312 | 0/312 | 0 / 6, fails | none |
+
+- *The mean is not weakened by v8-in on Erwin*: it gets 13 "yes" on the letter tiles in the forward order, against 12
+  for Reader V3 and 12 for Argus V3. This answers PR-59's question.
+- *v8-in gives no "yes" at all in this format* on Erwin or PHerc0800: 0 out of 744 readings. It gets 9 out of 36 on
+  0009B forward. The dry run, on v8-in tiles of 0343P, was also all "no".
+
+*Secondary 2: 0009B.*
+- Reader V3, Argus V3 and the mean get 30 to 31 "yes" out of 36 forward and 0 reverse.
+- This is reported only, as registered. Reader V3 keeps Reader v2's training data, which covers part of this segment,
+  and Argus V3 descends from Reader V3.
+
+*Reservations, found while reading the results.*
+- *The format loses letters that windows show.*
+  - In PR-59, letter 9 (ο, tile 60) was read 4 times out of 4 on both Reader V3 and Argus V3. Here tile 60 gets 0 out
+    of 24 forward.
+  - In PR-59, letter 1 (π, tile 57) was read 2 times out of 4 on Reader V3. Here tile 57 gets 1 out of 24.
+  - Tiles 55 and 56 hold only letters that no map made legible in PR-58 or PR-59.
+  - So the third tile the gate needed had to be tile 57 or tile 60, unless the format showed letters that windows
+    never did. Neither tile was seen.
+  - The 4 × reduction to 256 px is a possible cause. It was not tested.
+- *Straight strokes.*
+  - The names given on the three PHerc0800 tiles are mostly letters made of straight strokes (τ, γ, π, ι). A crack, a
+    fibre or the edge of the surface can draw such strokes.
+  - Every PHerc0800 tile reaches the edge of its surface: 51 to 91 % of each tile is on the surface.
+- *Tile 16.* A reading in the reverse order only fits two cases: writing on the other face of that render, or a shape
+  that the models draw in one order only. This test cannot tell them apart.
+- *Readers.* They are AI agents, as before.
+
+*Decision, as registered.*
+- This format does not see known writing reliably enough, and nothing is concluded about PHerc0800 from it.
+- The fallback is window-format naming on a subset, under its own registration.
+- That registration will say how the subset is chosen. If it includes tiles 3, 16 or 30, it will say that this test
+  picked them.
+
+*Files.* `results/pr60/`:
+- the key (`cle_pr60.json`);
+- the 48 answers and the dry run, with times and tokens (`reponses/`; the start times are approximate, to the
+  minute);
+- the scoring output from `scripts/c0800_score.py` (`depouillement.txt`);
+- the map log and check;
+- the blind recount script and its output (`recompte_aveugle.py`, `recompte_aveugle.txt`), which give the same counts
+  and the same p-values.
+
+The sheets are not published.

@@ -1,0 +1,203 @@
+conditions: [['moyenne', 'direct'], ['moyenne', 'inverse'], ['readerv3', 'direct'], ['readerv3', 'inverse'], ['argusv3', 'direct'], ['argusv3', 'inverse'], ['v8in', 'direct'], ['v8in', 'inverse']]
+n tiles: 68 Counter({'0800': 52, 'erwin': 10, '0009B': 6})
+reader 01: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 02: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 03: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 04: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 05: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 06: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 07: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 08: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 09: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 10: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 11: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 12: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 13: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 14: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 15: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 16: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 17: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 18: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 19: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 20: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 21: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 22: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 23: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 24: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 25: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 26: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 27: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 28: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 29: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 30: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 31: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 32: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 33: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 34: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 35: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 36: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 37: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 38: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 39: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 40: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 41: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 42: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 43: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 44: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 45: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 46: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 47: lines=68 parsed=68 missing=[] extra=[] bad=[]
+reader 48: lines=68 parsed=68 missing=[] extra=[] bad=[]
+total readings: 3264
+pairs distinct: 544 min 6 max 6
+
+===== POOLED: forward conds [0, 2, 4, 6], reverse conds [1, 3, 5, 7], binomial size 24
+bf = 15/1248 = 0.012019   br = 20/1248 = 0.016026
+0800 per-tile forward readings counts: {24: 52} reverse: {24: 52}
+0800 tiles adj p <= 0.05: 2
+  tile 3: Yf=8 Yr=0 raw p=1.846e-10 adj p=9.600e-09
+  tile 30: Yf=5 Yr=1 raw p=1.265e-04 adj p=6.451e-03
+  5 smallest raw p (0800): [(3, 8, 0, '1.846e-10', '9.600e-09'), (30, 5, 1, '1.265e-04', '6.451e-03'), (5, 1, 0, '1.800e-01', '1.000e+00'), (49, 1, 0, '1.800e-01', '1.000e+00'), (0, 0, 0, '7.471e-01', '1.000e+00')]
+gate: 6 erwin letter tiles
+  tile 55 lettres=[11, 12]: Yf=0/24 Yr=0/24 raw p=7.471e-01 adj p=1.000e+00
+  tile 56 lettres=[10]: Yf=0/24 Yr=0/24 raw p=7.471e-01 adj p=1.000e+00
+  tile 57 lettres=[1, 2]: Yf=1/24 Yr=0/24 raw p=1.800e-01 adj p=7.198e-01
+  tile 58 lettres=[3, 4]: Yf=18/24 Yr=0/24 raw p=2.340e-30 adj p=1.404e-29
+  tile 59 lettres=[5, 6, 7]: Yf=18/24 Yr=0/24 raw p=2.340e-30 adj p=1.404e-29
+  tile 60 lettres=[8, 9]: Yf=0/24 Yr=0/24 raw p=7.471e-01 adj p=1.000e+00
+  gate passes (adj<=0.05): 2 / 6
+
+===== per-tile Yf/Nf Yr/Nr (pooled)
+tile  0 0800  lettres=None: Yf=0/24 Yr=0/24
+tile  1 0800  lettres=None: Yf=0/24 Yr=0/24
+tile  2 0800  lettres=None: Yf=0/24 Yr=0/24
+tile  3 0800  lettres=None: Yf=8/24 Yr=0/24
+tile  4 0800  lettres=None: Yf=0/24 Yr=0/24
+tile  5 0800  lettres=None: Yf=1/24 Yr=0/24
+tile  6 0800  lettres=None: Yf=0/24 Yr=0/24
+tile  7 0800  lettres=None: Yf=0/24 Yr=0/24
+tile  8 0800  lettres=None: Yf=0/24 Yr=0/24
+tile  9 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 10 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 11 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 12 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 13 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 14 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 15 0800  lettres=None: Yf=0/24 Yr=1/24
+tile 16 0800  lettres=None: Yf=0/24 Yr=16/24
+tile 17 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 18 0800  lettres=None: Yf=0/24 Yr=1/24
+tile 19 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 20 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 21 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 22 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 23 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 24 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 25 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 26 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 27 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 28 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 29 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 30 0800  lettres=None: Yf=5/24 Yr=1/24
+tile 31 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 32 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 33 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 34 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 35 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 36 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 37 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 38 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 39 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 40 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 41 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 42 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 43 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 44 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 45 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 46 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 47 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 48 0800  lettres=None: Yf=0/24 Yr=1/24
+tile 49 0800  lettres=None: Yf=1/24 Yr=0/24
+tile 50 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 51 0800  lettres=None: Yf=0/24 Yr=0/24
+tile 52 erwin lettres=[]: Yf=0/24 Yr=0/24
+tile 53 erwin lettres=[]: Yf=0/24 Yr=0/24
+tile 54 erwin lettres=[]: Yf=0/24 Yr=0/24
+tile 55 erwin lettres=[11, 12]: Yf=0/24 Yr=0/24
+tile 56 erwin lettres=[10]: Yf=0/24 Yr=0/24
+tile 57 erwin lettres=[1, 2]: Yf=1/24 Yr=0/24
+tile 58 erwin lettres=[3, 4]: Yf=18/24 Yr=0/24
+tile 59 erwin lettres=[5, 6, 7]: Yf=18/24 Yr=0/24
+tile 60 erwin lettres=[8, 9]: Yf=0/24 Yr=0/24
+tile 61 erwin lettres=[]: Yf=0/24 Yr=0/24
+tile 62 0009B lettres=[1, 4]: Yf=18/24 Yr=0/24
+tile 63 0009B lettres=[2, 3]: Yf=18/24 Yr=0/24
+tile 64 0009B lettres=[5, 6]: Yf=21/24 Yr=0/24
+tile 65 0009B lettres=[7, 8]: Yf=18/24 Yr=0/24
+tile 66 0009B lettres=[9, 10]: Yf=24/24 Yr=0/24
+tile 67 0009B lettres=[]: Yf=2/24 Yr=0/24
+
+===== yes per condition by group
+erwin with letters (6 tiles): moyenne-direct: 13/36 | moyenne-inverse: 0/36 | readerv3-direct: 12/36 | readerv3-inverse: 0/36 | argusv3-direct: 12/36 | argusv3-inverse: 0/36 | v8in-direct: 0/36 | v8in-inverse: 0/36
+erwin without letters (4 tiles): moyenne-direct: 0/24 | moyenne-inverse: 0/24 | readerv3-direct: 0/24 | readerv3-inverse: 0/24 | argusv3-direct: 0/24 | argusv3-inverse: 0/24 | v8in-direct: 0/24 | v8in-inverse: 0/24
+0009B all (6 tiles): moyenne-direct: 30/36 | moyenne-inverse: 0/36 | readerv3-direct: 31/36 | readerv3-inverse: 0/36 | argusv3-direct: 31/36 | argusv3-inverse: 0/36 | v8in-direct: 9/36 | v8in-inverse: 0/36
+0800 all (52 tiles): moyenne-direct: 2/312 | moyenne-inverse: 6/312 | readerv3-direct: 6/312 | readerv3-inverse: 6/312 | argusv3-direct: 7/312 | argusv3-inverse: 8/312 | v8in-direct: 0/312 | v8in-inverse: 0/312
+
+===== MAP moyenne: forward conds [0], reverse conds [1], binomial size 6
+bf = 2/312 = 0.006410   br = 6/312 = 0.019231
+0800 per-tile forward readings counts: {6: 52} reverse: {6: 52}
+0800 tiles adj p <= 0.05: 1
+  tile 30: Yf=2 Yr=0 raw p=5.398e-04 adj p=2.807e-02
+  5 smallest raw p (0800): [(30, 2, 0, '5.398e-04', '2.807e-02'), (0, 0, 0, '8.940e-01', '1.000e+00'), (1, 0, 0, '8.940e-01', '1.000e+00'), (2, 0, 0, '8.940e-01', '1.000e+00'), (3, 0, 0, '8.940e-01', '1.000e+00')]
+gate: 6 erwin letter tiles
+  tile 55 lettres=[11, 12]: Yf=0/6 Yr=0/6 raw p=8.940e-01 adj p=1.000e+00
+  tile 56 lettres=[10]: Yf=0/6 Yr=0/6 raw p=8.940e-01 adj p=1.000e+00
+  tile 57 lettres=[1, 2]: Yf=1/6 Yr=0/6 raw p=3.375e-02 adj p=1.350e-01
+  tile 58 lettres=[3, 4]: Yf=6/6 Yr=0/6 raw p=6.175e-14 adj p=3.705e-13
+  tile 59 lettres=[5, 6, 7]: Yf=6/6 Yr=0/6 raw p=6.175e-14 adj p=3.705e-13
+  tile 60 lettres=[8, 9]: Yf=0/6 Yr=0/6 raw p=8.940e-01 adj p=1.000e+00
+  gate passes (adj<=0.05): 2 / 6
+
+===== MAP readerv3: forward conds [2], reverse conds [3], binomial size 6
+bf = 6/312 = 0.019231   br = 6/312 = 0.019231
+0800 per-tile forward readings counts: {6: 52} reverse: {6: 52}
+0800 tiles adj p <= 0.05: 1
+  tile 3: Yf=4 Yr=0 raw p=1.772e-06 adj p=9.213e-05
+  5 smallest raw p (0800): [(3, 4, 0, '1.772e-06', '9.213e-05'), (30, 2, 0, '4.704e-03', '2.399e-01'), (0, 0, 0, '9.016e-01', '1.000e+00'), (1, 0, 0, '9.016e-01', '1.000e+00'), (2, 0, 0, '9.016e-01', '1.000e+00')]
+gate: 6 erwin letter tiles
+  tile 55 lettres=[11, 12]: Yf=0/6 Yr=0/6 raw p=9.016e-01 adj p=1.000e+00
+  tile 56 lettres=[10]: Yf=0/6 Yr=0/6 raw p=9.016e-01 adj p=1.000e+00
+  tile 57 lettres=[1, 2]: Yf=0/6 Yr=0/6 raw p=9.016e-01 adj p=1.000e+00
+  tile 58 lettres=[3, 4]: Yf=6/6 Yr=0/6 raw p=4.502e-11 adj p=2.701e-10
+  tile 59 lettres=[5, 6, 7]: Yf=6/6 Yr=0/6 raw p=4.502e-11 adj p=2.701e-10
+  tile 60 lettres=[8, 9]: Yf=0/6 Yr=0/6 raw p=9.016e-01 adj p=1.000e+00
+  gate passes (adj<=0.05): 2 / 6
+
+===== MAP argusv3: forward conds [4], reverse conds [5], binomial size 6
+bf = 7/312 = 0.022436   br = 8/312 = 0.025641
+0800 per-tile forward readings counts: {6: 52} reverse: {6: 52}
+0800 tiles adj p <= 0.05: 1
+  tile 3: Yf=4 Yr=0 raw p=3.141e-06 adj p=1.633e-04
+  5 smallest raw p (0800): [(3, 4, 0, '3.141e-06', '1.633e-04'), (5, 1, 0, '1.099e-01', '1.000e+00'), (49, 1, 0, '1.099e-01', '1.000e+00'), (0, 0, 0, '8.729e-01', '1.000e+00'), (1, 0, 0, '8.729e-01', '1.000e+00')]
+gate: 6 erwin letter tiles
+  tile 55 lettres=[11, 12]: Yf=0/6 Yr=0/6 raw p=8.729e-01 adj p=1.000e+00
+  tile 56 lettres=[10]: Yf=0/6 Yr=0/6 raw p=8.729e-01 adj p=1.000e+00
+  tile 57 lettres=[1, 2]: Yf=0/6 Yr=0/6 raw p=8.729e-01 adj p=1.000e+00
+  tile 58 lettres=[3, 4]: Yf=6/6 Yr=0/6 raw p=1.091e-10 adj p=6.548e-10
+  tile 59 lettres=[5, 6, 7]: Yf=6/6 Yr=0/6 raw p=1.091e-10 adj p=6.548e-10
+  tile 60 lettres=[8, 9]: Yf=0/6 Yr=0/6 raw p=8.729e-01 adj p=1.000e+00
+  gate passes (adj<=0.05): 2 / 6
+
+===== MAP v8in: forward conds [6], reverse conds [7], binomial size 6
+bf = 0/312 = 0.000000   br = 0/312 = 0.000000
+0800 per-tile forward readings counts: {6: 52} reverse: {6: 52}
+0800 tiles adj p <= 0.05: 0
+  5 smallest raw p (0800): [(0, 0, 0, '1.000e+00', '1.000e+00'), (1, 0, 0, '1.000e+00', '1.000e+00'), (2, 0, 0, '1.000e+00', '1.000e+00'), (3, 0, 0, '1.000e+00', '1.000e+00'), (4, 0, 0, '1.000e+00', '1.000e+00')]
+gate: 6 erwin letter tiles
+  tile 55 lettres=[11, 12]: Yf=0/6 Yr=0/6 raw p=1.000e+00 adj p=1.000e+00
+  tile 56 lettres=[10]: Yf=0/6 Yr=0/6 raw p=1.000e+00 adj p=1.000e+00
+  tile 57 lettres=[1, 2]: Yf=0/6 Yr=0/6 raw p=1.000e+00 adj p=1.000e+00
+  tile 58 lettres=[3, 4]: Yf=0/6 Yr=0/6 raw p=1.000e+00 adj p=1.000e+00
+  tile 59 lettres=[5, 6, 7]: Yf=0/6 Yr=0/6 raw p=1.000e+00 adj p=1.000e+00
+  tile 60 lettres=[8, 9]: Yf=0/6 Yr=0/6 raw p=1.000e+00 adj p=1.000e+00
+  gate passes (adj<=0.05): 0 / 6

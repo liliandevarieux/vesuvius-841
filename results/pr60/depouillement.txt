@@ -1,0 +1,93 @@
+lecteurs : 48 ; incidents : aucun
+
+== PRINCIPAL : 4 cartes reunies (24 lectures par sens et par carre)
+fond 0800 : oui direct bf = 0.012, oui inverse br = 0.016
+PORTE Erwin : 2 carres avec lettre retenus sur 6 -> ECHOUE
+   erwin carre 55 lettres [11, 12]     direct  0/24 inverse  0/24  p Holm 1.0000
+   erwin carre 56 lettres [10]         direct  0/24 inverse  0/24  p Holm 1.0000
+   erwin carre 57 lettres [1, 2]       direct  1/24 inverse  0/24  p Holm 0.7198
+   erwin carre 58 lettres [3, 4]       direct 18/24 inverse  0/24  p Holm 0.0000
+   erwin carre 59 lettres [5, 6, 7]    direct 18/24 inverse  0/24  p Holm 0.0000
+   erwin carre 60 lettres [8, 9]       direct  0/24 inverse  0/24  p Holm 1.0000
+0800 : 2 carre(s) retenu(s) sur 52
+   RETENU carre  3 z11072_w040 y 30 x 30 : direct 8/24 inverse 0/24 p Holm 9.6e-09 ; noms : readerv3/dir:pi argusv3/dir:gamma readerv3/dir:tau
+   RETENU carre 30 z15264_w100 y 30 x 9246 : direct 5/24 inverse 1/24 p Holm 0.006451 ; noms : readerv3/dir:iota argusv3/inv:iota argusv3/dir:iota moyenne/dir:iota
+   5 plus petites p brutes : carre 3 (z11072_w040) 8-0 p 1.85e-10, carre 30 (z15264_w100) 5-1 p 0.000126, carre 5 (z11072_w040) 1-0 p 0.18, carre 49 (z9872_w020) 1-0 p 0.18, carre 0 (z11072_w020) 0-0 p 0.747
+
+DECISION : porte echoue : rien n est conclu sur 0800
+
+== SECONDAIRE 1 : chaque carte seule
+
+== moyenne (6 lectures par sens et par carre)
+fond 0800 : oui direct bf = 0.006, oui inverse br = 0.019
+PORTE Erwin : 2 carres avec lettre retenus sur 6 -> ECHOUE
+   erwin carre 55 lettres [11, 12]     direct  0/6 inverse  0/6  p Holm 1.0000
+   erwin carre 56 lettres [10]         direct  0/6 inverse  0/6  p Holm 1.0000
+   erwin carre 57 lettres [1, 2]       direct  1/6 inverse  0/6  p Holm 0.1350
+   erwin carre 58 lettres [3, 4]       direct  6/6 inverse  0/6  p Holm 0.0000
+   erwin carre 59 lettres [5, 6, 7]    direct  6/6 inverse  0/6  p Holm 0.0000
+   erwin carre 60 lettres [8, 9]       direct  0/6 inverse  0/6  p Holm 1.0000
+0800 : 1 carre(s) retenu(s) sur 52
+   RETENU carre 30 z15264_w100 y 30 x 9246 : direct 2/6 inverse 0/6 p Holm 0.02807 ; noms : readerv3/dir:iota argusv3/inv:iota argusv3/dir:iota moyenne/dir:iota
+   5 plus petites p brutes : carre 30 (z15264_w100) 2-0 p 0.00054, carre 0 (z11072_w020) 0-0 p 0.894, carre 1 (z11072_w020) 0-0 p 0.894, carre 2 (z11072_w020) 0-0 p 0.894, carre 3 (z11072_w040) 0-0 p 0.894
+
+== readerv3 (6 lectures par sens et par carre)
+fond 0800 : oui direct bf = 0.019, oui inverse br = 0.019
+PORTE Erwin : 2 carres avec lettre retenus sur 6 -> ECHOUE
+   erwin carre 55 lettres [11, 12]     direct  0/6 inverse  0/6  p Holm 1.0000
+   erwin carre 56 lettres [10]         direct  0/6 inverse  0/6  p Holm 1.0000
+   erwin carre 57 lettres [1, 2]       direct  0/6 inverse  0/6  p Holm 1.0000
+   erwin carre 58 lettres [3, 4]       direct  6/6 inverse  0/6  p Holm 0.0000
+   erwin carre 59 lettres [5, 6, 7]    direct  6/6 inverse  0/6  p Holm 0.0000
+   erwin carre 60 lettres [8, 9]       direct  0/6 inverse  0/6  p Holm 1.0000
+0800 : 1 carre(s) retenu(s) sur 52
+   RETENU carre  3 z11072_w040 y 30 x 30 : direct 4/6 inverse 0/6 p Holm 9.213e-05 ; noms : readerv3/dir:pi argusv3/dir:gamma readerv3/dir:tau
+   5 plus petites p brutes : carre 3 (z11072_w040) 4-0 p 1.77e-06, carre 30 (z15264_w100) 2-0 p 0.0047, carre 0 (z11072_w020) 0-0 p 0.902, carre 1 (z11072_w020) 0-0 p 0.902, carre 2 (z11072_w020) 0-0 p 0.902
+
+== argusv3 (6 lectures par sens et par carre)
+fond 0800 : oui direct bf = 0.022, oui inverse br = 0.026
+PORTE Erwin : 2 carres avec lettre retenus sur 6 -> ECHOUE
+   erwin carre 55 lettres [11, 12]     direct  0/6 inverse  0/6  p Holm 1.0000
+   erwin carre 56 lettres [10]         direct  0/6 inverse  0/6  p Holm 1.0000
+   erwin carre 57 lettres [1, 2]       direct  0/6 inverse  0/6  p Holm 1.0000
+   erwin carre 58 lettres [3, 4]       direct  6/6 inverse  0/6  p Holm 0.0000
+   erwin carre 59 lettres [5, 6, 7]    direct  6/6 inverse  0/6  p Holm 0.0000
+   erwin carre 60 lettres [8, 9]       direct  0/6 inverse  0/6  p Holm 1.0000
+0800 : 1 carre(s) retenu(s) sur 52
+   RETENU carre  3 z11072_w040 y 30 x 30 : direct 4/6 inverse 0/6 p Holm 0.0001633 ; noms : readerv3/dir:pi argusv3/dir:gamma readerv3/dir:tau
+   5 plus petites p brutes : carre 3 (z11072_w040) 4-0 p 3.14e-06, carre 5 (z11072_w040) 1-0 p 0.11, carre 49 (z9872_w020) 1-0 p 0.11, carre 0 (z11072_w020) 0-0 p 0.873, carre 1 (z11072_w020) 0-0 p 0.873
+
+== v8in (6 lectures par sens et par carre)
+fond 0800 : oui direct bf = 0.000, oui inverse br = 0.000
+PORTE Erwin : 0 carres avec lettre retenus sur 6 -> ECHOUE
+   erwin carre 55 lettres [11, 12]     direct  0/6 inverse  0/6  p Holm 1.0000
+   erwin carre 56 lettres [10]         direct  0/6 inverse  0/6  p Holm 1.0000
+   erwin carre 57 lettres [1, 2]       direct  0/6 inverse  0/6  p Holm 1.0000
+   erwin carre 58 lettres [3, 4]       direct  0/6 inverse  0/6  p Holm 1.0000
+   erwin carre 59 lettres [5, 6, 7]    direct  0/6 inverse  0/6  p Holm 1.0000
+   erwin carre 60 lettres [8, 9]       direct  0/6 inverse  0/6  p Holm 1.0000
+0800 : 0 carre(s) retenu(s) sur 52
+   5 plus petites p brutes : carre 0 (z11072_w020) 0-0 p 1, carre 1 (z11072_w020) 0-0 p 1, carre 2 (z11072_w020) 0-0 p 1, carre 3 (z11072_w040) 0-0 p 1, carre 4 (z11072_w040) 0-0 p 1
+
+== Taux de oui par condition (oui / lectures)
+condition              erwin lettre     erwin sans          0009B           0800
+moyenne direct                13/36           0/24          30/36          2/312
+moyenne inverse                0/36           0/24           0/36          6/312
+readerv3 direct               12/36           0/24          31/36          6/312
+readerv3 inverse               0/36           0/24           0/36          6/312
+argusv3 direct                12/36           0/24          31/36          7/312
+argusv3 inverse                0/36           0/24           0/36          8/312
+v8in direct                    0/36           0/24           9/36          0/312
+v8in inverse                   0/36           0/24           0/36          0/312
+
+== Lettres nommees sur les carres d Erwin
+   carre 52 lettres de reference []             : -
+   carre 53 lettres de reference []             : -
+   carre 54 lettres de reference []             : -
+   carre 55 lettres de reference [11, 12]       : -
+   carre 56 lettres de reference [10]           : -
+   carre 57 lettres de reference [1, 2]         : moyenne/dir:tau
+   carre 58 lettres de reference [3, 4]         : readerv3/dir:omega+tau moyenne/dir:omega readerv3/dir:omega+tau moyenne/dir:omega readerv3/dir:omega+tau argusv3/dir:tau+upsilon readerv3/dir:omega+tau argusv3/dir:omega+tau readerv3/dir:omega+tau readerv3/dir:omega+tau argusv3/dir:omega+tau moyenne/dir:pi+omega
+   carre 59 lettres de reference [5, 6, 7]      : argusv3/dir:omicron+sigma readerv3/dir:omicron+gamma argusv3/dir:omicron argusv3/dir:omicron argusv3/dir:gamma
+   carre 60 lettres de reference [8, 9]         : -
+   carre 61 lettres de reference []             : -
