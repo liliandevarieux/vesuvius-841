@@ -1,0 +1,68 @@
+panels per zone: {'0009B': ['B'], '0800': ['S16', 'S3', 'S30', 'T13', 'T19', 'T2', 'T21', 'T25', 'T29', 'T35', 'T39', 'T44', 'T46', 'T50', 'T9'], 'erwin': ['E1', 'E2']}
+case variants: none
+
+PART 1: single readings with >=4 distinct (cell,name)
+  erwin  direct  : 12 / 12
+  erwin  inverse : 0 / 12
+  0009B  direct  : 6 / 6
+  0009B  inverse : 0 / 6
+  0800   direct  : 0 / 90
+  0800   inverse : 1 / 90
+
+PART 2: forms per (panel, sens)
+  B     0009B  direct   readers=6 repeating=60 forms=9  lambda@A1,A2,B1,B2,C1,C2; upsilon@A2,A3,B2,B3,C2,C3; sigma@B1,B2,B3,C1,C2,C3,D1,D2,D3; mu@C1,C2,D1,D2,E1,E2; delta@C2,C3,D2,D3,E2,E3; alpha@D1,D2,E1,E2,F1,F2; omicron@D2,D3,E2,E3,F2,F3; xi@E1,E2,E3,F1,F2,F3,G1,G2,G3; theta@F1,F2,G1,G2,H1,H2
+  B     0009B  inverse  readers=6 repeating=0 forms=0  
+  E1    erwin  direct   readers=6 repeating=39 forms=4  omega@C1,C2,C3,D1,D2,D3,E1,E2,E3; gamma@D1,D2,D3,E1,E2,E3,F1,F2,F3,G1,G2,G3,H1,H2,H3; alpha@E1,E2,E3,F1,F2,F3,G1,G2,G3; iota@G1,G2,G3,H1,H2,H3
+  E1    erwin  inverse  readers=6 repeating=0 forms=0  
+  E2    erwin  direct   readers=6 repeating=22 forms=4  alpha@A2,A3,B2,B3; gamma@A2,A3,B2,B3,C2,C3; iota@B2,B3,C2,C3,D2,D3; omicron@D2,D3,E2,E3,F2,F3
+  E2    erwin  inverse  readers=6 repeating=0 forms=0  
+  S16   0800   direct   readers=6 repeating=0 forms=0  
+  S16   0800   inverse  readers=6 repeating=15 forms=2  iota@A1,A2,B1,B2,C1,C2; gamma@D1,D2,D3,E1,E2,E3,F1,F2,F3
+  S3    0800   direct   readers=6 repeating=0 forms=0  
+  S3    0800   inverse  readers=6 repeating=0 forms=0  
+  S30   0800   direct   readers=6 repeating=3 forms=1  iota@F1,F2,F3
+  S30   0800   inverse  readers=6 repeating=12 forms=2  omicron@B1,B2,B3,C1,C2,C3,D1,D2,D3; iota@C1,C2,C3
+  T13   0800   direct   readers=6 repeating=0 forms=0  
+  T13   0800   inverse  readers=6 repeating=0 forms=0  
+  T19   0800   direct   readers=6 repeating=0 forms=0  
+  T19   0800   inverse  readers=6 repeating=0 forms=0  
+  T2    0800   direct   readers=6 repeating=0 forms=0  
+  T2    0800   inverse  readers=6 repeating=0 forms=0  
+  T21   0800   direct   readers=6 repeating=0 forms=0  
+  T21   0800   inverse  readers=6 repeating=0 forms=0  
+  T25   0800   direct   readers=6 repeating=0 forms=0  
+  T25   0800   inverse  readers=6 repeating=0 forms=0  
+  T29   0800   direct   readers=6 repeating=2 forms=1  iota@B3,C3
+  T29   0800   inverse  readers=6 repeating=2 forms=1  iota@A1,A2
+  T35   0800   direct   readers=6 repeating=0 forms=0  
+  T35   0800   inverse  readers=6 repeating=0 forms=0  
+  T39   0800   direct   readers=6 repeating=0 forms=0  
+  T39   0800   inverse  readers=6 repeating=0 forms=0  
+  T44   0800   direct   readers=6 repeating=0 forms=0  
+  T44   0800   inverse  readers=6 repeating=0 forms=0  
+  T46   0800   direct   readers=6 repeating=0 forms=0  
+  T46   0800   inverse  readers=6 repeating=0 forms=0  
+  T50   0800   direct   readers=6 repeating=9 forms=1  omicron@B1,B2,B3,C1,C2,C3,D1,D2,D3
+  T50   0800   inverse  readers=6 repeating=0 forms=0  
+  T9    0800   direct   readers=6 repeating=0 forms=0  
+  T9    0800   inverse  readers=6 repeating=0 forms=0  
+
+  per zone (descending):
+   erwin  direct  : [4, 4]  (sum 8, n=2)
+   erwin  inverse : [0, 0]  (sum 0, n=2)
+   0009B  direct  : [9]  (sum 9, n=1)
+   0009B  inverse : [0]  (sum 0, n=1)
+   0800   direct  : [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]  (sum 3, n=15)
+   0800   inverse : [2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]  (sum 5, n=15)
+
+PART 3
+  P(X>=10 | Bin(12,0.95)) = 0.980  (0.980432)
+  P(X>=10 | Bin(12,0.90)) = 0.889  (0.889130)
+  P(X>=10 | Bin(12,0.85)) = 0.736  (0.735818)
+  P(X>=10 | Bin(12,0.80)) = 0.558  (0.558346)
+  P(X>=10 | Bin(12,0.70)) = 0.253  (0.252815)
+  P(X<=2  | Bin(12,0)) = 1.000  (1.000000)
+  P(X<=2  | Bin(12,0.05)) = 0.980  (0.980432)
+  P(X<=2  | Bin(12,0.10)) = 0.889  (0.889130)
+  P(X<=2  | Bin(12,0.20)) = 0.558  (0.558346)
+  488/180 = 2.7  (2.7111)

@@ -1,0 +1,32 @@
+== Porte de l etape 1 : >= 10 des 12 lectures directes connues ressortent, et <= 2 des 12 inverses
+   p(lecture directe connue ressort) = 0.95 -> P(>= 10 / 12) = 0.980
+   p(lecture directe connue ressort) = 0.90 -> P(>= 10 / 12) = 0.889
+   p(lecture directe connue ressort) = 0.85 -> P(>= 10 / 12) = 0.736
+   p(lecture directe connue ressort) = 0.80 -> P(>= 10 / 12) = 0.558
+   p(lecture directe connue ressort) = 0.70 -> P(>= 10 / 12) = 0.253
+   p(lecture inverse connue ressort) = 0.00 -> P(<= 2 / 12) = 1.000
+   p(lecture inverse connue ressort) = 0.05 -> P(<= 2 / 12) = 0.980
+   p(lecture inverse connue ressort) = 0.10 -> P(<= 2 / 12) = 0.889
+   p(lecture inverse connue ressort) = 0.20 -> P(<= 2 / 12) = 0.558
+
+== Une fenêtre de 0800 qui porte un texte lu comme celui d Erwin : P(ressortir) dans son sens, une lecture
+   p = 0.95 -> ressort : 0.95
+   p = 0.90 -> ressort : 0.90
+   p = 0.80 -> ressort : 0.80
+   p = 0.60 -> ressort : 0.60
+== Fausses sorties attendues sur N lectures sans texte, au taux f
+   f = 0.0056 : sur 500 lectures, 2.8 attendues
+   f = 0.0100 : sur 500 lectures, 5.0 attendues
+   f = 0.0200 : sur 500 lectures, 10.0 attendues
+
+== PR-61, lectures isolées qui nomment >= 4 lettres (seuil de l etape 1)
+   0009B  direct  : 6 / 6
+   0009B  inverse : 0 / 6
+   0800   direct  : 0 / 90
+   0800   inverse : 1 / 90
+   erwin  direct  : 12 / 12
+   erwin  inverse : 0 / 12
+== PR-61, formes constantes propres à un sens, par panneau et sens (seuil de l etape 2 : >= 3)
+   erwin  : [4, 4, 0, 0]
+   0009B  : [9, 0]
+   0800   : [2, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]

@@ -6110,3 +6110,117 @@ known text is read.
 - the blind recount script and its output (`recompte_aveugle_resultat.*`).
 
 The panels are not published.
+
+## PR-62 — registration, 2026-11-21 11:28, before any panel of these surfaces is built: does any of PHerc0800's 81 other atlas surfaces read like known text in Reader V3's maps?
+
+*Why.* In PR-61, 15 windows covering 76 % of the 14 eye-approved PHerc0800 surfaces showed nothing that reads like known
+text.
+- On known text, readers name 4 to 11 letters per panel in the forward order and nearly nothing in reverse. On those 15
+  windows they named under 1 per reader per panel, and more in reverse.
+- The same atlas holds 81 more PHerc0800 surfaces (`rodriguescarson/eligible-scroll-atlas-renders`, from
+  `pscamillo/vesuvius-eligible-meshes`): about 465 cm² by the mesh author's count (442 cm² by our masks), against 37 cm² for the 14 approved ones.
+  - 9 of them were looked at by eye and not approved. The other 72 were not looked at.
+  - We found no Reader V3 or Argus V3 map published on them (search of 20 November, not exhaustive).
+  - NovaCorpAI/pherc0800-band-screen ran Reader V3 on both faces of the band z 5700–7200 (windings 50 to 89) and
+    reported no letters. Some of our surfaces overlap that band.
+- A six-reader test of every window would cost about ten times PR-61. So this test screens with one reader per panel,
+  then reads with six readers only what the screen keeps.
+
+*What has been done, all before this registration.* No panel of these surfaces has been built or looked at, by us or by
+Lilian.
+- *Maps.* Reader V3 in both orders, with the authors' command, on the 81 surfaces (`scripts/c0800_extension.sh`, from
+  10:01). All 162 maps were done by 11:23. Each was checked to open, to have its surface's shape, and to be
+  non-zero on more than half of its surface (`scripts/pr62_verif_cartes.py`): 162 of 162 pass. Nobody has looked at
+  them.
+- *Window plan* (`scripts/c0800_tri.py plan`). PR-61's windows (1140 × 3200 px) are laid in a grid from the top-left
+  corner of each surface's mask, and a window is kept if at least 30 % of it lies on the surface. It gives **244 windows** on the 81 surfaces, covering 90.6 % of their surface pixels (537 of 593 million,
+  about 442 cm²). The median window is 65 % on the surface. Plan: `results/pr62/plan_tri.json`.
+- *Thresholds, chosen on PR-61's answers, which were already read* (`results/pr62/capacite_pr62.txt`).
+  - Single readings naming at least 4 letters: Erwin forward 12 of 12, 0009B forward 6 of 6, Erwin reverse 0 of 12,
+    0009B reverse 0 of 6, PHerc0800 forward 0 of 90, PHerc0800 reverse 1 of 90.
+  - Forms that repeat in one order only (PR-61's measure), per panel: Erwin forward 4 and 4, 0009B forward 9, and at
+    most 2 on PHerc0800's 30 panels.
+  - The thresholds below were chosen after seeing these numbers. That is why each stage carries its own gate, read by
+    new readers.
+- *Scripts*: `c0800_tri.py` (plan and panels), `c0800_score_tri.py` (stage 1 scoring) and `capacite_pr62.py`. The
+  stage 1 scorer was checked on simulated answers only. The expected result was written down first, and the scorer gave it. A first simulation dropped one
+  reader. The scorer then rightly refused the gate, since the reader-failure rule would replace that reader.
+
+*Stage 1 — screen.*
+- *Panels.* One panel per window and order, in PR-61's format ("windows v3": Reader V3, × 0.5, contrast from the 1st to
+  the 99.5th percentile of the surface pixels in the window).
+- *Known panels.* PR-61's Erwin windows E1 and E2 and the 0009B window B are added in both orders, 4 times each, which
+  makes 24 readings.
+- *Readers.* All panels are shuffled (seed 62) and dealt 18 per reader. No reader sees the same window, or the same
+  known panel, twice. 244 windows × 2 orders, plus the 24 known readings, make 512 readings for 29 readers.
+  - No new dry run: format, map and instructions are PR-61's, read this morning by 13 readers without incident.
+- *Instructions.* PR-61's "windows v3", word for word (with the number of images changed if the last reader has
+  fewer than 18).
+- *A reading "stands out"* if it names at least 4 letters, counting each cell and name once.
+- *Gate 1.* At least 10 of the 12 forward known readings stand out, and at most 2 of the 12 reverse ones. If it fails,
+  the screen says nothing and stage 2 does not run.
+- *Kept for stage 2.* Every PHerc0800 window with at least one reading that stands out, in the order where it stood
+  out.
+  - If more than 16 windows are kept, stage 2 takes the 16 with the most letters named, with ties broken by window
+    number.
+
+*Stage 2 — six readers, PR-61's design.*
+- The kept windows in both orders, plus E (E1 and E2) and B.
+- A latin square over the units: 12 fresh readers, so every panel is read 6 times in each order.
+- *Gate 2.* E1 and E2 each show at least 3 forms that repeat in the forward order (PR-61: 4 and 4).
+- *Primary.* A kept window is **text-like** if, in the order where it stood out, it shows at least 3 forms that repeat
+  (PR-61's measure: at least 4 of 6 readers, the same name within one cell, and fewer than 4 in the other order).
+  - On PR-61's 30 PHerc0800 panels, the highest count was 2.
+- The stage 2 scoring script will be published before its panels are built.
+
+*What each outcome decides.*
+- *Gate 1 fails.* Nothing is concluded about these surfaces.
+- *No window stands out, or none is text-like (with the gates holding).* On the 81 other surfaces, Reader V3's maps
+  show nothing that reads like Erwin's or 0009B's text, at this format's sensitivity.
+  - Together with PR-61, that covers the whole atlas of 95 surfaces.
+  - The next step would then be the maps, not the reading: another model, or the sharpest band of the scan
+    (z ≈ 2700–3900), where no surface is published. That step will be registered on its own.
+- *A window is text-like.* It is a **candidate, not a reading**, and nothing is claimed publicly.
+  - Next steps, each registered before it runs: Argus V3 on the same window, Lilian's own look mixed with control
+    windows, and the neighbouring windings.
+
+*Capacity* (`scripts/capacite_pr62.py`, exact).
+- *Gate 1.* If a known forward reading stands out with probability 0.95, the gate holds with probability 0.98. At 0.90
+  it holds with 0.89, and at 0.80 with 0.56. A reverse rate of 0.05 keeps the reverse part at 0.98.
+- *Screen.* A PHerc0800 window whose text reads like Erwin's stands out in one reading with roughly that same
+  probability, 0.9 or more. Text that reads less well than Erwin's can be missed by a single reader.
+- *False outings.* At PR-61's PHerc0800 rate (1 in 180), about about 3 (2.7) are expected over the 488 PHerc0800 readings.
+  They are what stage 2 is for.
+
+*Prediction.*
+- Gate 1 holds.
+- 0 to 6 windows stand out, mostly with a few straight-stroke letters (ι, τ, γ).
+- Gate 2 holds, and no window is text-like.
+
+*Reservations.*
+- *Readers.* They are AI agents.
+- *Mesh quality.* 9 of these surfaces were not approved by eye, and 72 were never looked at. A bad mesh renders no
+  writing whatever the papyrus holds.
+- *One map.* A surface that Reader V3 renders worse than Erwin's can hold writing that this test does not see.
+
+*Method rules.*
+- *Rule 1.* Each stage starts with a gate on known text, read by new readers. The thresholds were taken from PR-61,
+  where the measures already separated known text from PHerc0800.
+- *Rule 2.*
+  - Stage 2 uses 6 readers per panel and order; stage 1 is a screen with one reader per panel, and says so.
+  - Capacity above.
+  - The 0009B window is inside both gates.
+  - Reader failure: as in PR-61. A reader with no answer within 1800 s, or with a missing `Image k` block, is replaced
+    once by a fresh reader with the same panels, decided before any answer on them is seen. A late answer is
+    discarded, and every incident is published.
+- *Rule 3.* Not applicable.
+- *Rule 6.* The GPU computed these maps. Since 11:27 it computes Argus V3 in both orders on the same 81 surfaces
+  (`scripts/c0800_extension_argus.sh`), for the follow-up written above. Nobody looks at these maps.
+- *Rule 7.* Bench version 2, window format version 3 (PR-61).
+
+*Files.* `results/pr62/`:
+- the capacity output;
+- the window plan;
+- the map check;
+- the blind recount of the thresholds and of the capacity (`recompte_aveugle_seuils.*`). It gives the same numbers,
+  exactly.
