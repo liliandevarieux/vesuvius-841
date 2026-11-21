@@ -1,0 +1,46 @@
+Image 1
+none
+Image 2
+none
+Image 3
+none
+Image 4
+none
+Image 5
+none
+Image 6
+B1: lambda (1)
+C1: sigma (3)
+D1: mu (1)
+E1: alpha (2)
+F1: xi (1)
+G1: theta (2)
+B3: upsilon (1)
+C3: sigma (3)
+D3: delta (3)
+E3: omicron (3)
+F3: tau (1)
+Image 7
+none
+Image 8
+none
+Image 9
+E2: gamma (1)
+Image 10
+E2: iota (1)
+Image 11
+none
+Image 12
+none
+Image 13
+none
+Image 14
+none
+Image 15
+none
+Image 16
+none
+Image 17
+none
+Image 18
+none

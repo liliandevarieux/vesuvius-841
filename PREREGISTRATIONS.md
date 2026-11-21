@@ -5977,3 +5977,136 @@ and the 12 controls.
 
 Scripts: `scripts/c0800_fenetres.py` (plan, dry run, test panels and key), `scripts/c0800_score_fenetres.py` and
 `scripts/capacite_pr61.py`.
+
+## Result of PR-61 — written 2026-11-21, after the reading (all counts recounted blind from the answer files)
+
+**The gate holds, at its threshold: 3 of Erwin's 12 letters repeat (γ, ι and the second ο). The primary fails. Of PR-60's
+three flagged tiles, only tile 16 repeats (a γ, in the reverse order), against 1 of the 24 control chances: p = 0.21.
+As registered, PR-60's flags are dropped as candidates.**
+- *The prediction holds, except that the primary fails clearly, not narrowly.*
+  - The gate holds narrowly, with exactly γ, ι and the second ο.
+  - Tile 16 repeats in reverse; tiles 3 and 30 do not.
+  - 1 control chance out of 24 repeats.
+  - The prediction had the primary failing narrowly. It fails with p = 0.21.
+- On known text, the format shows many forms that the readers agree on, in the forward order only. None of the 15
+  PHerc0800 windows, which cover 76 % of the approved surfaces, looks like that (below).
+
+*Running.* Everything below was done after the 10:03 registration (commit 893dd6b).
+- *Panels.* The 216 test panels (12 readers × 18) and the key were built at 10:04 by the published
+  `c0800_fenetres.py`. Every (panel, order) pair is read exactly 6 times.
+- *Readers.* 12 fresh readers read from about 10:06 to 10:18, two at a time.
+  - Each answered all 18 `Image k` blocks, in 66 to 159 s and 76,386 to 77,706 tokens.
+  - The scoring script rejected no line.
+  - No reader failed and no reader was replaced.
+  - The start times are approximate, to the minute.
+
+*Gate (Erwin, Reader V3; "support" = readers out of 6 naming the reference letter within one cell).*
+
+| letter | window, cell | forward | reverse | repeats |
+|---|---|---|---|---|
+| 1 π | E1 B2 | 1 | 0 | |
+| 2 α | E1 C2 | 0 | 0 | |
+| 3 ν | E1 D2 | 0 | 0 | |
+| 4 τ | E1 E2 | 0 | 0 | |
+| 5 ο | E1 F2 | 0 | 0 | |
+| 6 γ | E1 G2 | 4 | 0 | yes |
+| 7 ι | E1 H2 | 6 | 0 | yes |
+| 8 ν | E2 D3 | 0 | 0 | |
+| 9 ο | E2 E3 | 6 | 0 | yes |
+| 10 μ | E2 F3 | 0 | 0 | |
+| 11 μ | E2 D1 | 0 | 0 | |
+| 12 ε | E2 E1 | 0 | 0 | |
+
+- 3 letters out of 12 repeat, where 3 were required: **the gate holds**.
+- Resampling the readers gives an interval of 2 to 3 letters (2,000 draws). As in PR-47, one changed answer could
+  have failed it.
+
+*Primary.*
+
+| window | order tested | what repeats in the footprint |
+|---|---|---|
+| tile 3 (z11072_w040) | forward | nothing |
+| tile 30 (z15264_w100) | forward | nothing: its ι is named by 6 of 6 readers in **both** orders |
+| tile 16 (z14064_w020) | reverse | γ in columns D–E, 4/6 reverse against 0/6 forward |
+| control, tile 50 (z9872_w020) | forward | ο, 4/6 forward against 0/6 reverse |
+| the other 11 controls | both | nothing |
+
+- Rf = 1 of 3 (95 % interval 0.01 to 0.91). Rc = 1 of 24 (0.00 to 0.21).
+- Fisher one-sided p = 0.2137. **The primary fails.**
+
+*Secondary 1: every consistent form on PHerc0800 (support ≥ 4), in any cell and either order.*
+- *Tile 30.* An ι named by all six readers in **both** orders, in columns D–E.
+  - The two orders place it one column apart, so in column C (reverse) and column F (forward) one order reaches 6/6
+    while the other has 0 or 1.
+  - An ο, 5/6 in reverse against 0/6 forward.
+- *Tile 16.* In reverse only: γ 4/6, and ι 5/6 in columns A–C, outside the footprint.
+- *Control tile 29 (z15264_w100).* An ι in both orders: 4/6 forward and 6/6 reverse.
+- *Control tile 50.* ο, 4/6 forward.
+- Nothing on the other 11 windows.
+- So the forms are single letters (ι, ο, γ). Two of the ι are present in both orders, which is what a crack or an
+  edge would do.
+
+*Secondary 2: 0009B control (reported only, because Reader V3 has seen part of this segment).*
+- Letters 2 α, 3 μ, 9 ο and 10 δ get 6/6 forward, letter 8 σ gets 4/6, and the other five get 0 or 1.
+- Every letter gets 0 in reverse.
+
+*Secondary 3: what the window format loses on Erwin, against PR-58 and PR-59's crops.*
+- *Read in both.* γ, ι and the second ο are read in both formats.
+- *Lost.* π (4 of 8 on crops) gets 1 of 6 here.
+- *Consistently misnamed.* The first ν (5 of 8 on crops), τ and the first ο are not lost: all six forward readers name
+  a letter at their exact cells (D2, E2 and F2), as ω, γ and α respectively.
+  - The first ο is also visible in window E2 (A3), and it is named α there too, by the readers of that window.
+  - The scoring script lists these as "consistent forms that match no letter", because it scores letters 5 to 7 in E1
+    only.
+- So at window scale, Reader V3 shows six of Erwin's letters as forward-only forms that all readers agree on: letters
+  3 to 7 and 9.
+  - Three of them get the papyrologists' name; the gate counts only these.
+  - The other three get another name, the same one from every reader. PR-47 saw the same on 0009B.
+- In reverse, Erwin shows no consistent form at all.
+
+*Secondary 4: letters named per reader.*
+
+| zone | forward | reverse |
+|---|---|---|
+| Erwin (E1, E2) | 5.5 and 4.7 per panel, 61 in all | 0.0 and 0.5, 3 in all |
+| 0009B | 11.0, 66 in all | 0.0, 0 in all |
+| PHerc0800, 15 windows | 0.0 to 1.2 per panel, 36 in all | 0.0 to 2.5 per panel, 58 in all |
+
+*Secondary 5.* Times and tokens are above, per reader, in `reponses/journal_lecteurs.tsv`.
+
+*Observation, not registered (recounted blind with the rest).* Known text, on both scrolls, shows the same pattern:
+- readers name 5 to 11 letters per panel in the forward order, and nearly nothing in reverse;
+- most of those letters are forms that all six readers place in the same cell.
+
+PHerc0800's windows show the opposite pattern:
+- under 1 name per reader per panel;
+- more names in reverse than forward (58 against 36);
+- a few lone consistent letters, some present in both orders.
+
+On these 14 surfaces, Reader V3's PHerc0800 maps hold no region that reads like the known text, at the scale where
+known text is read.
+
+*Reservations.*
+- *The gate passed exactly at the threshold*, with an interval of 2 to 3. The format is validated as narrowly as
+  PR-47's was.
+- *A consistent form is not a named letter.* On Erwin, three real letters got a consistent wrong name. A form on
+  PHerc0800 says "letter-like shape", not which letter.
+- *The primary had little power.* With three flagged tiles, only a strong, clean signal could pass (capacity in the
+  registration). Tile 16's γ could still be writing.
+- *The observation is not a registered test.* It does not exclude writing on these surfaces that Reader V3 renders
+  worse than it renders 343.
+- *Readers.* They are AI agents.
+
+*Decision, as registered.* The gate holds and the primary fails, so PR-60's three flags are dropped as candidates.
+- The forms of secondary 1 are reported as places.
+- The registered branch "no window repeats at all" is not reached, because tile 16 and control tile 50 each repeat once.
+- The next step is not fixed by this registration. The GPU is computing Reader V3 maps of PHerc0800's 81 other atlas
+  surfaces, and any reading of them, with this format and this gate, will be registered first.
+
+*Files.* `results/pr61/`:
+- the key (`cle_pr61.json`);
+- the 12 answers, with times and tokens (`reponses/`);
+- the scoring output from `scripts/c0800_score_fenetres.py` (`depouillement.txt`);
+- the blind recount script and its output (`recompte_aveugle_resultat.*`).
+
+The panels are not published.

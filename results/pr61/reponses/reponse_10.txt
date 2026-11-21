@@ -1,0 +1,47 @@
+Image 1
+E2: iota (1)
+Image 2
+none
+Image 3
+C2: iota (1)
+Image 4
+none
+Image 5
+none
+Image 6
+none
+Image 7
+none
+Image 8
+none
+Image 9
+none
+Image 10
+none
+Image 11
+none
+Image 12
+none
+Image 13
+B1: iota (1)
+E2: gamma (1)
+Image 14
+B1: lambda (2)
+C1: sigma (3)
+D1: mu (1)
+E1: alpha (2)
+F1: xi (2)
+G1: theta (1)
+B3: upsilon (1)
+C3: epsilon (2)
+D3: delta (3)
+E3: omicron (3)
+F3: xi (1)
+Image 15
+none
+Image 16
+none
+Image 17
+none
+Image 18
+none

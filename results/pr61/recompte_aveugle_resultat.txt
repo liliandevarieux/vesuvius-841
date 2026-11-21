@@ -1,0 +1,137 @@
+Readers per (panel, order):
+  E1: direct=6 (01,03,05,07,09,11) inverse=6 (02,04,06,08,10,12)
+  E2: direct=6 (01,03,05,07,09,11) inverse=6 (02,04,06,08,10,12)
+  B: direct=6 (02,04,06,08,10,12) inverse=6 (01,03,05,07,09,11)
+  S3: direct=6 (01,03,05,07,09,11) inverse=6 (02,04,06,08,10,12)
+  S30: direct=6 (02,04,06,08,10,12) inverse=6 (01,03,05,07,09,11)
+  S16: direct=6 (01,03,05,07,09,11) inverse=6 (02,04,06,08,10,12)
+  T25: direct=6 (02,04,06,08,10,12) inverse=6 (01,03,05,07,09,11)
+  T9: direct=6 (01,03,05,07,09,11) inverse=6 (02,04,06,08,10,12)
+  T21: direct=6 (02,04,06,08,10,12) inverse=6 (01,03,05,07,09,11)
+  T44: direct=6 (01,03,05,07,09,11) inverse=6 (02,04,06,08,10,12)
+  T29: direct=6 (02,04,06,08,10,12) inverse=6 (01,03,05,07,09,11)
+  T50: direct=6 (01,03,05,07,09,11) inverse=6 (02,04,06,08,10,12)
+  T19: direct=6 (02,04,06,08,10,12) inverse=6 (01,03,05,07,09,11)
+  T39: direct=6 (01,03,05,07,09,11) inverse=6 (02,04,06,08,10,12)
+  T46: direct=6 (02,04,06,08,10,12) inverse=6 (01,03,05,07,09,11)
+  T13: direct=6 (01,03,05,07,09,11) inverse=6 (02,04,06,08,10,12)
+  T35: direct=6 (02,04,06,08,10,12) inverse=6 (01,03,05,07,09,11)
+  T2: direct=6 (01,03,05,07,09,11) inverse=6 (02,04,06,08,10,12)
+
+1. Erwin letters
+  E1 letter 1 B2 pi: direct=1 inverse=0 repeats_forward=False
+  E1 letter 2 C2 alpha: direct=0 inverse=0 repeats_forward=False
+  E1 letter 3 D2 nu: direct=0 inverse=0 repeats_forward=False
+  E1 letter 4 E2 tau: direct=0 inverse=0 repeats_forward=False
+  E1 letter 5 F2 omicron: direct=0 inverse=0 repeats_forward=False
+  E1 letter 6 G2 gamma: direct=4 inverse=0 repeats_forward=True
+  E1 letter 7 H2 iota: direct=6 inverse=0 repeats_forward=True
+  E2 letter 8 D3 nu: direct=0 inverse=0 repeats_forward=False
+  E2 letter 9 E3 omicron: direct=6 inverse=0 repeats_forward=True
+  E2 letter 10 F3 mu: direct=0 inverse=0 repeats_forward=False
+  E2 letter 11 D1 mu: direct=0 inverse=0 repeats_forward=False
+  E2 letter 12 E1 epsilon: direct=0 inverse=0 repeats_forward=False
+  Letters repeating forward: 3/12
+
+2. Flagged vs control
+  S3 (direct): repeats=False []
+  S30 (direct): repeats=False []
+  S16 (inverse): repeats=True [('D1', 'gamma', 4, 0), ('E1', 'gamma', 4, 0), ('D2', 'gamma', 4, 0), ('E2', 'gamma', 4, 0), ('D3', 'gamma', 4, 0), ('E3', 'gamma', 4, 0)]
+  T25 (direct): repeats=False []
+  T25 (inverse): repeats=False []
+  T9 (direct): repeats=False []
+  T9 (inverse): repeats=False []
+  T21 (direct): repeats=False []
+  T21 (inverse): repeats=False []
+  T44 (direct): repeats=False []
+  T44 (inverse): repeats=False []
+  T29 (direct): repeats=False []
+  T29 (inverse): repeats=False []
+  T50 (direct): repeats=True [('D1', 'omicron', 4, 0), ('D2', 'omicron', 4, 0), ('D3', 'omicron', 4, 0)]
+  T50 (inverse): repeats=False []
+  T19 (direct): repeats=False []
+  T19 (inverse): repeats=False []
+  T39 (direct): repeats=False []
+  T39 (inverse): repeats=False []
+  T46 (direct): repeats=False []
+  T46 (inverse): repeats=False []
+  T13 (direct): repeats=False []
+  T13 (inverse): repeats=False []
+  T35 (direct): repeats=False []
+  T35 (inverse): repeats=False []
+  T2 (direct): repeats=False []
+  T2 (inverse): repeats=False []
+  Rf=1/3  Rc=1/24  N=27 K=2  p=P(X>=1)=625/2925=0.213675
+
+3. Panel B
+  B letter 1 B1 nu: direct=0 inverse=0
+  B letter 2 E1 alpha: direct=6 inverse=0
+  B letter 3 D1 mu: direct=6 inverse=0
+  B letter 4 C1 omicron: direct=0 inverse=0
+  B letter 5 F1 zeta: direct=0 inverse=0
+  B letter 6 G1 epsilon: direct=1 inverse=0
+  B letter 7 B3 eta: direct=0 inverse=0
+  B letter 8 C3 sigma: direct=4 inverse=0
+  B letter 9 E3 omicron: direct=6 inverse=0
+  B letter 10 D3 delta: direct=6 inverse=0
+
+4. Items per reader
+  E1: direct: 33 items / 6 readers = 5.500 | inverse: 0 items / 6 readers = 0.000
+  E2: direct: 28 items / 6 readers = 4.667 | inverse: 3 items / 6 readers = 0.500
+  B: direct: 66 items / 6 readers = 11.000 | inverse: 0 items / 6 readers = 0.000
+  S3: direct: 1 items / 6 readers = 0.167 | inverse: 0 items / 6 readers = 0.000
+  S30: direct: 7 items / 6 readers = 1.167 | inverse: 15 items / 6 readers = 2.500
+  S16: direct: 0 items / 6 readers = 0.000 | inverse: 11 items / 6 readers = 1.833
+  T25: direct: 2 items / 6 readers = 0.333 | inverse: 3 items / 6 readers = 0.500
+  T9: direct: 0 items / 6 readers = 0.000 | inverse: 3 items / 6 readers = 0.500
+  T21: direct: 1 items / 6 readers = 0.167 | inverse: 3 items / 6 readers = 0.500
+  T44: direct: 3 items / 6 readers = 0.500 | inverse: 0 items / 6 readers = 0.000
+  T29: direct: 4 items / 6 readers = 0.667 | inverse: 8 items / 6 readers = 1.333
+  T50: direct: 4 items / 6 readers = 0.667 | inverse: 1 items / 6 readers = 0.167
+  T19: direct: 0 items / 6 readers = 0.000 | inverse: 7 items / 6 readers = 1.167
+  T39: direct: 2 items / 6 readers = 0.333 | inverse: 0 items / 6 readers = 0.000
+  T46: direct: 4 items / 6 readers = 0.667 | inverse: 2 items / 6 readers = 0.333
+  T13: direct: 1 items / 6 readers = 0.167 | inverse: 1 items / 6 readers = 0.167
+  T35: direct: 3 items / 6 readers = 0.500 | inverse: 3 items / 6 readers = 0.500
+  T2: direct: 4 items / 6 readers = 0.667 | inverse: 1 items / 6 readers = 0.167
+  Total 0800: direct=36 inverse=58
+  Total E: direct=61 inverse=3
+  Total B: direct=66 inverse=0
+
+5. All (c,n) with support>=4
+  E1 direct: C1:omega=6(other 0), C2:omega=6(other 0), C3:omega=6(other 0), D1:gamma=6(other 0), D1:omega=6(other 0), D2:gamma=6(other 0), D2:omega=6(other 0), D3:gamma=6(other 0), D3:omega=6(other 0), E1:alpha=6(other 0), E1:gamma=6(other 0), E1:omega=6(other 0), E2:alpha=6(other 0), E2:gamma=6(other 0), E2:omega=6(other 0), E3:alpha=6(other 0), E3:gamma=6(other 0), E3:omega=6(other 0), F1:alpha=6(other 0), F1:gamma=6(other 0), F2:alpha=6(other 0), F2:gamma=6(other 0), F3:alpha=6(other 0), F3:gamma=6(other 0), G1:alpha=6(other 0), G1:gamma=4(other 0), G1:iota=6(other 0), G2:alpha=6(other 0), G2:gamma=4(other 0), G2:iota=6(other 0), G3:alpha=6(other 0), G3:gamma=4(other 0), G3:iota=6(other 0), H1:gamma=4(other 0), H1:iota=6(other 0), H2:gamma=4(other 0), H2:iota=6(other 0), H3:gamma=4(other 0), H3:iota=6(other 0)
+  E1 inverse: -
+  E2 direct: A2:alpha=6(other 0), A2:gamma=5(other 0), A3:alpha=6(other 0), A3:gamma=5(other 0), B2:alpha=6(other 0), B2:gamma=5(other 0), B2:iota=6(other 1), B3:alpha=6(other 0), B3:gamma=5(other 0), B3:iota=6(other 1), C2:gamma=5(other 0), C2:iota=6(other 1), C3:gamma=5(other 0), C3:iota=6(other 1), D2:iota=6(other 1), D2:omicron=6(other 0), D3:iota=6(other 1), D3:omicron=6(other 0), E2:omicron=6(other 0), E3:omicron=6(other 0), F2:omicron=6(other 0), F3:omicron=6(other 0)
+  E2 inverse: -
+  B direct: A1:lambda=6(other 0), A2:lambda=6(other 0), A2:upsilon=5(other 0), A3:upsilon=5(other 0), B1:lambda=6(other 0), B1:sigma=6(other 0), B2:lambda=6(other 0), B2:sigma=6(other 0), B2:upsilon=5(other 0), B3:sigma=4(other 0), B3:upsilon=5(other 0), C1:lambda=6(other 0), C1:mu=6(other 0), C1:sigma=6(other 0), C2:delta=6(other 0), C2:lambda=6(other 0), C2:mu=6(other 0), C2:sigma=6(other 0), C2:upsilon=5(other 0), C3:delta=6(other 0), C3:sigma=4(other 0), C3:upsilon=5(other 0), D1:alpha=6(other 0), D1:mu=6(other 0), D1:sigma=6(other 0), D2:alpha=6(other 0), D2:delta=6(other 0), D2:mu=6(other 0), D2:omicron=6(other 0), D2:sigma=6(other 0), D3:delta=6(other 0), D3:omicron=6(other 0), D3:sigma=4(other 0), E1:alpha=6(other 0), E1:mu=6(other 0), E1:xi=6(other 0), E2:alpha=6(other 0), E2:delta=6(other 0), E2:mu=6(other 0), E2:omicron=6(other 0), E2:xi=6(other 0), E3:delta=6(other 0), E3:omicron=6(other 0), E3:xi=5(other 0), F1:alpha=6(other 0), F1:theta=5(other 0), F1:xi=6(other 0), F2:alpha=6(other 0), F2:omicron=6(other 0), F2:theta=5(other 0), F2:xi=6(other 0), F3:omicron=6(other 0), F3:xi=5(other 0), G1:theta=5(other 0), G1:xi=6(other 0), G2:theta=5(other 0), G2:xi=6(other 0), G3:xi=5(other 0), H1:theta=5(other 0), H2:theta=5(other 0)
+  B inverse: -
+  S3 direct: -
+  S3 inverse: -
+  S30 direct: D1:iota=6(other 6), D2:iota=6(other 6), D3:iota=6(other 6), E1:iota=6(other 6), E2:iota=6(other 6), E3:iota=6(other 6), F1:iota=6(other 1), F2:iota=6(other 1), F3:iota=6(other 1)
+  S30 inverse: B1:omicron=5(other 0), B2:omicron=5(other 0), B3:omicron=5(other 0), C1:iota=6(other 0), C1:omicron=5(other 0), C2:iota=6(other 0), C2:omicron=5(other 0), C3:iota=6(other 0), C3:omicron=5(other 0), D1:iota=6(other 6), D1:omicron=5(other 0), D2:iota=6(other 6), D2:omicron=5(other 0), D3:iota=6(other 6), D3:omicron=5(other 0), E1:iota=6(other 6), E2:iota=6(other 6), E3:iota=6(other 6)
+  S16 direct: -
+  S16 inverse: A1:iota=5(other 0), A2:iota=5(other 0), B1:iota=5(other 0), B2:iota=5(other 0), C1:iota=5(other 0), C2:iota=5(other 0), D1:gamma=4(other 0), D2:gamma=4(other 0), D3:gamma=4(other 0), E1:gamma=4(other 0), E2:gamma=4(other 0), E3:gamma=4(other 0), F1:gamma=4(other 0), F2:gamma=4(other 0), F3:gamma=4(other 0)
+  T25 direct: -
+  T25 inverse: -
+  T9 direct: -
+  T9 inverse: -
+  T21 direct: -
+  T21 inverse: -
+  T44 direct: -
+  T44 inverse: -
+  T29 direct: B1:iota=4(other 6), B2:iota=4(other 6), B3:iota=4(other 0), C1:iota=4(other 6), C2:iota=4(other 6), C3:iota=4(other 0)
+  T29 inverse: A1:iota=6(other 2), A2:iota=6(other 2), B1:iota=6(other 4), B2:iota=6(other 4), C1:iota=6(other 4), C2:iota=6(other 4)
+  T50 direct: B1:omicron=4(other 0), B2:omicron=4(other 0), B3:omicron=4(other 0), C1:omicron=4(other 0), C2:omicron=4(other 0), C3:omicron=4(other 0), D1:omicron=4(other 0), D2:omicron=4(other 0), D3:omicron=4(other 0)
+  T50 inverse: -
+  T19 direct: -
+  T19 inverse: -
+  T39 direct: -
+  T39 inverse: -
+  T46 direct: -
+  T46 inverse: -
+  T13 direct: -
+  T13 inverse: -
+  T35 direct: -
+  T35 inverse: -
+  T2 direct: -
+  T2 inverse: -

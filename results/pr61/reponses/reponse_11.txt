@@ -1,0 +1,47 @@
+Image 1
+B2: omicron (1)
+Image 2
+none
+Image 3
+E3: iota (1)
+Image 4
+none
+Image 5
+E3: iota (1)
+Image 6
+B3: omicron (1)
+Image 7
+A2: chi (1)
+Image 8
+none
+Image 9
+C2: omicron (1)
+Image 10
+A3: alpha (1)
+B3: gamma (2)
+C3: iota (2)
+E3: omicron (1)
+Image 11
+C2: sigma (1)
+Image 12
+none
+Image 13
+C2: sigma (1)
+D2: iota (1)
+Image 14
+none
+Image 15
+C2: omicron (2)
+D2: iota (1)
+Image 16
+B2: pi (1)
+D2: omega (2)
+E2: gamma (2)
+F2: alpha (2)
+G2: tau (2)
+H2: iota (2)
+Image 17
+C2: iota (1)
+Image 18
+B1: iota (1)
+D1: iota (1)

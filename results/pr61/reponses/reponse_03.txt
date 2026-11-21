@@ -1,0 +1,44 @@
+Image 1
+none
+Image 2
+none
+Image 3
+none
+Image 4
+D2: omega (3)
+E2: gamma (2)
+F2: alpha (1)
+G2: gamma (2)
+H2: iota (2)
+Image 5
+none
+Image 6
+C2: omicron (1)
+Image 7
+none
+Image 8
+none
+Image 9
+none
+Image 10
+none
+Image 11
+A3: alpha (1)
+B3: gamma (2)
+C3: iota (2)
+E3: omicron (1)
+Image 12
+B1: iota (1)
+Image 13
+none
+Image 14
+C2: epsilon (1)
+D2: iota (1)
+Image 15
+none
+Image 16
+none
+Image 17
+none
+Image 18
+F1: upsilon (1)

@@ -1,0 +1,98 @@
+lecteurs : 12 ; incidents : aucun
+lectures par (panneau, sens) : [6]
+
+== PORTE (Erwin, Reader V3) : lettre qui se repete en sens direct, a sa case, sous son nom
+   lettre  1 pi       E1 B2 : direct 1/6, inverse 0/6 
+   lettre  2 alpha    E1 C2 : direct 0/6, inverse 0/6 
+   lettre  3 nu       E1 D2 : direct 0/6, inverse 0/6 
+   lettre  4 tau      E1 E2 : direct 0/6, inverse 0/6 
+   lettre  5 omicron  E1 F2 : direct 0/6, inverse 0/6 
+   lettre  6 gamma    E1 G2 : direct 4/6, inverse 0/6 <- SE REPETE
+   lettre  7 iota     E1 H2 : direct 6/6, inverse 0/6 <- SE REPETE
+   lettre  8 nu       E2 D3 : direct 0/6, inverse 0/6 
+   lettre  9 omicron  E2 E3 : direct 6/6, inverse 0/6 <- SE REPETE
+   lettre 10 mu       E2 F3 : direct 0/6, inverse 0/6 
+   lettre 11 mu       E2 D1 : direct 0/6, inverse 0/6 
+   lettre 12 epsilon  E2 E1 : direct 0/6, inverse 0/6 
+PORTE : 3 lettre(s) sur 12 ['6', '7', '9'] -> TENUE ; intervalle 95 % (lecteurs reechantillonnes, 2000 tirages) 2 - 3
+
+== PRINCIPAL : se repeter dans l'empreinte du carre de PR-60
+   SIGNALE S3    z11072_w040 direct  : rien
+   SIGNALE S30   z15264_w100 direct  : rien
+   SIGNALE S16   z14064_w020 inverse : D1 gamma (4/6 contre 0/6), D2 gamma (4/6 contre 0/6), D3 gamma (4/6 contre 0/6), E1 gamma (4/6 contre 0/6), E2 gamma (4/6 contre 0/6), E3 gamma (4/6 contre 0/6)
+   temoin  T25   z15264_w100 direct  : rien
+   temoin  T25   z15264_w100 inverse : rien
+   temoin  T9    z12272_w020 direct  : rien
+   temoin  T9    z12272_w020 inverse : rien
+   temoin  T21   z15264_w020 direct  : rien
+   temoin  T21   z15264_w020 inverse : rien
+   temoin  T44   z8672_w040  direct  : rien
+   temoin  T44   z8672_w040  inverse : rien
+   temoin  T29   z15264_w100 direct  : rien
+   temoin  T29   z15264_w100 inverse : rien
+   temoin  T50   z9872_w020  direct  : D1 omicron (4/6 contre 0/6), D2 omicron (4/6 contre 0/6), D3 omicron (4/6 contre 0/6)
+   temoin  T50   z9872_w020  inverse : rien
+   temoin  T19   z14672_w020 direct  : rien
+   temoin  T19   z14672_w020 inverse : rien
+   temoin  T39   z8672_w020  direct  : rien
+   temoin  T39   z8672_w020  inverse : rien
+   temoin  T46   z9264_w020  direct  : rien
+   temoin  T46   z9264_w020  inverse : rien
+   temoin  T13   z13472_w020 direct  : rien
+   temoin  T13   z13472_w020 inverse : rien
+   temoin  T35   z16464_w020 direct  : rien
+   temoin  T35   z16464_w020 inverse : rien
+   temoin  T2    z11072_w020 direct  : rien
+   temoin  T2    z11072_w020 inverse : rien
+signales : 1 / 3 (IC 95 % 0.01 - 0.91) ; temoins : 1 / 24 (IC 95 % 0.00 - 0.21) ; Fisher unilateral p = 0.2137
+PRINCIPAL : ECHOUE
+DECISION : porte tenue, principal echoue : les signalements de PR-60 ne se repetent pas mieux que des fenetres au hasard
+
+== SECONDAIRE 1 : toutes les formes constantes, partout, chaque panneau et chaque sens
+   E1    direct  : iota pic H3+G2+G3+H2+G1+H1 6/6 (autre sens 0/6) ; gamma pic F1+F2+F3+E1+E2+E3+D1+D2+D3 6/6 (autre sens 0/6) ; alpha pic G3+F2+F3+G2+E1+E2+E3+F1+G1 6/6 (autre sens 0/6) ; omega pic E3+D2+D3+E2+C1+C2+C3+D1+E1 6/6 (autre sens 0/6)
+   E2    direct  : omicron pic F3+E2+E3+F2+D2+D3 6/6 (autre sens 0/6) ; iota pic D3+C2+C3+D2+B2+B3 6/6 (autre sens 1/6) ; gamma pic C3+B2+B3+C2+A2+A3 5/6 (autre sens 0/6) ; alpha pic B3+A2+A3+B2 6/6 (autre sens 0/6)
+   B     direct  : theta pic H2+G1+G2+H1+F1+F2 5/6 (autre sens 0/6) ; xi pic F2+G2+E1+E2+F1+G1 6/6 (autre sens 0/6) ; omicron pic F3+E2+E3+F2+D2+D3 6/6 (autre sens 0/6) ; alpha pic F2+E1+E2+F1+D1+D2 6/6 (autre sens 0/6) ; delta pic E3+D2+D3+E2+C2+C3 6/6 (autre sens 0/6) ; mu pic E2+D1+D2+E1+C1+C2 6/6 (autre sens 0/6) ; sigma pic C2+D2+B1+B2+C1+D1 6/6 (autre sens 0/6) ; upsilon pic C3+B2+B3+C2+A2+A3 5/6 (autre sens 0/6) ; lambda pic C2+B1+B2+C1+A1+A2 6/6 (autre sens 0/6)
+   S30   direct  : iota pic F3+E2+E3+F2+D1+D2+D3+E1+F1 6/6 (autre sens 6/6)
+   S30   inverse : iota pic E3+D2+D3+E2+C1+C2+C3+D1+E1 6/6 (autre sens 6/6) ; omicron pic D3+C2+C3+D2+B1+B2+B3+C1+D1 5/6 (autre sens 0/6)
+   S16   inverse : gamma pic F3+E2+E3+F2+D1+D2+D3+E1+F1 4/6 (autre sens 0/6) ; iota pic C2+B1+B2+C1+A1+A2 5/6 (autre sens 0/6)
+   T29   direct  : iota pic C3+B2+B3+C2+B1+C1 4/6 (autre sens 6/6)
+   T29   inverse : iota pic C2+B1+B2+C1+A1+A2 6/6 (autre sens 4/6)
+   T50   direct  : omicron pic D3+C2+C3+D2+B1+B2+B3+C1+D1 4/6 (autre sens 0/6)
+
+== SECONDAIRE 2 : temoin 0009B (rapporte seulement)
+   lettre  1 nu       B1 : direct 0/6, inverse 0/6
+   lettre  2 alpha    E1 : direct 6/6, inverse 0/6
+   lettre  3 mu       D1 : direct 6/6, inverse 0/6
+   lettre  4 omicron  C1 : direct 0/6, inverse 0/6
+   lettre  5 zeta     F1 : direct 0/6, inverse 0/6
+   lettre  6 epsilon  G1 : direct 1/6, inverse 0/6
+   lettre  7 eta      B3 : direct 0/6, inverse 0/6
+   lettre  8 sigma    C3 : direct 4/6, inverse 0/6
+   lettre  9 omicron  E3 : direct 6/6, inverse 0/6
+   lettre 10 delta    D3 : direct 6/6, inverse 0/6
+
+== SECONDAIRE 3 : Erwin, lectures justes par lettre (sur 6, a une case pres) et formes constantes fausses
+   E1 direct  formes constantes fausses : C1 omega, C2 omega, C3 omega, D1 gamma, D1 omega, D2 gamma, D2 omega, D3 gamma, D3 omega, E1 alpha, E1 gamma, E1 omega, E2 alpha, E2 gamma, E2 omega, E3 alpha, E3 gamma, E3 omega, F1 alpha, F2 alpha, F3 alpha, G1 alpha, G2 alpha, G3 alpha
+   E1 inverse formes constantes fausses : aucune
+   E2 direct  formes constantes fausses : A2 alpha, A2 gamma, A3 alpha, A3 gamma, B2 alpha, B2 gamma, B2 iota, B3 alpha, B3 gamma, B3 iota, C2 gamma, C2 iota, C3 gamma, C3 iota, D2 iota, D3 iota
+   E2 inverse formes constantes fausses : aucune
+
+== SECONDAIRE 4 : lettres nommees par lecteur (moyenne par panneau et sens)
+   E1    direct 5.5  inverse 0.0
+   E2    direct 4.7  inverse 0.5
+   B     direct 11.0  inverse 0.0
+   S3    direct 0.2  inverse 0.0
+   S30   direct 1.2  inverse 2.5
+   S16   direct 0.0  inverse 1.8
+   T25   direct 0.3  inverse 0.5
+   T9    direct 0.0  inverse 0.5
+   T21   direct 0.2  inverse 0.5
+   T44   direct 0.5  inverse 0.0
+   T29   direct 0.7  inverse 1.3
+   T50   direct 0.7  inverse 0.2
+   T19   direct 0.0  inverse 1.2
+   T39   direct 0.3  inverse 0.0
+   T46   direct 0.7  inverse 0.3
+   T13   direct 0.2  inverse 0.2
+   T35   direct 0.5  inverse 0.5
+   T2    direct 0.7  inverse 0.2
