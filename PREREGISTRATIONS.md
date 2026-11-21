@@ -5763,3 +5763,217 @@ failed.
   and the same p-values.
 
 The sheets are not published.
+
+## PR-61 — registration, 2026-11-21 10:03, before any test panel is built: at window scale, does Reader V3 show Erwin's known letters, and do PR-60's three flagged PHerc0800 tiles hold a letter-like form that the other layer order does not, more often than random windows?
+
+*Why.* PR-60's gate failed: in its tile format, 2 of Erwin's 6 letter tiles were seen, where 3 were required, so
+nothing was concluded about PHerc0800. Its registered fallback is "window-format naming on a subset, under its own
+registration". This is that registration.
+- PR-60 suspected its 4 × reduction. Each 1024 px tile was shown at 256 px, so Erwin's letters (235 to 374 px tall in
+  his reading frame) were about 60 to 90 px tall. Here they are shown at half scale, about 120 to 190 px. That is close to
+  the scale of PR-58's and PR-59's crops (the letter box plus 40 px of margin, fitted into 200 px), where Reader V3 was
+  legible.
+- *How the subset is chosen.*
+  - PR-60 picked three PHerc0800 tiles: 3 and 30, read in the forward order, and 16, read in the reverse order only.
+    These are the "flagged" tiles.
+  - As controls, 12 other PR-60 tiles are drawn at random (seed 61) from the 49 others. A draw is accepted only if its
+    window does not overlap a window already taken.
+  - The 15 windows cover 76.1 % of the 14 approved surfaces (34.8 of 45.8 million surface pixels), on 13 of the 14
+    surfaces. So the "subset" is most of the approved surface.
+
+*What has been done, all before this registration.* No test panel has been built. No PHerc0800 map has been looked at,
+by us or by Lilian.
+- *Window plan* (`scripts/c0800_fenetres.py plan`, output `results/pr61/plan_fenetres.json`). It is computed from map
+  shapes, the scan's surface masks and PR-60's tile plan, without reading any ink value.
+- *Capacity* (`scripts/capacite_pr61.py`, output `results/pr61/capacite_pr61.txt`).
+- *Scoring script* (`scripts/c0800_score_fenetres.py`). It was checked on simulated answers only, built so that the
+  expected result was written down before the run, and it gave that result. The check found one defect, now fixed: a cell
+  written in bold (`**A1**`) was being rejected.
+- *Dry run* of the format, outside the test (below).
+
+*Map.* Reader V3 alone, in both layer orders. These are the files read in PR-60: same weights, same command, same
+outputs.
+- *Argus V3 is left out.* It descends from Reader V3. On two of the flagged tiles it gave Reader V3's counts, and on the
+  third both are weak:
+  - tile 3: 4/6 forward and 0/6 reverse on both maps;
+  - tile 16: 0/6 forward and 6/6 reverse on both;
+  - tile 30: Reader V3 2 forward against 0 reverse, Argus V3 1 against 1.
+- *The mean is left out.* It lost tile 3: 0/6, against 4/6 on each of Reader V3 and Argus V3.
+- *v8-in is left out.* It got 0 "yes" in 744 readings on Erwin and PHerc0800 in PR-60.
+- *Reader V3 is kept* because it is the parent model. On 343 it was read about as well as Argus V3: 15 and 20 correct
+  readings out of 48, against 16 and 18.
+
+*Window format, version 3.* Window format v2 (PR-55) is changed only where PHerc0800's surfaces force it.
+- *What changes.* PHerc0800's 14 surfaces are strips 1120 to 1560 px tall, and PR-47's 1900 px window does not fit
+  them. So a window is **1140 × 3200 px**: 3 rows of 380 px by 8 columns of 400 px.
+- *What stays.* These are PR-47's cells, so "within one cell" means the same distance. The window is reduced × 0.5
+  (2 × 2 mean), with a red grid A–H × 1–3, marks in the margin and no model name. Each panel is 1640 × 610 px.
+- *Contrast.* From the 1st to the 99.5th percentile of the surface pixels inside the window (PR-47 used the whole
+  window, which lay entirely on the papyrus). Pixels off the surface are black.
+  - Masks: PHerc0800 and 0009B, layer 15 of the surface volume > 0; Erwin, the organisers' Reader V3 map > 0, as in
+    PR-60.
+- *PHerc0800 windows.* Each window is centred on its PR-60 tile and shifted to stay inside the map.
+  - The tile's **footprint** is the set of cells whose centre lies inside the tile. Depending on where the tile falls
+    against the grid, that is 6 or 9 cells.
+  - The flagged tiles' footprints are 9, 6 and 6 cells (tiles 3, 30 and 16). The controls have 6 or 9.
+- *Erwin's two windows* (his reading frame, both orders, Reader V3, brought in with the PR-58 field as in PR-60):
+  - E1: rows 980–2120, columns 300–3500, holding letters 1–7 (π α ν τ ο γ ι, cells B2 to H2);
+  - E2: rows 417–1557, columns 2441–5641, holding letters 8–12 (ν D3, ο E3, μ F3, μ D1, ε E1).
+  - Each letter is scored in one window only. E2 also shows letters 6 and 7, which are not scored there.
+- *The 0009B control window* (rule 2): PR-47's window cut to 1140 rows, rows 5230–6370, columns 1600–4800. It holds
+  PR-47's 10 letters with their reference names (`score_pr47.py`).
+- *Instructions, version "windows v3".* PR-55's instructions, adapted to several images, word for word in
+  `results/pr61/consigne_fenetres_v3.txt`. Compared with v2:
+  - the reader opens 18 files in a given order and answers under `Image k` for each;
+  - the grid has rows 1 to 3;
+  - two sentences are added: "Uniform black areas are outside the papyrus." and "Writing may appear in any
+    orientation, including mirrored." (PHerc0800's orientation is unknown; PR-60 said the same).
+  - The first-impression sentence ends the instructions, as in v2.
+
+*Readers.* 12 fresh readers, as a latin square over 17 units: Erwin (E1 and E2 together), 0009B, the 3 flagged tiles
+and the 12 controls.
+- Reader r (0 to 11) sees unit u in order (u + r) mod 2, so every panel is read 6 times forward and 6 times in
+  reverse, by different readers, and no reader sees the same place twice.
+- Each reader gets 18 panels, shuffled per reader (seed 61 + r), under neutral file names. The key
+  (`cle_pr61.json`) is never shown to readers.
+- Readers run two at a time.
+
+*Dry run, done before this registration* (rule 2). One fresh reader read 18 panels outside the test, with the
+"windows v3" instructions.
+- The panels were Argus V3 on 0009B, both orders, in bands of 1140 rows above the control window, with two panels
+  repeated to reach 18.
+- The reader answered in 87 s, using about 76,900 tokens. All 18 `Image k` blocks were present, and the scoring script
+  rejected no line.
+- It named 12 letters, on 6 of the 18 panels. The two repeated panels got the same answer both times.
+- Its answer does not count.
+
+*Reader failure.*
+- A reader who gives no answer within 1800 s, or an answer without all 18 `Image k` blocks, is replaced once by a
+  fresh reader with the same panels.
+- The decision is dated before any answer on those panels is seen.
+- A late answer is discarded.
+- Every incident is published.
+
+*The measure* (`scripts/c0800_score_fenetres.py`).
+- *Support* s(w, o, c, n): the number of distinct readers of panel w in order o who name letter n in a cell at most one
+  column and one row away from cell c.
+- *Consistent form:* s ≥ 4, so at least 4 of the 6 readers (PR-55's majority).
+- *Repeats:* a consistent form in order o such that, at the same cell and with the same name, s < 4 in the other order.
+  This is PR-60's idea: the reverse order is a control from the same papyrus, model and pixels.
+
+*Gate, read first (rule 1).* Erwin, forward.
+- Letter l **repeats** if it has a consistent form in the forward order, at its own cell and under its reference name,
+  that does not repeat in reverse. The test is the same as the primary's, on known letters with their known order.
+- The gate holds if **at least 3 of the 12 letters** repeat. The format then shows known, legible writing on this scan
+  type.
+
+*Primary* (read only if the gate holds).
+- A flagged tile repeats if its window has a form that repeats in its flagged order (forward for 3 and 30, reverse for
+  16), at a cell of its footprint.
+- Each control window is tested the same way in each order, which gives 24 chances.
+- R_f is the number of flagged tiles that repeat, out of 3. R_c is the number of control chances that repeat, out of 24.
+- *Test:* Fisher exact, one-sided (the flagged tiles repeat more often), p ≤ 0.05. The pairs that pass are R_f = 3 with
+  R_c ≤ 7, or R_f = 2 with R_c ≤ 2.
+
+*What each outcome decides.*
+- *The gate fails.* At window scale too, Reader V3's known letters on this scan type are not seen reliably enough.
+  - Nothing is concluded about PHerc0800.
+  - We stop reading PHerc0800 with the maps we have. The next step is a map question, registered on its own.
+- *The gate holds and the primary holds.* The flagged tiles that repeat are **candidates, not letters**, and nothing is
+  claimed publicly.
+  - Next steps, each registered before it runs:
+    - the same windows on Argus V3;
+    - Lilian's own look, mixed with control windows;
+    - renders of the neighbouring windings.
+- *The gate holds and the primary fails.* PR-60's flags repeat no more often than random windows, and they are dropped
+  as candidates.
+  - Secondary 1 still lists every form that repeats, anywhere in the 15 windows. They are reported as places, and the
+    control rate says what they are worth.
+  - If no flagged or control window repeats at all, the approved surfaces show no writing that this format and map
+    reveal, on 76 % of their area. PHerc0800 then moves to its sharpest band (z ≈ 2700–3900), as PR-60 decided for
+    that branch.
+
+*Secondary.*
+1. Every consistent form in every panel and order: its cell, its name, its support, and its support in the other
+   order.
+2. The 0009B control: each of its 10 letters, support forward and reverse. It is reported only, as in PR-60, because
+   Reader V3 keeps Reader v2's training data, which covers part of that segment. It is set beside PR-55, where 4 or
+   more of 6 readers found letters 9 and 10 on Reader v2.
+3. On Erwin, per letter, the forward support under the reference name, set beside PR-58 and PR-59's crop counts. This
+   estimates what the window format loses. Consistent forms on Erwin that match no letter are also reported.
+4. Letters named per reader, per panel and order.
+5. Each reader's time and tokens.
+
+*Intervals* (rule 2).
+- The gate count: resampling the 6 readers of each Erwin panel and order, 2,000 draws, seed 61.
+- R_f / 3 and R_c / 24: exact Clopper–Pearson intervals.
+
+*Capacity*, computed before registering by exact enumeration (`scripts/capacite_pr61.py`).
+- *Primary.* Each flagged tile repeats with probability ρ, and each control chance falsely with probability π.
+
+  | ρ \ π | 0 | 0.05 | 0.10 | 0.20 | 0.30 |
+  |---|---|---|---|---|---|
+  | 0.5 | 0.50 | 0.46 | 0.34 | 0.16 | 0.08 |
+  | 0.7 | 0.78 | 0.73 | 0.59 | 0.36 | 0.20 |
+  | 0.9 | 0.97 | 0.94 | 0.86 | 0.69 | 0.41 |
+  | 1.0 | 1.00 | 1.00 | 1.00 | 0.91 | 0.56 |
+
+  - With no real difference (ρ = π), the primary passes falsely 0.6 to 1.8 % of the time.
+  - Only a strong, clean signal is seen. Three flagged tiles are few, and that is the limit of this subset.
+- *Gate.* Each reader names letter l correctly with probability p_l × L.
+  - p_l is Reader V3's correct readings on crops, PR-58 and PR-59 pooled, out of 8: π 4, ν 5, τ 1, ο 3, γ 8, ι 8,
+    ο 6, and 0 for the other five.
+  - L is the loss of the window format against crops.
+  - The reverse order is assumed not to reproduce the form (PR-60: 0 "yes" in 144 reverse readings of Erwin's letter
+    tiles).
+  - The gate holds with probability 0.96 at L = 1 (3.9 letters expected), 0.68 at L = 0.8 (2.9), 0.16 at L = 0.6 (1.6)
+    and 0.01 at L = 0.4.
+  - **The gate is fragile.** If finding letters in a window costs more than about 20 % against naming a centred crop,
+    it will probably fail.
+  - No measure of that loss exists for Reader V3 on 343. PR-55 gives one point on another scroll and map: R4's readers
+    hit 2.7 of 0009B's 10 letters per reader in windows.
+
+*Prediction.*
+- The gate holds narrowly, with 3 or 4 letters, among γ, ι, the second ο and the first ν.
+- Tile 16 repeats in reverse. Tile 3 may, and tile 30 does not, because a lone iota is too easy to name anywhere.
+- 1 to 3 of the 24 control chances repeat.
+- The primary fails narrowly.
+
+*Reservations, stated now.*
+- *Readers.* They are AI agents.
+- *Orientation.* Erwin's windows are upright in his reading frame, and PHerc0800's orientation is unknown.
+- *Selection.* The flagged tiles were selected by PR-60's readers on the same map, so a repeat can also come from a
+  reproducible non-letter feature, such as a crack or the surface edge, that has a letter's shape in one order only.
+  The controls measure how often random places do that, not whether a given place is writing.
+- *Edges.* All three flagged tiles touch the top edge of their strip, and 40 to 71 % of each 0800 window is on the
+  surface.
+- *Cost.* 13 reader sessions (12 plus the dry run).
+
+*Method rules.*
+- *Rule 1.* The gate tests, on Erwin's already-read letters, the exact rule that judges PHerc0800.
+- *Rule 2.*
+  - 6 readers per panel and order;
+  - capacity above;
+  - intervals;
+  - the 0009B control, with the reason it does not judge;
+  - reader-failure rule and dry run above.
+  - Reference names: Erwin's are the papyrologists' (PR-58); 0009B's are PR-47's, confirmed by PR-48's three tracing
+    readers.
+- *Rule 3.* Not applicable: no training.
+- *Rule 6.* No new map is needed. Meanwhile, the GPU computes Reader V3 in both orders on the 81 other PHerc0800
+  surfaces of the same atlas (`scripts/c0800_extension.sh`, started on 21 November at 10:01, shown on the live page).
+  - Only their surface volumes are downloaded.
+  - Nobody looks at these maps.
+  - Any reading of them will be registered before a panel is built.
+- *Rule 7.* Bench version 2, window format version 3. This version is validated inside this test by the gate.
+
+*Files.* `results/pr61/`:
+- the window plan;
+- the capacity output;
+- the instructions;
+- the dry run's answer and time;
+- the blind recount of the capacity and of the coverage: scripts and outputs (`recompte_aveugle_*`). A fresh agent wrote
+  its own code from the definitions alone, and found the same numbers, exactly.
+
+Scripts: `scripts/c0800_fenetres.py` (plan, dry run, test panels and key), `scripts/c0800_score_fenetres.py` and
+`scripts/capacite_pr61.py`.

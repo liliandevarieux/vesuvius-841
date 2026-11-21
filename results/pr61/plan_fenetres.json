@@ -1,0 +1,429 @@
+{
+ "fenetre": [
+  1140,
+  3200
+ ],
+ "unites": [
+  {
+   "unite": "E",
+   "panneaux": [
+    {
+     "nom": "E1",
+     "zone": "erwin",
+     "y0": 980,
+     "x0": 300,
+     "lettres": {
+      "1": "B2",
+      "2": "C2",
+      "3": "D2",
+      "4": "E2",
+      "5": "F2",
+      "6": "G2",
+      "7": "H2"
+     }
+    },
+    {
+     "nom": "E2",
+     "zone": "erwin",
+     "y0": 417,
+     "x0": 2441,
+     "lettres": {
+      "8": "D3",
+      "9": "E3",
+      "10": "F3",
+      "11": "D1",
+      "12": "E1"
+     }
+    }
+   ]
+  },
+  {
+   "unite": "B",
+   "panneaux": [
+    {
+     "nom": "B",
+     "zone": "0009B",
+     "y0": 5230,
+     "x0": 1600,
+     "lettres": {
+      "1": "B1",
+      "2": "E1",
+      "3": "D1",
+      "4": "C1",
+      "5": "F1",
+      "6": "G1",
+      "7": "B3",
+      "8": "C3",
+      "9": "E3",
+      "10": "D3"
+     }
+    }
+   ]
+  },
+  {
+   "unite": "S3",
+   "carre": 3,
+   "sens_signale": "direct",
+   "panneaux": [
+    {
+     "nom": "S3",
+     "zone": "0800",
+     "surface": "z11072_w040",
+     "y0": 0,
+     "x0": 0,
+     "empreinte": [
+      "A1",
+      "B1",
+      "C1",
+      "A2",
+      "B2",
+      "C2",
+      "A3",
+      "B3",
+      "C3"
+     ]
+    }
+   ]
+  },
+  {
+   "unite": "S30",
+   "carre": 30,
+   "sens_signale": "direct",
+   "panneaux": [
+    {
+     "nom": "S30",
+     "zone": "0800",
+     "surface": "z15264_w100",
+     "y0": 0,
+     "x0": 8158,
+     "empreinte": [
+      "D1",
+      "E1",
+      "D2",
+      "E2",
+      "D3",
+      "E3"
+     ]
+    }
+   ]
+  },
+  {
+   "unite": "S16",
+   "carre": 16,
+   "sens_signale": "inverse",
+   "panneaux": [
+    {
+     "nom": "S16",
+     "zone": "0800",
+     "surface": "z14064_w020",
+     "y0": 0,
+     "x0": 0,
+     "empreinte": [
+      "D1",
+      "E1",
+      "D2",
+      "E2",
+      "D3",
+      "E3"
+     ]
+    }
+   ]
+  },
+  {
+   "unite": "T25",
+   "carre": 25,
+   "panneaux": [
+    {
+     "nom": "T25",
+     "zone": "0800",
+     "surface": "z15264_w100",
+     "y0": 0,
+     "x0": 0,
+     "empreinte": [
+      "D1",
+      "E1",
+      "D2",
+      "E2",
+      "D3",
+      "E3"
+     ]
+    }
+   ]
+  },
+  {
+   "unite": "T9",
+   "carre": 9,
+   "panneaux": [
+    {
+     "nom": "T9",
+     "zone": "0800",
+     "surface": "z12272_w020",
+     "y0": 0,
+     "x0": 0,
+     "empreinte": [
+      "A1",
+      "B1",
+      "C1",
+      "A2",
+      "B2",
+      "C2",
+      "A3",
+      "B3",
+      "C3"
+     ]
+    }
+   ]
+  },
+  {
+   "unite": "T21",
+   "carre": 21,
+   "panneaux": [
+    {
+     "nom": "T21",
+     "zone": "0800",
+     "surface": "z15264_w020",
+     "y0": 0,
+     "x0": 0,
+     "empreinte": [
+      "A1",
+      "B1",
+      "C1",
+      "A2",
+      "B2",
+      "C2",
+      "A3",
+      "B3",
+      "C3"
+     ]
+    }
+   ]
+  },
+  {
+   "unite": "T44",
+   "carre": 44,
+   "panneaux": [
+    {
+     "nom": "T44",
+     "zone": "0800",
+     "surface": "z8672_w040",
+     "y0": 0,
+     "x0": 2014,
+     "empreinte": [
+      "D1",
+      "E1",
+      "D2",
+      "E2",
+      "D3",
+      "E3"
+     ]
+    }
+   ]
+  },
+  {
+   "unite": "T29",
+   "carre": 29,
+   "panneaux": [
+    {
+     "nom": "T29",
+     "zone": "0800",
+     "surface": "z15264_w100",
+     "y0": 0,
+     "x0": 4062,
+     "empreinte": [
+      "D1",
+      "E1",
+      "D2",
+      "E2",
+      "D3",
+      "E3"
+     ]
+    }
+   ]
+  },
+  {
+   "unite": "T50",
+   "carre": 50,
+   "panneaux": [
+    {
+     "nom": "T50",
+     "zone": "0800",
+     "surface": "z9872_w020",
+     "y0": 0,
+     "x0": 0,
+     "empreinte": [
+      "D1",
+      "E1",
+      "D2",
+      "E2",
+      "D3",
+      "E3"
+     ]
+    }
+   ]
+  },
+  {
+   "unite": "T19",
+   "carre": 19,
+   "panneaux": [
+    {
+     "nom": "T19",
+     "zone": "0800",
+     "surface": "z14672_w020",
+     "y0": 0,
+     "x0": 0,
+     "empreinte": [
+      "D1",
+      "E1",
+      "D2",
+      "E2",
+      "D3",
+      "E3"
+     ]
+    }
+   ]
+  },
+  {
+   "unite": "T39",
+   "carre": 39,
+   "panneaux": [
+    {
+     "nom": "T39",
+     "zone": "0800",
+     "surface": "z8672_w020",
+     "y0": 0,
+     "x0": 0,
+     "empreinte": [
+      "A1",
+      "B1",
+      "C1",
+      "A2",
+      "B2",
+      "C2",
+      "A3",
+      "B3",
+      "C3"
+     ]
+    }
+   ]
+  },
+  {
+   "unite": "T46",
+   "carre": 46,
+   "panneaux": [
+    {
+     "nom": "T46",
+     "zone": "0800",
+     "surface": "z9264_w020",
+     "y0": 0,
+     "x0": 0,
+     "empreinte": [
+      "A1",
+      "B1",
+      "C1",
+      "A2",
+      "B2",
+      "C2",
+      "A3",
+      "B3",
+      "C3"
+     ]
+    }
+   ]
+  },
+  {
+   "unite": "T13",
+   "carre": 13,
+   "panneaux": [
+    {
+     "nom": "T13",
+     "zone": "0800",
+     "surface": "z13472_w020",
+     "y0": 0,
+     "x0": 0,
+     "empreinte": [
+      "D1",
+      "E1",
+      "D2",
+      "E2",
+      "D3",
+      "E3"
+     ]
+    }
+   ]
+  },
+  {
+   "unite": "T35",
+   "carre": 35,
+   "panneaux": [
+    {
+     "nom": "T35",
+     "zone": "0800",
+     "surface": "z16464_w020",
+     "y0": 0,
+     "x0": 0,
+     "empreinte": [
+      "A1",
+      "B1",
+      "C1",
+      "A2",
+      "B2",
+      "C2",
+      "A3",
+      "B3",
+      "C3"
+     ]
+    }
+   ]
+  },
+  {
+   "unite": "T2",
+   "carre": 2,
+   "panneaux": [
+    {
+     "nom": "T2",
+     "zone": "0800",
+     "surface": "z11072_w020",
+     "y0": 0,
+     "x0": 280,
+     "empreinte": [
+      "E1",
+      "F1",
+      "G1",
+      "E2",
+      "F2",
+      "G2",
+      "E3",
+      "F3",
+      "G3"
+     ]
+    }
+   ]
+  }
+ ],
+ "noms_erwin": {
+  "1": "pi",
+  "2": "alpha",
+  "3": "nu",
+  "4": "tau",
+  "5": "omicron",
+  "6": "gamma",
+  "7": "iota",
+  "8": "nu",
+  "9": "omicron",
+  "10": "mu",
+  "11": "mu",
+  "12": "epsilon"
+ },
+ "noms_0009B": {
+  "1": "nu",
+  "2": "alpha",
+  "3": "mu",
+  "4": "omicron",
+  "5": "zeta",
+  "6": "epsilon",
+  "7": "eta",
+  "8": "sigma",
+  "9": "omicron",
+  "10": "delta"
+ }
+}

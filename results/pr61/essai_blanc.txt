@@ -1,0 +1,42 @@
+Image 1
+C2: omicron (1)
+E2: omicron (1)
+Image 2
+none
+Image 3
+none
+Image 4
+none
+Image 5
+none
+Image 6
+F2: omicron (2)
+E2: omicron (2)
+Image 7
+none
+Image 8
+C1: omicron (1)
+E2: omicron (1)
+F2: epsilon (1)
+Image 9
+none
+Image 10
+none
+Image 11
+none
+Image 12
+none
+Image 13
+none
+Image 14
+E3: upsilon (1)
+Image 15
+none
+Image 16
+E1: omicron (1)
+E3: omicron (1)
+Image 17
+C2: omicron (1)
+E2: omicron (1)
+Image 18
+none

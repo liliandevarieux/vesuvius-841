@@ -1,0 +1,34 @@
+surfaces in tsv (first col): 14 ['z5664_w020', 'z8672_w020', 'z8672_w040', 'z9264_w020', 'z9872_w020', 'z11072_w020', 'z11072_w040', 'z12272_w020', 'z13472_w020', 'z14064_w020', 'z14672_w020', 'z15264_w020', 'z15264_w100', 'z16464_w020']
+number of 0800 windows: 15
+(a) distinct surfaces with >=1 0800 window: 13 ['z11072_w020', 'z11072_w040', 'z12272_w020', 'z13472_w020', 'z14064_w020', 'z14672_w020', 'z15264_w020', 'z15264_w100', 'z16464_w020', 'z8672_w020', 'z8672_w040', 'z9264_w020', 'z9872_w020']
+   z5664_w020: shape=(1260, 2600) mask=2265689 covered=0
+   z8672_w020: shape=(1280, 3100) mask=2657697 covered=2580297
+   z8672_w040: shape=(1560, 5720) mask=5043293 covered=2285736
+   z9264_w020: shape=(1120, 3200) mask=2557800 covered=2557800
+   z9872_w020: shape=(1120, 3180) mask=2442198 covered=2442198
+   z11072_w020: shape=(1120, 3480) mask=2592992 covered=2423492
+   z11072_w040: shape=(1140, 6320) mask=4809084 covered=2524387
+   z12272_w020: shape=(1140, 3100) mask=2545879 covered=2545879
+   z13472_w020: shape=(1120, 3200) mask=2425500 covered=2425500
+   z14064_w020: shape=(1120, 3300) mask=2478877 covered=2461077
+   z14672_w020: shape=(1120, 3220) mask=2313200 covered=2313200
+   z15264_w020: shape=(1120, 3100) mask=2217700 covered=2217700
+   z15264_w100: shape=(1200, 14480) mask=9367844 covered=6016570
+   z16464_w020: shape=(1120, 2760) mask=2049299 covered=2049299
+(b) covered=34843135 total_mask=45767052 pct=76.1
+(c) per-window mask fraction:
+   unit=? surface=z11072_w040 y0=0 x0=0: 0.69
+   unit=? surface=z15264_w100 y0=0 x0=8158: 0.55
+   unit=? surface=z14064_w020 y0=0 x0=0: 0.67
+   unit=? surface=z15264_w100 y0=0 x0=0: 0.71
+   unit=? surface=z12272_w020 y0=0 x0=0: 0.70
+   unit=? surface=z15264_w020 y0=0 x0=0: 0.61
+   unit=? surface=z8672_w040 y0=0 x0=2014: 0.63
+   unit=? surface=z15264_w100 y0=0 x0=4062: 0.40
+   unit=? surface=z9872_w020 y0=0 x0=0: 0.67
+   unit=? surface=z14672_w020 y0=0 x0=0: 0.63
+   unit=? surface=z8672_w020 y0=0 x0=0: 0.71
+   unit=? surface=z9264_w020 y0=0 x0=0: 0.70
+   unit=? surface=z13472_w020 y0=0 x0=0: 0.66
+   unit=? surface=z16464_w020 y0=0 x0=0: 0.56
+   unit=? surface=z11072_w020 y0=0 x0=280: 0.66
