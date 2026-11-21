@@ -84,6 +84,42 @@ def panneaux():
     print(len(items), 'lectures,', n, 'lecteurs, tailles', sorted({len(x) for x in L}))
 
 
-if __name__ == '__main__':
+if __name__ == '__main__' and sys.argv[1] != 'etape2':
     os.makedirs(OUT, exist_ok=True)
     {'plan': plan, 'panneaux': panneaux}[sys.argv[1]]()
+
+
+# ---- Étape 2 (ajout du 21/11, publié avant la construction de ses panneaux) ----
+# Unités : E (E1 + E2), B, puis chaque fenêtre gardée par l'étape 1 ; 12 lecteurs neufs ; le lecteur r voit l'unité u
+# dans le sens (u + r) mod 2 ; ordre des panneaux mélangé (graine 6300 + r). usage : c0800_tri.py etape2 F191 [F...]
+def etape2(gardees):
+    P = json.load(open(OUT + 'plan_tri.json'))
+    connus = json.load(open(H + 'c0800/pr61/plan_fenetres.json'))
+    kp = {p['nom']: p for u in connus['unites'] for p in u['panneaux'] if p['nom'] in ('E1', 'E2', 'B')}
+    U = [('E', ['E1', 'E2']), ('B', ['B'])] + [(g, [g]) for g in gardees]
+    D = PANNEAUX.rstrip('/') + '2/'
+    os.makedirs(D, exist_ok=True)
+    fen = {f['nom']: f for f in P['fenetres']}
+    def src(nom, s):
+        if nom in kp:
+            return W.source(kp[nom], s)
+        f = fen[nom]
+        S = masque(f['surface'])
+        return W.decoupe(tifffile.imread(carte(f['surface'], s)), f['y0'], f['x0']), W.decoupe(S, f['y0'], f['x0'])
+    cle = dict(unites=[dict(unite=u, panneaux=p) for u, p in U], fenetres={g: fen[g] for g in gardees},
+               connus=kp, lecteurs={})
+    for r in range(12):
+        lst = [(p, W.SENS[(ui + r) % 2]) for ui, (u, ps) in enumerate(U) for p in ps]
+        random.Random(6300 + r).shuffle(lst)
+        rng = random.Random(6400 + r); vus = set(); out = []
+        for k, (nom, s) in enumerate(lst, 1):
+            f = 'd%02d_%s.png' % (r + 1, W.nom_neutre(rng, vus))
+            W.panneau(*src(nom, s), D + f)
+            out.append(dict(image=k, fichier=f, panneau=nom, sens=s))
+        cle['lecteurs']['%02d' % (r + 1)] = out
+    json.dump(cle, open(OUT + 'cle_tri2.json', 'w'), indent=1, ensure_ascii=False)
+    print('etape 2 :', len(U), 'unites, 12 lecteurs,', len(cle['lecteurs']['01']), 'panneaux chacun ->', D)
+
+
+if __name__ == '__main__' and len(sys.argv) > 2 and sys.argv[1] == 'etape2':
+    etape2(sys.argv[2:])

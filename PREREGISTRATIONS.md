@@ -6224,3 +6224,16 @@ Lilian.
 - the map check;
 - the blind recount of the thresholds and of the capacity (`recompte_aveugle_seuils.*`). It gives the same numbers,
   exactly.
+
+### PR-62 — addendum, 2026-11-21 17:30, before any stage 2 panel is built
+
+- *Stage 2 code.* Its scoring script, `scripts/c0800_score_tri2.py`, and its panel builder (`c0800_tri.py etape2`) are
+  published as they will run.
+  - The scorer was checked on simulated answers only. The expected result was written down first, and the scorer gave
+    it.
+  - It uses PR-61's measure unchanged: `c0800_score_fenetres.py`, with the stage 1 parser.
+- *Stage 1 is read.* Its results, with the windows kept, are published with stage 2's, after a blind recount.
+- *Incident in stage 1.*
+  - Readers 09 and 10 were stopped at 11:47 by the service's usage limit, before answering.
+  - At 17:07:05, before any answer on their panels was seen, each was replaced once by a fresh reader with the same
+    panels, as registered.
